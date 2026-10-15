@@ -1,0 +1,275 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern,microtype,geometry,xcolor,graphicx,booktabs,longtable,array,enumitem,hyperref,fancyhdr}
+\geometry{margin=2.25cm}
+\definecolor{navy}{HTML}{173B64}
+\definecolor{teal}{HTML}{187F88}
+\hypersetup{colorlinks=true,linkcolor=navy,urlcolor=teal}
+\pagestyle{fancy}\fancyhf{}\lhead{\small EnsiiExplore}\rhead{\small Cahier des charges fonctionnel}\cfoot{\thepage}
+\setlength{\headheight}{15pt}
+\setlist[itemize]{leftmargin=*,itemsep=2pt}
+\setlist[enumerate]{leftmargin=*,itemsep=2pt}
+\newcommand{\req}[3]{\subsection{#1 --- #2}\noindent\textbf{Besoin et comportement attendu.} #3\par}
+\begin{document}
+\begin{titlepage}\centering
+\vspace*{2.7cm}
+{\Huge\bfseries\color{navy} EnsiiExplore\par}
+\vspace{0.45cm}
+{\Large Cahier des charges fonctionnel\par}
+\vspace{0.5cm}
+{\large Jumeau numérique interactif de l'ensIIE\par}
+\vspace{1.2cm}
+{\large Hackathon --- 15 et 16 octobre 2026\par}
+\vspace{1.4cm}
+{\large Équipe projet : 2.3\par}
+
+\vspace{0.5cm}
+
+{\normalsize
+Membres :\par
+\vspace{0.2cm}
+BZIOUI Anas\par
+MAKHOKH Chaymae\par
+ALMAMOUN Oussama\par
+}
+
+\vfill
+
+\end{titlepage}
+\tableofcontents\newpage
+\section{Présentation de notre projet}
+\subsection{Contexte et intention}
+Dans le cadre du hackathon de l'ensIIE, nous concevons \textbf{EnsiiExplore}, un prototype web de jumeau numérique de l'école. Notre objectif est d'aider les étudiants, les personnels et les visiteurs à découvrir les lieux, trouver des salles et comprendre les services disponibles. Nous souhaitons aussi mettre en évidence les quatre activités principales de l'établissement : \textbf{enseignement, recherche, vie étudiante et relations avec les entreprises}.
+
+Nous retenons le principe d'\textbf{un seul site, deux modes complémentaires}. Le \textbf{mode Guide} répond aux besoins pratiques de localisation et d'information. Le \textbf{mode Aventure} reprend les mêmes lieux dans une représentation ludique en 2D, avec exploration, personnages et quêtes. Le passage d'un mode à l'autre ne doit pas faire perdre la salle ou l'étage sélectionné.
+
+\subsection{Problématique}
+Comment pouvons-nous proposer une représentation de l'ensIIE à la fois utile pour l'orientation et attractive pour une première découverte de l'établissement, tout en respectant le temps limité du hackathon et la qualité des données disponibles ?
+
+\subsection{Objectifs}
+\begin{itemize}
+\item Afficher une carte interactive 2D des espaces documentés et permettre leur consultation.
+\item Rechercher une salle par numéro, nom ou besoin, puis la localiser.
+\item Présenter des informations fiables sur les salles et les services.
+\item Relier les lieux aux quatre activités de l'école par des catégories et des filtres.
+\item Proposer un guidage entre espaces lorsque le graphe de circulation est suffisamment validé.
+\item Donner accès à une exploration ludique avec des quêtes fondées sur des lieux réels.
+\item Conserver une expérience accessible depuis un navigateur sur ordinateur, en français et en anglais.
+\end{itemize}
+
+\section{Public cible et analyse des besoins}
+\begin{longtable}{p{0.24\textwidth}p{0.67\textwidth}}
+\toprule Profil & Besoins identifiés \\ \midrule
+Nouvel étudiant & Trouver les salles, découvrir les associations et services, se familiariser avec l'école.\\
+Étudiant déjà inscrit & Rechercher rapidement une salle ou un espace de travail.\\
+Visiteur ou candidat & Identifier les lieux importants et suivre un parcours de découverte.\\
+Représentant d'entreprise & Repérer les espaces de rencontre et les activités liées aux entreprises.\\
+Personnel ou enseignant & Accéder rapidement aux informations de localisation.\\
+Personne à mobilité réduite & Identifier les ascenseurs et, si les données sont validées, demander un trajet sans escalier.\\
+\bottomrule
+\end{longtable}
+Nous privilégions des interactions simples, un accès direct au mode Guide et une lecture claire des informations, même pour une personne découvrant l'école.
+
+\section{Périmètre et hypothèses}
+Les données mises à disposition couvrent le rez-de-chaussée, le R+1 et le R+2. L'énoncé nous demande de \textbf{choisir un secteur} plutôt que de viser une couverture exhaustive sans vérification. Nous documenterons prioritairement les espaces ouverts aux élèves et au public. Le secteur effectivement retenu et la liste définitive des salles seront consignés après notre visite sur place.
+
+Le mode Guide constitue le socle du prototype. Le mode Aventure représente notre particularité, mais son intégration dépend de la disponibilité des données de circulation et du module de jeu. Les fonctions avancées (vue éclatée 3D, carte de type métro, simulation d'occupation) sont distinguées du périmètre prioritaire.
+
+\section{Parcours utilisateurs}
+\subsection{Parcours 1 : rechercher un lieu}
+Un nouvel étudiant ouvre le mode Guide, saisit le numéro d'une salle ou un besoin comme « imprimer », consulte les résultats, sélectionne un espace et lit sa fiche. Si un itinéraire validé existe, il peut l'afficher sur la carte.
+
+\subsection{Parcours 2 : découvrir les activités}
+Un visiteur choisit « Vie étudiante » dans les filtres. Les espaces correspondants sont mis en évidence. Il clique sur un lieu pour découvrir sa fonction et les activités associées.
+
+\subsection{Parcours 3 : découvrir l'école en jouant}
+Un étudiant active le mode Aventure. Il déplace son personnage dans le secteur, rencontre un personnage-guide, accepte une quête et rejoint le lieu demandé. Le jeu valide l'objectif, révèle le lieu exploré et actualise le passeport de découverte. Il peut revenir à tout moment au mode Guide.
+
+\section{Exigences fonctionnelles du mode Guide}
+\req{F01}{Carte 2D interactive}{Nous affichons les plans disponibles, avec zoom, déplacement, sélection des contours des pièces et mise en évidence visuelle d'un espace. La sélection ouvre une fiche.}
+\req{F02}{Navigation entre niveaux}{Un sélecteur permet de passer du RDC au R+1 et au R+2, pour les niveaux effectivement intégrés. Le fond de plan et les contours sont mis à jour sans rechargement complet.}
+\req{F03}{Recherche « Ask the building »}{Nous souhaitons permettre la recherche par numéro (par exemple C53), désignation et besoin exprimé en langage courant. Une liste de synonymes FR/EN reliera les besoins aux services réellement vérifiés ; les résultats préciseront l'étage.}
+\req{F04}{Fiche de salle}{Une fiche affiche, selon les informations disponibles, le numéro, la désignation, l'étage, la surface, la fonction, les activités liées, l'accessibilité et les informations pratiques. Les données inconnues ou non vérifiées sont signalées explicitement.}
+\req{F05}{Filtres et catégories}{Nous classons les lieux par type et par activité : enseignement, recherche, vie étudiante et entreprises. Une légende accompagne les couleurs ; les filtres ne doivent pas masquer la possibilité de rechercher une salle.}
+\req{F06}{Itinéraire dans un niveau}{L'utilisateur choisit un départ et une destination. Si les connexions ont été validées, nous affichons un chemin passant par les circulations et les portes, avec un résumé du trajet. Une absence de chemin doit être annoncée clairement.}
+\req{F07}{Itinéraire entre niveaux}{Si le repérage des escaliers et ascenseurs est confirmé, nous relions les niveaux et indiquons les changements d'étage. Une option sans escalier n'est proposée que si l'accessibilité du trajet a été vérifiée.}
+\req{F08}{Parcours guidés}{Nous envisageons des visites thématiques pour les nouveaux étudiants, les visiteurs et les représentants d'entreprises, en réutilisant les lieux et descriptions du mode Guide.}
+\req{F09}{Interface bilingue}{Nous prévoyons une interface français/anglais. Les descriptions traduites sont stockées dans les données ; en cas de traduction absente, l'application affiche le texte disponible plutôt qu'un champ vide.}
+\req{F10}{Ressources et accès direct}{Des liens vers les ressources numériques officielles pourront être proposés après vérification. Une URL interne identifiant une salle pourra permettre de l'ouvrir directement et servir de base à un QR code.}
+
+\section{Exigences fonctionnelles du mode Aventure 2D}
+\subsection{Concept et identité visuelle}
+Nous concevons un univers \textbf{2D vu du dessus}, inspiré des codes des jeux d'aventure et du pixel art, tout en restant fondé sur les espaces réels de l'ensIIE. Nous utilisons des personnages et éléments graphiques originaux ou disposant de licences adaptées ; nous ne reprenons pas les personnages, logos, musiques ou éléments protégés de jeux existants.
+
+\req{J01}{Déplacement et exploration}{Le joueur contrôle un personnage au clavier (flèches ou ZQSD/WASD selon les commandes retenues). Le déplacement doit rester dans les zones praticables, avec collisions sur les murs et accès aux salles par les passages identifiés.}
+\req{J02}{Zones et interactions}{Chaque salle reconnue est une zone associée à un identifiant commun. Entrer dans une zone peut afficher son nom, la marquer comme visitée et vérifier l'avancement d'une quête.}
+\req{J03}{Personnages guides et dialogues}{Nous plaçons des personnages non joueurs dans des lieux ou services réellement identifiés. Leurs dialogues donnent des informations pratiques vérifiées et peuvent proposer des missions.}
+\req{J04}{Quêtes de découverte}{Les missions peuvent demander d'atteindre un lieu, de visiter une salle, de parler à un personnage ou de découvrir plusieurs points d'intérêt. Chaque quête correspond à une information ou à un service réel.}
+\req{J05}{Journal de quêtes et passeport}{Le joueur peut consulter sa mission active, les objectifs terminés et un passeport comportant des badges ou tampons liés à la découverte des activités de l'école.}
+\req{J06}{Carte dévoilée progressivement}{Nous souhaitons révéler les espaces au fil de l'exploration (« brouillard de guerre »). Cette restriction ne s'applique jamais au mode Guide, qui conserve une carte complète.}
+\req{J07}{Aide et changement de mode}{Le joueur peut consulter la carte classique à tout moment et demander un trajet vers une destination lorsque le routage est disponible. Le changement de mode conserve le contexte de navigation.}
+\req{J08}{Sauvegarde locale}{Nous prévoyons de mémoriser les lieux visités, les quêtes et les badges dans le navigateur, sans compte utilisateur ni collecte de données personnelles.}
+
+\subsection{Objectifs de validation du jeu}
+Nous visons, pour le secteur retenu, un parcours jouable de bout en bout comprenant plusieurs missions et dialogues. Le document technique propose comme cibles \textbf{quatre quêtes} et \textbf{trois personnages guides} ; nous les retenons comme objectifs de développement, à ajuster selon la validation des données et le temps disponible.
+
+\section{Vues et fonctions complémentaires}
+\subsection{Vue 3D éclatée des étages}
+Nous envisageons une vue d'ensemble isométrique dans laquelle les niveaux sont représentés comme des couches séparées. Le clic sur un étage ouvre une vue détaillée. Les décalages réels entre plans doivent être calculés avant de prétendre à une superposition fidèle. Il s'agit d'une \textbf{visualisation 3D simplifiée}, et non d'une modélisation architecturale complète.
+
+\subsection{Carte schématique de type métro}
+Nous envisageons une carte où chaque ligne représente une activité de l'école et où les salles deviennent des stations cliquables. Cette vue sert à comprendre les liens entre espaces et activités ; elle ne remplace pas la carte métrique.
+
+\subsection{Constellation des activités}
+Une vue en graphe pourrait relier les quatre activités principales aux salles correspondantes. Elle réutiliserait les mêmes associations que les filtres du mode Guide.
+
+\subsection{Autres pistes non prioritaires}
+Nous conservons comme évolutions possibles une couche d'accessibilité enrichie, des QR codes, une estimation de capacité à partir du mobilier, un tableau de qualité des données et une simulation explicitement identifiée comme telle. Aucune occupation en temps réel ne sera prétendue sans source de données adaptée.
+
+\section{Données et fiabilité}
+\subsection{Sources disponibles}
+\begin{longtable}{p{0.18\textwidth}p{0.73\textwidth}}
+\toprule Format & Usage prévu \\ \midrule
+PNG & Fond de carte des niveaux, à 20 pixels par mètre selon la documentation.\\
+SVG & Alternative vectorielle, avec identifiants des pièces.\\
+GeoJSON & Polygones des pièces, surfaces et indicateur de fiabilité.\\
+CSV & Numéros, désignations, surfaces et qualité des contours.\\
+DXF & Lecture complémentaire des portes, murs, circulations et éventuellement du mobilier.\\
+DWG & Plans sources, exploités uniquement si nécessaire.\\
+\bottomrule
+\end{longtable}
+Les dimensions indiquées par la documentation sont de 60\,m $\times$ 35\,m au RDC, 60\,m $\times$ 60\,m au R+1 et 135\,m $\times$ 125\,m au R+2. Les plans sont exprimés en mètres, même si l'en-tête du DXF du R+1 indique des centimètres par erreur.
+
+\subsection{Contrôles à effectuer}
+Les plans ont des origines différentes : nous devons relever des points communs (escaliers, ascenseurs) pour les aligner. Les contours GeoJSON ont été reconstruits et ne sont pas tous fiables. Nous devons vérifier les noms exacts des champs dans les fichiers réels avant de coder, notamment les propriétés de désignation.
+
+Il n'existe pas de référentiel à jour des fonctions, équipements, capacités et accès. Nous établirons donc un \textbf{tableur de relevé sur place} indiquant le numéro, le type, la fonction, les activités, les informations pratiques et le statut de vérification. Une information non confirmée restera « inconnue » ou « à vérifier » dans l'interface.
+
+\subsection{Modèle commun}
+Nous prévoyons des identifiants stables par salle, partagés entre les deux modes, et une couche de données commune :
+\begin{itemize}
+\item \texttt{rooms.json} : lieux, descriptions, catégories, coordonnées et vérification ;
+\item \texttt{floors.json} : dimensions et transformations des étages ;
+\item \texttt{links.json} et \texttt{graph.json} : liaisons verticales et circulation, si validées ;
+\item \texttt{quests.json} et \texttt{npcs.json} : missions et personnages ;
+\item \texttt{tours.json} et \texttt{synonyms.json} : parcours et recherche enrichie.
+\end{itemize}
+Les valeurs de coordonnées figurant dans les exemples de travail ne seront pas considérées comme réelles sans mesure.
+
+\section{Architecture et intégration}
+\subsection{Choix techniques}
+Nous privilégions une application web légère basée sur Vite, TypeScript et une interface en composants. Le mode Guide peut exploiter Leaflet en \texttt{CRS.Simple}, avec PNG en fond et GeoJSON superposé. Le mode Aventure peut être rendu avec Canvas ou Phaser, selon l'implémentation de notre collègue. Le calcul de chemin pourra s'appuyer sur Dijkstra ou A* après construction et contrôle du graphe.
+
+Le prototype peut fonctionner avec des fichiers JSON statiques, sans backend. Les données privées doivent rester accessibles uniquement dans le cadre de la démonstration autorisée.
+
+\subsection{Contrat de communication entre les deux modes}
+Nous souhaitons partager l'étage courant, la salle sélectionnée, les identifiants de lieux et les données de navigation. À titre de contrat technique proposé :
+\begin{longtable}{p{0.31\textwidth}p{0.57\textwidth}}
+\toprule Événement & Utilité \\ \midrule
+\texttt{ROOM\_SELECTED} & Transmettre la salle sélectionnée dans le mode Guide.\\
+\texttt{FOCUS\_ROOM} & Demander à la carte de centrer une salle ciblée par le jeu.\\
+\texttt{ROOM\_ENTERED} & Signaler au jeu l'entrée dans une zone.\\
+\texttt{MISSION\_COMPLETED} & Mettre à jour le journal et le passeport.\\
+\texttt{FLOOR\_CHANGED} & Synchroniser l'étage actif.\\
+\bottomrule
+\end{longtable}
+Ces noms sont des conventions proposées ; nous les confirmerons lors de l'intégration des modules.
+
+\section{Exigences non fonctionnelles}
+\begin{longtable}{p{0.15\textwidth}p{0.75\textwidth}}
+\toprule Référence & Exigence \\ \midrule
+NF01 & Fonctionnement sur navigateur PC, sans installation spécifique pour l'utilisateur.\\
+NF02 & Interface lisible, contrastée et navigable au clavier pour les fonctions essentielles.\\
+NF03 & Accès permanent au mode Guide, indépendamment de la progression du jeu.\\
+NF04 & Fonctionnement local ou sur un hébergement privé, sans publication des plans.\\
+NF05 & Affichage explicite des données inconnues, estimées ou non vérifiées.\\
+NF06 & Réutilisation d'identifiants communs et architecture modulaire.\\
+NF07 & Chargement et interactions suffisamment fluides pour une démonstration.\\
+NF08 & Ressources graphiques originales ou sous licence autorisant leur utilisation.\\
+NF09 & Absence de compte et de collecte de données personnelles pour le prototype.\\
+\bottomrule
+\end{longtable}
+
+\section{Priorités et organisation du travail}
+\subsection{Priorisation}
+\begin{longtable}{p{0.68\textwidth}p{0.23\textwidth}}
+\toprule Fonction & Priorité \\ \midrule
+Carte 2D, changement d'étage, sélection, fiches, recherche & P1 --- Indispensable\\
+Association des espaces aux activités et filtres & P1 --- Indispensable\\
+Collecte et vérification des informations sur place & P1 --- Indispensable\\
+Itinéraire validé dans un étage & P1 --- Cible principale\\
+Mode Aventure : déplacement, interactions, premières quêtes & P2 --- Objectif d'équipe\\
+Personnages, passeport, brouillard de guerre & P2 --- Objectif d'équipe\\
+Itinéraires multiniveaux, option sans escalier & P2 --- Selon validation\\
+Bilingue FR/EN et parcours guidés & P2 --- Important\\
+Vue 3D éclatée, carte métro ou constellation & P3 --- Une ou deux extensions\\
+Simulation, tableau de bord, QR codes, sons & P4 --- Évolutions\\
+\bottomrule
+\end{longtable}
+Cette classification exprime notre \textbf{ordre de réalisation}, pas un état d'avancement. Nous retirerons du périmètre de démonstration toute fonctionnalité qui ne pourra pas être testée correctement.
+
+\subsection{Répartition du travail}
+Nous organisons le travail en parallèle autour des données et de la carte, de la recherche et du guidage, du module Aventure, puis de l'intégration et des tests. Nous définissons les identifiants des salles et les échanges entre modules avant d'assembler les fonctionnalités.
+
+\subsection{Calendrier de réalisation}
+\begin{itemize}
+\item \textbf{Jeudi 15 octobre :} audit des fichiers, choix du secteur, collecte sur place, première carte interactive et premiers relevés.
+\item \textbf{Vendredi 16 octobre, matin :} finalisation des fonctions principales et intégration du jeu.
+\item \textbf{Vendredi 16 octobre, début d'après-midi :} stabilisation, tests, répétition de la démonstration et remise du cahier des charges.
+\item \textbf{Après 15 h 30 :} présentation devant le jury, selon le programme du hackathon.
+\end{itemize}
+
+\section{Risques et mesures prévues}
+\begin{longtable}{p{0.34\textwidth}p{0.55\textwidth}}
+\toprule Risque & Mesure envisagée \\ \midrule
+Contours incomplets ou incertains & Vérifier les pièces du secteur, signaler les incertitudes.\\
+Portes non reliées dans le GeoJSON & Exploiter les calques DXF ou créer des passages manuels vérifiés.\\
+Étages non alignés & Relever deux ou trois points communs et contrôler le résultat.\\
+Données de services obsolètes & Vérifier sur place et ne pas inventer d'informations.\\
+Temps de développement réduit & Terminer le socle Guide avant les extensions visuelles.\\
+Difficultés d'intégration du jeu & Utiliser un modèle commun et tester tôt un scénario complet.\\
+Diffusion non autorisée des plans & Garder les plans hors dépôt public et limiter l'hébergement.\\
+\bottomrule
+\end{longtable}
+
+\section{Tests et critères de validation}
+\begin{longtable}{p{0.10\textwidth}p{0.38\textwidth}p{0.42\textwidth}}
+\toprule Test & Action & Résultat attendu \\ \midrule
+T01 & Ouvrir le mode Guide & Plan et contrôles affichés.\\
+T02 & Cliquer sur une salle & Salle mise en évidence et fiche ouverte.\\
+T03 & Rechercher un numéro ou un besoin & Résultat pertinent et localisation.\\
+T04 & Changer d'étage & Plan et contours actualisés.\\
+T05 & Filtrer par activité & Lieux associés identifiés.\\
+T06 & Demander un trajet validé & Chemin affiché ou absence de chemin expliquée.\\
+T07 & Passer au mode Aventure & Même secteur et contexte conservés.\\
+T08 & Déplacer le personnage & Collisions et zones cohérentes.\\
+T09 & Parler à un guide & Dialogue pertinent affiché.\\
+T10 & Terminer une quête & Objectif validé et progression mise à jour.\\
+T11 & Revenir au mode Guide & Accès complet à la carte, sans brouillard.\\
+T12 & Consulter une donnée absente & Mention « inconnue » ou « à vérifier ».\\
+\bottomrule
+\end{longtable}
+Nous adapterons les tests aux fonctions effectivement livrées et préparerons une démonstration qui montre à la fois un usage pratique et une interaction ludique.
+
+\section{Livrables}
+\begin{enumerate}
+\item \textbf{Le présent cahier des charges fonctionnel}, qui décrit nos utilisateurs, nos objectifs, les fonctionnalités retenues, les contraintes et les critères de validation.
+\item \textbf{Un prototype web interactif sur PC}, présentant une carte exploitable des espaces sélectionnés et, dans la mesure de l'intégration réalisée, un mode Aventure connecté aux mêmes données.
+\end{enumerate}
+Nous accompagnerons la démonstration d'un relevé des informations vérifiées et, si nécessaire, d'une liste des limites connues.
+
+\section{Conclusion}
+Avec \textbf{EnsiiExplore}, nous souhaitons dépasser la simple consultation d'un plan. Notre solution associe un outil d'orientation concret et un jeu de découverte qui valorise les lieux et les activités de l'ensIIE. Nous donnons la priorité à la fiabilité des données, à l'utilité du mode Guide et à la cohérence entre les deux modes. Les visualisations avancées constituent des possibilités d'évolution, sans compromettre la réalisation d'un prototype fonctionnel pendant le hackathon.
+
+\section*{Points à confirmer avec notre équipe}
+\addcontentsline{toc}{section}{Points à confirmer avec notre équipe}
+\begin{itemize}
+\item Le secteur exact, les niveaux et les salles vérifiés lors de la visite.
+\item Le moteur de jeu finalement utilisé et les commandes retenues.
+\item La disponibilité d'un graphe de circulation fiable pour les itinéraires.
+\item Les extensions qui pourront réellement être montrées au jury.
+\item Les noms des membres de l'équipe à inscrire sur la couverture.
+\end{itemize}
+\end{document}
