@@ -1,0 +1,14 @@
+/* EnsiiExplore — carte 2D améliorée. À ajouter à la fin de src/styles.css */
+.ensii-map-host { position: relative; overflow: hidden; background: #f8fbfd; }
+.ensii-map-svg { touch-action: none; user-select: none; }
+.ensii-map-controls { position: absolute; top: 12px; left: 12px; z-index: 12; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; max-width: calc(100% - 155px); }
+.ensii-map-controls button, .ensii-map-controls label { background: #fff; color: #174c49; border: 1px solid #d4e2df; border-radius: 9px; min-height: 34px; padding: 6px 10px; font: 600 12px system-ui, sans-serif; box-shadow: 0 2px 8px #183d4514; }
+.ensii-map-controls button { cursor: pointer; }
+.ensii-map-controls button:hover:not(:disabled) { background: #eaf7f2; border-color: #71baa6; }
+.ensii-map-controls button:disabled { opacity: .45; cursor: not-allowed; }
+.ensii-map-controls label { display: flex; align-items: center; gap: 5px; cursor: pointer; }
+.ensii-room { cursor: pointer; outline: none; }
+.ensii-room:focus-visible path { stroke: #006b56; stroke-width: .5; }
+.ensii-room-label { font: 600 1.3px system-ui, sans-serif; fill: #17354b; paint-order: stroke; stroke: #fff; stroke-width: .25px; pointer-events: none; }
+.ensii-room-tooltip { max-width: 240px; padding: 9px 12px; border-radius: 9px; background: #fff; border: 1px solid #d5e6e4; color: #153e40; box-shadow: 0 8px 25px #203d4c22; font: 12px system-ui, sans-serif; }
+.ensii-map-host .map-legend { z-index: 10; }

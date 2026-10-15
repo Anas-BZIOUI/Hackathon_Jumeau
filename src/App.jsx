@@ -49,7 +49,8 @@ export default function App() {
   const [acts, setActs] = useState(() => new Set(ACTIVITIES));
   const [typeFilter, setTypeFilter] = useState('all');
   const [query, setQuery] = useState('');
-  const [selectedId, setSelectedId] = useState('R+2-C53');
+  const [selectedId, setSelectedId] = useState(null);
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [startId, setStartId] = useState(null);
   const [endId, setEndId] = useState(null);
   const [stepFree, setStepFree] = useState(false);
@@ -89,17 +90,13 @@ export default function App() {
   const rooms = data?.rooms || [];
   const selected = rooms.find((r) => r.id === selectedId) || null;
 
-  const filtered = useMemo(() => {
-    return rooms.filter((r) => {
-      if (typeFilter !== 'all' && r.type !== typeFilter) return false;
-      if (acts.size && r.activities.length) {
-        if (!r.activities.some((a) => acts.has(a))) return false;
-      } else if (acts.size && !r.activities.length && typeFilter === 'all') {
-        return true;
-      }
-      return true;
-    });
-  }, [rooms, acts, typeFilter]);
+  // Les filtres sont combinés : catégorie ET type.
+  // Une liste d'activités vide signifie : aucune catégorie sélectionnée.
+  const filtered = useMemo(() => rooms.filter((r) => {
+    const matchesType = typeFilter === 'all' || r.type === typeFilter;
+    const matchesActivity = (r.activities || []).some(a => acts.has(a));
+    return matchesType && matchesActivity;
+  }), [rooms, acts, typeFilter]);
 
   const hits = useMemo(
     () => (query.trim() ? searchRooms(query, rooms, data?.synonyms, lang) : []),
@@ -164,8 +161,8 @@ export default function App() {
         <div className="brand">
           <img src="/logo.png" alt="EnsiiExplore Logo" className="brand-logo" />
           <div className="brand-text">
-            <h1>{t.school}</h1>
-            <p>{t.app}</p>
+            <h1>EnsiiExplore</h1>
+            <p>Explore l’ensIIE</p>
           </div>
         </div>
         <div className="search-wrap">
@@ -211,9 +208,13 @@ export default function App() {
       {view === 'adventure' ? (
         <AdventureView t={t} lang={lang} selected={selected} level={level} rooms={rooms} />
       ) : (
-        <div className="workspace">
-          <aside className="left">
+        <div className="workspace modern-workspace">
+          <aside className={`left modern-filters ${filtersOpen ? 'is-open' : ''}`}>
+            <button className="filters-close" onClick={() => setFiltersOpen(false)}>× Fermer les filtres</button>
             <div className="section-title">{t.filters}</div>
+            <button type="button" className="ghost" onClick={() => { setActs(new Set(ACTIVITIES)); setTypeFilter('all'); }}>
+              {lang === 'fr' ? 'Réinitialiser les filtres' : 'Reset filters'}
+            </button>
             {ACTIVITIES.map((a) => (
               <button
                 key={a}
@@ -238,7 +239,7 @@ export default function App() {
             <div className="section-title">{t.floors}</div>
             <div className="floor-list">
               {LEVELS.map((lv) => (
-                <button key={lv} className={level === lv ? 'active' : ''} onClick={() => { setLevel(lv); setMode('map2d'); }}>
+                <button key={lv} className={level === lv ? 'active' : ''} onClick={() => { setLevel(lv); setMode('map2d'); setFiltersOpen(false); }}>
                   {data.floors.levels[lv][`label_${lang}`]}
                   <div className="hint">{rooms.filter((r) => r.level === lv).length} {t.rooms}</div>
                 </button>
@@ -272,6 +273,7 @@ export default function App() {
 
           <main className="center">
             <div className="toolbar">
+              <button className="ghost filters-toggle" onClick={() => setFiltersOpen(v => !v)}>☰ Filtres et étages</button>
               <div className="seg">
                 {[
                   ['map2d', t.map2d],
@@ -303,7 +305,9 @@ export default function App() {
 
             {mode === 'map2d' && (
               <Map2D
-                rooms={filtered}
+                rooms={rooms}
+                activeActivities={acts}
+                typeFilter={typeFilter}
                 floors={data.floors}
                 links={data.links}
                 zones={data.zones}
@@ -311,6 +315,9 @@ export default function App() {
                 selectedId={selectedId}
                 route={route}
                 onSelect={selectRoom}
+                onClearSelection={() => setSelectedId(null)}
+                onUseAsStart={setStartId}
+                onUseAsEnd={(id) => { setEndId(id); }}
                 lang={lang}
               />
             )}
@@ -353,7 +360,7 @@ export default function App() {
             </div>
           </main>
 
-          <aside className="right">
+          <aside className="right legacy-room-panel">
             {selected ? (
               <div className="sheet">
                 <span className={`badge ${selected.verified_on_site ? 'ok' : 'warn'}`}>

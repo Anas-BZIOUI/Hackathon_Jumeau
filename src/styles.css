@@ -445,3 +445,109 @@ button, input, select { font-family: inherit; }
   .workspace { grid-template-columns: 1fr; }
   .left, .right { display: none; }
 }
+
+/* EnsiiExplore — interface améliorée */
+:root { --bg:#f4f7f4; --bg-2:#edf3ed; --panel:#fff; --panel-2:#edf4ef; --line:#dce6de; --text:#20372e; --muted:#64796e; --accent:#2d8061; --accent-2:#22684d; --accent-secondary:#5ba7c8; --shadow:0 8px 28px rgba(27,65,45,.10); --radius:14px; --font:system-ui,-apple-system,'Segoe UI',sans-serif; --mono:ui-monospace,Consolas,monospace; }
+body { background:var(--bg); font-size:14px; }
+.app { grid-template-rows:76px minmax(0,1fr); }
+.topbar { height:76px; padding:0 24px; gap:24px; border-bottom:1px solid var(--line); box-shadow:0 2px 12px rgba(0,0,0,.04); }
+.brand { min-width:225px; }
+.brand-logo { width:58px;height:58px;border:0;box-shadow:none; }
+.brand h1 { font-size:21px;letter-spacing:-.03em;color:var(--accent-2);font-weight:800; }
+.brand p { font-size:12px; }
+.search-wrap { max-width:520px; }
+.search-wrap input { border:1px solid var(--line);border-radius:12px;padding:13px 14px 13px 38px;background:#f8fbf9;font-size:13px; }
+.search-wrap input:focus { background:#fff; }
+.topbar-right { gap:10px; }
+.pill,.seg button,.ghost,.primary { border:1px solid var(--line);border-radius:10px;box-shadow:none;font-size:12px;font-weight:600;padding:9px 12px; }
+.pill.active,.seg button.active,.primary { background:var(--accent);border-color:var(--accent);color:white;box-shadow:none; }
+.seg { background:#eef3ef;border-radius:12px;padding:4px; }
+.workspace { grid-template-columns:240px minmax(0,1fr) 310px; }
+.left,.right { background:#fff;padding:22px 18px; }
+.left { border-right:1px solid var(--line); }
+.right { border-left:1px solid var(--line); }
+.section-title { font-size:11px;font-weight:800;letter-spacing:.09em;color:#587367;margin:22px 0 12px; }
+.filter-row { border-radius:10px;padding:10px;font-size:13px; }
+.filter-row:hover { border:0;background:var(--panel-2); }
+.floor-list button,.tour-list button,.type-select { border:1px solid var(--line);border-radius:10px;box-shadow:none;padding:12px;font-size:13px; }
+.floor-list button.active,.tour-list button.active { background:#e8f5ec;outline:none;border-color:var(--accent);color:var(--accent-2); }
+.center { background-color:#f8fbf8;background-image:linear-gradient(#e6efe7 1px,transparent 1px),linear-gradient(90deg,#e6efe7 1px,transparent 1px);background-size:28px 28px; }
+.toolbar { padding:12px 18px;flex-wrap:wrap;gap:10px; }
+.toolbar .seg { flex-wrap:wrap; }
+.route-bar { flex-wrap:wrap;min-height:54px; }
+.sheet h2 { font-size:23px;line-height:1.2;margin:12px 0; }
+.sheet p { color:var(--text);line-height:1.65;font-size:13px; }
+.sheet .hint,.sheet .deeplink { color:var(--muted); }
+.meta div { background:#f3f8f4;border:1px solid var(--line);border-radius:12px;font-size:15px; }
+.meta small { color:#64796e;font-size:10px; }
+.badge { border-radius:8px;font-family:var(--font); }
+.tag { border-radius:20px;font-size:11px; }
+.map-legend { border:1px solid var(--line);border-radius:12px;font-family:var(--font);box-shadow:var(--shadow); }
+.room-tooltip { border:1px solid var(--accent);border-radius:10px;font-family:var(--font); }
+.banner { border:1px solid var(--line);font-family:var(--font); }
+.map-reset { position:absolute;top:14px;left:14px;z-index:11;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--accent-2);padding:10px 14px;font:600 12px var(--font);cursor:pointer;box-shadow:var(--shadow); }
+.map-reset:hover { background:#e8f5ec; }
+@media(max-width:1250px) { .workspace{grid-template-columns:205px minmax(0,1fr) 270px;} .topbar{gap:12px;padding:0 12px;} .brand{min-width:180px;} .pills{display:none;} }
+@media(max-width:850px) { body{overflow:auto;} .app{height:auto;min-height:100vh;grid-template-rows:auto 1fr;} .topbar{height:auto;min-height:76px;flex-wrap:wrap;padding:10px 14px;} .search-wrap{order:3;flex-basis:100%;max-width:none;} .workspace{display:flex;flex-direction:column;} .left,.right{border:0;border-bottom:1px solid var(--line);} .center{min-height:520px;} .map-host,.view-host{min-height:420px;} }
+
+
+/* Interface carte plein écran — version intégrée */
+/* EnsiiExplore — carte 2D moderne : ajouter à la fin de src/styles.css */
+.ensii-modern-map { position:relative; overflow:hidden; background:#f6f8fc; font-family:Inter,system-ui,sans-serif; }
+.ensii-modern-map .ensii-map-svg { width:100%; height:100%; touch-action:none; }
+.ensii-modern-map .ensii-floor-card { position:absolute;z-index:5;top:18px;left:18px;background:#fff;box-shadow:0 5px 18px #17213a1a;border:1px solid #e3e8f3;border-radius:14px;padding:15px 19px;display:flex;flex-direction:column;gap:5px;max-width:65%;pointer-events:none;color:#17213b; }
+.ensii-floor-card strong {font-size:18px}.ensii-floor-card span{font-size:12px;color:#71809a}
+.ensii-modern-map .ensii-map-controls {position:absolute;z-index:6;right:15px;top:15px;left:auto;display:flex;flex-direction:column;gap:4px;align-items:stretch;padding:7px;background:#fff;border:1px solid #e4e8f2;border-radius:14px;box-shadow:0 5px 20px #18244118;max-width:125px}
+.ensii-modern-map .ensii-map-controls button{background:white;color:#26375c;border:0;border-radius:8px;padding:9px;font-size:13px;cursor:pointer}.ensii-modern-map .ensii-map-controls button:hover{background:#eef0ff}.ensii-modern-map .ensii-map-controls label{font-size:11px;color:#53617d;display:flex;align-items:center;gap:4px}
+.ensii-modern-map .ensii-modern-legend{position:absolute;z-index:5;bottom:18px;left:18px;background:#fff;border:1px solid #e3e8f3;border-radius:14px;padding:13px 16px;display:flex;flex-direction:column;gap:7px;box-shadow:0 5px 18px #17213a17;color:#4c5b78;font-size:12px}
+.ensii-modern-legend strong{font-size:14px;color:#1a2341}.ensii-modern-legend span{display:flex;gap:8px;align-items:center}.ensii-modern-legend small{max-width:180px;color:#8390a7}.ensii-legend-dot{display:inline-block;width:12px;height:12px;border-radius:4px;background:#e1e7f1;border:1px solid #8f9bb1}.ensii-legend-dot.selected{background:#c7c6ff;border:2px solid #4f46e5}.ensii-legend-dot.teaching{background:#8fb1f4}.ensii-legend-dot.research{background:#f3d97c}.ensii-legend-dot.student{background:#8bdbaf}
+.ensii-search-wrap{position:absolute;z-index:8;bottom:18px;left:50%;transform:translateX(-50%);width:min(340px,60%);display:flex;flex-direction:column;gap:8px}.ensii-search-trigger{border:0;border-radius:30px;background:#171d40;color:white;font-size:14px;font-weight:700;padding:15px 20px;box-shadow:0 8px 22px #151b3c40;cursor:pointer}.ensii-search-panel{background:#fff;border:1px solid #e3e8f3;border-radius:14px;padding:10px;box-shadow:0 10px 28px #17213a2e}.ensii-search-panel input{width:100%;box-sizing:border-box;padding:11px;border:1px solid #dce2ef;border-radius:9px;outline-color:#6366f1}.ensii-search-results{max-height:200px;overflow:auto}.ensii-search-results button{display:flex;gap:10px;width:100%;text-align:left;padding:10px;background:#fff;border:0;border-bottom:1px solid #edf0f6;color:#263454;cursor:pointer}.ensii-search-results button:hover{background:#f3f4ff}.ensii-search-results p{font-size:12px;color:#71809a}
+.ensii-details-backdrop{position:absolute;z-index:12;inset:0;background:#0e183533;display:flex;align-items:flex-end}.ensii-room-sheet{width:100%;max-height:74%;overflow:auto;background:#fff;border-radius:22px 22px 0 0;box-shadow:0 -12px 30px #17213a22;padding:24px 28px 30px;position:relative;color:#17213b}.ensii-sheet-close{position:absolute;right:20px;top:16px;background:transparent;border:0;font-size:30px;color:#4b5680;cursor:pointer}.ensii-sheet-tag{display:inline-block;padding:6px 11px;background:#eef0ff;color:#4f46e5;border-radius:8px;font-size:12px;font-weight:700}.ensii-room-sheet h2{font-size:30px;margin:14px 0 3px}.ensii-sheet-subtitle{font-size:17px;color:#53617d;margin:0 0 20px}.ensii-sheet-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ensii-sheet-grid div{border:1px solid #e8ebf3;border-radius:12px;padding:13px;display:flex;flex-direction:column;gap:5px}.ensii-sheet-grid small{color:#8190aa}.ensii-sheet-grid strong{font-size:14px}.ensii-sheet-description{font-size:13px;line-height:1.6;color:#53617d}.ensii-sheet-warning{color:#9a7180}
+.ensii-modern-map .banner{display:none}
+@media(max-width:680px){.ensii-modern-map .ensii-floor-card{max-width:50%;padding:10px}.ensii-modern-map .ensii-modern-legend{display:none}.ensii-search-wrap{width:70%}.ensii-room-sheet{padding:20px}}
+
+:root {--accent:#4f46e5;--accent-2:#4338ca;--accent-secondary:#818cf8;--bg:#f6f8fc;--line:#e2e7f1;--text:#17213b;--muted:#71809a;--panel-2:#eef0ff;}
+body {font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;background:#f6f8fc;}
+.app {grid-template-rows:70px minmax(0,1fr)}
+.topbar {height:70px;border-bottom:1px solid #e2e7f1;background:white;box-shadow:0 2px 12px #17213b0b}
+.brand h1 {color:#1b2750}.brand-logo{border:0;box-shadow:none}
+.pill.active,.seg button.active,.primary {background:#4f46e5;border-color:#4f46e5;color:white}
+.modern-workspace {display:block;position:relative;min-height:0;overflow:hidden}
+.modern-workspace .center {height:100%;width:100%;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:#f6f8fc}
+.modern-workspace .toolbar {background:white;z-index:4;padding:9px 16px;border-bottom:1px solid #e2e7f1;gap:10px}
+.modern-workspace .toolbar .seg{background:#f0f2f9}
+.modern-workspace .left.modern-filters {position:absolute;top:0;bottom:0;left:0;width:min(310px,85vw);display:block;z-index:25;box-shadow:12px 0 35px #17213b22;transform:translateX(-110%);transition:transform .2s ease;overflow-y:auto;background:white}
+.modern-workspace .left.modern-filters.is-open{transform:translateX(0)}
+.filters-toggle {white-space:nowrap;color:#4338ca!important}
+.filters-close {width:100%;background:#eef0ff;color:#4338ca;border:0;border-radius:10px;padding:10px;cursor:pointer;font-weight:700}
+.modern-workspace .legacy-room-panel {display:none}
+.modern-workspace .map-host {height:100%;min-height:0;overflow:hidden}
+.modern-workspace .route-bar{min-height:42px;padding:8px 18px;background:#fff;border-top:1px solid #e2e7f1}
+.ensii-room-sheet {font-family:Inter,system-ui,sans-serif}
+.ensii-sheet-actions{display:flex;gap:10px;margin:16px 0}
+.ensii-sheet-actions button{background:#4f46e5;color:white;border:0;border-radius:10px;padding:12px 15px;font-weight:700;cursor:pointer}
+.ensii-sheet-actions button+button{background:#eef0ff;color:#4338ca}
+@media(max-width:900px){.modern-workspace .left.modern-filters{display:block}.modern-workspace .center{min-height:0}.modern-workspace .map-host{min-height:0}}
+@media(max-width:650px){.topbar{height:auto;min-height:70px}.app{grid-template-rows:auto minmax(0,1fr)}.modern-workspace .toolbar{overflow-x:auto;flex-wrap:nowrap}.modern-workspace .toolbar .seg{flex-wrap:nowrap}.ensii-floor-card{max-width:45%}}
+
+/* ENSIIEXPLORE : plan architectural interactif et fiche latérale */
+.ensii-blueprint-map { background:#f8fafc; }
+.ensii-blueprint-map .ensii-map-svg { display:block; width:100%; height:100%; }
+.ensii-blueprint-map .ensii-map-controls { max-width:none; width:54px; padding:4px; }
+.ensii-blueprint-map .ensii-map-controls button { font-size:21px; padding:11px 4px; border-bottom:1px solid #eef0f5; }
+.ensii-blueprint-map .ensii-map-controls button:disabled { opacity:.35; cursor:not-allowed; }
+.ensii-blueprint-map .ensii-floor-card { max-width:300px; }
+.ensii-blueprint-map .ensii-modern-legend { bottom:18px; left:18px; }
+.ensii-blueprint-map .ensii-modern-legend label { display:flex; gap:6px; align-items:center; font-size:12px; }
+.ensii-side-details { position:absolute; z-index:11; top:12px; right:82px; bottom:12px; width:min(360px,calc(100% - 110px)); overflow:auto; background:#fff; border:1px solid #e3e8f3; border-radius:18px; box-shadow:0 10px 36px #17213a28; padding:26px 22px; color:#17213b; }
+.ensii-side-details h2 { font-size:32px; margin:18px 0 6px; }
+.ensii-side-details .ensii-sheet-subtitle { font-size:16px; margin-bottom:20px; }
+.ensii-side-details .ensii-sheet-grid { grid-template-columns:1fr 1fr; gap:9px; }
+.ensii-side-details .ensii-sheet-grid div { min-width:0; padding:11px; }
+.ensii-side-details .ensii-sheet-grid strong { overflow-wrap:anywhere; }
+.ensii-side-details .ensii-sheet-close { top:14px; right:15px; }
+.ensii-side-details .ensii-sheet-description { margin:20px 0; }
+.ensii-side-details .ensii-sheet-warning { display:block; line-height:1.5; }
+.ensii-hover-label { position:absolute; z-index:4; left:50%; top:14px; transform:translateX(-50%); padding:9px 14px; background:#19223e; color:#fff; border-radius:9px; font-weight:700; pointer-events:none; }
+.ensii-plan-error { position:absolute; z-index:8; left:50%; top:50%; transform:translate(-50%,-50%); background:#fff2f2; border:1px solid #f99; padding:12px; border-radius:10px; }
+@media(max-width:650px) { .ensii-side-details { top:auto; right:8px; left:8px; bottom:8px; width:auto; max-height:46%; padding:20px; } .ensii-blueprint-map .ensii-modern-legend { display:none; } }
