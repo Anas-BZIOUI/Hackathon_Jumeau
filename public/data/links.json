@@ -1,0 +1,49 @@
+[
+  {
+    "id": "stairs-main",
+    "type": "stairs",
+    "accessible": false,
+    "cost_s_per_level": 20,
+    "points": [
+      {
+        "level": "RDC",
+        "x": 46.836,
+        "y": 20.738
+      },
+      {
+        "level": "R+1",
+        "x": 36.436,
+        "y": 22.053
+      },
+      {
+        "level": "R+2",
+        "x": 29.698,
+        "y": 63.762
+      }
+    ]
+  },
+  {
+    "id": "lift-1",
+    "type": "lift",
+    "accessible": true,
+    "cost_s_wait": 15,
+    "cost_s_per_level": 8,
+    "points": [
+      {
+        "level": "RDC",
+        "x": 50,
+        "y": 18
+      },
+      {
+        "level": "R+1",
+        "x": 50,
+        "y": 28
+      },
+      {
+        "level": "R+2",
+        "x": 62.455,
+        "y": 109.634
+      }
+    ]
+  }
+]

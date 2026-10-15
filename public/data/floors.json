@@ -1,0 +1,53 @@
+{
+  "reference": "RDC",
+  "levels": {
+    "RDC": {
+      "offset": [
+        38,
+        42
+      ],
+      "rotation_deg": 0,
+      "z": 0,
+      "size": [
+        60,
+        35
+      ],
+      "label_fr": "Rez-de-chaussée",
+      "label_en": "Ground floor"
+    },
+    "R+1": {
+      "offset": [
+        38,
+        32
+      ],
+      "rotation_deg": 0,
+      "z": 7.5,
+      "size": [
+        60,
+        60
+      ],
+      "label_fr": "Niveau 1",
+      "label_en": "Level 1"
+    },
+    "R+2": {
+      "offset": [
+        0,
+        0
+      ],
+      "rotation_deg": 0,
+      "z": 15,
+      "size": [
+        135,
+        125
+      ],
+      "label_fr": "Niveau 2 / sIIEnext",
+      "label_en": "Level 2 / sIIEnext"
+    }
+  },
+  "control_points": [
+    "stairs-main",
+    "lift-1"
+  ],
+  "residual_m": null,
+  "note": "Offsets are a working alignment so floors share a visual core. They must be refined with on-site control points (stairs, lift)."
+}

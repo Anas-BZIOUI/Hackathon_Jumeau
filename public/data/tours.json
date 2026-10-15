@@ -1,0 +1,86 @@
+[
+  {
+    "id": "tour-student",
+    "persona": "student",
+    "title_fr": "Première semaine",
+    "title_en": "First week",
+    "steps": [
+      {
+        "roomId": "R+2-accueil",
+        "text_fr": "L’accueil du sIIEnext (R+2). Point d’entrée naturel du bâtiment récent.",
+        "text_en": "sIIEnext reception (level 2). Natural entry to the newer wing."
+      },
+      {
+        "roomId": "R+2-C53",
+        "text_fr": "C53 — Platech 1, votre salle de projet.",
+        "text_en": "C53 — Platech 1, your project room."
+      },
+      {
+        "roomId": "R+2-C3",
+        "text_fr": "Le Forum (C3), grand espace partagé de l’aile C.",
+        "text_en": "The Forum (C3), the large shared space of wing C."
+      },
+      {
+        "roomId": "RDC-028",
+        "text_fr": "Le foyer étudiants au rez-de-chaussée : vie associative et restauration sur le plan.",
+        "text_en": "Student foyer on the ground floor: clubs and catering on the plan."
+      }
+    ]
+  },
+  {
+    "id": "tour-visitor",
+    "persona": "visitor",
+    "title_fr": "Visite ouverte",
+    "title_en": "Open-day overview",
+    "steps": [
+      {
+        "roomId": "RDC-Amphi002",
+        "text_fr": "Amphithéâtre Cabanes, grand espace de conférence au RDC.",
+        "text_en": "Cabanes lecture hall, the large conference space on the ground floor."
+      },
+      {
+        "roomId": "RDC-028",
+        "text_fr": "Foyer : premier contact avec la vie étudiante.",
+        "text_en": "Foyer: first contact with student life."
+      },
+      {
+        "roomId": "R+1-101",
+        "text_fr": "Amphi 101 au premier étage.",
+        "text_en": "Lecture hall 101 on level 1."
+      },
+      {
+        "roomId": "R+2-C53",
+        "text_fr": "sIIEnext et la plateforme technologique C53.",
+        "text_en": "sIIEnext and the C53 technology platform."
+      }
+    ]
+  },
+  {
+    "id": "tour-company",
+    "persona": "company",
+    "title_fr": "Parcours entreprises",
+    "title_en": "Company route",
+    "steps": [
+      {
+        "roomId": "R+2-accueil",
+        "text_fr": "Accueil R+2.",
+        "text_en": "Level-2 reception."
+      },
+      {
+        "roomId": "R+2-216",
+        "text_fr": "Salle de réunion 216, identifiée sur le plan.",
+        "text_en": "Meeting room 216, labelled on the plan."
+      },
+      {
+        "roomId": "R+2-C3",
+        "text_fr": "Forum C3 — espace de rencontre possible (à confirmer sur place).",
+        "text_en": "Forum C3 — possible meeting space (confirm on site)."
+      },
+      {
+        "roomId": "R+2-C53",
+        "text_fr": "Plateforme technologique C53.",
+        "text_en": "C53 technology platform."
+      }
+    ]
+  }
+]

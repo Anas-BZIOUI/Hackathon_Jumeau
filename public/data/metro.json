@@ -1,0 +1,135 @@
+{
+  "lines": [
+    {
+      "id": "teaching",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "research",
+      "color": "#8b5cf6"
+    },
+    {
+      "id": "student_life",
+      "color": "#22c55e"
+    },
+    {
+      "id": "companies",
+      "color": "#eab308"
+    }
+  ],
+  "stations": [
+    {
+      "id": "st-cabanes",
+      "roomId": "RDC-Amphi002",
+      "x": 80,
+      "y": 260,
+      "lines": [
+        "teaching"
+      ],
+      "label": "Cabanes"
+    },
+    {
+      "id": "st-foyer",
+      "roomId": "RDC-028",
+      "x": 180,
+      "y": 260,
+      "lines": [
+        "student_life"
+      ],
+      "label": "Foyer"
+    },
+    {
+      "id": "st-101",
+      "roomId": "R+1-101",
+      "x": 80,
+      "y": 180,
+      "lines": [
+        "teaching"
+      ],
+      "label": "Amphi 101"
+    },
+    {
+      "id": "st-tp",
+      "roomId": "R+1-130",
+      "x": 180,
+      "y": 180,
+      "lines": [
+        "teaching",
+        "research"
+      ],
+      "label": "TP 130"
+    },
+    {
+      "id": "st-201",
+      "roomId": "R+2-201",
+      "x": 300,
+      "y": 120,
+      "lines": [
+        "teaching"
+      ],
+      "label": "Augé"
+    },
+    {
+      "id": "st-216",
+      "roomId": "R+2-216",
+      "x": 380,
+      "y": 80,
+      "lines": [
+        "companies"
+      ],
+      "label": "Réunion 216"
+    },
+    {
+      "id": "st-forum",
+      "roomId": "R+2-C3",
+      "x": 260,
+      "y": 80,
+      "lines": [
+        "student_life",
+        "companies"
+      ],
+      "label": "Forum"
+    },
+    {
+      "id": "st-accueil",
+      "roomId": "R+2-accueil",
+      "x": 180,
+      "y": 40,
+      "lines": [
+        "student_life"
+      ],
+      "label": "Accueil"
+    },
+    {
+      "id": "st-c53",
+      "roomId": "R+2-C53",
+      "x": 380,
+      "y": 40,
+      "lines": [
+        "teaching",
+        "research"
+      ],
+      "label": "C53 Platech"
+    },
+    {
+      "id": "st-sport",
+      "roomId": "R+2-C44",
+      "x": 300,
+      "y": 40,
+      "lines": [
+        "student_life"
+      ],
+      "label": "Sport"
+    },
+    {
+      "id": "st-bleue",
+      "roomId": "R+2-C36",
+      "x": 220,
+      "y": 80,
+      "lines": [
+        "student_life"
+      ],
+      "label": "Salle bleue"
+    }
+  ]
+}

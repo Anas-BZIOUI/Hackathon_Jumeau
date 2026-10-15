@@ -1,0 +1,5242 @@
+{
+  "nodes": [
+    {
+      "id": "RDC-002B",
+      "type": "room",
+      "level": "RDC",
+      "x": 21.983,
+      "y": 10.61
+    },
+    {
+      "id": "RDC-003",
+      "type": "room",
+      "level": "RDC",
+      "x": 18.076,
+      "y": 19.107
+    },
+    {
+      "id": "RDC-005",
+      "type": "room",
+      "level": "RDC",
+      "x": 14.637,
+      "y": 18.686
+    },
+    {
+      "id": "RDC-006",
+      "type": "room",
+      "level": "RDC",
+      "x": 11.126,
+      "y": 19.205
+    },
+    {
+      "id": "RDC-007",
+      "type": "room",
+      "level": "RDC",
+      "x": 5.983,
+      "y": 22.007
+    },
+    {
+      "id": "RDC-008",
+      "type": "room",
+      "level": "RDC",
+      "x": 14.278,
+      "y": 22.895
+    },
+    {
+      "id": "RDC-009",
+      "type": "room",
+      "level": "RDC",
+      "x": 17.129,
+      "y": 22.949
+    },
+    {
+      "id": "RDC-010",
+      "type": "room",
+      "level": "RDC",
+      "x": 25.087,
+      "y": 29.927
+    },
+    {
+      "id": "RDC-011",
+      "type": "room",
+      "level": "RDC",
+      "x": 23.874,
+      "y": 23.755
+    },
+    {
+      "id": "RDC-012",
+      "type": "room",
+      "level": "RDC",
+      "x": 26.797,
+      "y": 25.772
+    },
+    {
+      "id": "RDC-013",
+      "type": "room",
+      "level": "RDC",
+      "x": 30.372,
+      "y": 29.744
+    },
+    {
+      "id": "RDC-015",
+      "type": "room",
+      "level": "RDC",
+      "x": 36.555,
+      "y": 28.754
+    },
+    {
+      "id": "RDC-016",
+      "type": "room",
+      "level": "RDC",
+      "x": 42.226,
+      "y": 28.813
+    },
+    {
+      "id": "RDC-017",
+      "type": "room",
+      "level": "RDC",
+      "x": 45.162,
+      "y": 22.843
+    },
+    {
+      "id": "RDC-018",
+      "type": "room",
+      "level": "RDC",
+      "x": 45.137,
+      "y": 24.943
+    },
+    {
+      "id": "RDC-019",
+      "type": "room",
+      "level": "RDC",
+      "x": 45.179,
+      "y": 26.996
+    },
+    {
+      "id": "RDC-020",
+      "type": "room",
+      "level": "RDC",
+      "x": 45.179,
+      "y": 29.228
+    },
+    {
+      "id": "RDC-021",
+      "type": "room",
+      "level": "RDC",
+      "x": 46.1,
+      "y": 31.606
+    },
+    {
+      "id": "RDC-022",
+      "type": "room",
+      "level": "RDC",
+      "x": 50.897,
+      "y": 31.642
+    },
+    {
+      "id": "RDC-023",
+      "type": "room",
+      "level": "RDC",
+      "x": 50.93,
+      "y": 29.021
+    },
+    {
+      "id": "RDC-024",
+      "type": "room",
+      "level": "RDC",
+      "x": 50.82,
+      "y": 26.575
+    },
+    {
+      "id": "RDC-025",
+      "type": "room",
+      "level": "RDC",
+      "x": 50.971,
+      "y": 23.941
+    },
+    {
+      "id": "RDC-026",
+      "type": "room",
+      "level": "RDC",
+      "x": 48.259,
+      "y": 19.323
+    },
+    {
+      "id": "RDC-027",
+      "type": "room",
+      "level": "RDC",
+      "x": 41.622,
+      "y": 19.458
+    },
+    {
+      "id": "RDC-028",
+      "type": "room",
+      "level": "RDC",
+      "x": 46.836,
+      "y": 12.738
+    },
+    {
+      "id": "RDC-029",
+      "type": "room",
+      "level": "RDC",
+      "x": 45.108,
+      "y": 19.403
+    },
+    {
+      "id": "RDC-030",
+      "type": "room",
+      "level": "RDC",
+      "x": 51.935,
+      "y": 19.335
+    },
+    {
+      "id": "RDC-031",
+      "type": "room",
+      "level": "RDC",
+      "x": 48.716,
+      "y": 7.194
+    },
+    {
+      "id": "RDC-032",
+      "type": "room",
+      "level": "RDC",
+      "x": 41.758,
+      "y": 7.371
+    },
+    {
+      "id": "RDC-033",
+      "type": "room",
+      "level": "RDC",
+      "x": 38.439,
+      "y": 7.238
+    },
+    {
+      "id": "RDC-035",
+      "type": "room",
+      "level": "RDC",
+      "x": 45.211,
+      "y": 7.238
+    },
+    {
+      "id": "RDC-Amphi002",
+      "type": "room",
+      "level": "RDC",
+      "x": 12.659,
+      "y": 10.265
+    },
+    {
+      "id": "R+1-101",
+      "type": "room",
+      "level": "R+1",
+      "x": 51.266,
+      "y": 15.923
+    },
+    {
+      "id": "R+1-102",
+      "type": "room",
+      "level": "R+1",
+      "x": 51.435,
+      "y": 7.613
+    },
+    {
+      "id": "R+1-103",
+      "type": "room",
+      "level": "R+1",
+      "x": 36.436,
+      "y": 10.053
+    },
+    {
+      "id": "R+1-104",
+      "type": "room",
+      "level": "R+1",
+      "x": 24.13,
+      "y": 5.257
+    },
+    {
+      "id": "R+1-105",
+      "type": "room",
+      "level": "R+1",
+      "x": 21.618,
+      "y": 5.257
+    },
+    {
+      "id": "R+1-106",
+      "type": "room",
+      "level": "R+1",
+      "x": 18.949,
+      "y": 5.257
+    },
+    {
+      "id": "R+1-107",
+      "type": "room",
+      "level": "R+1",
+      "x": 16.522,
+      "y": 5.257
+    },
+    {
+      "id": "R+1-108",
+      "type": "room",
+      "level": "R+1",
+      "x": 14.053,
+      "y": 5.257
+    },
+    {
+      "id": "R+1-109",
+      "type": "room",
+      "level": "R+1",
+      "x": 11.49,
+      "y": 5.257
+    },
+    {
+      "id": "R+1-110",
+      "type": "room",
+      "level": "R+1",
+      "x": 9.058,
+      "y": 5.257
+    },
+    {
+      "id": "R+1-111",
+      "type": "room",
+      "level": "R+1",
+      "x": 6.118,
+      "y": 5.257
+    },
+    {
+      "id": "R+1-112",
+      "type": "room",
+      "level": "R+1",
+      "x": 6.927,
+      "y": 11.502
+    },
+    {
+      "id": "R+1-113",
+      "type": "room",
+      "level": "R+1",
+      "x": 7.002,
+      "y": 14.065
+    },
+    {
+      "id": "R+1-114",
+      "type": "room",
+      "level": "R+1",
+      "x": 13.514,
+      "y": 13.199
+    },
+    {
+      "id": "R+1-115",
+      "type": "room",
+      "level": "R+1",
+      "x": 18.168,
+      "y": 13.028
+    },
+    {
+      "id": "R+1-117",
+      "type": "room",
+      "level": "R+1",
+      "x": 25.272,
+      "y": 13.118
+    },
+    {
+      "id": "R+1-118",
+      "type": "room",
+      "level": "R+1",
+      "x": 7.052,
+      "y": 23.912
+    },
+    {
+      "id": "R+1-119",
+      "type": "room",
+      "level": "R+1",
+      "x": 6.952,
+      "y": 27.624
+    },
+    {
+      "id": "R+1-120",
+      "type": "room",
+      "level": "R+1",
+      "x": 6.881,
+      "y": 30.351
+    },
+    {
+      "id": "R+1-121",
+      "type": "room",
+      "level": "R+1",
+      "x": 6.996,
+      "y": 36.223
+    },
+    {
+      "id": "R+1-122",
+      "type": "room",
+      "level": "R+1",
+      "x": 12.195,
+      "y": 44.07
+    },
+    {
+      "id": "R+1-123",
+      "type": "room",
+      "level": "R+1",
+      "x": 20.052,
+      "y": 52.199
+    },
+    {
+      "id": "R+1-124",
+      "type": "room",
+      "level": "R+1",
+      "x": 23.773,
+      "y": 47.904
+    },
+    {
+      "id": "R+1-125",
+      "type": "room",
+      "level": "R+1",
+      "x": 19.146,
+      "y": 42.107
+    },
+    {
+      "id": "R+1-126",
+      "type": "room",
+      "level": "R+1",
+      "x": 15.195,
+      "y": 35.995
+    },
+    {
+      "id": "R+1-127",
+      "type": "room",
+      "level": "R+1",
+      "x": 15.566,
+      "y": 25.44
+    },
+    {
+      "id": "R+1-128",
+      "type": "room",
+      "level": "R+1",
+      "x": 12.538,
+      "y": 29.452
+    },
+    {
+      "id": "R+1-129",
+      "type": "room",
+      "level": "R+1",
+      "x": 30.538,
+      "y": 24.878
+    },
+    {
+      "id": "R+1-130",
+      "type": "room",
+      "level": "R+1",
+      "x": 24.48,
+      "y": 25.454
+    },
+    {
+      "id": "R+1-131",
+      "type": "room",
+      "level": "R+1",
+      "x": 25.509,
+      "y": 37.48
+    },
+    {
+      "id": "R+1-132",
+      "type": "room",
+      "level": "R+1",
+      "x": 27.684,
+      "y": 44.021
+    },
+    {
+      "id": "R+1-133",
+      "type": "room",
+      "level": "R+1",
+      "x": 27.952,
+      "y": 52.456
+    },
+    {
+      "id": "R+1-134",
+      "type": "room",
+      "level": "R+1",
+      "x": 23.909,
+      "y": 56.226
+    },
+    {
+      "id": "R+1-135",
+      "type": "room",
+      "level": "R+1",
+      "x": 39.571,
+      "y": 55.034
+    },
+    {
+      "id": "R+1-136",
+      "type": "room",
+      "level": "R+1",
+      "x": 39.815,
+      "y": 39.921
+    },
+    {
+      "id": "R+1-137",
+      "type": "room",
+      "level": "R+1",
+      "x": 35.401,
+      "y": 34.897
+    },
+    {
+      "id": "R+1-138",
+      "type": "room",
+      "level": "R+1",
+      "x": 38.978,
+      "y": 25.925
+    },
+    {
+      "id": "R+1-139",
+      "type": "room",
+      "level": "R+1",
+      "x": 50.801,
+      "y": 23.941
+    },
+    {
+      "id": "R+1-140",
+      "type": "room",
+      "level": "R+1",
+      "x": 48.128,
+      "y": 30.799
+    },
+    {
+      "id": "R+1-141",
+      "type": "room",
+      "level": "R+1",
+      "x": 53.713,
+      "y": 34.031
+    },
+    {
+      "id": "R+1-142",
+      "type": "room",
+      "level": "R+1",
+      "x": 52.142,
+      "y": 29.135
+    },
+    {
+      "id": "R+1-143",
+      "type": "room",
+      "level": "R+1",
+      "x": 54.513,
+      "y": 39.585
+    },
+    {
+      "id": "R+1-144",
+      "type": "room",
+      "level": "R+1",
+      "x": 53.704,
+      "y": 43.306
+    },
+    {
+      "id": "R+1-146",
+      "type": "room",
+      "level": "R+1",
+      "x": 53.805,
+      "y": 49.349
+    },
+    {
+      "id": "R+1-148",
+      "type": "room",
+      "level": "R+1",
+      "x": 47.996,
+      "y": 51.5
+    },
+    {
+      "id": "R+1-149",
+      "type": "room",
+      "level": "R+1",
+      "x": 47.438,
+      "y": 41.628
+    },
+    {
+      "id": "R+1-150",
+      "type": "room",
+      "level": "R+1",
+      "x": 45.428,
+      "y": 35.787
+    },
+    {
+      "id": "R+1-bureau",
+      "type": "room",
+      "level": "R+1",
+      "x": 54.164,
+      "y": 46.734
+    },
+    {
+      "id": "R+1-depot-pedagogique",
+      "type": "room",
+      "level": "R+1",
+      "x": 43.822,
+      "y": 35.682
+    },
+    {
+      "id": "R+1-salle-des-enseignants",
+      "type": "room",
+      "level": "R+1",
+      "x": 16.529,
+      "y": 12.478
+    },
+    {
+      "id": "R+2-201",
+      "type": "room",
+      "level": "R+2",
+      "x": 123.621,
+      "y": 10.313
+    },
+    {
+      "id": "R+2-202",
+      "type": "room",
+      "level": "R+2",
+      "x": 115.838,
+      "y": 13.923
+    },
+    {
+      "id": "R+2-203",
+      "type": "room",
+      "level": "R+2",
+      "x": 116.218,
+      "y": 10.406
+    },
+    {
+      "id": "R+2-204",
+      "type": "room",
+      "level": "R+2",
+      "x": 116.298,
+      "y": 7.213
+    },
+    {
+      "id": "R+2-205",
+      "type": "room",
+      "level": "R+2",
+      "x": 100.736,
+      "y": 7.229
+    },
+    {
+      "id": "R+2-207",
+      "type": "room",
+      "level": "R+2",
+      "x": 94.783,
+      "y": 7.229
+    },
+    {
+      "id": "R+2-208",
+      "type": "room",
+      "level": "R+2",
+      "x": 90.673,
+      "y": 7.229
+    },
+    {
+      "id": "R+2-209",
+      "type": "room",
+      "level": "R+2",
+      "x": 87.778,
+      "y": 7.229
+    },
+    {
+      "id": "R+2-210",
+      "type": "room",
+      "level": "R+2",
+      "x": 84.817,
+      "y": 7.229
+    },
+    {
+      "id": "R+2-211",
+      "type": "room",
+      "level": "R+2",
+      "x": 81.197,
+      "y": 7.229
+    },
+    {
+      "id": "R+2-212",
+      "type": "room",
+      "level": "R+2",
+      "x": 78.187,
+      "y": 7.229
+    },
+    {
+      "id": "R+2-213",
+      "type": "room",
+      "level": "R+2",
+      "x": 79.348,
+      "y": 13.047
+    },
+    {
+      "id": "R+2-214",
+      "type": "room",
+      "level": "R+2",
+      "x": 79.484,
+      "y": 15.585
+    },
+    {
+      "id": "R+2-216",
+      "type": "room",
+      "level": "R+2",
+      "x": 95.514,
+      "y": 14.493
+    },
+    {
+      "id": "R+2-217",
+      "type": "room",
+      "level": "R+2",
+      "x": 79.6,
+      "y": 23.907
+    },
+    {
+      "id": "R+2-218",
+      "type": "room",
+      "level": "R+2",
+      "x": 79.665,
+      "y": 27.062
+    },
+    {
+      "id": "R+2-219",
+      "type": "room",
+      "level": "R+2",
+      "x": 79.757,
+      "y": 30.463
+    },
+    {
+      "id": "R+2-220",
+      "type": "room",
+      "level": "R+2",
+      "x": 79.786,
+      "y": 36.748
+    },
+    {
+      "id": "R+2-221",
+      "type": "room",
+      "level": "R+2",
+      "x": 81.679,
+      "y": 42.764
+    },
+    {
+      "id": "R+2-221bis",
+      "type": "room",
+      "level": "R+2",
+      "x": 83.86,
+      "y": 45.059
+    },
+    {
+      "id": "R+2-222",
+      "type": "room",
+      "level": "R+2",
+      "x": 87.698,
+      "y": 48.777
+    },
+    {
+      "id": "R+2-223",
+      "type": "room",
+      "level": "R+2",
+      "x": 92.563,
+      "y": 53.506
+    },
+    {
+      "id": "R+2-224",
+      "type": "room",
+      "level": "R+2",
+      "x": 98.993,
+      "y": 48.228
+    },
+    {
+      "id": "R+2-225",
+      "type": "room",
+      "level": "R+2",
+      "x": 88.16,
+      "y": 27.897
+    },
+    {
+      "id": "R+2-227",
+      "type": "room",
+      "level": "R+2",
+      "x": 97.008,
+      "y": 27.832
+    },
+    {
+      "id": "R+2-228",
+      "type": "room",
+      "level": "R+2",
+      "x": 98.606,
+      "y": 38.464
+    },
+    {
+      "id": "R+2-229",
+      "type": "room",
+      "level": "R+2",
+      "x": 100.542,
+      "y": 43.081
+    },
+    {
+      "id": "R+2-230",
+      "type": "room",
+      "level": "R+2",
+      "x": 101.51,
+      "y": 46.283
+    },
+    {
+      "id": "R+2-231",
+      "type": "room",
+      "level": "R+2",
+      "x": 101.484,
+      "y": 49.056
+    },
+    {
+      "id": "R+2-232",
+      "type": "room",
+      "level": "R+2",
+      "x": 100.867,
+      "y": 53.657
+    },
+    {
+      "id": "R+2-234",
+      "type": "room",
+      "level": "R+2",
+      "x": 109.06,
+      "y": 36.371
+    },
+    {
+      "id": "R+2-235",
+      "type": "room",
+      "level": "R+2",
+      "x": 109.86,
+      "y": 26.464
+    },
+    {
+      "id": "R+2-236",
+      "type": "room",
+      "level": "R+2",
+      "x": 116.905,
+      "y": 26.529
+    },
+    {
+      "id": "R+2-237",
+      "type": "room",
+      "level": "R+2",
+      "x": 124.366,
+      "y": 26.62
+    },
+    {
+      "id": "R+2-238",
+      "type": "room",
+      "level": "R+2",
+      "x": 127.145,
+      "y": 33.032
+    },
+    {
+      "id": "R+2-239",
+      "type": "room",
+      "level": "R+2",
+      "x": 127.21,
+      "y": 37.598
+    },
+    {
+      "id": "R+2-240",
+      "type": "room",
+      "level": "R+2",
+      "x": 127.27,
+      "y": 41.273
+    },
+    {
+      "id": "R+2-241",
+      "type": "room",
+      "level": "R+2",
+      "x": 127.303,
+      "y": 44.286
+    },
+    {
+      "id": "R+2-242",
+      "type": "room",
+      "level": "R+2",
+      "x": 127.384,
+      "y": 47.179
+    },
+    {
+      "id": "R+2-243",
+      "type": "room",
+      "level": "R+2",
+      "x": 127.417,
+      "y": 50.919
+    },
+    {
+      "id": "R+2-244",
+      "type": "room",
+      "level": "R+2",
+      "x": 121.264,
+      "y": 61.319
+    },
+    {
+      "id": "R+2-245",
+      "type": "room",
+      "level": "R+2",
+      "x": 120.36,
+      "y": 54.654
+    },
+    {
+      "id": "R+2-246",
+      "type": "room",
+      "level": "R+2",
+      "x": 120.243,
+      "y": 51.156
+    },
+    {
+      "id": "R+2-247",
+      "type": "room",
+      "level": "R+2",
+      "x": 120.3,
+      "y": 47.801
+    },
+    {
+      "id": "R+2-248",
+      "type": "room",
+      "level": "R+2",
+      "x": 120.974,
+      "y": 39.795
+    },
+    {
+      "id": "R+2-249",
+      "type": "room",
+      "level": "R+2",
+      "x": 117.173,
+      "y": 37.368
+    },
+    {
+      "id": "R+2-250",
+      "type": "room",
+      "level": "R+2",
+      "x": 100.074,
+      "y": 71.705
+    },
+    {
+      "id": "R+2-250A",
+      "type": "room",
+      "level": "R+2",
+      "x": 105.111,
+      "y": 71.661
+    },
+    {
+      "id": "R+2-250B",
+      "type": "room",
+      "level": "R+2",
+      "x": 110.678,
+      "y": 71.579
+    },
+    {
+      "id": "R+2-250C",
+      "type": "room",
+      "level": "R+2",
+      "x": 110.172,
+      "y": 66.498
+    },
+    {
+      "id": "R+2-250D",
+      "type": "room",
+      "level": "R+2",
+      "x": 106.692,
+      "y": 65.791
+    },
+    {
+      "id": "R+2-250E",
+      "type": "room",
+      "level": "R+2",
+      "x": 103.673,
+      "y": 65.75
+    },
+    {
+      "id": "R+2-250F",
+      "type": "room",
+      "level": "R+2",
+      "x": 100.331,
+      "y": 65.734
+    },
+    {
+      "id": "R+2-251",
+      "type": "room",
+      "level": "R+2",
+      "x": 96.744,
+      "y": 77.996
+    },
+    {
+      "id": "R+2-253",
+      "type": "room",
+      "level": "R+2",
+      "x": 85.577,
+      "y": 76.388
+    },
+    {
+      "id": "R+2-258",
+      "type": "room",
+      "level": "R+2",
+      "x": 104.283,
+      "y": 84.915
+    },
+    {
+      "id": "R+2-263",
+      "type": "room",
+      "level": "R+2",
+      "x": 103.216,
+      "y": 92.168
+    },
+    {
+      "id": "R+2-265",
+      "type": "room",
+      "level": "R+2",
+      "x": 113.979,
+      "y": 95.739
+    },
+    {
+      "id": "R+2-266",
+      "type": "room",
+      "level": "R+2",
+      "x": 118.795,
+      "y": 89.371
+    },
+    {
+      "id": "R+2-268",
+      "type": "room",
+      "level": "R+2",
+      "x": 122.63,
+      "y": 92.847
+    },
+    {
+      "id": "R+2-290",
+      "type": "room",
+      "level": "R+2",
+      "x": 63.42,
+      "y": 105.131
+    },
+    {
+      "id": "R+2-306",
+      "type": "room",
+      "level": "R+2",
+      "x": 25.717,
+      "y": 109.18
+    },
+    {
+      "id": "R+2-390",
+      "type": "room",
+      "level": "R+2",
+      "x": 60.998,
+      "y": 108.01
+    },
+    {
+      "id": "R+2-C11",
+      "type": "room",
+      "level": "R+2",
+      "x": 30.889,
+      "y": 90.454
+    },
+    {
+      "id": "R+2-C12",
+      "type": "room",
+      "level": "R+2",
+      "x": 24.01,
+      "y": 86.785
+    },
+    {
+      "id": "R+2-C13",
+      "type": "room",
+      "level": "R+2",
+      "x": 19.167,
+      "y": 86.804
+    },
+    {
+      "id": "R+2-C14",
+      "type": "room",
+      "level": "R+2",
+      "x": 12.786,
+      "y": 86.767
+    },
+    {
+      "id": "R+2-C15",
+      "type": "room",
+      "level": "R+2",
+      "x": 11.018,
+      "y": 91.711
+    },
+    {
+      "id": "R+2-C16",
+      "type": "room",
+      "level": "R+2",
+      "x": 11.074,
+      "y": 97.245
+    },
+    {
+      "id": "R+2-C17",
+      "type": "room",
+      "level": "R+2",
+      "x": 17.435,
+      "y": 97.226
+    },
+    {
+      "id": "R+2-C18",
+      "type": "room",
+      "level": "R+2",
+      "x": 20.88,
+      "y": 97.166
+    },
+    {
+      "id": "R+2-C21",
+      "type": "room",
+      "level": "R+2",
+      "x": 18.455,
+      "y": 105.932
+    },
+    {
+      "id": "R+2-C22",
+      "type": "room",
+      "level": "R+2",
+      "x": 11.031,
+      "y": 107.374
+    },
+    {
+      "id": "R+2-C23",
+      "type": "room",
+      "level": "R+2",
+      "x": 11.105,
+      "y": 112.005
+    },
+    {
+      "id": "R+2-C24",
+      "type": "room",
+      "level": "R+2",
+      "x": 10.587,
+      "y": 117.984
+    },
+    {
+      "id": "R+2-C25",
+      "type": "room",
+      "level": "R+2",
+      "x": 18.601,
+      "y": 118.068
+    },
+    {
+      "id": "R+2-C3",
+      "type": "room",
+      "level": "R+2",
+      "x": 19.698,
+      "y": 63.762
+    },
+    {
+      "id": "R+2-C31",
+      "type": "room",
+      "level": "R+2",
+      "x": 29.512,
+      "y": 117.497
+    },
+    {
+      "id": "R+2-C32",
+      "type": "room",
+      "level": "R+2",
+      "x": 34.006,
+      "y": 117.545
+    },
+    {
+      "id": "R+2-C33",
+      "type": "room",
+      "level": "R+2",
+      "x": 39.225,
+      "y": 117.527
+    },
+    {
+      "id": "R+2-C34",
+      "type": "room",
+      "level": "R+2",
+      "x": 52.583,
+      "y": 117.598
+    },
+    {
+      "id": "R+2-C35",
+      "type": "room",
+      "level": "R+2",
+      "x": 44.164,
+      "y": 108.45
+    },
+    {
+      "id": "R+2-C36",
+      "type": "room",
+      "level": "R+2",
+      "x": 54.304,
+      "y": 106.26
+    },
+    {
+      "id": "R+2-C42",
+      "type": "room",
+      "level": "R+2",
+      "x": 75.31,
+      "y": 117.563
+    },
+    {
+      "id": "R+2-C43",
+      "type": "room",
+      "level": "R+2",
+      "x": 80.523,
+      "y": 117.529
+    },
+    {
+      "id": "R+2-C44",
+      "type": "room",
+      "level": "R+2",
+      "x": 92.604,
+      "y": 105.754
+    },
+    {
+      "id": "R+2-C45",
+      "type": "room",
+      "level": "R+2",
+      "x": 88.026,
+      "y": 117.492
+    },
+    {
+      "id": "R+2-C46",
+      "type": "room",
+      "level": "R+2",
+      "x": 95.269,
+      "y": 117.473
+    },
+    {
+      "id": "R+2-C47",
+      "type": "room",
+      "level": "R+2",
+      "x": 99.781,
+      "y": 114.313
+    },
+    {
+      "id": "R+2-C48",
+      "type": "room",
+      "level": "R+2",
+      "x": 99.923,
+      "y": 117.483
+    },
+    {
+      "id": "R+2-C49",
+      "type": "room",
+      "level": "R+2",
+      "x": 103.184,
+      "y": 117.356
+    },
+    {
+      "id": "R+2-C52",
+      "type": "room",
+      "level": "R+2",
+      "x": 105.289,
+      "y": 106.646
+    },
+    {
+      "id": "R+2-C53",
+      "type": "room",
+      "level": "R+2",
+      "x": 120.347,
+      "y": 112.371
+    },
+    {
+      "id": "R+2-C54",
+      "type": "room",
+      "level": "R+2",
+      "x": 111.436,
+      "y": 105.715
+    },
+    {
+      "id": "R+2-C55",
+      "type": "room",
+      "level": "R+2",
+      "x": 114.611,
+      "y": 102.756
+    },
+    {
+      "id": "R+2-C56",
+      "type": "room",
+      "level": "R+2",
+      "x": 117.219,
+      "y": 100.477
+    },
+    {
+      "id": "R+2-C57",
+      "type": "room",
+      "level": "R+2",
+      "x": 126.632,
+      "y": 101.605
+    },
+    {
+      "id": "R+2-C58",
+      "type": "room",
+      "level": "R+2",
+      "x": 124.314,
+      "y": 100.652
+    },
+    {
+      "id": "R+2-C59",
+      "type": "room",
+      "level": "R+2",
+      "x": 126.549,
+      "y": 97.916
+    },
+    {
+      "id": "R+2-C6",
+      "type": "room",
+      "level": "R+2",
+      "x": 10.724,
+      "y": 60.419
+    },
+    {
+      "id": "R+2-accueil",
+      "type": "room",
+      "level": "R+2",
+      "x": 62.455,
+      "y": 115.634
+    },
+    {
+      "id": "R+2-archives-rh",
+      "type": "room",
+      "level": "R+2",
+      "x": 102.147,
+      "y": 8.844
+    },
+    {
+      "id": "R+2-data-center",
+      "type": "room",
+      "level": "R+2",
+      "x": 67.462,
+      "y": 100.069
+    },
+    {
+      "id": "R+2-douche",
+      "type": "room",
+      "level": "R+2",
+      "x": 100.099,
+      "y": 110.331
+    },
+    {
+      "id": "R+2-douche-2",
+      "type": "room",
+      "level": "R+2",
+      "x": 101.857,
+      "y": 110.322
+    },
+    {
+      "id": "R+2-douche-pmr",
+      "type": "room",
+      "level": "R+2",
+      "x": 97.58,
+      "y": 110.162
+    },
+    {
+      "id": "R+2-issue-de-secours",
+      "type": "room",
+      "level": "R+2",
+      "x": 31.027,
+      "y": 69.806
+    },
+    {
+      "id": "R+2-lt",
+      "type": "room",
+      "level": "R+2",
+      "x": 25.194,
+      "y": 94.754
+    },
+    {
+      "id": "R+2-lt-c50",
+      "type": "room",
+      "level": "R+2",
+      "x": 103.439,
+      "y": 111.77
+    },
+    {
+      "id": "R+2-lt-c51",
+      "type": "room",
+      "level": "R+2",
+      "x": 104.099,
+      "y": 110.108
+    },
+    {
+      "id": "R+2-lt-reve",
+      "type": "room",
+      "level": "R+2",
+      "x": 64.262,
+      "y": 107.334
+    },
+    {
+      "id": "R+2-local-entretien",
+      "type": "room",
+      "level": "R+2",
+      "x": 24.227,
+      "y": 109.181
+    },
+    {
+      "id": "R+2-local-service-comptabilite",
+      "type": "room",
+      "level": "R+2",
+      "x": 96.048,
+      "y": 8.773
+    },
+    {
+      "id": "R+2-san-f",
+      "type": "room",
+      "level": "R+2",
+      "x": 45.865,
+      "y": 113.218
+    },
+    {
+      "id": "R+2-san-h",
+      "type": "room",
+      "level": "R+2",
+      "x": 45.837,
+      "y": 111.476
+    },
+    {
+      "id": "R+2-sanitaire-pmr",
+      "type": "room",
+      "level": "R+2",
+      "x": 66.335,
+      "y": 109.51
+    },
+    {
+      "id": "R+2-sanitaire-pmr-2",
+      "type": "room",
+      "level": "R+2",
+      "x": 109.051,
+      "y": 110.59
+    },
+    {
+      "id": "R+2-sanitaire-pmr-3",
+      "type": "room",
+      "level": "R+2",
+      "x": 12.172,
+      "y": 65.474
+    },
+    {
+      "id": "R+2-sanitaire-pmr-4",
+      "type": "room",
+      "level": "R+2",
+      "x": 12.121,
+      "y": 62.962
+    },
+    {
+      "id": "R+2-sanitaires-pmr",
+      "type": "room",
+      "level": "R+2",
+      "x": 25.786,
+      "y": 113.094
+    },
+    {
+      "id": "R+2-sanitaires-pmr-2",
+      "type": "room",
+      "level": "R+2",
+      "x": 25.786,
+      "y": 111.103
+    },
+    {
+      "id": "R+2-sas",
+      "type": "room",
+      "level": "R+2",
+      "x": 66.553,
+      "y": 105.713
+    },
+    {
+      "id": "R+2-sas-entree-sortie",
+      "type": "room",
+      "level": "R+2",
+      "x": 8.126,
+      "y": 70.655
+    },
+    {
+      "id": "stairs-main@RDC",
+      "type": "stairs",
+      "level": "RDC",
+      "x": 46.836,
+      "y": 20.738,
+      "accessible": false
+    },
+    {
+      "id": "stairs-main@R+1",
+      "type": "stairs",
+      "level": "R+1",
+      "x": 36.436,
+      "y": 22.053,
+      "accessible": false
+    },
+    {
+      "id": "stairs-main@R+2",
+      "type": "stairs",
+      "level": "R+2",
+      "x": 29.698,
+      "y": 63.762,
+      "accessible": false
+    },
+    {
+      "id": "lift-1@RDC",
+      "type": "lift",
+      "level": "RDC",
+      "x": 50,
+      "y": 18,
+      "accessible": true
+    },
+    {
+      "id": "lift-1@R+1",
+      "type": "lift",
+      "level": "R+1",
+      "x": 50,
+      "y": 28,
+      "accessible": true
+    },
+    {
+      "id": "lift-1@R+2",
+      "type": "lift",
+      "level": "R+2",
+      "x": 62.455,
+      "y": 109.634,
+      "accessible": true
+    },
+    {
+      "id": "hub-RDC-foyer",
+      "type": "corridor",
+      "level": "RDC",
+      "x": 46.836,
+      "y": 12.738
+    },
+    {
+      "id": "hub-R+1-core",
+      "type": "corridor",
+      "level": "R+1",
+      "x": 28,
+      "y": 30
+    },
+    {
+      "id": "hub-R+2-2xx",
+      "type": "corridor",
+      "level": "R+2",
+      "x": 100,
+      "y": 40
+    },
+    {
+      "id": "hub-R+2-cxx",
+      "type": "corridor",
+      "level": "R+2",
+      "x": 40,
+      "y": 100
+    }
+  ],
+  "edges": [
+    {
+      "a": "RDC-002B",
+      "b": "RDC-Amphi002",
+      "w": 9.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-002B",
+      "b": "RDC-003",
+      "w": 9.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-002B",
+      "b": "RDC-005",
+      "w": 10.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-002B",
+      "b": "hub-RDC-foyer",
+      "w": 24.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-003",
+      "b": "RDC-005",
+      "w": 3.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-003",
+      "b": "RDC-009",
+      "w": 4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-003",
+      "b": "RDC-008",
+      "w": 5.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-003",
+      "b": "hub-RDC-foyer",
+      "w": 29.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-005",
+      "b": "RDC-006",
+      "w": 3.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-005",
+      "b": "RDC-008",
+      "w": 4.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-005",
+      "b": "hub-RDC-foyer",
+      "w": 32.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-006",
+      "b": "RDC-008",
+      "w": 4.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-006",
+      "b": "RDC-007",
+      "w": 5.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-006",
+      "b": "hub-RDC-foyer",
+      "w": 36.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-007",
+      "b": "RDC-008",
+      "w": 8.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-007",
+      "b": "hub-RDC-foyer",
+      "w": 41.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-008",
+      "b": "RDC-009",
+      "w": 2.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-008",
+      "b": "hub-RDC-foyer",
+      "w": 34.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-009",
+      "b": "hub-RDC-foyer",
+      "w": 31.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-010",
+      "b": "RDC-012",
+      "w": 4.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-010",
+      "b": "RDC-013",
+      "w": 5.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-010",
+      "b": "RDC-011",
+      "w": 6.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-010",
+      "b": "hub-RDC-foyer",
+      "w": 27.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-011",
+      "b": "RDC-012",
+      "w": 3.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-011",
+      "b": "hub-RDC-foyer",
+      "w": 25.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-012",
+      "b": "RDC-013",
+      "w": 5.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-012",
+      "b": "hub-RDC-foyer",
+      "w": 23.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-013",
+      "b": "RDC-015",
+      "w": 6.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-013",
+      "b": "hub-RDC-foyer",
+      "w": 23.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-015",
+      "b": "RDC-016",
+      "w": 5.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-015",
+      "b": "RDC-020",
+      "w": 8.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-015",
+      "b": "hub-RDC-foyer",
+      "w": 19,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-016",
+      "b": "RDC-020",
+      "w": 3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-016",
+      "b": "RDC-019",
+      "w": 3.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-016",
+      "b": "RDC-021",
+      "w": 4.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-016",
+      "b": "hub-RDC-foyer",
+      "w": 16.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-017",
+      "b": "RDC-018",
+      "w": 2.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-017",
+      "b": "RDC-029",
+      "w": 3.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-017",
+      "b": "RDC-019",
+      "w": 4.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-017",
+      "b": "hub-RDC-foyer",
+      "w": 10.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-018",
+      "b": "RDC-019",
+      "w": 2.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-018",
+      "b": "RDC-020",
+      "w": 4.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-018",
+      "b": "hub-RDC-foyer",
+      "w": 12.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-019",
+      "b": "RDC-020",
+      "w": 2.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-019",
+      "b": "hub-RDC-foyer",
+      "w": 14.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-020",
+      "b": "RDC-021",
+      "w": 2.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-020",
+      "b": "hub-RDC-foyer",
+      "w": 16.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-021",
+      "b": "hub-RDC-foyer",
+      "w": 18.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-022",
+      "b": "RDC-023",
+      "w": 2.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-022",
+      "b": "RDC-024",
+      "w": 5.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-022",
+      "b": "hub-RDC-foyer",
+      "w": 19.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-023",
+      "b": "RDC-024",
+      "w": 2.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-023",
+      "b": "RDC-025",
+      "w": 5.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-023",
+      "b": "hub-RDC-foyer",
+      "w": 16.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-024",
+      "b": "RDC-025",
+      "w": 2.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-024",
+      "b": "hub-RDC-foyer",
+      "w": 14.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-025",
+      "b": "RDC-030",
+      "w": 4.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-025",
+      "b": "hub-RDC-foyer",
+      "w": 11.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-026",
+      "b": "RDC-029",
+      "w": 3.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-026",
+      "b": "RDC-030",
+      "w": 3.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-026",
+      "b": "hub-RDC-foyer",
+      "w": 6.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-027",
+      "b": "RDC-029",
+      "w": 3.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-027",
+      "b": "hub-RDC-foyer",
+      "w": 8.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-028",
+      "b": "RDC-035",
+      "w": 5.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-028",
+      "b": "RDC-031",
+      "w": 5.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-028",
+      "b": "hub-RDC-foyer",
+      "w": 0,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-029",
+      "b": "hub-RDC-foyer",
+      "w": 6.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-030",
+      "b": "hub-RDC-foyer",
+      "w": 8.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-031",
+      "b": "RDC-035",
+      "w": 3.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-031",
+      "b": "RDC-032",
+      "w": 7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-031",
+      "b": "hub-RDC-foyer",
+      "w": 5.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-032",
+      "b": "RDC-033",
+      "w": 3.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-032",
+      "b": "RDC-035",
+      "w": 3.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-032",
+      "b": "hub-RDC-foyer",
+      "w": 7.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-033",
+      "b": "RDC-035",
+      "w": 6.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-033",
+      "b": "hub-RDC-foyer",
+      "w": 10,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-035",
+      "b": "hub-RDC-foyer",
+      "w": 5.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "RDC-Amphi002",
+      "b": "hub-RDC-foyer",
+      "w": 34.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-101",
+      "b": "R+1-139",
+      "w": 8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-101",
+      "b": "R+1-102",
+      "w": 8.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-101",
+      "b": "R+1-142",
+      "w": 13.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-101",
+      "b": "hub-R+1-core",
+      "w": 27.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-102",
+      "b": "R+1-103",
+      "w": 15.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-102",
+      "b": "R+1-139",
+      "w": 16.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-102",
+      "b": "hub-R+1-core",
+      "w": 32.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-103",
+      "b": "R+1-117",
+      "w": 11.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-103",
+      "b": "R+1-104",
+      "w": 13.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-103",
+      "b": "hub-R+1-core",
+      "w": 21.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-104",
+      "b": "R+1-105",
+      "w": 2.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-104",
+      "b": "R+1-106",
+      "w": 5.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-104",
+      "b": "R+1-107",
+      "w": 7.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-104",
+      "b": "hub-R+1-core",
+      "w": 25,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-105",
+      "b": "R+1-106",
+      "w": 2.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-105",
+      "b": "R+1-107",
+      "w": 5.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-105",
+      "b": "hub-R+1-core",
+      "w": 25.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-106",
+      "b": "R+1-107",
+      "w": 2.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-106",
+      "b": "R+1-108",
+      "w": 4.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-106",
+      "b": "hub-R+1-core",
+      "w": 26.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-107",
+      "b": "R+1-108",
+      "w": 2.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-107",
+      "b": "R+1-109",
+      "w": 5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-107",
+      "b": "hub-R+1-core",
+      "w": 27.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-108",
+      "b": "R+1-109",
+      "w": 2.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-108",
+      "b": "hub-R+1-core",
+      "w": 28.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-109",
+      "b": "R+1-110",
+      "w": 2.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-109",
+      "b": "hub-R+1-core",
+      "w": 29.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-110",
+      "b": "R+1-111",
+      "w": 2.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-110",
+      "b": "hub-R+1-core",
+      "w": 31.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-111",
+      "b": "R+1-112",
+      "w": 6.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-111",
+      "b": "hub-R+1-core",
+      "w": 33,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-112",
+      "b": "R+1-113",
+      "w": 2.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-112",
+      "b": "hub-R+1-core",
+      "w": 28,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-113",
+      "b": "R+1-114",
+      "w": 6.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-113",
+      "b": "hub-R+1-core",
+      "w": 26.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-114",
+      "b": "R+1-salle-des-enseignants",
+      "w": 3.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-114",
+      "b": "R+1-115",
+      "w": 4.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-114",
+      "b": "hub-R+1-core",
+      "w": 22.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-115",
+      "b": "R+1-salle-des-enseignants",
+      "w": 1.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-115",
+      "b": "R+1-117",
+      "w": 7.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-115",
+      "b": "hub-R+1-core",
+      "w": 19.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-117",
+      "b": "hub-R+1-core",
+      "w": 17.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-118",
+      "b": "R+1-119",
+      "w": 3.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-118",
+      "b": "R+1-120",
+      "w": 6.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-118",
+      "b": "R+1-128",
+      "w": 7.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-118",
+      "b": "hub-R+1-core",
+      "w": 21.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-119",
+      "b": "R+1-120",
+      "w": 2.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-119",
+      "b": "R+1-128",
+      "w": 5.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-119",
+      "b": "hub-R+1-core",
+      "w": 21.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-120",
+      "b": "R+1-128",
+      "w": 5.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-120",
+      "b": "R+1-121",
+      "w": 5.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-120",
+      "b": "hub-R+1-core",
+      "w": 21.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-121",
+      "b": "R+1-126",
+      "w": 8.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-121",
+      "b": "hub-R+1-core",
+      "w": 21.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-122",
+      "b": "R+1-125",
+      "w": 7.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-122",
+      "b": "R+1-126",
+      "w": 8.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-122",
+      "b": "hub-R+1-core",
+      "w": 21.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-123",
+      "b": "R+1-134",
+      "w": 5.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-123",
+      "b": "R+1-124",
+      "w": 5.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-123",
+      "b": "R+1-133",
+      "w": 7.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-123",
+      "b": "hub-R+1-core",
+      "w": 23.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-124",
+      "b": "R+1-132",
+      "w": 5.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-124",
+      "b": "R+1-133",
+      "w": 6.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-124",
+      "b": "hub-R+1-core",
+      "w": 18.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-125",
+      "b": "R+1-126",
+      "w": 7.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-125",
+      "b": "hub-R+1-core",
+      "w": 15,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-126",
+      "b": "R+1-128",
+      "w": 7.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-126",
+      "b": "hub-R+1-core",
+      "w": 14.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-127",
+      "b": "R+1-128",
+      "w": 5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-127",
+      "b": "hub-R+1-core",
+      "w": 13.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-128",
+      "b": "hub-R+1-core",
+      "w": 15.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-129",
+      "b": "R+1-130",
+      "w": 6.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-129",
+      "b": "R+1-138",
+      "w": 8.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-129",
+      "b": "R+1-137",
+      "w": 11.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-129",
+      "b": "hub-R+1-core",
+      "w": 5.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-130",
+      "b": "R+1-131",
+      "w": 12.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-130",
+      "b": "hub-R+1-core",
+      "w": 5.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-131",
+      "b": "R+1-132",
+      "w": 6.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-131",
+      "b": "R+1-137",
+      "w": 10.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-131",
+      "b": "hub-R+1-core",
+      "w": 7.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-132",
+      "b": "R+1-133",
+      "w": 8.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-132",
+      "b": "hub-R+1-core",
+      "w": 14,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-133",
+      "b": "R+1-134",
+      "w": 5.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-133",
+      "b": "hub-R+1-core",
+      "w": 22.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-134",
+      "b": "hub-R+1-core",
+      "w": 26.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-135",
+      "b": "R+1-148",
+      "w": 9.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-135",
+      "b": "R+1-136",
+      "w": 15.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-135",
+      "b": "hub-R+1-core",
+      "w": 27.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-136",
+      "b": "R+1-depot-pedagogique",
+      "w": 5.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-136",
+      "b": "R+1-137",
+      "w": 6.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-136",
+      "b": "R+1-150",
+      "w": 7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-136",
+      "b": "hub-R+1-core",
+      "w": 15.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-137",
+      "b": "R+1-depot-pedagogique",
+      "w": 8.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-137",
+      "b": "R+1-138",
+      "w": 9.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-137",
+      "b": "hub-R+1-core",
+      "w": 8.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-138",
+      "b": "R+1-140",
+      "w": 10.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-138",
+      "b": "hub-R+1-core",
+      "w": 11.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-139",
+      "b": "R+1-142",
+      "w": 5.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-139",
+      "b": "R+1-140",
+      "w": 7.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-139",
+      "b": "hub-R+1-core",
+      "w": 23.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-140",
+      "b": "R+1-142",
+      "w": 4.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-140",
+      "b": "R+1-150",
+      "w": 5.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-140",
+      "b": "R+1-141",
+      "w": 6.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-140",
+      "b": "hub-R+1-core",
+      "w": 20.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-141",
+      "b": "R+1-142",
+      "w": 5.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-141",
+      "b": "R+1-143",
+      "w": 5.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-141",
+      "b": "hub-R+1-core",
+      "w": 26,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-142",
+      "b": "hub-R+1-core",
+      "w": 24.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-143",
+      "b": "R+1-144",
+      "w": 3.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-143",
+      "b": "R+1-bureau",
+      "w": 7.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-143",
+      "b": "hub-R+1-core",
+      "w": 28.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-144",
+      "b": "R+1-bureau",
+      "w": 3.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-144",
+      "b": "R+1-146",
+      "w": 6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-144",
+      "b": "hub-R+1-core",
+      "w": 28.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-146",
+      "b": "R+1-bureau",
+      "w": 2.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-146",
+      "b": "R+1-148",
+      "w": 6.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-146",
+      "b": "hub-R+1-core",
+      "w": 32.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-148",
+      "b": "R+1-bureau",
+      "w": 7.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-148",
+      "b": "hub-R+1-core",
+      "w": 29.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-149",
+      "b": "R+1-150",
+      "w": 6.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-149",
+      "b": "R+1-depot-pedagogique",
+      "w": 7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-149",
+      "b": "hub-R+1-core",
+      "w": 22.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-150",
+      "b": "R+1-depot-pedagogique",
+      "w": 1.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-150",
+      "b": "hub-R+1-core",
+      "w": 18.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-bureau",
+      "b": "hub-R+1-core",
+      "w": 31.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-depot-pedagogique",
+      "b": "hub-R+1-core",
+      "w": 16.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+1-salle-des-enseignants",
+      "b": "hub-R+1-core",
+      "w": 20.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-201",
+      "b": "R+2-203",
+      "w": 7.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-201",
+      "b": "R+2-204",
+      "w": 8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-201",
+      "b": "R+2-202",
+      "w": 8.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-201",
+      "b": "hub-R+2-2xx",
+      "w": 37.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-202",
+      "b": "R+2-203",
+      "w": 3.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-202",
+      "b": "R+2-204",
+      "w": 6.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-202",
+      "b": "hub-R+2-2xx",
+      "w": 30.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-203",
+      "b": "R+2-204",
+      "w": 3.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-203",
+      "b": "hub-R+2-2xx",
+      "w": 33.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-204",
+      "b": "hub-R+2-2xx",
+      "w": 36.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-205",
+      "b": "R+2-archives-rh",
+      "w": 2.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-205",
+      "b": "R+2-local-service-comptabilite",
+      "w": 4.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-205",
+      "b": "R+2-207",
+      "w": 6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-205",
+      "b": "hub-R+2-2xx",
+      "w": 32.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-207",
+      "b": "R+2-local-service-comptabilite",
+      "w": 2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-207",
+      "b": "R+2-208",
+      "w": 4.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-207",
+      "b": "hub-R+2-2xx",
+      "w": 33.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-208",
+      "b": "R+2-209",
+      "w": 2.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-208",
+      "b": "R+2-local-service-comptabilite",
+      "w": 5.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-208",
+      "b": "hub-R+2-2xx",
+      "w": 34.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-209",
+      "b": "R+2-210",
+      "w": 3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-209",
+      "b": "R+2-211",
+      "w": 6.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-209",
+      "b": "hub-R+2-2xx",
+      "w": 35,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-210",
+      "b": "R+2-211",
+      "w": 3.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-210",
+      "b": "hub-R+2-2xx",
+      "w": 36.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-211",
+      "b": "R+2-212",
+      "w": 3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-211",
+      "b": "R+2-213",
+      "w": 6.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-211",
+      "b": "hub-R+2-2xx",
+      "w": 37.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-212",
+      "b": "R+2-213",
+      "w": 5.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-212",
+      "b": "hub-R+2-2xx",
+      "w": 39.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-213",
+      "b": "R+2-214",
+      "w": 2.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-213",
+      "b": "hub-R+2-2xx",
+      "w": 34,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-214",
+      "b": "R+2-217",
+      "w": 8.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-214",
+      "b": "hub-R+2-2xx",
+      "w": 31.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-216",
+      "b": "R+2-local-service-comptabilite",
+      "w": 5.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-216",
+      "b": "R+2-archives-rh",
+      "w": 8.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-216",
+      "b": "hub-R+2-2xx",
+      "w": 25.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-217",
+      "b": "R+2-218",
+      "w": 3.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-217",
+      "b": "R+2-219",
+      "w": 6.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-217",
+      "b": "hub-R+2-2xx",
+      "w": 26,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-218",
+      "b": "R+2-219",
+      "w": 3.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-218",
+      "b": "R+2-225",
+      "w": 8.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-218",
+      "b": "hub-R+2-2xx",
+      "w": 24.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-219",
+      "b": "R+2-220",
+      "w": 6.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-219",
+      "b": "hub-R+2-2xx",
+      "w": 22.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-220",
+      "b": "R+2-221",
+      "w": 6.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-220",
+      "b": "R+2-221bis",
+      "w": 9.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-220",
+      "b": "hub-R+2-2xx",
+      "w": 20.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-221",
+      "b": "R+2-221bis",
+      "w": 3.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-221",
+      "b": "R+2-222",
+      "w": 8.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-221",
+      "b": "hub-R+2-2xx",
+      "w": 18.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-221bis",
+      "b": "R+2-222",
+      "w": 5.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-221bis",
+      "b": "hub-R+2-2xx",
+      "w": 16.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-222",
+      "b": "R+2-223",
+      "w": 6.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-222",
+      "b": "hub-R+2-2xx",
+      "w": 15.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-223",
+      "b": "R+2-232",
+      "w": 8.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-223",
+      "b": "R+2-224",
+      "w": 8.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-223",
+      "b": "hub-R+2-2xx",
+      "w": 15.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-224",
+      "b": "R+2-231",
+      "w": 2.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-224",
+      "b": "R+2-230",
+      "w": 3.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-224",
+      "b": "R+2-229",
+      "w": 5.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-224",
+      "b": "hub-R+2-2xx",
+      "w": 8.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-225",
+      "b": "R+2-227",
+      "w": 8.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-225",
+      "b": "hub-R+2-2xx",
+      "w": 16.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-227",
+      "b": "R+2-228",
+      "w": 10.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-227",
+      "b": "R+2-235",
+      "w": 12.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-227",
+      "b": "hub-R+2-2xx",
+      "w": 12.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-228",
+      "b": "R+2-229",
+      "w": 5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-228",
+      "b": "R+2-230",
+      "w": 8.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-228",
+      "b": "hub-R+2-2xx",
+      "w": 2.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-229",
+      "b": "R+2-230",
+      "w": 3.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-229",
+      "b": "hub-R+2-2xx",
+      "w": 3.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-230",
+      "b": "R+2-231",
+      "w": 2.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-230",
+      "b": "hub-R+2-2xx",
+      "w": 6.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-231",
+      "b": "R+2-232",
+      "w": 4.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-231",
+      "b": "hub-R+2-2xx",
+      "w": 9.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-232",
+      "b": "hub-R+2-2xx",
+      "w": 13.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-234",
+      "b": "R+2-249",
+      "w": 8.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-234",
+      "b": "R+2-235",
+      "w": 9.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-234",
+      "b": "hub-R+2-2xx",
+      "w": 9.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-235",
+      "b": "R+2-236",
+      "w": 7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-235",
+      "b": "hub-R+2-2xx",
+      "w": 16.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-236",
+      "b": "R+2-237",
+      "w": 7.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-236",
+      "b": "R+2-249",
+      "w": 10.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-236",
+      "b": "hub-R+2-2xx",
+      "w": 21.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-237",
+      "b": "R+2-238",
+      "w": 7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-237",
+      "b": "R+2-239",
+      "w": 11.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-237",
+      "b": "hub-R+2-2xx",
+      "w": 27.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-238",
+      "b": "R+2-239",
+      "w": 4.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-238",
+      "b": "R+2-240",
+      "w": 8.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-238",
+      "b": "hub-R+2-2xx",
+      "w": 28,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-239",
+      "b": "R+2-240",
+      "w": 3.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-239",
+      "b": "R+2-248",
+      "w": 6.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-239",
+      "b": "hub-R+2-2xx",
+      "w": 27.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-240",
+      "b": "R+2-241",
+      "w": 3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-240",
+      "b": "R+2-242",
+      "w": 5.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-240",
+      "b": "hub-R+2-2xx",
+      "w": 27.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-241",
+      "b": "R+2-242",
+      "w": 2.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-241",
+      "b": "R+2-243",
+      "w": 6.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-241",
+      "b": "hub-R+2-2xx",
+      "w": 27.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-242",
+      "b": "R+2-243",
+      "w": 3.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-242",
+      "b": "hub-R+2-2xx",
+      "w": 28.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-243",
+      "b": "R+2-246",
+      "w": 7.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-243",
+      "b": "hub-R+2-2xx",
+      "w": 29.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-244",
+      "b": "R+2-245",
+      "w": 6.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-244",
+      "b": "R+2-246",
+      "w": 10.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-244",
+      "b": "hub-R+2-2xx",
+      "w": 30.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-245",
+      "b": "R+2-246",
+      "w": 3.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-245",
+      "b": "R+2-247",
+      "w": 6.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-245",
+      "b": "hub-R+2-2xx",
+      "w": 25.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-246",
+      "b": "R+2-247",
+      "w": 3.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-246",
+      "b": "hub-R+2-2xx",
+      "w": 23.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-247",
+      "b": "hub-R+2-2xx",
+      "w": 21.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-248",
+      "b": "R+2-249",
+      "w": 4.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-248",
+      "b": "hub-R+2-2xx",
+      "w": 21,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-249",
+      "b": "hub-R+2-2xx",
+      "w": 17.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250",
+      "b": "R+2-250A",
+      "w": 5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250",
+      "b": "R+2-250F",
+      "w": 6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250",
+      "b": "R+2-250E",
+      "w": 7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250",
+      "b": "hub-R+2-2xx",
+      "w": 31.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250A",
+      "b": "R+2-250B",
+      "w": 5.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250A",
+      "b": "R+2-250D",
+      "w": 6.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250A",
+      "b": "hub-R+2-2xx",
+      "w": 32.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250B",
+      "b": "R+2-250C",
+      "w": 5.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250B",
+      "b": "R+2-250D",
+      "w": 7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250B",
+      "b": "hub-R+2-2xx",
+      "w": 33.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250C",
+      "b": "R+2-250D",
+      "w": 3.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250C",
+      "b": "R+2-250E",
+      "w": 6.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250C",
+      "b": "hub-R+2-2xx",
+      "w": 28.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250D",
+      "b": "R+2-250E",
+      "w": 3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250D",
+      "b": "hub-R+2-2xx",
+      "w": 26.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250E",
+      "b": "R+2-250F",
+      "w": 3.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250E",
+      "b": "hub-R+2-2xx",
+      "w": 26,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-250F",
+      "b": "hub-R+2-2xx",
+      "w": 25.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-251",
+      "b": "R+2-258",
+      "w": 10.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-251",
+      "b": "hub-R+2-2xx",
+      "w": 38.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-253",
+      "b": "hub-R+2-2xx",
+      "w": 39.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-258",
+      "b": "R+2-263",
+      "w": 7.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-258",
+      "b": "hub-R+2-2xx",
+      "w": 45.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-263",
+      "b": "R+2-265",
+      "w": 11.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-263",
+      "b": "R+2-C52",
+      "w": 14.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-263",
+      "b": "hub-R+2-2xx",
+      "w": 52.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-265",
+      "b": "R+2-C56",
+      "w": 5.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-265",
+      "b": "R+2-C55",
+      "w": 7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-265",
+      "b": "R+2-266",
+      "w": 8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-265",
+      "b": "hub-R+2-2xx",
+      "w": 57.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-266",
+      "b": "R+2-268",
+      "w": 5.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-266",
+      "b": "R+2-C56",
+      "w": 11.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-266",
+      "b": "hub-R+2-2xx",
+      "w": 52.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-268",
+      "b": "R+2-C59",
+      "w": 6.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-268",
+      "b": "R+2-C58",
+      "w": 8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-268",
+      "b": "hub-R+2-2xx",
+      "w": 57.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-290",
+      "b": "R+2-lt-reve",
+      "w": 2.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-290",
+      "b": "R+2-sas",
+      "w": 3.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-290",
+      "b": "R+2-390",
+      "w": 3.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-290",
+      "b": "hub-R+2-cxx",
+      "w": 24,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-306",
+      "b": "R+2-local-entretien",
+      "w": 1.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-306",
+      "b": "R+2-sanitaires-pmr-2",
+      "w": 1.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-306",
+      "b": "R+2-sanitaires-pmr",
+      "w": 3.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-306",
+      "b": "hub-R+2-cxx",
+      "w": 17,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-390",
+      "b": "R+2-lt-reve",
+      "w": 3.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-390",
+      "b": "R+2-sanitaire-pmr",
+      "w": 5.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-390",
+      "b": "hub-R+2-cxx",
+      "w": 22.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C11",
+      "b": "R+2-lt",
+      "w": 7.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C11",
+      "b": "R+2-C12",
+      "w": 7.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C11",
+      "b": "R+2-C18",
+      "w": 12.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C11",
+      "b": "hub-R+2-cxx",
+      "w": 13.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C12",
+      "b": "R+2-C13",
+      "w": 4.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C12",
+      "b": "R+2-lt",
+      "w": 8.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C12",
+      "b": "hub-R+2-cxx",
+      "w": 20.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C13",
+      "b": "R+2-C14",
+      "w": 6.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C13",
+      "b": "R+2-C15",
+      "w": 9.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C13",
+      "b": "hub-R+2-cxx",
+      "w": 24.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C14",
+      "b": "R+2-C15",
+      "w": 5.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C14",
+      "b": "R+2-C16",
+      "w": 10.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C14",
+      "b": "hub-R+2-cxx",
+      "w": 30.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C15",
+      "b": "R+2-C16",
+      "w": 5.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C15",
+      "b": "R+2-C17",
+      "w": 8.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C15",
+      "b": "hub-R+2-cxx",
+      "w": 30.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C16",
+      "b": "R+2-C17",
+      "w": 6.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C16",
+      "b": "R+2-C18",
+      "w": 9.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C16",
+      "b": "hub-R+2-cxx",
+      "w": 29.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C17",
+      "b": "R+2-C18",
+      "w": 3.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C17",
+      "b": "R+2-lt",
+      "w": 8.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C17",
+      "b": "hub-R+2-cxx",
+      "w": 22.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C18",
+      "b": "R+2-lt",
+      "w": 4.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C18",
+      "b": "R+2-C21",
+      "w": 9.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C18",
+      "b": "hub-R+2-cxx",
+      "w": 19.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C21",
+      "b": "R+2-local-entretien",
+      "w": 6.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C21",
+      "b": "R+2-C22",
+      "w": 7.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C21",
+      "b": "hub-R+2-cxx",
+      "w": 22.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C22",
+      "b": "R+2-C23",
+      "w": 4.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C22",
+      "b": "hub-R+2-cxx",
+      "w": 29.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C23",
+      "b": "R+2-C24",
+      "w": 6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C23",
+      "b": "hub-R+2-cxx",
+      "w": 31.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C24",
+      "b": "R+2-C25",
+      "w": 8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C24",
+      "b": "hub-R+2-cxx",
+      "w": 34.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C25",
+      "b": "R+2-sanitaires-pmr",
+      "w": 8.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C25",
+      "b": "hub-R+2-cxx",
+      "w": 28,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C3",
+      "b": "R+2-sanitaire-pmr-4",
+      "w": 7.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C3",
+      "b": "R+2-sanitaire-pmr-3",
+      "w": 7.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C3",
+      "b": "R+2-C6",
+      "w": 9.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C3",
+      "b": "hub-R+2-cxx",
+      "w": 41.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C31",
+      "b": "R+2-C32",
+      "w": 4.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C31",
+      "b": "R+2-sanitaires-pmr",
+      "w": 5.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C31",
+      "b": "R+2-sanitaires-pmr-2",
+      "w": 7.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C31",
+      "b": "hub-R+2-cxx",
+      "w": 20.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C32",
+      "b": "R+2-C33",
+      "w": 5.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C32",
+      "b": "R+2-sanitaires-pmr",
+      "w": 9.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C32",
+      "b": "hub-R+2-cxx",
+      "w": 18.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C33",
+      "b": "R+2-san-f",
+      "w": 7.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C33",
+      "b": "R+2-san-h",
+      "w": 9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C33",
+      "b": "hub-R+2-cxx",
+      "w": 17.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C34",
+      "b": "R+2-san-f",
+      "w": 8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C34",
+      "b": "R+2-san-h",
+      "w": 9.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C34",
+      "b": "R+2-accueil",
+      "w": 10.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C34",
+      "b": "hub-R+2-cxx",
+      "w": 21.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C35",
+      "b": "R+2-san-h",
+      "w": 3.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C35",
+      "b": "R+2-san-f",
+      "w": 5.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C35",
+      "b": "hub-R+2-cxx",
+      "w": 9.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C36",
+      "b": "R+2-san-h",
+      "w": 9.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C36",
+      "b": "hub-R+2-cxx",
+      "w": 15.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C42",
+      "b": "R+2-C43",
+      "w": 5.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C42",
+      "b": "R+2-sanitaire-pmr",
+      "w": 12.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C42",
+      "b": "R+2-C45",
+      "w": 12.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C42",
+      "b": "hub-R+2-cxx",
+      "w": 39.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C43",
+      "b": "R+2-C45",
+      "w": 7.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C43",
+      "b": "R+2-C46",
+      "w": 14.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C43",
+      "b": "hub-R+2-cxx",
+      "w": 44.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C44",
+      "b": "R+2-douche-pmr",
+      "w": 6.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C44",
+      "b": "R+2-douche",
+      "w": 8.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C44",
+      "b": "R+2-douche-2",
+      "w": 10.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C44",
+      "b": "hub-R+2-cxx",
+      "w": 52.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C45",
+      "b": "R+2-C46",
+      "w": 7.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C45",
+      "b": "R+2-C48",
+      "w": 11.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C45",
+      "b": "hub-R+2-cxx",
+      "w": 51.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C46",
+      "b": "R+2-C48",
+      "w": 4.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C46",
+      "b": "R+2-C47",
+      "w": 5.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C46",
+      "b": "hub-R+2-cxx",
+      "w": 58,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C47",
+      "b": "R+2-C48",
+      "w": 3.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C47",
+      "b": "R+2-douche",
+      "w": 4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C47",
+      "b": "R+2-lt-c50",
+      "w": 4.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C47",
+      "b": "hub-R+2-cxx",
+      "w": 61.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C48",
+      "b": "R+2-C49",
+      "w": 3.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C48",
+      "b": "hub-R+2-cxx",
+      "w": 62.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C49",
+      "b": "R+2-lt-c50",
+      "w": 5.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C49",
+      "b": "hub-R+2-cxx",
+      "w": 65.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C52",
+      "b": "R+2-lt-c51",
+      "w": 3.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C52",
+      "b": "R+2-douche-2",
+      "w": 5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C52",
+      "b": "R+2-lt-c50",
+      "w": 5.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C52",
+      "b": "hub-R+2-cxx",
+      "w": 65.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C53",
+      "b": "R+2-C54",
+      "w": 11.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C53",
+      "b": "R+2-C55",
+      "w": 11.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C53",
+      "b": "R+2-sanitaire-pmr-2",
+      "w": 11.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C53",
+      "b": "hub-R+2-2xx",
+      "w": 75.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C54",
+      "b": "R+2-C55",
+      "w": 4.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C54",
+      "b": "R+2-sanitaire-pmr-2",
+      "w": 5.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C54",
+      "b": "hub-R+2-2xx",
+      "w": 66.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C55",
+      "b": "R+2-C56",
+      "w": 3.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C55",
+      "b": "hub-R+2-2xx",
+      "w": 64.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C56",
+      "b": "R+2-C58",
+      "w": 7.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C56",
+      "b": "hub-R+2-2xx",
+      "w": 62.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C57",
+      "b": "R+2-C58",
+      "w": 2.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C57",
+      "b": "R+2-C59",
+      "w": 3.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C57",
+      "b": "hub-R+2-2xx",
+      "w": 67.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C58",
+      "b": "R+2-C59",
+      "w": 3.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C58",
+      "b": "hub-R+2-2xx",
+      "w": 65.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C59",
+      "b": "hub-R+2-2xx",
+      "w": 63.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C6",
+      "b": "R+2-sanitaire-pmr-4",
+      "w": 2.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C6",
+      "b": "R+2-sanitaire-pmr-3",
+      "w": 5.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-C6",
+      "b": "hub-R+2-cxx",
+      "w": 49.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-accueil",
+      "b": "R+2-sanitaire-pmr",
+      "w": 7.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-accueil",
+      "b": "R+2-lt-reve",
+      "w": 8.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-accueil",
+      "b": "hub-R+2-cxx",
+      "w": 27.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-archives-rh",
+      "b": "R+2-local-service-comptabilite",
+      "w": 6.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-archives-rh",
+      "b": "hub-R+2-2xx",
+      "w": 31.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-data-center",
+      "b": "R+2-sas",
+      "w": 5.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-data-center",
+      "b": "R+2-lt-reve",
+      "w": 7.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-data-center",
+      "b": "hub-R+2-cxx",
+      "w": 27.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-douche",
+      "b": "R+2-douche-2",
+      "w": 1.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-douche",
+      "b": "R+2-douche-pmr",
+      "w": 2.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-douche",
+      "b": "R+2-lt-c50",
+      "w": 3.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-douche",
+      "b": "hub-R+2-cxx",
+      "w": 61,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-douche-2",
+      "b": "R+2-lt-c50",
+      "w": 2.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-douche-2",
+      "b": "R+2-lt-c51",
+      "w": 2.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-douche-2",
+      "b": "hub-R+2-cxx",
+      "w": 62.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-douche-pmr",
+      "b": "hub-R+2-cxx",
+      "w": 58.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-issue-de-secours",
+      "b": "R+2-sanitaire-pmr-3",
+      "w": 19.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-issue-de-secours",
+      "b": "hub-R+2-cxx",
+      "w": 31.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-lt",
+      "b": "hub-R+2-cxx",
+      "w": 15.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-lt-c50",
+      "b": "R+2-lt-c51",
+      "w": 1.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-lt-c50",
+      "b": "hub-R+2-cxx",
+      "w": 64.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-lt-c51",
+      "b": "hub-R+2-cxx",
+      "w": 64.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-lt-reve",
+      "b": "R+2-sas",
+      "w": 2.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-lt-reve",
+      "b": "R+2-sanitaire-pmr",
+      "w": 3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-lt-reve",
+      "b": "hub-R+2-cxx",
+      "w": 25.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-local-entretien",
+      "b": "R+2-sanitaires-pmr-2",
+      "w": 2.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-local-entretien",
+      "b": "R+2-sanitaires-pmr",
+      "w": 4.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-local-entretien",
+      "b": "hub-R+2-cxx",
+      "w": 18.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-local-service-comptabilite",
+      "b": "hub-R+2-2xx",
+      "w": 31.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-san-f",
+      "b": "R+2-san-h",
+      "w": 1.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-san-f",
+      "b": "hub-R+2-cxx",
+      "w": 14.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-san-h",
+      "b": "hub-R+2-cxx",
+      "w": 12.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-sanitaire-pmr",
+      "b": "R+2-sas",
+      "w": 3.8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-sanitaire-pmr",
+      "b": "hub-R+2-cxx",
+      "w": 28,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-sanitaire-pmr-2",
+      "b": "hub-R+2-cxx",
+      "w": 69.9,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-sanitaire-pmr-3",
+      "b": "R+2-sanitaire-pmr-4",
+      "w": 2.5,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-sanitaire-pmr-3",
+      "b": "R+2-sas-entree-sortie",
+      "w": 6.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-sanitaire-pmr-3",
+      "b": "hub-R+2-cxx",
+      "w": 44.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-sanitaire-pmr-4",
+      "b": "hub-R+2-cxx",
+      "w": 46.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-sanitaires-pmr",
+      "b": "R+2-sanitaires-pmr-2",
+      "w": 2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-sanitaires-pmr",
+      "b": "hub-R+2-cxx",
+      "w": 19.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-sanitaires-pmr-2",
+      "b": "hub-R+2-cxx",
+      "w": 18,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-sas",
+      "b": "hub-R+2-cxx",
+      "w": 27.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "R+2-sas-entree-sortie",
+      "b": "hub-R+2-cxx",
+      "w": 43.3,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "hub-RDC-foyer",
+      "b": "stairs-main@RDC",
+      "w": 8,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "hub-RDC-foyer",
+      "b": "lift-1@RDC",
+      "w": 6.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "hub-R+1-core",
+      "b": "stairs-main@R+1",
+      "w": 11.6,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "hub-R+1-core",
+      "b": "lift-1@R+1",
+      "w": 22.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "hub-R+2-2xx",
+      "b": "stairs-main@R+2",
+      "w": 74.2,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "hub-R+2-2xx",
+      "b": "lift-1@R+2",
+      "w": 79.1,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "hub-R+2-cxx",
+      "b": "stairs-main@R+2",
+      "w": 37.7,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "hub-R+2-cxx",
+      "b": "lift-1@R+2",
+      "w": 24.4,
+      "accessible": true,
+      "kind": "walk"
+    },
+    {
+      "a": "stairs-main@RDC",
+      "b": "stairs-main@R+1",
+      "w": 20,
+      "accessible": false,
+      "kind": "stairs"
+    },
+    {
+      "a": "stairs-main@R+1",
+      "b": "stairs-main@R+2",
+      "w": 20,
+      "accessible": false,
+      "kind": "stairs"
+    },
+    {
+      "a": "lift-1@RDC",
+      "b": "lift-1@R+1",
+      "w": 23,
+      "accessible": true,
+      "kind": "lift"
+    },
+    {
+      "a": "lift-1@R+1",
+      "b": "lift-1@R+2",
+      "w": 23,
+      "accessible": true,
+      "kind": "lift"
+    }
+  ],
+  "walking_m_s": 1.2
+}

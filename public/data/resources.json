@@ -1,0 +1,16 @@
+[
+  {
+    "id": "site",
+    "label_fr": "Site de l’ensIIE",
+    "label_en": "ensIIE website",
+    "href": "https://www.ensiie.fr",
+    "official": true
+  },
+  {
+    "id": "note",
+    "label_fr": "Autres ressources numériques : à valider avec le référent",
+    "label_en": "Other digital resources: confirm with the referent",
+    "href": null,
+    "official": false
+  }
+]
