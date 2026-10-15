@@ -6,6 +6,7 @@ import { buildStairs,stairPath,pathPosition,stairProgress } from '../stairs.js';
 import { cutOpenings,roomAt } from '../openings.js';
 import { TYPE_LABEL } from '../i18n.js';
 import { mergeGeometry } from '../drawnGeometry.js';
+import {dampFactor,dampAngle,cameraFraction} from '../motion.js';
 import groundPlan from '../../plan_RDC.png';
 import firstPlan from '../../plan_R+1.png';
 import secondPlan from '../../plan_R+2.png';
@@ -31,12 +32,12 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
       if(disposed)return;
       const merged=mergeGeometry(data,doorData,geometry);data=merged.walls;doorData=merged.doors;
       try{renderer=new THREE.WebGLRenderer({antialias:true});}catch{setError('webgl');return;}
-      renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.outputColorSpace=THREE.SRGBColorSpace;el.appendChild(renderer.domElement);
+      renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.25));renderer.outputColorSpace=THREE.SRGBColorSpace;el.appendChild(renderer.domElement);
       const scene=new THREE.Scene();scene.background=new THREE.Color('#cbdce9');scene.fog=new THREE.Fog('#cbdce9',65,170);
       const camera=new THREE.PerspectiveCamera(72,1,.07,400);camera.rotation.order='YXZ';
       scene.add(new THREE.HemisphereLight(0xffffff,0xbac5cc,2.4));
       const sun=new THREE.DirectionalLight(0xffffff,2);sun.position.set(20,80,50);scene.add(sun);
-      const groups={},maps={},textures=[];
+      const groups={},maps={},cameraMaps={},textures=[];
       const levels=props.current.floors.levels;
       const elevation=lv=>LEVELS.indexOf(lv)*3.2;
       const toWorld=(lv,p)=>{const [x,y]=worldPoint(props.current.floors,lv,...p,true);return new THREE.Vector3(x,elevation(lv)+.3,-y);};
@@ -77,7 +78,7 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
         const meta=levels[lv],doors=doorData[lv]||[];
         const openings=doors.map(d=>({a:d.hinge,b:d.end,width:.45}));
         for(const r of stairRecords.filter(r=>r.lower===lv||r.upper===lv))openings.push({a:toLocal(lv,r.path[0]),b:toLocal(lv,r.path[1]),width:1.85});
-        const segments=cutOpenings(data[lv]||[],openings);maps[lv]=collisionMap(segments,meta.size,.25,(x,y)=>stairRecords.some(r=>{
+        const segments=cutOpenings(data[lv]||[],openings);cameraMaps[lv]=collisionMap(segments,meta.size,.18);maps[lv]=collisionMap(segments,meta.size,.25,(x,y)=>stairRecords.some(r=>{
           if(r.upper!==lv)return false;const t=stairProgress(r.path,toWorld(lv,[x,y]),1.12);return t!==null&&t>.02&&t<.98;
         }));
         const group=new THREE.Group();groups[lv]=group;scene.add(group);
@@ -119,7 +120,7 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
           }
           const plaque=sign(`${room.number||room.designation_plan}`,Math.max(1.65,door.width),.58,ROOM_COLORS[room.type]||floorColors[lv],room.designation_plan,`${TYPE_LABEL[props.current.lang][room.type]||''} · ${lv}`);plaque.position.set(door.width/2,2.5,0);frame.add(plaque);
           const normal=toWorld(lv,[door.hinge[0]+door.normal[0],door.hinge[1]+door.normal[1]]).sub(a);
-          doorLeaves.push({pivot:leafPivot,center:toWorld(lv,door.center),floor:lv,angle:-Math.sign(normal.x*Math.sin(theta)+normal.z*Math.cos(theta))*Math.PI/2});
+          doorLeaves.push({frame,room,pivot:leafPivot,center:toWorld(lv,door.center),floor:lv,angle:-Math.sign(normal.x*Math.sin(theta)+normal.z*Math.cos(theta))*Math.PI/2});
         }
       }
       const stairs=new THREE.Group();scene.add(stairs);
@@ -144,14 +145,14 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
         const pivot=new THREE.Group();pivot.position.set(side*(arm?.29:.12),arm?1.22:.74,0);
         const limb=new THREE.Mesh(new THREE.CapsuleGeometry(arm?.065:.085,arm?.36:.48,4,8),arm?avatarMat:new THREE.MeshStandardMaterial({color:'#263a4e'}));limb.position.y=arm?-.22:-.32;pivot.add(limb);avatar.add(pivot);limbs.push({pivot,side,arm});
       }
-      const cameraRay=new THREE.Raycaster(),previousPosition=new THREE.Vector3();let stride=0;
+      const previousPosition=new THREE.Vector3(),visualPosition=new THREE.Vector3();let stride=0,viewYaw=0,viewPitch=0,viewReady=false,visibilityTime=0;
       const targetMarker=new THREE.Mesh(new THREE.TorusGeometry(.35,.06,8,24),new THREE.MeshBasicMaterial({color:'#e69528'}));targetMarker.rotation.x=Math.PI/2;targetMarker.visible=false;scene.add(targetMarker);
       let floor=props.current.selected?.level||'RDC',position=new THREE.Vector3(),yaw=0,pitch=0,path=[],journey=null,onStair=null,pendingStair=null,last=performance.now(),hudTime=0;
       const keys=new Set();
-      function showFloors(){for(const lv of LEVELS)groups[lv].visible=true;}
+      function showFloors(other){for(const lv of LEVELS)groups[lv].visible=lv===floor||lv===other;}
       function place(lv,p){
         const safe=safePosition(maps[lv],p);if(!safe){setMessage(props.current.lang==='fr'?'Position trop proche des murs. Choisissez un autre point.':'Position too close to walls. Choose another point.');return;}
-        floor=lv;position.copy(toWorld(lv,safe));keys.clear();path=[];journey=null;onStair=null;pendingStair=null;setBusy(false);targetMarker.visible=false;showFloors();props.current.onFloorChange?.(floor);hudTime=0;
+        floor=lv;position.copy(toWorld(lv,safe));viewReady=false;visibilityTime=0;keys.clear();path=[];journey=null;onStair=null;pendingStair=null;setBusy(false);targetMarker.visible=false;showFloors();props.current.onFloorChange?.(floor);hudTime=0;
       }
       const initial=props.current.selected?.centroid||props.current.links[0]?.points.find(p=>p.level===floor);
       place(floor,Array.isArray(initial)?initial:initial?[initial.x,initial.y]:levels[floor].size.map(v=>v/2));
@@ -242,24 +243,25 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
         }
         if(pendingStair&&!path.length&&!journey){const pending=pendingStair;pendingStair=null;travel(pending.linkId,pending.to);}
         const moved=position.distanceTo(previousPosition);previousPosition.copy(position);if(moved<.5)stride+=moved*7;
-        avatar.visible=thirdPerson.current;avatar.position.copy(position);avatar.rotation.y=yaw;
+        if(!viewReady){visualPosition.copy(position);viewYaw=yaw;viewPitch=pitch;viewReady=true;}
+        visualPosition.lerp(position,dampFactor(22,dt));viewYaw=dampAngle(viewYaw,yaw,20,dt);viewPitch+=(pitch-viewPitch)*dampFactor(20,dt);
+        avatar.visible=thirdPerson.current;avatar.position.copy(visualPosition);avatar.rotation.y=viewYaw;
         for(const limb of limbs)limb.pivot.rotation.x=moved>.001&&moved<.5?Math.sin(stride)*.48*limb.side*(limb.arm?-1:1):0;
         if(thirdPerson.current){
-          const target=position.clone().add(new THREE.Vector3(0,1.4,0));
-          const offset=new THREE.Vector3(Math.sin(yaw)*2.7,THREE.MathUtils.clamp(.6+Math.sin(-pitch)*1.1,.1,1.1),Math.cos(yaw)*2.7);
-          cameraRay.set(target,offset.clone().normalize());cameraRay.far=offset.length();
-          const obstruction=cameraRay.intersectObjects(groups[floor].children,true).find(h=>h.object.userData.cameraObstacle);
-          const distance=obstruction?Math.max(.12,obstruction.distance-.22):offset.length();
-          camera.position.copy(target).addScaledVector(offset.normalize(),distance);avatar.visible=distance>.65;
-          camera.lookAt(target.clone().add(new THREE.Vector3(-Math.sin(yaw)*1.2,0,-Math.cos(yaw)*1.2)));
-        }else{camera.position.copy(position).add(new THREE.Vector3(0,1.65,0));camera.rotation.set(pitch,yaw,0,'YXZ');}
+          const target=visualPosition.clone().add(new THREE.Vector3(0,1.4,0));
+          const offset=new THREE.Vector3(Math.sin(viewYaw)*2.7,THREE.MathUtils.clamp(.6+Math.sin(-viewPitch)*1.1,.1,1.1),Math.cos(viewYaw)*2.7);
+          const fraction=cameraFraction(cameraMaps[floor],toLocal(floor,position),toLocal(floor,target.clone().add(offset)));
+          camera.position.copy(target).addScaledVector(offset,fraction);avatar.visible=fraction*offset.length()>.65;
+          camera.lookAt(target.clone().add(new THREE.Vector3(-Math.sin(viewYaw)*1.2,0,-Math.cos(viewYaw)*1.2)));
+        }else{camera.position.copy(visualPosition).add(new THREE.Vector3(0,1.65,0));camera.rotation.set(viewPitch,viewYaw,0,'YXZ');}
+        if(now-visibilityTime>120){visibilityTime=now;for(const door of doorLeaves)door.frame.visible=groups[door.floor].visible&&door.center.distanceToSquared(position)<32*32;}
         if(now-hudTime>250){hudTime=now;const p=toLocal(floor,position),near=nearestLink();const nearby=near&&Math.hypot(p[0]-near.p.x,p[1]-near.p.y)<4?near.link.id:null;
           const room=roomAt(p,props.current.rooms.filter(r=>r.level===floor));
-          const closest=(doorData[floor]||[]).map(d=>({door:d,distance:toWorld(floor,d.center).distanceTo(position)})).sort((a,b)=>a.distance-b.distance)[0];
-          const nearRoom=closest&&closest.distance<6?props.current.rooms.find(r=>r.id===closest.door.roomId):null;
+          let closest=null;for(const door of doorLeaves){if(door.floor!==floor)continue;const distance=door.center.distanceTo(position);if(!closest||distance<closest.distance)closest={door,distance};}
+          const nearRoom=closest&&closest.distance<6?closest.door.room:null;
           setHud({floor,x:p[0],y:p[1],nearby,yaw,room:room?roomName(room,props.current.lang):null,detail:room||nearRoom,inside:!!room,doorDistance:closest?.distance,onStair:!!onStair});
         }
-        for(const door of doorLeaves){const close=door.floor===floor&&position.distanceTo(door.center)<2.4;door.pivot.rotation.y=THREE.MathUtils.lerp(door.pivot.rotation.y,close?door.angle:0,Math.min(1,dt*5));}
+        for(const door of doorLeaves){if(!door.frame.visible)continue;const close=door.floor===floor&&position.distanceToSquared(door.center)<2.4*2.4;door.pivot.rotation.y=THREE.MathUtils.lerp(door.pivot.rotation.y,close?door.angle:0,dampFactor(5,dt));}
         renderer.render(scene,camera);raf=requestAnimationFrame(update);
       }raf=requestAnimationFrame(update);
       cleanup=()=>{observer.disconnect();canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('keydown',keydown);window.removeEventListener('keyup',keyup);window.removeEventListener('blur',blur);scene.traverse(o=>{o.geometry?.dispose();if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.dispose());});textures.forEach(t=>t.dispose());};
