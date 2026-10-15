@@ -1,5 +1,6 @@
 {
   "source": "Project geometry and calibrated stair landings; no inferred wall crossings",
+  "scope": "Origin-to-room checks in both directions, not all room pairs or on-site validation",
   "floors": {
     "RDC": {
       "origin": "RDC-011",
@@ -15,6 +16,179 @@
         "RDC-023",
         "RDC-024",
         "RDC-025"
+      ],
+      "diagnostics": [
+        {
+          "roomId": "RDC-017",
+          "centroid": [
+            45.162,
+            22.843
+          ],
+          "anchor": [
+            48.5,
+            23.241470336914062
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "RDC-018",
+          "centroid": [
+            45.137,
+            24.943
+          ],
+          "anchor": [
+            45.537,
+            24.943
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "RDC-019",
+          "centroid": [
+            45.179,
+            26.996
+          ],
+          "anchor": [
+            45.579,
+            26.996
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "RDC-020",
+          "centroid": [
+            45.179,
+            29.228
+          ],
+          "anchor": [
+            45.579,
+            29.228
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "RDC-021",
+          "centroid": [
+            46.1,
+            31.606
+          ],
+          "anchor": [
+            46.1,
+            31.606
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "RDC-022",
+          "centroid": [
+            50.897,
+            31.642
+          ],
+          "anchor": [
+            50.897,
+            31.642
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "RDC-023",
+          "centroid": [
+            50.93,
+            29.021
+          ],
+          "anchor": [
+            50.93,
+            29.021
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "RDC-024",
+          "centroid": [
+            50.82,
+            26.575
+          ],
+          "anchor": [
+            50.64679491924311,
+            26.474999999999998
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "RDC-025",
+          "centroid": [
+            50.971,
+            23.941
+          ],
+          "anchor": [
+            50.971,
+            23.941
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        }
       ]
     },
     "R+1": {
@@ -37,8 +211,296 @@
         "R+1-117",
         "R+1-120",
         "R+1-salle-des-enseignants"
+      ],
+      "diagnostics": [
+        {
+          "roomId": "R+1-104",
+          "centroid": [
+            24.13,
+            5.257
+          ],
+          "anchor": [
+            24.13,
+            5.257
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "R+1-105",
+          "centroid": [
+            21.618,
+            5.257
+          ],
+          "anchor": [
+            21.618,
+            5.257
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "R+1-106",
+          "centroid": [
+            18.949,
+            5.257
+          ],
+          "anchor": [
+            18.949,
+            5.257
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "R+1-107",
+          "centroid": [
+            16.522,
+            5.257
+          ],
+          "anchor": [
+            16.522,
+            5.257
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "R+1-108",
+          "centroid": [
+            14.053,
+            5.257
+          ],
+          "anchor": [
+            14.053,
+            5.257
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "R+1-109",
+          "centroid": [
+            11.49,
+            5.257
+          ],
+          "anchor": [
+            11.49,
+            5.257
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "R+1-110",
+          "centroid": [
+            9.058,
+            5.257
+          ],
+          "anchor": [
+            9.058,
+            5.257
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "R+1-111",
+          "centroid": [
+            6.118,
+            5.257
+          ],
+          "anchor": [
+            6.118,
+            5.257
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "R+1-112",
+          "centroid": [
+            6.927,
+            11.502
+          ],
+          "anchor": [
+            6.927,
+            11.502
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "R+1-113",
+          "centroid": [
+            7.002,
+            14.065
+          ],
+          "anchor": [
+            7.002,
+            14.065
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "R+1-114",
+          "centroid": [
+            13.514,
+            13.199
+          ],
+          "anchor": [
+            13.514,
+            13.199
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "R+1-115",
+          "centroid": [
+            18.168,
+            13.028
+          ],
+          "anchor": [
+            18.168,
+            13.028
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "R+1-117",
+          "centroid": [
+            25.272,
+            13.118
+          ],
+          "anchor": [
+            25.272,
+            13.118
+          ],
+          "doorCount": 1,
+          "clearDoorCount": 1,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "disconnected-path-requires-geometry-review"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "R+1-120",
+          "centroid": [
+            6.881,
+            30.351
+          ],
+          "anchor": [
+            6.881,
+            30.351
+          ],
+          "doorCount": 0,
+          "clearDoorCount": 0,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "no-associated-door"
+          ],
+          "requiresPlanReview": true
+        },
+        {
+          "roomId": "R+1-salle-des-enseignants",
+          "centroid": [
+            16.529,
+            12.478
+          ],
+          "anchor": [
+            16.529,
+            12.478
+          ],
+          "doorCount": 0,
+          "clearDoorCount": 0,
+          "outward": false,
+          "returning": false,
+          "observations": [
+            "no-associated-door"
+          ],
+          "requiresPlanReview": true
+        }
       ]
     }
   },
-  "betweenFloors": true
+  "betweenFloors": true,
+  "betweenFloorsReturn": true
 }

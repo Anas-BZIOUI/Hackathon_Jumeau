@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import {validateRoomDetails,applyRoomDetails} from '../src/roomDetails.js';
+const [source,target='data-src/room-details.json']=process.argv.slice(2);
+if(!source)throw Error('Usage: node scripts/import-room-details.mjs export.json [data-src/room-details.json]');
+if(target!=='data-src/room-details.json')throw Error('Only the project room-details file may be updated.');
+const rooms=JSON.parse(fs.readFileSync('public/data/rooms.json','utf8'));
+const incoming=validateRoomDetails(JSON.parse(fs.readFileSync(source,'utf8')),rooms);
+const current=fs.existsSync(target)?validateRoomDetails(JSON.parse(fs.readFileSync(target,'utf8')),rooms):{version:1,rooms:{}};
+const conflicts=Object.keys(incoming.rooms).filter(id=>current.rooms[id]&&JSON.stringify(current.rooms[id])!==JSON.stringify(incoming.rooms[id]));
+if(conflicts.length)throw Error('Resolve conflicting project records before importing: '+conflicts.join(', '));
+const merged=validateRoomDetails({version:1,rooms:{...current.rooms,...incoming.rooms}},rooms);
+fs.writeFileSync(target,JSON.stringify(merged,null,2)+'\n');
+console.log(`Validated ${Object.keys(incoming.rooms).length} records. Run npm run data to integrate project defaults.`);

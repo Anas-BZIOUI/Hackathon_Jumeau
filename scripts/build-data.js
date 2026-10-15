@@ -1,3 +1,4 @@
+import {validateRoomDetails,applyRoomDetails} from '../src/roomDetails.js';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -576,7 +577,9 @@ const write = (name, data) => {
   console.log('wrote', name, Array.isArray(data) ? data.length : data.features?.length ?? Object.keys(data).length);
 };
 
-write('rooms.json', rooms);
+const roomDetailsFile=path.join(root,'data-src','room-details.json');
+const sharedRooms=fs.existsSync(roomDetailsFile)?applyRoomDetails(rooms,validateRoomDetails(JSON.parse(fs.readFileSync(roomDetailsFile,'utf8')),rooms),'project-export'):rooms;
+write('rooms.json', sharedRooms);
 write('floors.json', floors);
 write('links.json', links);
 write('graph.json', graph);

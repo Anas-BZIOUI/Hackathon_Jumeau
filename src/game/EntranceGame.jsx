@@ -2,13 +2,13 @@ import {useEffect,useRef,useState} from 'react';
 import {DIRECTIONS} from './rdc-world.js';
 import {compileRoom,canOccupy,moveInRoom,portalAt,fixtureDistance} from './authored-world.js';
 const loadImage=src=>new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(new Error(src));image.src=src;});
-export default function EntranceGame({lang,onProgress}){
- const canvas=useRef(null),progress=useRef(onProgress);progress.current=onProgress;
+export default function EntranceGame({lang,onProgress,initialProgress,onPosition}){
+ const canvas=useRef(null),progress=useRef(onProgress),positionCallback=useRef(onPosition);progress.current=onProgress;positionCallback.current=onPosition;
  const [status,setStatus]=useState('loading'),[current,setCurrent]=useState('Sas d’entrée'),[hint,setHint]=useState(null);
  const fr=lang==='fr';
  useEffect(()=>{
-  const el=canvas.current,ctx=el.getContext('2d'),abort=new AbortController(),keys=new Set(),visited=new Set(),opened=new Set();
-  let disposed=false,raf,layout,room,player,images,decorImages,last=0,clock=0,distance=0,direction='up',arrival=null,flash=0,signature='',hintId='';
+  const el=canvas.current,ctx=el.getContext('2d'),abort=new AbortController(),keys=new Set(),visited=new Set(initialProgress?.visited||[]),opened=new Set(initialProgress?.opened||[]);
+  let disposed=false,raf,layout,room,player,images,decorImages,last=0,clock=0,distance=(initialProgress?.steps||0)*24,direction='up',arrival=null,flash=0,signature='',hintId='';
   function safeSpawn(target,p){
    if(canOccupy(target,{x:p[0],y:p[1]}))return p;
    for(let radius=2;radius<100;radius+=2)for(let n=0;n<32;n++){const q=[p[0]+Math.cos(n*Math.PI/16)*radius,p[1]+Math.sin(n*Math.PI/16)*radius];if(canOccupy(target,{x:q[0],y:q[1]}))return q;}
@@ -20,7 +20,10 @@ export default function EntranceGame({lang,onProgress}){
    images=await Promise.all(['idle_32x32_2.png','run_horizontal_32x32_2.png','Wood Tile Pattern 1.png','Wooden Door 32x32 (Front).png','Wooden Door 32x32 (Side).png','elevator.png','Wooden Door (Front) 1.png','Wooden Door (Front) 2.png','Sliding Door R1.png','Sliding Door L1.png','Sliding Door 32x32 (Side).png'].map(name=>loadImage('/game/tilesets/'+encodeURIComponent(name))));
    const decorNames=['noticeboard','plant','computer','stationery','bench-back','desk','chair','bin','amelia'];
    decorImages=Object.fromEntries(await Promise.all(decorNames.map(async name=>[name,await loadImage('/game/decor/'+name+'.png')])));
-   if(disposed)return;enter(layout.spawn.roomId,layout.spawn.position);setStatus('ready');raf=requestAnimationFrame(tick);
+   if(disposed)return;
+   const saved=initialProgress?.position,target=layout.rooms.find(r=>r.id===initialProgress?.zone);
+   for(const id of [...visited])if(!layout.rooms.some(r=>r.id===id))visited.delete(id);
+   if(target&&Array.isArray(saved)&&saved.length===2&&saved.every(Number.isFinite))enter(target.id,saved);else enter(layout.spawn.roomId,layout.spawn.position);setStatus('ready');raf=requestAnimationFrame(tick);
   }
   function tick(now){
    if(disposed)return;const dt=last?Math.min((now-last)/1000,.04):0;last=now;clock+=dt;flash=Math.max(0,flash-dt);
@@ -35,7 +38,8 @@ export default function EntranceGame({lang,onProgress}){
    const fixture=(room.fixtures||[]).find(f=>['stairs','elevator-panel','npc'].includes(f.kind)&&fixtureDistance(f,player)<34);
    const nextHint=fixture?{id:fixture.id,kind:fixture.kind,name:fixture.label}:room.kind==='elevator'?{id:'elevator-info',kind:'elevator'}:near?{id:near.id,inactive:near.inactive,name:layout.rooms.find(r=>r.id===near.target)?.name}:null;
    if((nextHint?.id||'')!==hintId){hintId=nextHint?.id||'';setHint(nextHint);}
-   const report=[room.id,Math.floor(distance/24),visited.size].join(':');if(report!==signature){signature=report;progress.current({steps:Math.floor(distance/24),zone:room.id,roomName:room.name,visited:[...visited],opened:[...opened],total:layout.rooms.length,rooms:layout.rooms.map(r=>({id:r.id,name:r.name}))});}
+   const report=[room.id,Math.floor(distance/24),visited.size].join(':');if(report!==signature){signature=report;progress.current({steps:Math.floor(distance/24),zone:room.id,roomName:room.name,visited:[...visited],opened:[...opened],total:layout.rooms.length,position:[player.x,player.y],roomIds:room.roomIds||[],rooms:layout.rooms.map(r=>({id:r.id,name:r.name,roomIds:r.roomIds||[]}))});}
+   if(travelled>.01&&Math.floor(clock*4)!==Math.floor((clock-dt)*4))positionCallback.current?.({floor:'RDC',x:player.x/layout.scale,y:35-player.y/layout.scale,yaw:0,pitch:0});
    draw(travelled>.01);raf=requestAnimationFrame(tick);
   }
   function draw(moving){

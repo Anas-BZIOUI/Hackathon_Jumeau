@@ -1,0 +1,30 @@
+{
+  "environment": "Local Node process; this is not a browser FPS or user-device benchmark",
+  "initializationMs": 109.54,
+  "queries": [
+    {
+      "from": "RDC-011",
+      "to": "RDC-028",
+      "found": true,
+      "milliseconds": 58.25
+    },
+    {
+      "from": "RDC-011",
+      "to": "R+1-131",
+      "found": true,
+      "milliseconds": 120.32
+    },
+    {
+      "from": "R+1-131",
+      "to": "RDC-011",
+      "found": true,
+      "milliseconds": 4.05
+    },
+    {
+      "from": "RDC-011",
+      "to": "RDC-017",
+      "found": false,
+      "milliseconds": 122.51
+    }
+  ]
+}

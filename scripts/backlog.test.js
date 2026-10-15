@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {searchRooms,parseHash} from '../src/core.js';
+import {validateRoomDetails,previewRoomImport} from '../src/roomDetails.js';
+import {roomIssues,csv} from '../src/quality.js';
+import {simulatedPosition} from '../src/simulation.js';
+const rooms=[{id:'RDC-1',number:'1',level:'RDC',type:'office',name_fr:'Bureau',name_en:'Office'},{id:'R+1-101',number:'101',level:'R+1',type:'lab',name_fr:'Laboratoire',name_en:'Laboratory'},{id:'RDC-101',number:'101',level:'RDC',type:'lab',name_fr:'Laboratoire',name_en:'Laboratory'}];
+test('search respects floors, accents and one-character typos without number suffix matches',()=>{assert.equal(searchRooms('R+1 101',rooms,{},'en')[0].id,'R+1-101');assert.equal(searchRooms('1',rooms,{},'fr')[0].id,'RDC-1');assert.equal(searchRooms('laboratoy',rooms,{},'en')[0].type,'lab');});
+test('malformed deep links never crash application loading',()=>{globalThis.location={hash:'#/room/%ZZ'};assert.equal(parseHash().roomId,null);delete globalThis.location;});
+test('verification dates and fields round trip and invalid dates are rejected',()=>{const v={version:1,rooms:{'RDC-1':{verification:{date:'2026-10-16',source:'Team visit',fields:['accessible']}}}};assert.deepEqual(validateRoomDetails(v,rooms),v);v.rooms['RDC-1'].verification.date='2026-02-30';assert.throws(()=>validateRoomDetails(v,rooms));});
+test('import previews identify changed fields and local conflicts',()=>{const p=previewRoomImport({rooms:{a:{capacity:10}}},{rooms:{a:{capacity:20,name_fr:'Room'}}});assert.deepEqual(p[0].conflicts,['capacity']);assert.deepEqual(p[0].fields,['capacity','name_fr']);});
+test('unknown reachability is not counted as disconnected and CSV escapes quotes',()=>{assert(!roomIssues(rooms[0],{reachable:null}).includes('disconnected'));assert(roomIssues(rooms[0],{reachable:false}).includes('disconnected'));assert.match(csv([['a"b','x,y']]),/a""b/);});
+test('synthetic agents stay on route segments and clamp endpoints',()=>{const route={legs:[{kind:'walk',level:'RDC',points:[[1,1],[5,1],[5,5]]}]};assert.deepEqual(simulatedPosition(route,.5),{floor:'RDC',x:5,y:1});assert.deepEqual(simulatedPosition(route,2),{floor:'RDC',x:5,y:5});assert.equal(simulatedPosition(null,.2),null);});

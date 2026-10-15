@@ -965,3 +965,36 @@ body {font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;background
 .entrance-adventure .adv-hud span:last-child { white-space:nowrap; }
 
 .entrance-door-hint { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); max-width:90%; padding:8px 14px; background:#101923e6; border:1px solid #7da99b; border-radius:6px; color:#e0e9e5; font-size:11px; text-align:center; pointer-events:none; }
+
+/* Shared visit tools, route guidance and accessible controls */
+.visit-tools { flex:none; display:flex; align-items:center; flex-wrap:wrap; gap:6px; padding:6px 12px; background:var(--panel); border-bottom:1px solid var(--line); max-height:35vh; overflow:auto; }
+.visit-settings { display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;width:100%;padding:12px; }
+.visit-settings label { display:flex;align-items:center;gap:8px; }
+.visit-settings input[type=range] { min-width:60px;width:100px; }
+.visit-settings>div { display:flex;flex-direction:column;gap:4px; }
+.shared-tour { width:100%;font-size:12px; }
+.shared-tour p { margin:4px 0; }
+.route-guide { min-width:220px;max-width:100%;font-size:12px; }
+.route-guide[open] { flex-basis:100%;max-height:30vh;overflow:auto; }
+.route-guide li { padding:5px; }.route-guide li[aria-current=step] { background:var(--panel-2); }
+.route-guide summary { cursor:pointer; }
+.dashboard { overflow:auto; }.dashboard td { white-space:normal; }.dashboard .actions { flex-wrap:wrap; }
+.search-hit { display:flex;align-items:center; }.search-hit>button:first-child { flex:1; }.search-hit>button:last-child { width:auto; }
+.quick-help ol { padding:12px 36px; }.quick-help li { margin:14px 0;line-height:1.6; }
+.skip-link { position:fixed;top:-100px;left:10px;z-index:9999;background:white;color:#173c36;padding:14px; }.skip-link:focus { top:10px; }
+:focus-visible { outline:3px solid #186dba;outline-offset:3px; }
+html[data-reduced-motion=true] *,html[data-reduced-motion=true] *::before,html[data-reduced-motion=true] *::after { scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important; }
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important; } }
+@media(max-width:700px) { .visit-tools{max-height:28vh;padding:5px;}.visit-tools button {font-size:11px;padding:7px;}.visit-settings{grid-template-columns:1fr;}.route-guide{min-width:0;} }
+
+.modern-workspace .center { grid-template-rows:auto auto minmax(0,1fr) auto; }
+.visit-tools-row { min-width:0;max-height:35vh;overflow:auto; }.visit-tools-row>.visit-tools{max-height:none;}
+.room-qr { margin:10px 0; }.room-print-card { overflow-wrap:anywhere;background:white;color:#15352c;padding:12px; }.room-print-card img{display:block;max-width:100%;}
+@media print { body * { visibility:hidden; }.room-print-card,.room-print-card * { visibility:visible; }.room-print-card { position:absolute;inset:0 auto auto 0;width:170mm; }.room-qr:not([open]) {display:none;} }
+.discovery-view { padding:16px;overflow:auto;min-height:0; }.discovery-view .metro-svg{max-height:40vh;}.constellation-rooms{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;}.constellation-rooms>div{padding:10px;background:var(--panel);}.constellation-rooms small{display:block;margin:5px;}.constellation-rooms .selected{outline:2px solid var(--accent);}
+
+.walk-performance{position:absolute;left:12px;top:80px;background:#fff;color:#17372e;padding:8px;font:12px monospace;pointer-events:none;}
+
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0;}
+.modern-workspace.no-selection,.modern-workspace.mode-walk { display:block; }.modern-workspace.no-selection .legacy-room-panel,.modern-workspace.mode-walk .legacy-room-panel {display:none;}
+.compact-panels .walk-room-info,.compact-panels .immersive-plan {display:none;}

@@ -29,15 +29,16 @@ export function createAvatar(initialHeading=0){
   joints.push({side,leg,knee,arm,elbow});
  }
  let phase=0,blend=0,heading=initialHeading;
- function update(dt,distance,targetHeading,reduced=false){
+ function update(dt,distance,targetHeading,reduced=false,climbing=false){
   const moving=distance>.0005&&distance<.5;blend+=((moving?1:0)-blend)*dampFactor(14,dt);
   if(moving){phase+=distance*8;heading=dampAngle(heading,targetHeading,14,dt);}
   root.rotation.y=heading;
   body.position.y=reduced?0:Math.sin(phase*2)*.018*blend;
+  const stride=Math.max(.7,Math.min(1.5,distance/Math.max(.001,dt)/2.2));
   for(const j of joints){const swing=Math.sin(phase)*j.side*blend;
-   j.leg.rotation.x=reduced?0:swing*.55;j.knee.rotation.x=reduced?0:Math.max(0,-swing)*.68;
+   j.leg.rotation.x=reduced?0:swing*.55*stride-(climbing?.2*blend:0);j.knee.rotation.x=reduced?0:Math.max(0,-swing)*(climbing?1.1:.68)*stride;
    j.arm.rotation.x=reduced?0:-swing*.42;j.elbow.rotation.x=-.14-Math.max(0,swing)*.18;
   }
  }
- return {root,update};
+ return {root,update,setOutfit:color=>{if(/^#[0-9a-f]{6}$/i.test(color||''))materials.jacket.color.set(color);}};
 }

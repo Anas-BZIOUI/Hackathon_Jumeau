@@ -1,44 +1,29 @@
-export default function Dashboard({ rooms, graph, t }) {
-  const byLevel = {};
-  for (const r of rooms) byLevel[r.level] = (byLevel[r.level] || 0) + 1;
-  const verified = rooms.filter((r) => r.verified_on_site).length;
-  const reliable = rooms.filter((r) => r.reliable).length;
-  const missingNum = rooms.filter((r) => !r.number).length;
-  const nodeIds = new Set(graph.nodes.map((n) => n.id));
-  return (
-    <div className="dashboard">
-      <p className="hint">{t.qualityIntro}</p>
-      <div className="stats">
-        <div className="stat"><b>{rooms.length}</b>{t.rooms}</div>
-        <div className="stat"><b>{verified}</b>{t.verified}</div>
-        <div className="stat"><b>{reliable}</b>{t.reliable}</div>
-        <div className="stat"><b>{graph.nodes.length}</b>{t.graphReach}</div>
-        <div className="stat"><b>{missingNum}</b>{t.missing}</div>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>{t.floors}</th>
-            <th>{t.planM2}</th>
-            <th>{t.contourM2}</th>
-            <th>{t.reliability}</th>
-            <th>{t.verified}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rooms.slice(0, 80).map((r) => (
-            <tr key={r.id}>
-              <td>{r.id}</td>
-              <td>{r.level}</td>
-              <td>{r.area_plan_m2 ?? '—'}</td>
-              <td>{r.area_contour_m2 ?? '—'}</td>
-              <td>{r.contour_quality}</td>
-              <td>{r.verified_on_site ? 'oui' : 'non'}{nodeIds.has(r.id) ? '' : ' · ∅'}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+import {solveCalibration} from '../calibration.js';
+import {useState} from 'react';
+import {roomName,fold} from '../core.js';
+import {roomIssues,csv,download} from '../quality.js';
+export default function Dashboard({rooms,t,lang='fr',audit,auditStatus,onAudit,onSelect,calibration}){
+ const fr=lang==='fr',[query,setQuery]=useState(''),[level,setLevel]=useState('all'),[issue,setIssue]=useState('all');
+ const labels=fr?{translation:'Nom non traduit',description:'Description manquante',verification:'À vérifier sur place',accessibility:'Accessibilité inconnue',capacity:'Capacité inconnue',disconnected:'Déconnectée'}:{translation:'Untranslated name',description:'Missing description',verification:'On-site verification needed',accessibility:'Unknown accessibility',capacity:'Unknown capacity',disconnected:'Disconnected'};
+ const byId=new Map((audit||[]).map(a=>[a.roomId,a]));
+ const rows=rooms.map(room=>({room,diagnostic:byId.get(room.id),issues:roomIssues(room,byId.get(room.id))}));
+ const shown=rows.filter(({room,issues})=>(level==='all'||room.level===level)&&(issue==='all'||issues.includes(issue))&&fold([room.id,room.name_fr,room.name_en].join(' ')).includes(fold(query)));
+ function exportCSV(){download('ensiie-quality.csv',csv([['id','level','issues','origin','reachable_both_directions','door_count','clear_door_count'],...shown.map(({room,diagnostic:d,issues})=>[room.id,room.level,issues.join(';'),d?.origin,d?.reachable,d?.doorCount,d?.clearDoorCount])]),'text/csv;charset=utf-8');}
+ const checked=(audit||[]).filter(a=>a.reachable!=null),reachable=checked.filter(a=>a.reachable).length;
+ const calibrationResult=calibration?solveCalibration(calibration):null;
+ const grouped={activity:{},type:{}};
+ for(const r of rooms){if(r.type==='circulation')continue;const area=r.area_plan_m2??r.area_contour_m2;if(!Number.isFinite(area))continue;grouped.type[r.type]=(grouped.type[r.type]||0)+area;for(const activity of r.activities||[])grouped.activity[activity]=(grouped.activity[activity]||0)+area;}
+ const surfaces={};for(const r of rooms){if(r.type==='circulation')continue;const n=r.area_plan_m2??r.area_contour_m2;if(Number.isFinite(n))surfaces[r.level]=(surfaces[r.level]||0)+n;}
+ return <div className="dashboard">
+  <h2>{t.quality}</h2><p>{fr?'Contrôles du modèle courant : murs, portes et calibrage. Aucun contrôle ne remplace une visite sur place.':'Checks of the current walls, doors and calibration. These do not replace an on-site visit.'}</p>
+  <div className="actions"><button className="primary" onClick={onAudit} disabled={auditStatus==='running'}>{auditStatus==='running'?(fr?'Audit en cours…':'Auditing…'):(fr?'Auditer les trajets actuels':'Audit current routes')}</button><button className="ghost" onClick={exportCSV}>{fr?'Exporter les anomalies CSV':'Export issues as CSV'}</button></div>
+  {auditStatus==='error'&&<p role="alert">{fr?'Audit impossible. Réessayez.':'Audit failed. Try again.'}</p>}
+  <p role="status">{audit?`${reachable}/${checked.length} ${fr?'salles accessibles à l’aller et au retour depuis RDC-011 / R+1-131. R+2 non audité.':'rooms reachable both ways from RDC-011 / R+1-131. Level 2 not audited.'}`:(fr?'Accessibilité du réseau non encore calculée.':'Network reachability has not been calculated yet.')}</p>
+  <p className="hint">{fr?'Calibrage appliqué':'Applied calibration'} : {calibration?(fr?'oui, validation terrain nécessaire':'yes, on-site validation required'):(fr?'alignement du plan uniquement':'plan alignment only')}</p>
+  <div className="actions"><label>{fr?'Recherche':'Search'}<input aria-label={fr?'Recherche dans la qualité':'Search data quality'} value={query} onChange={e=>setQuery(e.target.value)}/></label><label>{t.floors}<select aria-label={fr?'Étage à auditer':'Audit floor'} value={level} onChange={e=>setLevel(e.target.value)}>{['all','RDC','R+1','R+2'].map(l=><option key={l} value={l}>{l==='all'?t.allTypes:l}</option>)}</select></label><label>{fr?'Anomalie':'Issue'}<select aria-label={fr?'Filtrer les anomalies':'Filter issues'} value={issue} onChange={e=>setIssue(e.target.value)}><option value="all">{fr?'Toutes':'All'}</option>{Object.entries(labels).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label></div>
+  <p>{shown.length} {t.rooms}</p><table><thead><tr><th>{t.rooms}</th><th>{t.floors}</th><th>{fr?'Points à vérifier':'Checks needed'}</th><th>{fr?'Trajet':'Route'}</th></tr></thead><tbody>{shown.map(({room:r,diagnostic:d,issues})=><tr key={r.id}><td><button className="ghost" onClick={()=>onSelect(r.id)}>{roomName(r,lang)}</button></td><td>{r.level}</td><td>{issues.map(i=>labels[i]).join(' · ')||'—'}</td><td>{d?.reachable==null?'—':d.reachable?(fr?'Aller / retour':'Both directions'):`${fr?'Déconnectée':'Disconnected'} · ${d.clearDoorCount}/${d.doorCount} ${fr?'portes dégagées':'clear doors'}`}</td></tr>)}</tbody></table>
+  {calibrationResult&&<section><h3>{fr?'Écarts de calibrage':'Calibration residuals'}</h3>{Object.entries(calibrationResult.levels).map(([lv,result])=><p key={lv}>{lv} : {Number.isFinite(result.residual_m)?result.residual_m.toFixed(2)+' m':(fr?'non calculé':'not calculated')} · {result.error||(fr?'ajustement cohérent, terrain à confirmer':'consistent fit, on-site check required')}</p>)}{calibrationResult.checks.map((check,i)=><p key={i}>{check.label} : {check.error_m.toFixed(2)} m</p>)}</section>}
+  <h3>{fr?'Surfaces par étage':'Areas by floor'}</h3><p className="hint">{fr?'Somme des surfaces du plan, sinon du contour ; circulations exclues. Les contours peuvent être estimés.':'Sum of plan areas, falling back to contour areas; circulation excluded. Contours may be estimated.'}</p>{Object.entries(surfaces).map(([lv,n])=><p key={lv}>{lv} : {Math.round(n)} m²</p>)}
+  {Object.entries(grouped).map(([group,values])=><section key={group}><h3>{group==='activity'?(fr?'Surfaces par activité':'Areas by activity'):(fr?'Surfaces par type':'Areas by room type')}</h3>{Object.entries(values).map(([id,area])=><p key={id}>{t[id]||id} : {Math.round(area)} m²</p>)}</section>)}<p className="hint">{fr?'Une salle associée à plusieurs activités contribue à chacune : les totaux d’activités ne sont pas additionnables.':'Rooms linked to multiple activities contribute to each: activity totals cannot be added together.'}</p>
+ </div>;
 }

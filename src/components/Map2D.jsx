@@ -42,6 +42,7 @@ export default function Map2D({
   onWalkTo,
   onLocatePosition,
   onEditRoom,
+  accessibilityLens=false,
 }) {
   const fr=lang==='fr';
   const size = floors.levels[level]?.size || [60, 60];
@@ -73,6 +74,7 @@ export default function Map2D({
       : active.size===0||!r.activities?.length||(r.activities || []).some((a) => active.has(a));
   const matchingCount = levelRooms.filter(matchesFilters).length;
   const colorFor = (r) => {
+    if(accessibilityLens)return r.accessible===true&&r.verification?.fields?.includes('accessible')?'#16724c':r.accessible===false&&r.verification?.fields?.includes('accessible')?'#b53e38':'#677485';
     const category = (r.activities || []).find((a) => active.has(a));
     // Les types sans activité (bureaux, escaliers, sanitaires...) restent visibles.
     return ACTIVITY_COLORS[category] || "#818cf8";
@@ -173,7 +175,8 @@ export default function Map2D({
         className="map-2d ensii-map-svg"
         viewBox={`${view.x} ${view.y} ${view.w} ${view.h}`}
         preserveAspectRatio="xMidYMid meet"
-        aria-label={`Plan interactif : ${title}`}
+        tabIndex={0} onKeyDown={e=>{if(e.target!==e.currentTarget)return;if(e.key==='+'||e.key==='='){e.preventDefault();zoom(.8);}else if(e.key==='-'){e.preventDefault();zoom(1.25);}else if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();setView(v=>({...v,x:v.x+(e.key==='ArrowLeft'?-.1:e.key==='ArrowRight'?.1:0)*v.w,y:v.y+(e.key==='ArrowUp'?-.1:e.key==='ArrowDown'?.1:0)*v.h}));}}}
+        aria-label={fr?'Plan interactif : '+title:'Interactive plan: '+title}
         onWheel={(e) => {
           e.preventDefault();
           zoom(e.deltaY > 0 ? 1.12 : 0.89, svgPoint(e));
@@ -298,6 +301,7 @@ export default function Map2D({
                 }
                 strokeOpacity={isSelected ? 1 : matches ? 0.9 : 0}
                 strokeWidth={isSelected ? 0.28 : matches ? 0.12 : 0}
+                strokeDasharray={accessibilityLens&&!(r.accessible===true&&r.verification?.fields?.includes('accessible'))?'.5 .3':undefined}
                 strokeLinejoin="round"
               />
               {isSelected && r.centroid && (
@@ -401,9 +405,9 @@ export default function Map2D({
         <g transform={`translate(${view.x+view.w*.04},${view.y+view.h*.93})`} pointerEvents="none"><path d="M0,-.4 V0 H10 V-.4" fill="none" stroke="#24445b" strokeWidth=".15"/><text x="5" y="-.7" textAnchor="middle" fontSize=".9" fill="#24445b" stroke="white" strokeWidth=".06" paintOrder="stroke">10 m</text></g>
         {position?.floor===level&&<g className="shared-character-marker" transform={`translate(${position.x} ${size[1]-position.y})`} role="img" aria-label={fr?'Votre personnage est ici':'Your character is here'}><circle r="1.1" fill="#fff" stroke="#247b96" strokeWidth=".18"/><g transform={`rotate(${(floors.levels[level].rotation_deg||0)-(position.yaw||0)*180/Math.PI})`}><path d="M0,-1.35 L.65,-.45 L-.65,-.45 Z" fill="#247b96"/></g><circle cy="-.23" r=".22" fill="#d9ae8e"/><path d="M-.3,.05 H.3 V.65 H.1 V.35 H-.1 V.65 H-.3 Z" fill="#247b96"/><title>{fr?'Vous êtes ici':'You are here'} · {level}</title></g>}
       </svg>
-      <section className="ensii-route-picker" aria-label="Départ et arrivée">
+      <section className="ensii-route-picker" aria-label={fr?'Départ et arrivée':'Start and destination'}>
         <div className="ensii-route-title">
-          Itinéraire <small>Étape 1 : points de départ et d’arrivée</small>
+          {fr?'Itinéraire':'Route'} <small>{fr?'Points de départ et d’arrivée':'Start and destination points'}</small>
         </div>
         <div className="ensii-route-entry">
           <span className="ensii-route-symbol start">D</span>
@@ -440,20 +444,20 @@ export default function Map2D({
             onClick={onClearRoute}
             disabled={!startId && !endId}
           >
-            Effacer
+            {fr?'Effacer':'Clear'}
           </button>
         </div>
         {departure && arrival && (
           <p className="ensii-route-note">
             {routeStatus==='routing'?(fr?'Calcul des passages…':'Finding walkable passages…'):routeSegments.length > 0
-              ? `Trajet automatique indicatif affiché en bleu (${route?.metres ?? "—"} m estimés).`
-              : "Aucun segment de trajet disponible sur cet étage."}
+              ? `${fr?'Trajet indicatif en bleu':'Approximate route in blue'} (${route?.metres ?? '—'} m).`
+              : (fr?'Aucun segment disponible sur cet étage.':'No route segment on this floor.')}
           </p>
         )}
         {route?.arrivalAtDoor&&<p className="ensii-route-note">{fr?'Arrivée à une porte de la salle.':'Arrival at a room doorway.'}</p>}
         {departure && arrival && departure.level !== arrival.level && (
           <p className="ensii-route-note">
-            Changement d'étage : {departure.level} → {arrival.level} (liaison à
+            {fr?'Changement d’étage':'Floor change'} : {departure.level} → {arrival.level} (liaison à
             vérifier).
           </p>
         )}
@@ -465,7 +469,7 @@ export default function Map2D({
           architectural
         </span>
       </div>
-      <div className="ensii-map-controls" aria-label="Commandes de la carte">
+      <div className="ensii-map-controls" aria-label={fr?'Commandes de la carte':'Map controls'}>
         {position&&<button type="button" title={fr?'Localiser mon personnage':'Locate my character'} onClick={()=>{if(position.floor===level)focusRoom({centroid:[position.x,position.y]});else onLocatePosition?.(position.floor);}}>♟</button>}
         <button type="button" title={fr?"Zoom avant":"Zoom in"} onClick={() => zoom(0.78)}>
           ＋
@@ -574,12 +578,12 @@ export default function Map2D({
       {selected && detailsOpen && (
         <aside
           className="ensii-side-details"
-          aria-label="Informations de la salle"
+          aria-label={fr?'Informations de la salle':'Room information'}
         >
           <button
             className="ensii-sheet-close"
             type="button"
-            aria-label="Fermer la fiche"
+            aria-label={fr?'Fermer la fiche':'Close room information'}
             onClick={() => {
               setDetailsOpen(false);
               onClearSelection?.();
@@ -600,14 +604,14 @@ export default function Map2D({
             </div>
             <div>
               <small>Type</small>
-              <strong>{TYPE_LABEL[lang][selected.type] || "Non renseigné"}</strong>
+              <strong>{TYPE_LABEL[lang][selected.type] || (fr?'Non renseigné':'Unknown')}</strong>
             </div>
             <div>
               <small>{fr?'Surface du plan':'Plan area'}</small>
               <strong>
                 {selected.area_plan_m2 != null
                   ? `${selected.area_plan_m2} m²`
-                  : "Non renseignée"}
+                  : (fr?'Non renseignée':'Unknown')}
               </strong>
             </div>
             <div>
@@ -620,11 +624,12 @@ export default function Map2D({
           <p className="ensii-sheet-description">
             {selected[`description_${lang}`] ||
               selected.description_fr ||
-              "Aucune description disponible."}
+              (fr?'Aucune description disponible.':'No description available.')}
           </p>
           <div className="ensii-sheet-grid"><div><small>{lang==='fr'?'Capacité':'Capacity'}</small><strong>{selected.capacity??(selected.capacity_estimated?`${lang==='fr'?'Environ':'About'} ${selected.capacity_estimated}`:(lang==='fr'?'Inconnue':'Unknown'))}</strong></div><div><small>{lang==='fr'?'Qualité des données':'Data quality'}</small><strong>{selected.verified_on_site?(lang==='fr'?'Vérifié sur place':'Verified on site'):(lang==='fr'?'À vérifier sur place':'Not verified on site')}</strong></div></div>
           <div className="tags">{selected.activities?.map(a=><span className="tag" key={a} style={{background:ACTIVITY_COLORS[a]+'22'}}>{({teaching:lang==='fr'?'Enseignement':'Teaching',research:lang==='fr'?'Recherche':'Research',student_life:lang==='fr'?'Vie étudiante':'Student life',companies:lang==='fr'?'Entreprises':'Companies'})[a]}</span>)}</div>
           <p className="deeplink"><a href={`#/room/${encodeURIComponent(selected.id)}`}>{lang==='fr'?'Lien vers cette salle':'Link to this room'}</a></p>
+          {accessibilityLens&&<p>{selected.accessible===true&&selected.verification?.fields?.includes('accessible')?(fr?'Accessibilité confirmée dans la fiche':'Accessibility confirmed in room details'):(fr?'Accessibilité non confirmée ou accès restreint : vérifier la fiche.':'Accessibility unconfirmed or access restricted: check room details.')}</p>}
           <RoomPracticalInfo room={selected} lang={lang}/>
           <div className="ensii-sheet-actions">
             {onEditRoom&&<button type="button" onClick={()=>onEditRoom(selected)}>{fr?'Modifier les informations':'Edit room information'}</button>}

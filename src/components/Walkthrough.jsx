@@ -1,3 +1,4 @@
+import {playCue} from '../audio.js';
 import { useEffect,useRef,useState } from 'react';
 import * as THREE from 'three';
 import { worldPoint,roomName,roomLabel } from '../core.js';
@@ -18,10 +19,10 @@ const PLANS={RDC:groundPlan,'R+1':firstPlan,'R+2':secondPlan};
 const LEVELS=['RDC','R+1','R+2'];
 const ROOM_COLORS={classroom:'#367bb0',amphitheatre:'#5268ae',lab:'#178d85',office:'#a57748',admin:'#a57748',association:'#a068a1',student_life:'#a068a1',restaurant:'#ca8742',toilets:'#558d9c',other:'#738292'};
 
-export default function Walkthrough({rooms,floors,links,selected,lang,onOverview,onFloorChange,geometry=null,mapProps,initialPosition,onPositionChange,route,destination,stepFree=false,requestRoute}) {
+export default function Walkthrough({rooms,floors,links,selected,lang,onOverview,onFloorChange,geometry=null,mapProps,initialPosition,onPositionChange,route,destination,stepFree=false,requestRoute,settings={},onGuidancePlan}) {
   const host=useRef(null),api=useRef(null),props=useRef(null),thirdPerson=useRef(true);
   const [perspective,setPerspective]=useState('third');
-  props.current={rooms,floors,links,selected,lang,onFloorChange,initialPosition,onPositionChange,route,destination,stepFree,requestRoute};
+  props.current={rooms,floors,links,selected,lang,onFloorChange,initialPosition,onPositionChange,route,destination,stepFree,requestRoute,settings,onGuidancePlan};
   const [hud,setHud]=useState(null),[error,setError]=useState(''),[message,setMessage]=useState('');
   const [connectionId,setConnectionId]=useState(links[0]?.id||''),[busy,setBusy]=useState(false);
   const fr=lang==='fr';
@@ -139,6 +140,7 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
       const previousPosition=new THREE.Vector3(),visualPosition=new THREE.Vector3();let viewYaw=0,viewPitch=0,viewReady=false,visibilityTime=0;
       const targetMarker=new THREE.Mesh(new THREE.TorusGeometry(.35,.06,8,24),new THREE.MeshBasicMaterial({color:'#e69528'}));targetMarker.rotation.x=Math.PI/2;targetMarker.visible=false;scene.add(targetMarker);
       const savedPosition=props.current.initialPosition;
+      let velocity=new THREE.Vector3();
       let floor=savedPosition?.floor||props.current.selected?.level||'RDC',position=new THREE.Vector3(),yaw=savedPosition?.yaw||0,pitch=savedPosition?.pitch||0,path=[],journey=null,onStair=null,pendingStair=null,last=performance.now(),hudTime=0;
       const guideLine=new THREE.Line(new THREE.BufferGeometry(),new THREE.LineBasicMaterial({color:'#2689d6',depthTest:false}));guideLine.visible=false;guideLine.renderOrder=5;scene.add(guideLine);
       function snapshot(){const p=toLocal(floor,position);return {floor,x:p[0],y:p[1],yaw,pitch,heading:avatar.rotation.y,stairLink:onStair?.linkId,stairProgress:onStair?stairProgress(onStair.path,position,.85):null};}
@@ -146,13 +148,17 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
       function showFloors(other){for(const lv of LEVELS)groups[lv].visible=lv===floor||lv===other;}
       function place(lv,p){
         const safe=safePosition(maps[lv],p);if(!safe){setMessage(props.current.lang==='fr'?'Position trop proche des murs. Choisissez un autre point.':'Position too close to walls. Choose another point.');return;}
-        guideLine.visible=false;floor=lv;position.copy(toWorld(lv,safe));viewReady=false;visibilityTime=0;keys.clear();path=[];journey=null;onStair=null;pendingStair=null;setBusy(false);targetMarker.visible=false;showFloors();props.current.onFloorChange?.(floor);hudTime=0;
+        guideLine.visible=false;floor=lv;position.copy(toWorld(lv,safe));viewReady=false;visibilityTime=0;keys.clear();velocity?.set(0,0,0);path=[];journey=null;onStair=null;pendingStair=null;setBusy(false);targetMarker.visible=false;showFloors();props.current.onFloorChange?.(floor);hudTime=0;
       }
       const initial=savedPosition?[savedPosition.x,savedPosition.y]:props.current.selected?.centroid||props.current.links[0]?.points.find(p=>p.level===floor);
       place(floor,Array.isArray(initial)?initial:initial?[initial.x,initial.y]:levels[floor].size.map(v=>v/2));
       if(savedPosition?.stairLink&&Number.isFinite(savedPosition.stairProgress)){
         const record=stairRecords.find(r=>r.linkId===savedPosition.stairLink&&(r.lower===floor||r.upper===floor));
         if(record){position.copy(pathPosition(record.path,savedPosition.stairProgress));onStair=record;showFloors(record.lower===floor?record.upper:record.lower);}
+      }
+      if(savedPosition?.stairLink&&Number.isFinite(savedPosition.stairProgress)){
+        const record=stairRecords.find(r=>r.linkId===savedPosition.stairLink&&(r.lower===floor||r.upper===floor));
+        if(record){position.copy(pathPosition(record.path,savedPosition.stairProgress));onStair=record;showFloors(floor===record.lower?record.upper:record.lower);viewReady=false;}
       }
       function travel(linkId,to){
         if(journey)return;
@@ -170,7 +176,7 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
       const ray=new THREE.Raycaster(),pointer=new THREE.Vector2();let drag=null;
       const canvas=renderer.domElement;canvas.tabIndex=0;canvas.setAttribute('aria-label',props.current.lang==='fr'?'Visite immersive : ZQSD ou WASD pour marcher, glisser pour regarder':'Immersive visit: WASD to walk, drag to look');
       function down(e){if(e.button!==0)return;guideRequest++;navigationGoal=null;continueGuidance=false;if(!journey)setBusy(false);path=[];pendingStair=null;targetMarker.visible=false;canvas.focus();drag={x:e.clientX,y:e.clientY,moved:0};canvas.setPointerCapture(e.pointerId);}
-      function move(e){if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.moved+=Math.abs(dx)+Math.abs(dy);yaw-=dx*.004;pitch=THREE.MathUtils.clamp(pitch-dy*.004,-1.15,1.15);drag.x=e.clientX;drag.y=e.clientY;}
+      function move(e){if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.moved+=Math.abs(dx)+Math.abs(dy);const sensitivity=props.current.settings.sensitivity||.004;yaw-=dx*sensitivity;pitch=THREE.MathUtils.clamp(pitch-dy*sensitivity*(props.current.settings.invertY?-1:1),-1.15,1.15);drag.x=e.clientX;drag.y=e.clientY;}
       function up(e){const d=drag;drag=null;if(!d||d.moved>5||journey)return;
         const r=canvas.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(pointer,camera);
         const hit=ray.intersectObjects(groups[floor].children).find(h=>h.object.userData.floor===floor);
@@ -207,6 +213,7 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
         if(disposed||request!==guideRequest)return;setBusy(false);
         const current=snapshot();if(current.floor!==began.floor||Math.hypot(current.x-began.x,current.y-began.y)>.4)return;
         if(!plan){navigationGoal=null;guideLine.visible=false;setMessage(props.current.lang==='fr'?'Aucun passage accessible vers cette salle dans la géométrie actuelle.':'No accessible passage to this room in the current geometry.');return;}
+        props.current.onGuidancePlan?.(plan);
         const first=plan.legs.find(l=>l.kind==='walk'&&l.level===floor),transition=plan.legs.find(l=>l.kind!=='walk');
         // Concatenate all walking legs before the first vertical transition.
         const planned=[];for(const leg of plan.legs){if(leg.kind!=='walk')break;planned.push(...leg.points);}
@@ -234,17 +241,21 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
         if(record){const up=record.lower===floor||!(record.upper===floor),entry=record.path[up?0:1],direction=record.path[1].clone().sub(record.path[0]);direction.y=0;direction.normalize().multiplyScalar(up?1:-1);const start=entry.clone().addScaledVector(direction,-.5);place(up?record.lower:record.upper,toLocal(up?record.lower:record.upper,start));yaw=Math.atan2(-direction.x,-direction.z);pitch=up?.15:-.45;return;}
         const l=props.current.links.find(l=>l.id===id),p=l?.points.find(p=>p.level===floor)||l?.points[0];if(p)place(p.level,[p.x,p.y]);
       },turn:delta=>{yaw+=delta;}};
+      let soundAt=0,soundFloor=floor,adaptiveRatio=1.25,sampleAt=performance.now(),frameCount=0,measuredFps=0;
       function update(now){
+        frameCount++;if(now-sampleAt>2000){measuredFps=Math.round(frameCount*1000/(now-sampleAt));if(measuredFps<40)adaptiveRatio=Math.max(.75,adaptiveRatio-.25);else if(measuredFps>57)adaptiveRatio=Math.min(1.25,adaptiveRatio+.1);frameCount=0;sampleAt=now;}
         const dt=Math.min(.05,(now-last)/1000);last=now;
         if(journey){
-          const t=matchMedia('(prefers-reduced-motion: reduce)').matches?1:Math.min(1,(now-journey.started)/2800);position.copy(pathPosition(journey.path,t));
+          const t=(props.current.settings.reducedMotion||matchMedia('(prefers-reduced-motion: reduce)').matches)?1:Math.min(1,(now-journey.started)/2800);position.copy(pathPosition(journey.path,t));
           if(t===1){const {to,path:route}=journey,end=route.at(-1),before=route.at(-2),direction=end.clone().sub(before);direction.y=0;direction.normalize();journey=null;const goal=navigationGoal;place(to,toLocal(to,end.clone().addScaledVector(direction,.45)));navigationGoal=goal;continueGuidance=!!goal;}
         }else{
           const forward=(keys.has('KeyW')||keys.has('KeyZ')||keys.has('ArrowUp')?1:0)-(keys.has('KeyS')||keys.has('ArrowDown')?1:0);
           const side=(keys.has('KeyD')?1:0)-(keys.has('KeyA')||keys.has('KeyQ')?1:0);
           if(keys.has('ArrowLeft'))yaw+=dt*1.5;if(keys.has('ArrowRight'))yaw-=dt*1.5;
           let target=null;
-          if(forward||side){const scale=(keys.has('ShiftLeft')||keys.has('ShiftRight')?4:2.2)*dt/Math.max(1,Math.hypot(forward,side));target=position.clone().add(new THREE.Vector3(-Math.sin(yaw)*forward+Math.cos(yaw)*side,0,-Math.cos(yaw)*forward-Math.sin(yaw)*side).multiplyScalar(scale));}
+          const desired=new THREE.Vector3(-Math.sin(yaw)*forward+Math.cos(yaw)*side,0,-Math.cos(yaw)*forward-Math.sin(yaw)*side).multiplyScalar((keys.has('ShiftLeft')||keys.has('ShiftRight')?4:2.2)/Math.max(1,Math.hypot(forward,side)));
+          velocity.lerp(desired,dampFactor(forward||side?12:18,dt));
+          if(forward||side||(!path.length&&velocity.length()>.02)){target=position.clone().addScaledVector(velocity,dt);}
           else if(path.length){const next=toWorld(floor,path[0]),delta=next.clone().sub(position);delta.y=0;if(delta.length()<.12){path.shift();if(!path.length)targetMarker.visible=false;}else{target=position.clone().add(delta.normalize().multiplyScalar(Math.min(2.2*dt,position.distanceTo(next))));yaw=Math.atan2(-delta.x,-delta.z);}}
           if(target){
             const ramp=stairRecords.find(r=>{
@@ -264,19 +275,20 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
             }
           }
         }
-        if(navigationGoal&&arrivalTarget&&!path.length&&!journey&&!pendingStair&&Math.hypot(...toLocal(floor,position).map((v,i)=>v-arrivalTarget[i]))<.3){const room=props.current.rooms.find(r=>r.id===navigationGoal);setMessage(`${props.current.lang==='fr'?'Arrivée à':'Arrived at'} ${room?roomName(room,props.current.lang):navigationGoal}`);navigationGoal=null;arrivalTarget=null;}
+        if(navigationGoal&&arrivalTarget&&!path.length&&!journey&&!pendingStair&&Math.hypot(...toLocal(floor,position).map((v,i)=>v-arrivalTarget[i]))<.3){if(props.current.settings.sound)playCue('arrival');const room=props.current.rooms.find(r=>r.id===navigationGoal);setMessage(`${props.current.lang==='fr'?'Arrivée à':'Arrived at'} ${room?roomName(room,props.current.lang):navigationGoal}`);navigationGoal=null;arrivalTarget=null;}
         if(continueGuidance&&!journey){continueGuidance=false;if(navigationGoal)guide();}
         if(pendingStair&&!path.length&&!journey){const pending=pendingStair;pendingStair=null;travel(pending.linkId,pending.to);}
         const moved=position.distanceTo(previousPosition),heading=Math.atan2(-(position.x-previousPosition.x),-(position.z-previousPosition.z));previousPosition.copy(position);
+        if(props.current.settings.sound){if(soundFloor!==floor){playCue('floor');soundFloor=floor;}else if(moved>.005&&now-soundAt>420){playCue('step');soundAt=now;}}
         if(!viewReady){visualPosition.copy(position);viewYaw=yaw;viewPitch=pitch;viewReady=true;}
         visualPosition.lerp(position,dampFactor(22,dt));viewYaw=dampAngle(viewYaw,yaw,20,dt);viewPitch+=(pitch-viewPitch)*dampFactor(20,dt);
-        avatar.visible=thirdPerson.current;avatar.position.copy(visualPosition);character.update(dt,moved,heading,matchMedia('(prefers-reduced-motion: reduce)').matches);
+        avatar.visible=thirdPerson.current;avatar.position.copy(visualPosition);character.setOutfit(props.current.settings.outfit);character.update(dt,moved,heading,(props.current.settings.reducedMotion||matchMedia('(prefers-reduced-motion: reduce)').matches),!!onStair||!!journey);
         if(thirdPerson.current){
           const target=visualPosition.clone().add(new THREE.Vector3(0,1.4,0));
-          const offset=new THREE.Vector3(Math.sin(viewYaw)*2.7,THREE.MathUtils.clamp(.6+Math.sin(-viewPitch)*1.1,.1,1.1),Math.cos(viewYaw)*2.7);
+          const offset=new THREE.Vector3(Math.sin(viewYaw)*(props.current.settings.cameraDistance||3.5),THREE.MathUtils.clamp(.6+Math.sin(-viewPitch)*1.1,.1,1.1),Math.cos(viewYaw)*(props.current.settings.cameraDistance||3.5));
           const fraction=cameraFraction(cameraMaps[floor],toLocal(floor,position),toLocal(floor,target.clone().add(offset)));
-          camera.position.copy(target).addScaledVector(offset,fraction);avatar.visible=fraction*offset.length()>.65;
-          camera.lookAt(target.clone().add(new THREE.Vector3(-Math.sin(viewYaw)*1.2,0,-Math.cos(viewYaw)*1.2)));
+          if(fraction*offset.length()<=.65){avatar.visible=false;camera.position.copy(visualPosition).add(new THREE.Vector3(0,1.65,0));camera.rotation.set(viewPitch,viewYaw,0,'YXZ');}
+          else{camera.position.copy(target).addScaledVector(offset,fraction);camera.lookAt(target.clone().add(new THREE.Vector3(-Math.sin(viewYaw)*1.2,0,-Math.cos(viewYaw)*1.2)));}
         }else{camera.position.copy(visualPosition).add(new THREE.Vector3(0,1.65,0));camera.rotation.set(viewPitch,viewYaw,0,'YXZ');}
         if(now-visibilityTime>120){visibilityTime=now;for(const door of doorLeaves)door.frame.visible=groups[door.floor].visible&&door.center.distanceToSquared(position)<32*32;}
         if(now-hudTime>250){hudTime=now;const p=toLocal(floor,position),near=nearestLink();const nearby=near&&Math.hypot(p[0]-near.p.x,p[1]-near.p.y)<4?near.link.id:null;
@@ -284,9 +296,12 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
           let closest=null;for(const door of doorLeaves){if(door.floor!==floor)continue;const distance=door.center.distanceTo(position);if(!closest||distance<closest.distance)closest={door,distance};}
           const nearRoom=closest&&closest.distance<6?closest.door.room:null;
           props.current.onPositionChange?.(snapshot());
-          setHud({floor,x:p[0],y:p[1],nearby,yaw,room:room?roomName(room,props.current.lang):null,detail:room||nearRoom,inside:!!room,doorDistance:closest?.distance,onStair:!!onStair});
+          setHud({floor,x:p[0],y:p[1],nearby,yaw,room:room?roomName(room,props.current.lang):null,detail:room||nearRoom,inside:!!room,doorDistance:closest?.distance,fps:measuredFps,onStair:!!onStair});
         }
         for(const door of doorLeaves){if(!door.frame.visible)continue;const close=door.floor===floor&&position.distanceToSquared(door.center)<2.4*2.4;door.pivot.rotation.y=THREE.MathUtils.lerp(door.pivot.rotation.y,close?door.angle:0,dampFactor(5,dt));}
+        const quality=props.current.settings.quality||'auto';
+        const pixelRatio=quality==='low'?1:quality==='high'?Math.min(devicePixelRatio||1,2):Math.min(devicePixelRatio||1,adaptiveRatio);
+        if(renderer.getPixelRatio()!==pixelRatio)renderer.setPixelRatio(pixelRatio);
         renderer.render(scene,camera);raf=requestAnimationFrame(update);
       }raf=requestAnimationFrame(update);
       cleanup=()=>{props.current.onPositionChange?.(snapshot(),true);observer.disconnect();canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('keydown',keydown);window.removeEventListener('keyup',keyup);window.removeEventListener('blur',blur);scene.traverse(o=>{o.geometry?.dispose();if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.dispose());});textures.forEach(t=>t.dispose());};
@@ -297,11 +312,13 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
   const connection=links.find(l=>l.id===(hud?.nearby||connectionId))||links[0];
   const points=connection?.points.slice().sort((a,b)=>LEVELS.indexOf(a.level)-LEVELS.indexOf(b.level))||[];
   const index=points.findIndex(p=>p.level===hud?.floor);
-  return <div className="walkthrough">
+  return <div className={`walkthrough ${settings.compactPanels?'compact-panels':''}`}>
+    <span className="sr-only" role="status">{hud?hud.floor+' · '+(hud.room||(fr?'Couloir':'Corridor')):''}</span>
     <div className="walk-stage" ref={host}/>
     <div className="walk-top" style={{borderLeft:`6px solid ${{RDC:'#3f806a','R+1':'#416d9c','R+2':'#86659d'}[hud?.floor]||'#416d9c'}`}}><div><strong>{hud?.room||(fr?'Couloir / espace commun':'Corridor / shared space')}</strong><span>{hud?`${hud.floor} · x ${hud.x.toFixed(1)} m · y ${hud.y.toFixed(1)} m${hud.onStair?(fr?' · Dans l’escalier':' · On the stairs'):''}`:(fr?'Préparation du bâtiment…':'Preparing the building…')}</span></div><button className="ghost" onClick={onOverview}>{fr?'Sortir vers le plan 2D':'Return to 2D plan'}</button></div>
     <div className="walk-perspective" role="group" aria-label={fr?'Point de vue':'Viewpoint'}>{[['third',fr?'Personnage':'Character'],['first',fr?'Première personne':'First person']].map(([id,label])=><button key={id} aria-pressed={perspective===id} onClick={()=>{thirdPerson.current=id==='third';setPerspective(id);}}>{label}</button>)}</div>
     {hud?.detail&&<aside className="walk-room-info" style={{borderTopColor:ROOM_COLORS[hud.detail.type]||ROOM_COLORS.other}}><small>{hud.inside?(fr?'VOUS ÊTES DANS':'YOU ARE IN'):(fr?'À PROXIMITÉ':'NEARBY')}</small><strong>{roomName(hud.detail,lang)}</strong><span>{TYPE_LABEL[lang][hud.detail.type]} · {hud.floor}{!hud.inside&&hud.doorDistance?` · ${hud.doorDistance.toFixed(1)} m`:''}</span><p>{hud.detail[`description_${lang}`]}</p><div>{hud.detail.area_plan_m2?`${hud.detail.area_plan_m2} m²`:''}{hud.detail.capacity?` · ${hud.detail.capacity} ${fr?'places':'seats'}`:''}</div><RoomPracticalInfo room={hud.detail} lang={lang}/><button className="ghost" onClick={()=>mapProps?.onEditRoom(hud.detail)}>{fr?'Modifier les informations':'Edit room information'}</button><small>{hud.detail.verified_on_site?(fr?'Vérifié sur place':'Verified on site'):(fr?'Informations issues du plan':'Information from the plan')}</small></aside>}
+    {settings.showPerformance&&hud&&<div className="walk-performance">{hud.fps||'…'} FPS · {settings.quality||'auto'}</div>}
     <div className="walk-crosshair" aria-hidden="true">+</div>
     {hud&&mapProps&&<ImmersivePlan hud={hud} mapProps={mapProps} onTeleport={(lv,p)=>api.current?.teleport(lv,p)} onWalk={(lv,p)=>api.current?.walkTo(lv,p)}/>}
     {(destination||selected)&&<div className="walk-itinerary"><strong>{fr?'Destination':'Destination'} : {roomName(destination||selected,lang)}</strong>{route&&<span>{route.metres} m · {route.minutes} min · {fr?'itinéraire indicatif':'approximate route'}</span>}<button disabled={busy} onClick={()=>api.current?.guide()}>{fr?'Me guider depuis ma position':'Guide me from my position'}</button><button onClick={()=>api.current?.stop()}>{fr?'Arrêter':'Stop'}</button></div>}

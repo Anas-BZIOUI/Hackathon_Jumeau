@@ -35,18 +35,22 @@ export function searchRooms(query, rooms, synonyms, lang) {
   if (!q) return [];
   const scored = [];
 
-  const numMatch = query.match(NUMBER_RE);
+  const numMatch = query.replace(/\br\s*\+\s*[012]|\brdc\b/gi,'').match(NUMBER_RE);
   const compact = fold(query).replace(/\s/g, '');
+  const requestedLevel=/\brdc\b/i.test(query)?'RDC':query.match(/\br\s*\+\s*([12])/i)?.[1];
+  const level=requestedLevel&&requestedLevel!=='RDC'?`R+${requestedLevel}`:requestedLevel;
 
   for (const room of rooms) {
+    if(level&&room.level!==level)continue;
     let score = 0;
     const num = fold(room.number || '').replace(/\s/g, '');
     const idf = fold(room.id).replace(/\s/g, '');
-    if (num && (num === compact || compact.endsWith(num))) score += 100;
+    if(numMatch&&num!==fold(numMatch[1]).replace(/\s/g,'')&&idf!==compact)continue;
+    if (num && num === compact) score += 100;
     if (idf === compact) score += 120;
     if (numMatch) {
       const n = fold(numMatch[1]).replace(/\s/g, '');
-      if (num === n || idf.endsWith(n)) score += 90;
+      if (num === n) score += 90;
     }
     const blob = fold(
       [
@@ -65,6 +69,10 @@ export function searchRooms(query, rooms, synonyms, lang) {
     let hit = 0;
     for (const w of words) if (blob.includes(w)) hit += 1;
     score += hit * 8;
+    if(!score&&q.length>=4&&!numMatch){
+      const candidates=blob.split(' ');
+      if(words.every(w=>candidates.some(c=>c.length>=4&&editDistance(w,c)<=1)))score=6;
+    }
     for (const [canon, list] of Object.entries(synonyms || {})) {
       const keys = [canon, ...list].map(fold);
       if (keys.some((k) => q.includes(k) || k.includes(q))) {
@@ -76,6 +84,13 @@ export function searchRooms(query, rooms, synonyms, lang) {
   }
   scored.sort((a, b) => b.score - a.score);
   return scored.slice(0, 8).map((s) => s.room);
+}
+
+function editDistance(a,b){
+ if(Math.abs(a.length-b.length)>1)return 2;
+ let previous=Array.from({length:b.length+1},(_,i)=>i);
+ for(let i=1;i<=a.length;i++){const next=[i];for(let j=1;j<=b.length;j++)next[j]=Math.min(next[j-1]+1,previous[j]+1,previous[j-1]+(a[i-1]===b[j-1]?0:1));previous=next;}
+ return previous[b.length];
 }
 
 function neighbors(graph) {
@@ -167,10 +182,11 @@ export function parseHash() {
   const parts = raw.split('/').filter(Boolean);
   const out = { view: 'guide', roomId: null, fromId: null, toId: null };
   if (parts[0] === 'adventure') out.view = 'adventure';
-  if (parts[0] === 'room' && parts[1]) out.roomId = decodeURIComponent(parts.slice(1).join('/'));
+  const decode=value=>{try{return decodeURIComponent(value);}catch{return null;}};
+  if (parts[0] === 'room' && parts[1]) out.roomId = decode(parts.slice(1).join('/'));
   if (parts[0] === 'route' && parts[1] && parts[2]) {
-    out.fromId = decodeURIComponent(parts[1]);
-    out.toId = decodeURIComponent(parts[2]);
+    out.fromId = decode(parts[1]);
+    out.toId = decode(parts[2]);
   }
   return out;
 }
@@ -181,7 +197,7 @@ export function setHash(state) {
   else if (state.fromId && state.toId) h = `/route/${encodeURIComponent(state.fromId)}/${encodeURIComponent(state.toId)}`;
   else if (state.roomId) h = `/room/${encodeURIComponent(state.roomId)}`;
   const next = `#${h}`;
-  if (location.hash !== next) history.replaceState(null, '', next || '#');
+  if (location.hash !== next) history.pushState(null, '', next || '#');
 }
 
 export const ACTIVITY_COLORS = {

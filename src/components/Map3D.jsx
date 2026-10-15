@@ -289,7 +289,7 @@ export default function Map3D({ rooms, floors, links, selectedId, route, aligned
     function animate() {
       if (journey) {
         const elapsed=performance.now()-journey.started;
-        const progress=matchMedia('(prefers-reduced-motion: reduce)').matches?1:Math.min(1,elapsed/journey.duration);
+        const progress=(document.documentElement.dataset.reducedMotion==='true'||matchMedia('(prefers-reduced-motion: reduce)').matches)?1:Math.min(1,elapsed/journey.duration);
         const position=pathPosition(journey.path,progress);
         traveller.position.copy(position);
         const blend=Math.min(1,elapsed/450);
@@ -301,7 +301,7 @@ export default function Map3D({ rooms, floors, links, selectedId, route, aligned
           setLocation(arrival); setTravelling(false); current.current.onFloorChange?.(arrival.level);
         }
       } else if (targetView) {
-        const progress = matchMedia('(prefers-reduced-motion: reduce)').matches ? 1 : Math.min(1, (performance.now() - targetView.started) / 550);
+        const progress = (document.documentElement.dataset.reducedMotion==='true'||matchMedia('(prefers-reduced-motion: reduce)').matches) ? 1 : Math.min(1, (performance.now() - targetView.started) / 550);
         const eased = progress * progress * (3 - 2 * progress);
         camera.position.lerpVectors(targetView.fromPosition, targetView.position, eased);
         controls.target.lerpVectors(targetView.fromCenter, targetView.center, eased);
