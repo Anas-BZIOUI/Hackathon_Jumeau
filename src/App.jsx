@@ -15,6 +15,9 @@ import MetroMap from './components/MetroMap.jsx';
 import Constellation from './components/Constellation.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import AdventureView from './components/AdventureView.jsx';
+import CalibrationTool from './components/CalibrationTool.jsx';
+import { CALIBRATION_KEY, calibratedScene, validateCalibration, solveCalibration } from './calibration.js';
+import projectCalibration from '../ensiie-control-points.json';
 
 const ACTIVITIES = ['teaching', 'research', 'student_life', 'companies'];
 const LEVELS = ['RDC', 'R+1', 'R+2'];
@@ -58,6 +61,9 @@ export default function App() {
   const [tourId, setTourId] = useState(null);
   const [tourStep, setTourStep] = useState(0);
   const [openSearch, setOpenSearch] = useState(false);
+  const [showCalibration, setShowCalibration] = useState(false);
+  const [calibration, setCalibration] = useState(null);
+  const sceneData = useMemo(() => data ? calibratedScene(data.floors, data.links, calibration) : null, [data, calibration]);
 
   const t = STRINGS[lang];
 
@@ -67,6 +73,21 @@ export default function App() {
       .then((d) => {
         if (cancelled) return;
         setData(d);
+        let restoredCalibration = null;
+        try {
+          const saved = JSON.parse(localStorage.getItem(CALIBRATION_KEY));
+          if (saved) {
+            const checked = validateCalibration(saved, d.floors);
+            if (solveCalibration(checked).ready) restoredCalibration = checked;
+          }
+        } catch { /* A missing or outdated calibration must never prevent loading. */ }
+        if (!restoredCalibration) {
+          try {
+            const checked = validateCalibration(projectCalibration, d.floors);
+            if (solveCalibration(checked).ready) restoredCalibration = checked;
+          } catch { /* Invalid project marks leave the original plan alignment available. */ }
+        }
+        if (restoredCalibration) setCalibration(restoredCalibration);
         const h = parseHash();
         if (h.view === 'adventure') setView('adventure');
         if (h.roomId) {
@@ -207,6 +228,12 @@ export default function App() {
         </div>
       </header>
 
+      {showCalibration && <CalibrationTool floors={data.floors} lang={lang} applied={calibration} onClose={() => setShowCalibration(false)} onApply={(draft) => {
+        setCalibration(draft);
+        try { localStorage.setItem(CALIBRATION_KEY, JSON.stringify(draft)); } catch { /* Session preview still works. */ }
+        setAligned(true); setMode('map3d'); setView('guide'); setShowCalibration(false);
+      }} />}
+
       {view === 'adventure' ? (
         <AdventureView t={t} lang={lang} selected={selected} level={level} rooms={rooms} />
       ) : (
@@ -288,6 +315,11 @@ export default function App() {
                   <button className={`pill ${explode ? 'active' : ''}`} onClick={() => setExplode((v) => !v)}>{explode ? t.explode : t.compact}</button>
                 </>
               )}
+              <button className="ghost" onClick={() => setShowCalibration(true)}>{lang === 'fr' ? 'Aligner les étages' : 'Align floors'}</button>
+              {calibration && <button className="ghost" onClick={() => {
+                setCalibration(null);
+                try { localStorage.removeItem(CALIBRATION_KEY); } catch { /* Session reset still works. */ }
+              }}>{lang === 'fr' ? 'Annuler le calibrage' : 'Reset calibration'}</button>}
               <label className="hint" style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
                 <input type="checkbox" checked={stepFree} onChange={(e) => setStepFree(e.target.checked)} />
                 {t.stepFree}
@@ -315,11 +347,13 @@ export default function App() {
             )}
             {mode === 'map3d' && (
               <Map3D
+                onFloorChange={setLevel}
+                onCompactRequest={() => setExplode(false)}
                 lang={lang}
                 onOpen2D={(floor) => { setLevel(floor); setMode('map2d'); }}
                 rooms={filtered}
-                floors={data.floors}
-                links={data.links}
+                floors={sceneData.floors}
+                links={sceneData.links}
                 zones={data.zones}
                 selectedId={selectedId}
                 route={route}

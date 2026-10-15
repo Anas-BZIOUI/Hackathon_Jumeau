@@ -1,0 +1,131 @@
+{
+  "version": 1,
+  "navigation": "both",
+  "landmarks": [
+    {
+      "id": "stairs-main",
+      "type": "stairs",
+      "label": "A",
+      "points": {
+        "RDC": [
+          24.51,
+          18.39
+        ],
+        "R+1": [
+          23.8,
+          17.34
+        ],
+        "R+2": [
+          96.76,
+          18.52
+        ]
+      }
+    },
+    {
+      "id": "lift-1",
+      "type": "lift",
+      "label": "B",
+      "points": {
+        "RDC": [
+          30.61,
+          22.71
+        ],
+        "R+1": [
+          30.21,
+          20.89
+        ],
+        "R+2": [
+          103.06,
+          22.99
+        ]
+      }
+    },
+    {
+      "id": "control-3",
+      "type": "landmark",
+      "label": "C",
+      "points": {}
+    },
+    {
+      "id": "control-1792072922568",
+      "label": "D",
+      "type": "stairs",
+      "points": {
+        "RDC": [
+          37.05,
+          18.39
+        ],
+        "R+1": [
+          37.03,
+          16.94
+        ]
+      }
+    },
+    {
+      "id": "control-1792072953987",
+      "label": "E",
+      "type": "landmark",
+      "points": {
+        "R+1": [
+          40,
+          19.2
+        ],
+        "R+2": [
+          111.79,
+          18.85
+        ]
+      }
+    },
+    {
+      "id": "control-1792073097298",
+      "label": "F",
+      "type": "landmark",
+      "points": {
+        "R+2": [
+          95.98,
+          18.53
+        ],
+        "R+1": [
+          22.18,
+          19.39
+        ]
+      }
+    }
+  ],
+  "reference": "RDC",
+  "solution": {
+    "levels": {
+      "RDC": {
+        "offset": [
+          0,
+          0
+        ],
+        "rotation_deg": 0,
+        "residual_m": 0,
+        "count": 3
+      },
+      "R+1": {
+        "offset": [
+          0.8453881469958031,
+          0.6878823214361205
+        ],
+        "rotation_deg": 1.4310072656046362,
+        "residual_m": 0.3987293748702041,
+        "count": 3,
+        "error": null
+      },
+      "R+2": {
+        "offset": [
+          -72.36829315856912,
+          -0.11674506096857229
+        ],
+        "rotation_deg": -0.05060726969807031,
+        "residual_m": 0.12495494543985451,
+        "count": 2,
+        "error": null
+      }
+    },
+    "ready": true
+  },
+  "exported_at": "2026-10-15T14:11:02.481Z"
+}

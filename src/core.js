@@ -10,7 +10,8 @@ export function fold(s) {
 export function worldPoint(floors, level, x, y, aligned) {
   const off = floors.levels[level]?.offset || [0, 0];
   const a = aligned ? 1 : 0;
-  return [x + off[0] * a, y + off[1] * a];
+  const angle = (floors.levels[level]?.rotation_deg || 0) * a * Math.PI / 180;
+  return [Math.cos(angle) * x - Math.sin(angle) * y + off[0] * a, Math.sin(angle) * x + Math.cos(angle) * y + off[1] * a];
 }
 
 export function roomName(room, lang) {
