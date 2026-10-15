@@ -551,3 +551,150 @@ body {font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;background
 .ensii-hover-label { position:absolute; z-index:4; left:50%; top:14px; transform:translateX(-50%); padding:9px 14px; background:#19223e; color:#fff; border-radius:9px; font-weight:700; pointer-events:none; }
 .ensii-plan-error { position:absolute; z-index:8; left:50%; top:50%; transform:translate(-50%,-50%); background:#fff2f2; border:1px solid #f99; padding:12px; border-radius:10px; }
 @media(max-width:650px) { .ensii-side-details { top:auto; right:8px; left:8px; bottom:8px; width:auto; max-height:46%; padding:20px; } .ensii-blueprint-map .ensii-modern-legend { display:none; } }
+
+
+/* === Assistant Je suis perdu === */
+
+.lost-assistant {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: min(380px, calc(100vw - 32px));
+  height: min(520px, calc(100vh - 80px));
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #e9e4f5;
+  border-radius: 20px;
+  box-shadow: 0 18px 60px rgba(36, 16, 80, 0.18);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.lost-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px;
+  background: linear-gradient(135deg, #7400e8, #4c12ad);
+  color: white;
+}
+
+.lost-header strong {
+  display: block;
+  font-size: 15px;
+}
+
+.lost-header small {
+  display: block;
+  margin-top: 4px;
+  opacity: 0.85;
+}
+
+.lost-header button {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.lost-messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 20px;
+  overflow-y: auto;
+  background: #faf9fe;
+}
+
+.lost-message {
+  max-width: 88%;
+  padding: 12px 15px;
+  border-radius: 15px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.lost-message p {
+  margin: 8px 0 0;
+}
+
+.lost-message.bot {
+  background: #ffffff;
+  border: 1px solid #ebe7f3;
+  color: #29213e;
+  border-bottom-left-radius: 4px;
+}
+
+.lost-message.user {
+  align-self: flex-end;
+  background: #7200e6;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.lost-input {
+  display: flex;
+  gap: 10px;
+  padding: 14px;
+  background: white;
+  border-top: 1px solid #eeeaf6;
+}
+
+.lost-input input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #ddd5ee;
+  border-radius: 12px;
+  padding: 12px;
+  outline: none;
+}
+
+.lost-input input:focus {
+  border-color: #7200e6;
+}
+
+.lost-input button {
+  background: #7200e6;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+.lost-input button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.lost-error {
+  color: #b42318;
+  background: #fff0ef;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.lost-restart {
+  margin: 14px;
+  padding: 12px;
+  background: #f0e9ff;
+  color: #5e00bf;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .lost-assistant {
+    right: 12px;
+    bottom: 12px;
+    width: calc(100vw - 24px);
+    height: min(520px, 80vh);
+  }
+}
