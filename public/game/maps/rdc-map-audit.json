@@ -1,0 +1,671 @@
+{
+  "inferredDoors": [
+    {
+      "id": "inferred-missing-door-6",
+      "rooms": [
+        "drawn-rdc-6",
+        "drawn-rdc-8"
+      ],
+      "center": [
+        46.375,
+        7.75
+      ],
+      "reason": "Missing authored door; inferred on shared wall toward adjacent accessible space. Verify on site."
+    },
+    {
+      "id": "inferred-missing-door-37",
+      "rooms": [
+        "drawn-rdc-37",
+        "drawn-rdc-2"
+      ],
+      "center": [
+        33.875,
+        21.5
+      ],
+      "reason": "Missing authored door; inferred on shared wall toward adjacent accessible space. Verify on site."
+    }
+  ],
+  "sourceWalls": 125,
+  "sourceDoors": 61,
+  "rooms": 51,
+  "junctionRepairs": [
+    {
+      "id": "junction-0",
+      "a": [
+        21.5,
+        3.25
+      ],
+      "b": [
+        21.5,
+        3
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-1",
+      "a": [
+        16.75,
+        23.5
+      ],
+      "b": [
+        16.75,
+        23.75
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-2",
+      "a": [
+        12,
+        23.5
+      ],
+      "b": [
+        12,
+        23.75
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-3",
+      "a": [
+        24,
+        32.25
+      ],
+      "b": [
+        24,
+        32.5
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-4",
+      "a": [
+        21.5,
+        25.25
+      ],
+      "b": [
+        21.34070796460177,
+        25.11061946902655
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-5",
+      "a": [
+        29,
+        32.25
+      ],
+      "b": [
+        29,
+        32.5
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-6",
+      "a": [
+        31.25,
+        21.5
+      ],
+      "b": [
+        31.223076923076924,
+        21.715384615384615
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-7",
+      "a": [
+        41,
+        32.25
+      ],
+      "b": [
+        41,
+        32.5
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-8",
+      "a": [
+        32.75,
+        25
+      ],
+      "b": [
+        33,
+        25
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-9",
+      "a": [
+        37.25,
+        21.75
+      ],
+      "b": [
+        37.25,
+        21.5
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-10",
+      "a": [
+        34.75,
+        24.75
+      ],
+      "b": [
+        34.75,
+        25
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-11",
+      "a": [
+        33.25,
+        22.5
+      ],
+      "b": [
+        33,
+        22.5
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-12",
+      "a": [
+        38.75,
+        21.75
+      ],
+      "b": [
+        38.75,
+        21.5
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-13",
+      "a": [
+        50,
+        32.75
+      ],
+      "b": [
+        50,
+        32.5
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-14",
+      "a": [
+        55,
+        21.75
+      ],
+      "b": [
+        55.25,
+        21.75
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-15",
+      "a": [
+        55,
+        24.25
+      ],
+      "b": [
+        55.25,
+        24.25
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-16",
+      "a": [
+        50.25,
+        26.75
+      ],
+      "b": [
+        50,
+        26.75
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-17",
+      "a": [
+        55,
+        26.75
+      ],
+      "b": [
+        55.25,
+        26.75
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-18",
+      "a": [
+        48.5,
+        30
+      ],
+      "b": [
+        48.514274061990214,
+        30.000407830342578
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-19",
+      "a": [
+        45,
+        30
+      ],
+      "b": [
+        45.05678884873516,
+        30.001290655653072
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-20",
+      "a": [
+        48.5,
+        28
+      ],
+      "b": [
+        48.571370309951064,
+        28.002039151712886
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-21",
+      "a": [
+        45.25,
+        28
+      ],
+      "b": [
+        45.102348993288594,
+        27.996644295302012
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-22",
+      "a": [
+        48.5,
+        25.75
+      ],
+      "b": [
+        48.63560358890702,
+        25.753874388254488
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-23",
+      "a": [
+        45.25,
+        25.75
+      ],
+      "b": [
+        45.153458957150235,
+        25.74780588538978
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-24",
+      "a": [
+        48.5,
+        23.75
+      ],
+      "b": [
+        48.69269983686786,
+        23.755505709624796
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-25",
+      "a": [
+        45,
+        23.75
+      ],
+      "b": [
+        45.19876097057305,
+        23.75451729478575
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-26",
+      "a": [
+        54.5,
+        7.75
+      ],
+      "b": [
+        54.75,
+        7.75
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-27",
+      "a": [
+        54.5,
+        16.25
+      ],
+      "b": [
+        54.75,
+        16.25
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-28",
+      "a": [
+        50.75,
+        19.5
+      ],
+      "b": [
+        50.747,
+        19.671
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-29",
+      "a": [
+        47,
+        19.5
+      ],
+      "b": [
+        46.99815384615385,
+        19.60523076923077
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-30",
+      "a": [
+        44.75,
+        19.25
+      ],
+      "b": [
+        44.744461538461536,
+        19.56569230769231
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-31",
+      "a": [
+        44.75,
+        7.5
+      ],
+      "b": [
+        44.75,
+        7.75
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-32",
+      "a": [
+        44.5,
+        4.25
+      ],
+      "b": [
+        44.5,
+        4
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-33",
+      "a": [
+        41.25,
+        4.25
+      ],
+      "b": [
+        41.25,
+        4.5
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    },
+    {
+      "id": "junction-34",
+      "a": [
+        42.75,
+        19.5
+      ],
+      "b": [
+        42.74946153846154,
+        19.53069230769231
+      ],
+      "height": 2.8,
+      "thickness": 0.12,
+      "inferred": true
+    }
+  ],
+  "linkedDoors": 55,
+  "exteriorDoors": [
+    {
+      "id": "door-00c272b4-503f-49a2-9e63-274614d6b092",
+      "wallId": "wall-677a67aa-f025-4af2-86c2-1e93a98e27bd",
+      "center": [
+        28.105960845947266,
+        4.5
+      ],
+      "width": 0.9,
+      "faces": [
+        null,
+        3
+      ],
+      "status": "exterior-or-unresolved"
+    },
+    {
+      "id": "door-83ae433b-eb83-4ad9-81ec-1db92426e3f3",
+      "wallId": "wall-677a67aa-f025-4af2-86c2-1e93a98e27bd",
+      "center": [
+        29.979036331176758,
+        4.5
+      ],
+      "width": 0.9,
+      "faces": [
+        null,
+        3
+      ],
+      "status": "exterior-or-unresolved"
+    },
+    {
+      "id": "door-48a7e927-a789-4deb-afd8-7ba50088f650",
+      "wallId": "wall-86fd88d7-07b7-4ae8-b340-134a4b981cc0",
+      "center": [
+        8.320701599121094,
+        23.75
+      ],
+      "width": 0.9,
+      "faces": [
+        null,
+        24
+      ],
+      "status": "exterior-or-unresolved"
+    },
+    {
+      "id": "door-d9abb178-aff0-4e85-ba15-26546d78c711",
+      "wallId": "wall-0fc0c5fe-0be1-4b5b-b836-b8c4356ceea9",
+      "center": [
+        19.684553623199463,
+        24.434553623199463
+      ],
+      "width": 0.9,
+      "faces": [
+        null,
+        2
+      ],
+      "status": "exterior-or-unresolved"
+    },
+    {
+      "id": "door-c886007d-c441-41c6-9662-b53e8f5f59e2",
+      "wallId": "wall-88e0cecb-5c69-4a09-ab76-53097f7e0d27",
+      "center": [
+        22.880714416503906,
+        32.5
+      ],
+      "width": 0.9,
+      "faces": [
+        null,
+        19
+      ],
+      "status": "exterior-or-unresolved"
+    },
+    {
+      "id": "door-d806a87d-ed0e-44d9-8bea-b1369e126c10",
+      "wallId": "wall-100e66f3-be6b-43cc-8375-23c7ea5fac07",
+      "center": [
+        55.25,
+        20.5263729095459
+      ],
+      "width": 0.9,
+      "faces": [
+        null,
+        10
+      ],
+      "status": "exterior-or-unresolved"
+    }
+  ],
+  "unresolvedDoors": [],
+  "reachableRooms": 51,
+  "unreachableRooms": [],
+  "fixtures": {
+    "stairs": [
+      {
+        "id": "stairs-left",
+        "bounds": [
+          866,
+          632,
+          208,
+          54
+        ],
+        "source": "plan_RDC stair flights; game collision footprint"
+      },
+      {
+        "id": "stairs-right",
+        "bounds": [
+          1420,
+          632,
+          208,
+          54
+        ],
+        "source": "plan_RDC stair flights; game collision footprint"
+      }
+    ],
+    "elevator": {
+      "doorId": "door-87b3e595-2d76-41c6-81dc-ee05621b63d7",
+      "roomId": "drawn-rdc-34"
+    }
+  },
+  "decorations": {
+    "source": "Tiled_Photos and persons/Amelia_idle_16x16.png",
+    "zones": {
+      "green": [
+        "green-board",
+        "green-plant-left",
+        "green-plant-right",
+        "green-bin"
+      ],
+      "red": [
+        "waiting-bench-0",
+        "waiting-bench-1",
+        "waiting-bench-2"
+      ],
+      "yellow": [
+        "reception-counter-top",
+        "reception-counter-arm",
+        "reception-computer",
+        "reception-stationery",
+        "reception-chair",
+        "reception-bin",
+        "reception-amelia"
+      ]
+    },
+    "counterOpening": {
+      "side": "east",
+      "gapPixels": 44
+    },
+    "seatingDirection": "north, toward elevator"
+  }
+}
