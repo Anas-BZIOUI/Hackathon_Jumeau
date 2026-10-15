@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import {dampFactor,dampAngle} from './motion.js';
 
 // Lightweight, original stylized student: no downloaded assets or extra textures.
-export function createAvatar(){
+export function createAvatar(initialHeading=0){
  const root=new THREE.Group(),body=new THREE.Group();root.add(body);
  const materials={jacket:new THREE.MeshStandardMaterial({color:'#347b91',roughness:.85}),skin:new THREE.MeshStandardMaterial({color:'#d9ae8e',roughness:.9}),hair:new THREE.MeshStandardMaterial({color:'#342e30',roughness:1}),trousers:new THREE.MeshStandardMaterial({color:'#334359',roughness:1}),shoe:new THREE.MeshStandardMaterial({color:'#faf7ee',roughness:.8}),bag:new THREE.MeshStandardMaterial({color:'#c6904c',roughness:1}),dark:new THREE.MeshStandardMaterial({color:'#25323c'})};
  function mesh(parent,geometry,material,x,y,z){const m=new THREE.Mesh(geometry,materials[material]);m.position.set(x,y,z);parent.add(m);return m;}
@@ -28,7 +28,7 @@ export function createAvatar(){
   const elbow=new THREE.Group();elbow.position.y=-.27;arm.add(elbow);capsule(elbow,.057,.15,'jacket',0,-.11,0);capsule(elbow,.06,.025,'skin',0,-.25,0);
   joints.push({side,leg,knee,arm,elbow});
  }
- let phase=0,blend=0,heading=0;
+ let phase=0,blend=0,heading=initialHeading;
  function update(dt,distance,targetHeading,reduced=false){
   const moving=distance>.0005&&distance<.5;blend+=((moving?1:0)-blend)*dampFactor(14,dt);
   if(moving){phase+=distance*8;heading=dampAngle(heading,targetHeading,14,dt);}

@@ -34,6 +34,11 @@ export default function Map2D({
   onSwapRoute,
   lang = "fr",
   synonyms,
+  position=null,
+  compact=false,
+  onVisit,
+  onWalkTo,
+  onLocatePosition,
 }) {
   const fr=lang==='fr';
   const size = floors.levels[level]?.size || [60, 60];
@@ -149,6 +154,8 @@ export default function Map2D({
     // Ne pas zoomer automatiquement : la carte reste lisible.
   }
   const title = fr?(floorNames[level]||level):({RDC:'Ground floor','R+1':'First floor','R+2':'Second floor'}[level]||level);
+  useEffect(()=>{if(compact&&position?.floor===level)setView({x:position.x-14,y:size[1]-position.y-11,w:28,h:22});},[compact,position?.x,position?.y,level]);
+  useEffect(()=>{if(!compact)setView(fit(size));},[compact]);
   const routeIds = new Set(route?.ids || []);
 
   const routeSegments = useMemo(
@@ -157,7 +164,7 @@ export default function Map2D({
   );
 
   return (
-    <div className="map-host ensii-modern-map ensii-blueprint-map">
+    <div className={`map-host ensii-modern-map ensii-blueprint-map ${compact?'compact-plan':''}`}>
       <svg
         ref={svgRef}
         className="map-2d ensii-map-svg"
@@ -389,6 +396,7 @@ export default function Map2D({
             ))}
         {links.flatMap(link=>link.points.filter(p=>p.level===level).map((p,i)=><g key={`${link.id}-${i}`} transform={`translate(${p.x} ${size[1]-p.y})`}><circle r=".8" fill={link.type==='lift'?'#278f9f':'#b87a32'} stroke="white" strokeWidth=".15"/><text textAnchor="middle" dominantBaseline="central" fill="white" fontSize=".85">{link.type==='lift'?'L':'S'}</text><title>{link.type==='lift'?(lang==='fr'?'Ascenseur':'Lift'):(lang==='fr'?'Escalier':'Stairs')} {link.label||link.id}</title></g>))}
         <g transform={`translate(${view.x+view.w*.04},${view.y+view.h*.93})`} pointerEvents="none"><path d="M0,-.4 V0 H10 V-.4" fill="none" stroke="#24445b" strokeWidth=".15"/><text x="5" y="-.7" textAnchor="middle" fontSize=".9" fill="#24445b" stroke="white" strokeWidth=".06" paintOrder="stroke">10 m</text></g>
+        {position?.floor===level&&<g className="shared-character-marker" transform={`translate(${position.x} ${size[1]-position.y})`} role="img" aria-label={fr?'Votre personnage est ici':'Your character is here'}><circle r="1.1" fill="#fff" stroke="#247b96" strokeWidth=".18"/><g transform={`rotate(${(floors.levels[level].rotation_deg||0)-(position.yaw||0)*180/Math.PI})`}><path d="M0,-1.35 L.65,-.45 L-.65,-.45 Z" fill="#247b96"/></g><circle cy="-.23" r=".22" fill="#d9ae8e"/><path d="M-.3,.05 H.3 V.65 H.1 V.35 H-.1 V.65 H-.3 Z" fill="#247b96"/><title>{fr?'Vous êtes ici':'You are here'} · {level}</title></g>}
       </svg>
       <section className="ensii-route-picker" aria-label="Départ et arrivée">
         <div className="ensii-route-title">
@@ -454,6 +462,7 @@ export default function Map2D({
         </span>
       </div>
       <div className="ensii-map-controls" aria-label="Commandes de la carte">
+        {position&&<button type="button" title={fr?'Localiser mon personnage':'Locate my character'} onClick={()=>{if(position.floor===level)focusRoom({centroid:[position.x,position.y]});else onLocatePosition?.(position.floor);}}>♟</button>}
         <button type="button" title={fr?"Zoom avant":"Zoom in"} onClick={() => zoom(0.78)}>
           ＋
         </button>
@@ -613,6 +622,8 @@ export default function Map2D({
           <div className="tags">{selected.activities?.map(a=><span className="tag" key={a} style={{background:ACTIVITY_COLORS[a]+'22'}}>{({teaching:lang==='fr'?'Enseignement':'Teaching',research:lang==='fr'?'Recherche':'Research',student_life:lang==='fr'?'Vie étudiante':'Student life',companies:lang==='fr'?'Entreprises':'Companies'})[a]}</span>)}</div>
           <p className="deeplink"><a href={`#/room/${encodeURIComponent(selected.id)}`}>{lang==='fr'?'Lien vers cette salle':'Link to this room'}</a></p>
           <div className="ensii-sheet-actions">
+            {onVisit&&<button type="button" onClick={()=>onVisit(selected)}>{fr?'Explorer ici en immersion':'Explore here in 3D'}</button>}
+            {onWalkTo&&<button type="button" disabled={position?.floor!==selected.level} onClick={()=>onWalkTo(selected)}>{fr?'Marcher vers cette salle':'Walk to this room'}</button>}
             <button type="button" onClick={() => onUseAsStart?.(selected.id)}>
               {startId === selected.id ? (fr?"✓ Départ":"✓ Start") : (fr?"Départ":"Start")}
             </button>

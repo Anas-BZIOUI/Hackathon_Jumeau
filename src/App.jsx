@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { STRINGS, TYPE_LABEL } from "./i18n.js";
 import {resolveRoute} from "./routing.js";
 import LostAssistant from "./components/LostAssistant.jsx";
@@ -61,6 +61,8 @@ export default function App() {
   const [error, setError] = useState(null);
   const [lang, setLang] = useState("fr");
   const [view, setView] = useState("guide");
+  const lastPosition=useRef(null);
+  const [playerPosition,setPlayerPosition]=useState(null);
   const [mode, setMode] = useState("map2d");
   const [persona, setPersona] = useState("student");
   const [level, setLevel] = useState("RDC");
@@ -123,6 +125,8 @@ export default function App() {
         }
         if (restoredCalibration) setCalibration(restoredCalibration);
         const h = parseHash();
+        const initialRoom=d.rooms.find(r=>r.id===(h.fromId||h.roomId));
+        if(initialRoom){const p={floor:initialRoom.level,x:initialRoom.centroid[0],y:initialRoom.centroid[1],yaw:0,pitch:0};lastPosition.current=p;setPlayerPosition(p);setLevel(initialRoom.level);}
         if (h.view === "adventure") setView("adventure");
         if (h.roomId) {
           setSelectedId(h.roomId);
@@ -187,16 +191,8 @@ export default function App() {
   }
   function closeRoomDetails() {
     setSelectedId(null);
-    setStartId(null);
-    setEndId(null);
-    setTourId(null);
-
-    // Supprimer les anciennes sélections de l'URL
-    window.history.replaceState(
-      null,
-      "",
-      window.location.pathname + window.location.search,
-    );
+    // Closing information must not discard an itinerary shared with immersion.
+    if(!startId&&!endId)window.history.replaceState(null,'',window.location.pathname+window.location.search);
   }
 
   function startTour(id) {
@@ -231,6 +227,14 @@ export default function App() {
   };
 
   const currentTour = data.tours.find((x) => x.id === tourId);
+  const mapProps={onLocatePosition:setLevel,rooms,activeActivities:acts,typeFilter,floors:data.floors,links:sceneData.links,zones:data.zones,level,selectedId,startId,endId,route,onSelect:selectRoom,synonyms:data.synonyms,onClearSelection:closeRoomDetails,
+    onUseAsStart:id=>{setStartId(id);if(id===endId)setEndId(null);},
+    onUseAsEnd:id=>{setEndId(id);if(id===startId)setStartId(null);},
+    onClearRoute:()=>{setStartId(null);setEndId(null);},onSwapRoute:()=>{setStartId(endId);setEndId(startId);},lang};
+  function enterRoom(room){const p={floor:room.level,x:room.centroid[0],y:room.centroid[1],yaw:lastPosition.current?.yaw||0,pitch:0};lastPosition.current=p;setPlayerPosition(p);setLevel(room.level);setMode('walk');}
+  function updatePosition(p,final=false){lastPosition.current=p;if(final)setPlayerPosition(p);}
+  function switchMode(next){if(next==='map2d'&&lastPosition.current){setPlayerPosition(lastPosition.current);setLevel(lastPosition.current.floor);}setMode(next);}
+
 
   return (
     <div className="app">
@@ -489,7 +493,7 @@ export default function App() {
                   <button
                     key={id}
                     className={mode === id ? "active" : ""}
-                    onClick={() => setMode(id)}
+                    onClick={() => switchMode(id)}
                   >
                     {label}
                   </button>
@@ -534,39 +538,7 @@ export default function App() {
             </div>
 
             {mode === "map2d" && (
-              <Map2D
-                rooms={rooms}
-                activeActivities={acts}
-                typeFilter={typeFilter}
-                floors={data.floors}
-                links={data.links}
-                zones={data.zones}
-                level={level}
-                selectedId={selectedId}
-                startId={startId}
-                endId={endId}
-                route={route}
-                onSelect={selectRoom}
-                synonyms={data.synonyms}
-                onClearSelection={closeRoomDetails}
-                onUseAsStart={(id) => {
-                  setStartId(id);
-                  if (id === endId) setEndId(null);
-                }}
-                onUseAsEnd={(id) => {
-                  setEndId(id);
-                  if (id === startId) setStartId(null);
-                }}
-                onClearRoute={() => {
-                  setStartId(null);
-                  setEndId(null);
-                }}
-                onSwapRoute={() => {
-                  setStartId(endId);
-                  setEndId(startId);
-                }}
-                lang={lang}
-              />
+              <Map2D {...mapProps} position={playerPosition} onVisit={enterRoom}/>
             )}
             {mode === "map3d" && (
               <Map3D
@@ -585,7 +557,7 @@ export default function App() {
                 onSelect={selectRoom}
               />
             )}
-            {mode === 'walk' && <Walkthrough geometry={drawnGeometry} rooms={rooms} floors={sceneData.floors} links={sceneData.links} selected={selected} lang={lang} onOverview={() => setMode('map3d')} onFloorChange={setLevel} />}
+            {mode === 'walk' && <Walkthrough geometry={drawnGeometry} rooms={rooms} floors={sceneData.floors} links={sceneData.links} selected={selected} lang={lang} mapProps={mapProps} initialPosition={lastPosition.current} onPositionChange={updatePosition} route={route} destination={rooms.find(r=>r.id===endId)} stepFree={stepFree} onOverview={() => switchMode('map2d')} onFloorChange={setLevel} />}
             {mode === 'metro' && (
               <MetroMap metro={data.metro} rooms={rooms} selectedId={selectedId} onSelect={selectRoom} lang={lang} />
             )}

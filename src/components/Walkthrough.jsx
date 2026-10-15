@@ -6,7 +6,8 @@ import { buildStairs,stairPath,pathPosition,stairProgress } from '../stairs.js';
 import { cutOpenings,roomAt } from '../openings.js';
 import { TYPE_LABEL } from '../i18n.js';
 import { mergeGeometry } from '../drawnGeometry.js';
-import WalkMinimap from './WalkMinimap.jsx';
+import ImmersivePlan from './ImmersivePlan.jsx';
+import {floorLeg} from '../visitNavigation.js';
 import {createAvatar} from '../avatar.js';
 import {dampFactor,dampAngle,cameraFraction} from '../motion.js';
 import groundPlan from '../../plan_RDC.png';
@@ -16,10 +17,10 @@ const PLANS={RDC:groundPlan,'R+1':firstPlan,'R+2':secondPlan};
 const LEVELS=['RDC','R+1','R+2'];
 const ROOM_COLORS={classroom:'#367bb0',amphitheatre:'#5268ae',lab:'#178d85',office:'#a57748',admin:'#a57748',association:'#a068a1',student_life:'#a068a1',restaurant:'#ca8742',toilets:'#558d9c',other:'#738292'};
 
-export default function Walkthrough({rooms,floors,links,selected,lang,onOverview,onFloorChange,geometry=null}) {
+export default function Walkthrough({rooms,floors,links,selected,lang,onOverview,onFloorChange,geometry=null,mapProps,initialPosition,onPositionChange,route,destination,stepFree=false}) {
   const host=useRef(null),api=useRef(null),props=useRef(null),thirdPerson=useRef(true);
   const [perspective,setPerspective]=useState('third');
-  props.current={rooms,floors,links,selected,lang,onFloorChange};
+  props.current={rooms,floors,links,selected,lang,onFloorChange,initialPosition,onPositionChange,route,destination,stepFree};
   const [hud,setHud]=useState(null),[error,setError]=useState(''),[message,setMessage]=useState('');
   const [connectionId,setConnectionId]=useState(links[0]?.id||''),[busy,setBusy]=useState(false);
   const fr=lang==='fr';
@@ -138,18 +139,25 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
         const label=sign(`${link.type==='stairs'?(props.current.lang==='fr'?'Escalier':'Stairs'):(props.current.lang==='fr'?'Ascenseur':'Lift')} ${link.label||link.id}`,1.9,.5,floorColors[p.level],`${p.level} · ${link.points.map(point=>point.level).join(' / ')}`);
         label.position.copy(beacon.position).add(new THREE.Vector3(0,1.2,0));groups[p.level].add(label);
       }
-      const character=createAvatar(),avatar=character.root;scene.add(avatar);
+      const character=createAvatar(props.current.initialPosition?.heading||0),avatar=character.root;scene.add(avatar);
       const previousPosition=new THREE.Vector3(),visualPosition=new THREE.Vector3();let viewYaw=0,viewPitch=0,viewReady=false,visibilityTime=0;
       const targetMarker=new THREE.Mesh(new THREE.TorusGeometry(.35,.06,8,24),new THREE.MeshBasicMaterial({color:'#e69528'}));targetMarker.rotation.x=Math.PI/2;targetMarker.visible=false;scene.add(targetMarker);
-      let floor=props.current.selected?.level||'RDC',position=new THREE.Vector3(),yaw=0,pitch=0,path=[],journey=null,onStair=null,pendingStair=null,last=performance.now(),hudTime=0;
+      const savedPosition=props.current.initialPosition;
+      let floor=savedPosition?.floor||props.current.selected?.level||'RDC',position=new THREE.Vector3(),yaw=savedPosition?.yaw||0,pitch=savedPosition?.pitch||0,path=[],journey=null,onStair=null,pendingStair=null,last=performance.now(),hudTime=0;
+      const guideLine=new THREE.Line(new THREE.BufferGeometry(),new THREE.LineBasicMaterial({color:'#2689d6',depthTest:false}));guideLine.visible=false;guideLine.renderOrder=5;scene.add(guideLine);
+      function snapshot(){const p=toLocal(floor,position);return {floor,x:p[0],y:p[1],yaw,pitch,heading:avatar.rotation.y,stairLink:onStair?.linkId,stairProgress:onStair?stairProgress(onStair.path,position,.85):null};}
       const keys=new Set();
       function showFloors(other){for(const lv of LEVELS)groups[lv].visible=lv===floor||lv===other;}
       function place(lv,p){
         const safe=safePosition(maps[lv],p);if(!safe){setMessage(props.current.lang==='fr'?'Position trop proche des murs. Choisissez un autre point.':'Position too close to walls. Choose another point.');return;}
-        floor=lv;position.copy(toWorld(lv,safe));viewReady=false;visibilityTime=0;keys.clear();path=[];journey=null;onStair=null;pendingStair=null;setBusy(false);targetMarker.visible=false;showFloors();props.current.onFloorChange?.(floor);hudTime=0;
+        guideLine.visible=false;floor=lv;position.copy(toWorld(lv,safe));viewReady=false;visibilityTime=0;keys.clear();path=[];journey=null;onStair=null;pendingStair=null;setBusy(false);targetMarker.visible=false;showFloors();props.current.onFloorChange?.(floor);hudTime=0;
       }
-      const initial=props.current.selected?.centroid||props.current.links[0]?.points.find(p=>p.level===floor);
+      const initial=savedPosition?[savedPosition.x,savedPosition.y]:props.current.selected?.centroid||props.current.links[0]?.points.find(p=>p.level===floor);
       place(floor,Array.isArray(initial)?initial:initial?[initial.x,initial.y]:levels[floor].size.map(v=>v/2));
+      if(savedPosition?.stairLink&&Number.isFinite(savedPosition.stairProgress)){
+        const record=stairRecords.find(r=>r.linkId===savedPosition.stairLink&&(r.lower===floor||r.upper===floor));
+        if(record){position.copy(pathPosition(record.path,savedPosition.stairProgress));onStair=record;showFloors(record.lower===floor?record.upper:record.lower);}
+      }
       function travel(linkId,to){
         if(journey)return;
         const link=props.current.links.find(l=>l.id===linkId),from=link?.points.find(p=>p.level===floor),dest=link?.points.find(p=>p.level===to);
@@ -195,7 +203,19 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
       canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',()=>{drag=null;});canvas.addEventListener('keydown',keydown);window.addEventListener('keyup',keyup);window.addEventListener('blur',blur);canvas.addEventListener('blur',blur);
       const resize=()=>{const {width,height}=el.getBoundingClientRect();if(width<2||height<2)return;renderer.setSize(width,height);camera.aspect=width/height;camera.updateProjectionMatrix();};
       const observer=new ResizeObserver(resize);observer.observe(el);resize();
-      api.current={teleport:(lv,p)=>{
+      api.current={clearGuide:()=>{guideLine.visible=false;path=[];},guide:()=>{
+        const room=props.current.destination||props.current.selected;if(!room)return;
+        let point=room.centroid,leg=null;
+        if(room.level!==floor){leg=floorLeg(props.current.links,floor,room.level,props.current.stepFree);if(!leg){setMessage(props.current.lang==='fr'?'Aucune liaison disponible pour cet itinéraire.':'No connection available for this route.');return;}
+          const record=stairRecords.find(r=>r.linkId===leg.link.id&&(r.lower===floor||r.upper===floor));
+          point=record?toLocal(floor,record.path[record.lower===floor?0:1]):leg.link.points.find(p=>p.level===floor);if(!Array.isArray(point))point=[point.x,point.y];
+        }
+        const planned=walkingPath(maps[floor],toLocal(floor,position),point);
+        if(!planned){guideLine.visible=false;setMessage(props.current.lang==='fr'?'Aucun passage trouvé dans les murs dessinés. Consultez le plan ou choisissez un point proche.':'No path found through the drawn walls. Consult the plan or choose a nearby point.');return;}
+        guideLine.geometry.dispose();guideLine.geometry=new THREE.BufferGeometry().setFromPoints([position.clone().add(new THREE.Vector3(0,.06,0)),...planned.map(p=>toWorld(floor,p).add(new THREE.Vector3(0,.06,0)))]);guideLine.visible=true;
+        keys.clear();journey=null;onStair=null;pendingStair=null;setBusy(false);path=planned;
+        setMessage(leg?`${props.current.lang==='fr'?'Rejoignez':'Go to'} ${leg.link.type==='lift'?(props.current.lang==='fr'?'l’ascenseur':'lift'):(props.current.lang==='fr'?'l’escalier':'stairs')} ${leg.link.label||leg.link.id} → ${leg.to}. ${props.current.lang==='fr'?'Puis relancez le guidage au palier suivant.':'Then continue guidance from the next landing.'}`:'');
+      },teleport:(lv,p)=>{
         const safe=safePosition(maps[lv],p);if(!safe||Math.hypot(safe[0]-p[0],safe[1]-p[1])>.8){setMessage(props.current.lang==='fr'?'Ce point est bloqué. Choisissez un espace libre à côté.':'This point is blocked. Choose a nearby open space.');return;}
         place(lv,safe);setMessage('');
       },walkTo:(lv,p)=>{
@@ -259,28 +279,31 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
           const room=roomAt(p,props.current.rooms.filter(r=>r.level===floor));
           let closest=null;for(const door of doorLeaves){if(door.floor!==floor)continue;const distance=door.center.distanceTo(position);if(!closest||distance<closest.distance)closest={door,distance};}
           const nearRoom=closest&&closest.distance<6?closest.door.room:null;
+          props.current.onPositionChange?.(snapshot());
           setHud({floor,x:p[0],y:p[1],nearby,yaw,room:room?roomName(room,props.current.lang):null,detail:room||nearRoom,inside:!!room,doorDistance:closest?.distance,onStair:!!onStair});
         }
         for(const door of doorLeaves){if(!door.frame.visible)continue;const close=door.floor===floor&&position.distanceToSquared(door.center)<2.4*2.4;door.pivot.rotation.y=THREE.MathUtils.lerp(door.pivot.rotation.y,close?door.angle:0,dampFactor(5,dt));}
         renderer.render(scene,camera);raf=requestAnimationFrame(update);
       }raf=requestAnimationFrame(update);
-      cleanup=()=>{observer.disconnect();canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('keydown',keydown);window.removeEventListener('keyup',keyup);window.removeEventListener('blur',blur);scene.traverse(o=>{o.geometry?.dispose();if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.dispose());});textures.forEach(t=>t.dispose());};
+      cleanup=()=>{props.current.onPositionChange?.(snapshot(),true);observer.disconnect();canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('keydown',keydown);window.removeEventListener('keyup',keyup);window.removeEventListener('blur',blur);scene.traverse(o=>{o.geometry?.dispose();if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.dispose());});textures.forEach(t=>t.dispose());};
     }
     start();return()=>{disposed=true;abort.abort();cancelAnimationFrame(raf);cleanup();renderer?.dispose();renderer?.domElement.remove();api.current=null;};
   },[floors,links,geometry,lang]);
+  useEffect(()=>{api.current?.clearGuide();},[destination?.id,selected?.id,stepFree]);
   const connection=links.find(l=>l.id===(hud?.nearby||connectionId))||links[0];
   const points=connection?.points.slice().sort((a,b)=>LEVELS.indexOf(a.level)-LEVELS.indexOf(b.level))||[];
   const index=points.findIndex(p=>p.level===hud?.floor);
   return <div className="walkthrough">
     <div className="walk-stage" ref={host}/>
-    <div className="walk-top" style={{borderLeft:`6px solid ${{RDC:'#3f806a','R+1':'#416d9c','R+2':'#86659d'}[hud?.floor]||'#416d9c'}`}}><div><strong>{hud?.room||(fr?'Couloir / espace commun':'Corridor / shared space')}</strong><span>{hud?`${hud.floor} · x ${hud.x.toFixed(1)} m · y ${hud.y.toFixed(1)} m${hud.onStair?(fr?' · Dans l’escalier':' · On the stairs'):''}`:(fr?'Préparation du bâtiment…':'Preparing the building…')}</span></div><button className="ghost" onClick={onOverview}>{fr?'Revenir à la vue 3D':'Back to 3D overview'}</button></div>
+    <div className="walk-top" style={{borderLeft:`6px solid ${{RDC:'#3f806a','R+1':'#416d9c','R+2':'#86659d'}[hud?.floor]||'#416d9c'}`}}><div><strong>{hud?.room||(fr?'Couloir / espace commun':'Corridor / shared space')}</strong><span>{hud?`${hud.floor} · x ${hud.x.toFixed(1)} m · y ${hud.y.toFixed(1)} m${hud.onStair?(fr?' · Dans l’escalier':' · On the stairs'):''}`:(fr?'Préparation du bâtiment…':'Preparing the building…')}</span></div><button className="ghost" onClick={onOverview}>{fr?'Sortir vers le plan 2D':'Return to 2D plan'}</button></div>
     <div className="walk-perspective" role="group" aria-label={fr?'Point de vue':'Viewpoint'}>{[['third',fr?'Personnage':'Character'],['first',fr?'Première personne':'First person']].map(([id,label])=><button key={id} aria-pressed={perspective===id} onClick={()=>{thirdPerson.current=id==='third';setPerspective(id);}}>{label}</button>)}</div>
     {hud?.detail&&<aside className="walk-room-info" style={{borderTopColor:ROOM_COLORS[hud.detail.type]||ROOM_COLORS.other}}><small>{hud.inside?(fr?'VOUS ÊTES DANS':'YOU ARE IN'):(fr?'À PROXIMITÉ':'NEARBY')}</small><strong>{roomName(hud.detail,lang)}</strong><span>{TYPE_LABEL[lang][hud.detail.type]} · {hud.floor}{!hud.inside&&hud.doorDistance?` · ${hud.doorDistance.toFixed(1)} m`:''}</span><p>{hud.detail[`description_${lang}`]}</p><div>{hud.detail.area_plan_m2?`${hud.detail.area_plan_m2} m²`:''}{hud.detail.capacity?` · ${hud.detail.capacity} ${fr?'places':'seats'}`:''}</div>{hud.detail.equipment?.length>0&&<p>{hud.detail.equipment.join(' · ')}</p>}<small>{hud.detail.verified_on_site?(fr?'Vérifié sur place':'Verified on site'):(fr?'Informations issues du plan':'Information from the plan')}</small></aside>}
     <div className="walk-crosshair" aria-hidden="true">+</div>
-    {hud&&<WalkMinimap hud={hud} floors={floors} rooms={rooms} plans={PLANS} geometry={geometry} lang={lang} onTeleport={(lv,p)=>api.current?.teleport(lv,p)} onWalk={(lv,p)=>api.current?.walkTo(lv,p)}/>}
+    {hud&&mapProps&&<ImmersivePlan hud={hud} mapProps={mapProps} onTeleport={(lv,p)=>api.current?.teleport(lv,p)} onWalk={(lv,p)=>api.current?.walkTo(lv,p)}/>}
+    {(destination||selected)&&<div className="walk-itinerary"><strong>{fr?'Destination':'Destination'} : {roomName(destination||selected,lang)}</strong>{route&&<span>{route.metres} m · {route.minutes} min · {fr?'itinéraire indicatif':'approximate route'}</span>}<button disabled={busy} onClick={()=>api.current?.guide()}>{fr?'Me guider depuis ma position':'Guide me from my position'}</button><button onClick={()=>api.current?.stop()}>{fr?'Arrêter':'Stop'}</button></div>}
     <details className="walk-controls"><summary>{fr?'Commandes de déplacement':'Movement controls'}</summary><p>{fr?'Cliquez dans la vue, puis ZQSD / WASD pour marcher. Flèches ← → pour tourner. Glissez la souris pour regarder. Cliquez au sol pour avancer. Échap pour libérer le clavier.':'Click the view, then WASD to walk. Left/right arrows turn. Drag to look. Click the floor to walk. Escape releases the keyboard.'}</p><div className="three-buttons"><button onClick={()=>api.current?.placeSelected()} disabled={!selected}>{fr?'Me placer dans la salle sélectionnée':'Place me in the selected room'}</button><button onClick={()=>api.current?.goToDoor()} disabled={!selected||busy}>{fr?'Aller à la porte':'Walk to the door'}</button><button onClick={()=>api.current?.stop()}>{fr?'Arrêter':'Stop'}</button><button onClick={()=>api.current?.turn(Math.PI)}>{fr?'Demi-tour':'Turn around'}</button></div><small>{fr?'Portes détectées sur les plans et associées aux salles. Dimensions et sens d’ouverture reconstitués ; à vérifier sur place.':'Doors detected on the plans and matched to rooms. Reconstructed sizes and opening directions require on-site checking.'}</small></details>
     <details className="walk-landings"><summary>{fr?'Changer d’étage':'Change floor'}</summary><label>{fr?'Escalier ou ascenseur':'Stairs or lift'}<select aria-label={fr?'Liaison de la visite':'Walkthrough connection'} value={connectionId} onChange={e=>setConnectionId(e.target.value)}>{links.map((l,i)=><option key={l.id} value={l.id}>{l.type==='stairs'?(fr?'Escalier':'Stairs'):(fr?'Ascenseur':'Lift')} {l.label||i+1}</option>)}</select></label><button className="ghost" disabled={busy} onClick={()=>api.current?.placeLanding(connectionId)}>{fr?'Me placer au palier':'Place me at the landing'}</button><p aria-live="polite">{busy?(fr?'Changement d’étage…':'Changing floor…'):hud?.nearby?(fr?'Marchez sur les marches pour changer d’étage.':'Walk onto the steps to change floors.'):(fr?'Approchez d’un palier pour changer d’étage.':'Approach a landing to change floors.')}</p><div className="three-buttons"><button disabled={busy||!hud?.nearby||index<=0} onClick={()=>api.current?.travel(connection.id,points[index-1].level)}>↓ {fr?'Descendre':'Go down'}</button><button disabled={busy||!hud?.nearby||index<0||index>=points.length-1} onClick={()=>api.current?.travel(connection.id,points[index+1].level)}>↑ {fr?'Monter':'Go up'}</button></div><small>{fr?'Une volée continue : marchez ou cliquez sur les marches. Page ↑ / Page ↓ reste disponible.':'One continuous flight: walk or click the steps. Page Up / Page Down remains available.'}</small></details>
     {message&&<div className="walk-message" role="status">{message}<button aria-label={fr?'Fermer le message':'Dismiss message'} onClick={()=>setMessage('')}>×</button></div>}
-    {error&&<div className="three-unavailable">{error==='webgl'?(fr?'WebGL indisponible.':'WebGL unavailable.'):(fr?'Impossible de charger les murs. Relancez npm run data.':'Could not load walls. Run npm run data again.')}<button className="primary" onClick={onOverview}>{fr?'Revenir à la vue 3D':'Back to 3D overview'}</button></div>}
+    {error&&<div className="three-unavailable">{error==='webgl'?(fr?'WebGL indisponible.':'WebGL unavailable.'):(fr?'Impossible de charger les murs. Relancez npm run data.':'Could not load walls. Run npm run data again.')}<button className="primary" onClick={onOverview}>{fr?'Sortir vers le plan 2D':'Return to 2D plan'}</button></div>}
   </div>;
 }

@@ -908,3 +908,19 @@ body {font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;background
 .modern-workspace:not(.mode-map2d) .legacy-room-panel { display:block; overflow:auto; min-height:0; }
 .modern-workspace:not(.mode-map2d) .center { min-width:0; }
 @media(max-width:1050px){.modern-workspace:not(.mode-map2d){grid-template-columns:minmax(0,1fr)}.modern-workspace:not(.mode-map2d) .legacy-room-panel{display:none}}
+
+/* The same 2D plan, selection and character position are shared with immersion. */
+.immersive-plan { position:absolute; top:98px; right:14px; width:230px; z-index:6; background:white; border:1px solid #dce4ee; border-radius:12px; overflow:hidden; box-shadow:0 6px 25px #182e431a; }
+.immersive-plan > header { display:flex; justify-content:space-between; align-items:center; gap:6px; padding:9px 10px; background:#fff; color:#24445b; font-size:11px; }
+.immersive-plan > header > div { display:flex; gap:5px; }
+.immersive-plan > header button,.immersive-plan > header select { border:1px solid #dce4ee; background:#f8fafc; border-radius:6px; padding:4px 7px; cursor:pointer; color:#24445b; }
+.immersive-plan .map-host { height:175px; }
+.immersive-plan .compact-plan { pointer-events:none; }
+.compact-plan > :not(svg) { display:none!important; }
+.immersive-plan.is-open { inset:14px; width:auto; display:grid; grid-template-rows:auto minmax(0,1fr); }
+.immersive-plan.is-open .map-host { height:100%; }
+.shared-character-marker { pointer-events:none; }
+.walk-itinerary { position:absolute; top:340px; left:14px; max-width:255px; background:#fffffff0; padding:10px; border:1px solid #dce4ee; border-radius:9px; font-size:11px; }
+.walk-itinerary strong,.walk-itinerary span { display:block; margin-bottom:5px; }
+.walk-itinerary button { cursor:pointer; border:1px solid #dce4ee; background:#f7f9fc; border-radius:6px; color:#244f68; padding:7px; margin:3px 4px 0 0; font-size:11px; }
+@media(max-width:1100px){.immersive-plan{top:112px;width:190px}.immersive-plan.is-open{top:14px}.walk-itinerary{top:auto;bottom:65px;left:14px;max-width:220px;}}
