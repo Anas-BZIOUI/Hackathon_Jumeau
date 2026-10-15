@@ -223,6 +223,27 @@ function dist(a, b) {
 const csv = parseCsv(fs.readFileSync(path.join(root, 'salles.csv'), 'utf8'));
 const usedIds = new Map();
 
+// The SVG exports preserve the architect's room outlines, including R+2
+// (whose GeoJSON contains only room label points). Convert SVG y-down to metres y-up.
+const namedContours = new Map();
+for (const [level, height] of [['RDC', 35], ['R+1', 60], ['R+2', 125]]) {
+  const svgPath = path.join(root, `plan_${level}.svg`);
+  if (!fs.existsSync(svgPath)) continue;
+  const svg = fs.readFileSync(svgPath, 'utf8');
+  for (const match of svg.matchAll(/<path\s+id="([^"]+)"\s+d="([^"]+)"/g)) {
+    // Current exports use absolute M/L/Z commands only. Never silently interpret curves.
+    if (/[ACHQSTVachlmqstv]/.test(match[2])) continue;
+    const values = match[2].match(/-?\d+(?:\.\d+)?/g)?.map(Number) || [];
+    const ring = [];
+    for (let i = 0; i + 1 < values.length; i += 2) ring.push([values[i], height - values[i + 1]]);
+    if (ring.length >= 3) {
+      const key = slug(match[1]);
+      if (!namedContours.has(key)) namedContours.set(key, []);
+      namedContours.get(key).push(ring);
+    }
+  }
+}
+
 const rooms = csv
   .filter((r) => r.niveau)
   .map((r, index) => {
@@ -241,6 +262,15 @@ const rooms = csv
     const reliable = r.contour === 'oui';
     const nameFr = [number, designation].filter(Boolean).join(' · ') || id;
     const nameEn = nameFr;
+    const candidates = namedContours.get(slug(`${level}-${number || designation}`)) || [];
+    const contour = candidates.length === 1 ? candidates[0] : candidates.slice().sort((a, b) => {
+      const distance = ring => {
+        const cx = ring.reduce((s, p) => s + p[0], 0) / ring.length;
+        const cy = ring.reduce((s, p) => s + p[1], 0) / ring.length;
+        return Math.hypot(cx - x, cy - y);
+      };
+      return distance(a) - distance(b);
+    })[0];
     const room = {
       id,
       level,
@@ -252,7 +282,8 @@ const rooms = csv
       reliable,
       contour_quality: r.contour || 'non',
       centroid: [x, y],
-      polygon: rectFromArea(x, y, areaContour || areaPlan || 12),
+      polygon: contour || rectFromArea(x, y, areaContour || areaPlan || 12),
+      geometry_source: contour ? 'architect-svg' : 'estimated-marker',
       type: cls.type,
       activities: cls.activities,
       audience: cls.audience,

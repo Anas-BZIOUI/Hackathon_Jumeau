@@ -315,6 +315,8 @@ export default function App() {
             )}
             {mode === 'map3d' && (
               <Map3D
+                lang={lang}
+                onOpen2D={(floor) => { setLevel(floor); setMode('map2d'); }}
                 rooms={filtered}
                 floors={data.floors}
                 links={data.links}

@@ -638,3 +638,26 @@ input[type='checkbox'] { accent-color: var(--accent); width: 16px; height: 16px;
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Architectural 3D explorer */
+.map3d { isolation: isolate; }
+.three-stage { position: absolute; inset: 0; }
+.three-stage canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.three-navigation { position: absolute; z-index: 2; left: 16px; top: 16px; padding: 14px; max-width: calc(100% - 32px); border: 1px solid #dce4ee; border-radius: 12px; background: #ffffffed; box-shadow: 0 6px 24px #2534490a; backdrop-filter: blur(12px); }
+.three-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .12em; color: #627186; margin-bottom: 9px; }
+.three-buttons { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 6px; }
+.three-buttons button { border: 1px solid #e0e6ee; background: #f7f9fc; color: #42556e; border-radius: 6px; padding: 7px 10px; font: inherit; font-size: 11px; cursor: pointer; }
+.three-buttons button.active { background: #244f80; color: white; border-color: #244f80; }
+.three-buttons button:hover { border-color: #91accd; }
+.three-buttons button:disabled { opacity: .45; cursor: default; }
+.three-options { display: flex; gap: 16px; margin-top: 12px; }
+.three-options label { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #627186; cursor: pointer; }
+.three-options input { width: 14px; height: 14px; margin: 0; }
+.three-info { position: absolute; z-index: 2; left: 16px; bottom: 76px; width: 245px; max-width: calc(100% - 32px); border: 1px solid #dce4ee; border-radius: 10px; background: #ffffffee; padding: 14px; pointer-events: none; box-shadow: 0 6px 24px #2534490a; }
+.three-info strong { display: block; color: #244f80; font-size: 13px; margin-bottom: 5px; }
+.three-info span { display: block; font-size: 11px; color: #627186; line-height: 1.65; }
+.three-info button { pointer-events: auto; margin-top: 10px; width: 100%; font-size: 11px; }
+.three-footer { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 3px 20px; border-top: 1px solid #e1e7ee; background: #ffffffed; pointer-events: none; }
+.three-footer span { font-size: 10px; color: #627186; }
+.three-unavailable { position: absolute; inset: 0; background: #f2f5f8; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; z-index: 3; }
+@media (max-width: 1100px) { .three-navigation { left: 10px; top: 10px; padding: 10px; max-width: calc(100% - 20px); } .three-info { left: 10px; bottom: 85px; padding: 10px; width: 210px; } }
