@@ -1,0 +1,44 @@
+{
+  "source": "Project geometry and calibrated stair landings; no inferred wall crossings",
+  "floors": {
+    "RDC": {
+      "origin": "RDC-011",
+      "reachable": 23,
+      "total": 32,
+      "unreachable": [
+        "RDC-017",
+        "RDC-018",
+        "RDC-019",
+        "RDC-020",
+        "RDC-021",
+        "RDC-022",
+        "RDC-023",
+        "RDC-024",
+        "RDC-025"
+      ]
+    },
+    "R+1": {
+      "origin": "R+1-131",
+      "reachable": 35,
+      "total": 50,
+      "unreachable": [
+        "R+1-104",
+        "R+1-105",
+        "R+1-106",
+        "R+1-107",
+        "R+1-108",
+        "R+1-109",
+        "R+1-110",
+        "R+1-111",
+        "R+1-112",
+        "R+1-113",
+        "R+1-114",
+        "R+1-115",
+        "R+1-117",
+        "R+1-120",
+        "R+1-salle-des-enseignants"
+      ]
+    }
+  },
+  "betweenFloors": true
+}

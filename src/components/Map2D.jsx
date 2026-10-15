@@ -26,6 +26,7 @@ export default function Map2D({
   startId,
   endId,
   route,
+  routeStatus='idle',
   onSelect,
   onClearSelection,
   onUseAsStart,
@@ -442,11 +443,12 @@ export default function Map2D({
         </div>
         {departure && arrival && (
           <p className="ensii-route-note">
-            {routeSegments.length > 0
+            {routeStatus==='routing'?(fr?'Calcul des passages…':'Finding walkable passages…'):routeSegments.length > 0
               ? `Trajet automatique indicatif affiché en bleu (${route?.metres ?? "—"} m estimés).`
               : "Aucun segment de trajet disponible sur cet étage."}
           </p>
         )}
+        {route?.arrivalAtDoor&&<p className="ensii-route-note">{fr?'Arrivée à une porte de la salle.':'Arrival at a room doorway.'}</p>}
         {departure && arrival && departure.level !== arrival.level && (
           <p className="ensii-route-note">
             Changement d'étage : {departure.level} → {arrival.level} (liaison à

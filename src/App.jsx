@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import { STRINGS, TYPE_LABEL } from "./i18n.js";
-import {resolveRoute} from "./routing.js";
 import LostAssistant from "./components/LostAssistant.jsx";
 import {
   ACTIVITY_COLORS,
@@ -37,12 +36,14 @@ const DATA_KEYS = [
   "synonyms",
   "zones",
   "resources",
+  "walls",
+  "doors",
 ];
 
 async function loadDataset() {
   try {
     const r = await fetch("/api/bootstrap");
-    if (r.ok) return r.json();
+    if (r.ok) {const data=await r.json();const [walls,doors]=await Promise.all(['walls','doors'].map(async name=>{const response=await fetch(`/data/${name}.json`);if(!response.ok)throw Error(name);return response.json();}));return {...data,walls,doors};}
   } catch {
     /* fall through to static JSON */
   }
@@ -61,7 +62,8 @@ export default function App() {
   const [error, setError] = useState(null);
   const [lang, setLang] = useState("fr");
   const [view, setView] = useState("guide");
-  const lastPosition=useRef(null);
+  const lastPosition=useRef(null),routingWorker=useRef(null),routeRequest=useRef(0),walkRequests=useRef(new Map()),walkRequestId=useRef(0);
+  const [route,setRoute]=useState(null),[routeStatus,setRouteStatus]=useState('idle');
   const [playerPosition,setPlayerPosition]=useState(null);
   const [mode, setMode] = useState("map2d");
   const [persona, setPersona] = useState("student");
@@ -169,12 +171,19 @@ export default function App() {
     [query, rooms, data, lang],
   );
 
-  const route = useMemo(() => {
-    if (!data || !startId || !endId) return null;
-
-    // Prefer the incoming pilot; preserve the original cross-floor graph elsewhere.
-    return resolveRoute(data.graph,startId,endId,{stepFree});
-  }, [data, startId, endId, stepFree]);
+  useEffect(()=>{
+    if(!data||!sceneData)return;
+    const worker=new Worker(new URL('./routing.worker.js',import.meta.url),{type:'module'});routingWorker.current=worker;
+    worker.onmessage=({data:result})=>{if(walkRequests.current.has(result.id)){walkRequests.current.get(result.id)(result.route);walkRequests.current.delete(result.id);return;}if(result.id!==routeRequest.current)return;setRoute(result.route);setRouteStatus(result.error?'error':result.route?'ready':'unreachable');};
+    worker.onerror=()=>{for(const resolve of walkRequests.current.values())resolve(null);walkRequests.current.clear();setRoute(null);setRouteStatus('error');};
+    worker.postMessage({type:'init',input:{rooms:data.rooms,walls:data.walls,doors:data.doors,floors:sceneData.floors,links:sceneData.links,geometry:drawnGeometry}});
+    return()=>{worker.terminate();routingWorker.current=null;for(const resolve of walkRequests.current.values())resolve(null);walkRequests.current.clear();};
+  },[data,sceneData,drawnGeometry]);
+  useEffect(()=>{
+    const id=++routeRequest.current;setRoute(null);
+    if(!startId||!endId||!routingWorker.current){setRouteStatus('idle');return;}
+    setRouteStatus('routing');routingWorker.current.postMessage({type:'route',id,from:startId,to:endId,stepFree});
+  },[data,sceneData,drawnGeometry,startId,endId,stepFree]);
 
   useEffect(() => {
     if (!selectedId) return;
@@ -227,12 +236,13 @@ export default function App() {
   };
 
   const currentTour = data.tours.find((x) => x.id === tourId);
-  const mapProps={onLocatePosition:setLevel,rooms,activeActivities:acts,typeFilter,floors:data.floors,links:sceneData.links,zones:data.zones,level,selectedId,startId,endId,route,onSelect:selectRoom,synonyms:data.synonyms,onClearSelection:closeRoomDetails,
+  const mapProps={onLocatePosition:setLevel,rooms,activeActivities:acts,typeFilter,floors:data.floors,links:sceneData.links,zones:data.zones,level,selectedId,startId,endId,route,routeStatus,onSelect:selectRoom,synonyms:data.synonyms,onClearSelection:closeRoomDetails,
     onUseAsStart:id=>{setStartId(id);if(id===endId)setEndId(null);},
     onUseAsEnd:id=>{setEndId(id);if(id===startId)setStartId(null);},
     onClearRoute:()=>{setStartId(null);setEndId(null);},onSwapRoute:()=>{setStartId(endId);setEndId(startId);},lang};
   function enterRoom(room){const p={floor:room.level,x:room.centroid[0],y:room.centroid[1],yaw:lastPosition.current?.yaw||0,pitch:0};lastPosition.current=p;setPlayerPosition(p);setLevel(room.level);setMode('walk');}
   function updatePosition(p,final=false){lastPosition.current=p;if(final)setPlayerPosition(p);}
+  function requestWalkRoute(position,to,stepFree){if(!routingWorker.current)return Promise.resolve(null);const id=`walk-${++walkRequestId.current}`;return new Promise(resolve=>{walkRequests.current.set(id,resolve);routingWorker.current.postMessage({type:'route',id,from:null,to,stepFree,startPosition:position});});}
   function switchMode(next){if(next==='map2d'&&lastPosition.current){setPlayerPosition(lastPosition.current);setLevel(lastPosition.current.floor);}setMode(next);}
 
 
@@ -557,7 +567,7 @@ export default function App() {
                 onSelect={selectRoom}
               />
             )}
-            {mode === 'walk' && <Walkthrough geometry={drawnGeometry} rooms={rooms} floors={sceneData.floors} links={sceneData.links} selected={selected} lang={lang} mapProps={mapProps} initialPosition={lastPosition.current} onPositionChange={updatePosition} route={route} destination={rooms.find(r=>r.id===endId)} stepFree={stepFree} onOverview={() => switchMode('map2d')} onFloorChange={setLevel} />}
+            {mode === 'walk' && <Walkthrough geometry={drawnGeometry} rooms={rooms} floors={sceneData.floors} links={sceneData.links} selected={selected} lang={lang} requestRoute={requestWalkRoute} mapProps={mapProps} initialPosition={lastPosition.current} onPositionChange={updatePosition} route={route} destination={rooms.find(r=>r.id===endId)} stepFree={stepFree} onOverview={() => switchMode('map2d')} onFloorChange={setLevel} />}
             {mode === 'metro' && (
               <MetroMap metro={data.metro} rooms={rooms} selectedId={selectedId} onSelect={selectRoom} lang={lang} />
             )}
@@ -576,7 +586,7 @@ export default function App() {
             <div className="route-bar">
               <span className="hint">
                 {startId && endId
-                  ? `Départ : ${rooms.find((r) => r.id === startId)?.number || startId} → Arrivée : ${rooms.find((r) => r.id === endId)?.number || endId} · ${route ? `Trajet automatique indicatif (${route.metres} m estimés, ${route.minutes} min estimées). Connexions non vérifiées sur les plans.` : "Aucun chemin trouvé dans le graphe actuel."}`
+                  ? `Départ : ${rooms.find((r) => r.id === startId)?.number || startId} → Arrivée : ${rooms.find((r) => r.id === endId)?.number || endId} · ${route ? `Trajet automatique indicatif (${route.metres} m estimés, ${route.minutes} min estimées). Passages calculés sur les murs et portes ; à vérifier sur place.` : (routeStatus==='routing'?'Calcul du passage entre les murs…':'Aucun passage accessible dans la géométrie actuelle.')}`
                   : startId
                     ? "Départ défini. Choisissez maintenant une arrivée."
                     : endId

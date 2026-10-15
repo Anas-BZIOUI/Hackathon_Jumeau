@@ -5,7 +5,7 @@ import { collisionMap,safePosition,walkingPath } from '../walking.js';
 import { buildStairs,stairPath,pathPosition,stairProgress } from '../stairs.js';
 import { cutOpenings,roomAt } from '../openings.js';
 import { TYPE_LABEL } from '../i18n.js';
-import { mergeGeometry } from '../drawnGeometry.js';
+import {physicalNavigation} from '../physicalNavigation.js';
 import ImmersivePlan from './ImmersivePlan.jsx';
 import {floorLeg} from '../visitNavigation.js';
 import {createAvatar} from '../avatar.js';
@@ -17,10 +17,10 @@ const PLANS={RDC:groundPlan,'R+1':firstPlan,'R+2':secondPlan};
 const LEVELS=['RDC','R+1','R+2'];
 const ROOM_COLORS={classroom:'#367bb0',amphitheatre:'#5268ae',lab:'#178d85',office:'#a57748',admin:'#a57748',association:'#a068a1',student_life:'#a068a1',restaurant:'#ca8742',toilets:'#558d9c',other:'#738292'};
 
-export default function Walkthrough({rooms,floors,links,selected,lang,onOverview,onFloorChange,geometry=null,mapProps,initialPosition,onPositionChange,route,destination,stepFree=false}) {
+export default function Walkthrough({rooms,floors,links,selected,lang,onOverview,onFloorChange,geometry=null,mapProps,initialPosition,onPositionChange,route,destination,stepFree=false,requestRoute}) {
   const host=useRef(null),api=useRef(null),props=useRef(null),thirdPerson=useRef(true);
   const [perspective,setPerspective]=useState('third');
-  props.current={rooms,floors,links,selected,lang,onFloorChange,initialPosition,onPositionChange,route,destination,stepFree};
+  props.current={rooms,floors,links,selected,lang,onFloorChange,initialPosition,onPositionChange,route,destination,stepFree,requestRoute};
   const [hud,setHud]=useState(null),[error,setError]=useState(''),[message,setMessage]=useState('');
   const [connectionId,setConnectionId]=useState(links[0]?.id||''),[busy,setBusy]=useState(false);
   const fr=lang==='fr';
@@ -33,7 +33,8 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
       try {const responses=await Promise.all(['walls','doors'].map(name=>fetch(`/data/${name}.json`,{signal:abort.signal})));if(responses.some(r=>!r.ok))throw Error();[data,doorData]=await Promise.all(responses.map(r=>r.json()));}
       catch(e){if(!disposed)setError('data');return;}
       if(disposed)return;
-      const merged=mergeGeometry(data,doorData,geometry);data=merged.walls;doorData=merged.doors;
+      const routingInput={walls:data,doors:doorData,geometry,floors:props.current.floors,links:props.current.links,rooms:props.current.rooms};
+      const physical=physicalNavigation(routingInput);data=physical.walls;doorData=physical.doors;
       try{renderer=new THREE.WebGLRenderer({antialias:true});}catch{setError('webgl');return;}
       renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.25));renderer.outputColorSpace=THREE.SRGBColorSpace;el.appendChild(renderer.domElement);
       const scene=new THREE.Scene();scene.background=new THREE.Color('#cbdce9');scene.fog=new THREE.Fog('#cbdce9',65,170);
@@ -45,11 +46,7 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
       const elevation=lv=>LEVELS.indexOf(lv)*3.2;
       const toWorld=(lv,p)=>{const [x,y]=worldPoint(props.current.floors,lv,...p,true);return new THREE.Vector3(x,elevation(lv)+.3,-y);};
       const toLocal=(lv,p)=>{const meta=levels[lv],a=-(meta.rotation_deg||0)*Math.PI/180;const x=p.x-meta.offset[0],y=-p.z-meta.offset[1];return [Math.cos(a)*x-Math.sin(a)*y,Math.sin(a)*x+Math.cos(a)*y];};
-      const stairRecords=[];
-      for(const link of props.current.links.filter(l=>l.type==='stairs')){
-        const points=link.points.slice().sort((a,b)=>LEVELS.indexOf(a.level)-LEVELS.indexOf(b.level));
-        for(let i=1;i<points.length;i++)stairRecords.push({linkId:link.id,lower:points[i-1].level,upper:points[i].level,path:stairPath(toWorld(points[i-1].level,[points[i-1].x,points[i-1].y]),toWorld(points[i].level,[points[i].x,points[i].y]))});
-      }
+      const stairRecords=physical.stairs;
       const doorLeaves=[],floorColors={RDC:'#3f806a','R+1':'#416d9c','R+2':'#86659d'};
       function sign(value,width=1.4,height=.48,color='#244f80',subtitle='',detail=''){
         const canvas=document.createElement('canvas');canvas.width=1024;canvas.height=320;const ctx=canvas.getContext('2d');
@@ -81,9 +78,7 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
         const meta=levels[lv],doors=doorData[lv]||[];
         const openings=doors.map(d=>({a:d.hinge,b:d.end,width:.45}));
         for(const r of stairRecords.filter(r=>r.lower===lv||r.upper===lv))openings.push({a:toLocal(lv,r.path[0]),b:toLocal(lv,r.path[1]),width:1.85});
-        const segments=cutOpenings(data[lv]||[],openings);cameraMaps[lv]=collisionMap(segments,meta.size,.18);maps[lv]=collisionMap(segments,meta.size,.25,(x,y)=>stairRecords.some(r=>{
-          if(r.upper!==lv)return false;const t=stairProgress(r.path,toWorld(lv,[x,y]),1.12);return t!==null&&t>.02&&t<.98;
-        }));
+        const segments=physical.segments[lv];cameraMaps[lv]=collisionMap(segments,meta.size,.18);maps[lv]=physical.maps[lv];
         const group=new THREE.Group();groups[lv]=group;scene.add(group);
         const angle=(meta.rotation_deg||0)*Math.PI/180;
         const walls=new THREE.InstancedMesh(box,material,segments.length),base=new THREE.InstancedMesh(box,baseMaterial,segments.length);
@@ -173,7 +168,7 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
       function nearestLink(){const local=toLocal(floor,position);return props.current.links.map(l=>({link:l,p:l.points.find(p=>p.level===floor)})).filter(v=>v.p).sort((a,b)=>Math.hypot(local[0]-a.p.x,local[1]-a.p.y)-Math.hypot(local[0]-b.p.x,local[1]-b.p.y))[0];}
       const ray=new THREE.Raycaster(),pointer=new THREE.Vector2();let drag=null;
       const canvas=renderer.domElement;canvas.tabIndex=0;canvas.setAttribute('aria-label',props.current.lang==='fr'?'Visite immersive : ZQSD ou WASD pour marcher, glisser pour regarder':'Immersive visit: WASD to walk, drag to look');
-      function down(e){if(e.button!==0)return;path=[];pendingStair=null;targetMarker.visible=false;canvas.focus();drag={x:e.clientX,y:e.clientY,moved:0};canvas.setPointerCapture(e.pointerId);}
+      function down(e){if(e.button!==0)return;guideRequest++;navigationGoal=null;continueGuidance=false;if(!journey)setBusy(false);path=[];pendingStair=null;targetMarker.visible=false;canvas.focus();drag={x:e.clientX,y:e.clientY,moved:0};canvas.setPointerCapture(e.pointerId);}
       function move(e){if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.moved+=Math.abs(dx)+Math.abs(dy);yaw-=dx*.004;pitch=THREE.MathUtils.clamp(pitch-dy*.004,-1.15,1.15);drag.x=e.clientX;drag.y=e.clientY;}
       function up(e){const d=drag;drag=null;if(!d||d.moved>5||journey)return;
         const r=canvas.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(pointer,camera);
@@ -191,7 +186,7 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
       }
       const codes=new Set(['KeyW','KeyA','KeyS','KeyD','KeyZ','KeyQ','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','ShiftLeft','ShiftRight']);
       function keydown(e){if(document.activeElement!==canvas)return;
-        if(codes.has(e.code)){e.preventDefault();keys.add(e.code);path=[];pendingStair=null;targetMarker.visible=false;}
+        if(codes.has(e.code)){e.preventDefault();keys.add(e.code);guideRequest++;navigationGoal=null;continueGuidance=false;if(!journey)setBusy(false);path=[];pendingStair=null;targetMarker.visible=false;}
         if(e.code==='Escape'){keys.clear();path=[];pendingStair=null;canvas.blur();}
         if(e.code==='PageUp'||e.code==='PageDown'){
           e.preventDefault();const nearest=nearestLink();if(!nearest)return;
@@ -203,26 +198,32 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
       canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',()=>{drag=null;});canvas.addEventListener('keydown',keydown);window.addEventListener('keyup',keyup);window.addEventListener('blur',blur);canvas.addEventListener('blur',blur);
       const resize=()=>{const {width,height}=el.getBoundingClientRect();if(width<2||height<2)return;renderer.setSize(width,height);camera.aspect=width/height;camera.updateProjectionMatrix();};
       const observer=new ResizeObserver(resize);observer.observe(el);resize();
-      api.current={clearGuide:()=>{guideLine.visible=false;path=[];},guide:()=>{
+      let navigationGoal=null,continueGuidance=false,arrivalTarget=null,guideRequest=0;
+      async function guide(){
         const room=props.current.destination||props.current.selected;if(!room)return;
-        let point=room.centroid,leg=null;
-        if(room.level!==floor){leg=floorLeg(props.current.links,floor,room.level,props.current.stepFree);if(!leg){setMessage(props.current.lang==='fr'?'Aucune liaison disponible pour cet itinéraire.':'No connection available for this route.');return;}
-          const record=stairRecords.find(r=>r.linkId===leg.link.id&&(r.lower===floor||r.upper===floor));
-          point=record?toLocal(floor,record.path[record.lower===floor?0:1]):leg.link.points.find(p=>p.level===floor);if(!Array.isArray(point))point=[point.x,point.y];
-        }
-        const planned=walkingPath(maps[floor],toLocal(floor,position),point);
-        if(!planned){guideLine.visible=false;setMessage(props.current.lang==='fr'?'Aucun passage trouvé dans les murs dessinés. Consultez le plan ou choisissez un point proche.':'No path found through the drawn walls. Consult the plan or choose a nearby point.');return;}
-        guideLine.geometry.dispose();guideLine.geometry=new THREE.BufferGeometry().setFromPoints([position.clone().add(new THREE.Vector3(0,.06,0)),...planned.map(p=>toWorld(floor,p).add(new THREE.Vector3(0,.06,0)))]);guideLine.visible=true;
-        keys.clear();journey=null;onStair=null;pendingStair=null;setBusy(false);path=planned;
-        setMessage(leg?`${props.current.lang==='fr'?'Rejoignez':'Go to'} ${leg.link.type==='lift'?(props.current.lang==='fr'?'l’ascenseur':'lift'):(props.current.lang==='fr'?'l’escalier':'stairs')} ${leg.link.label||leg.link.id} → ${leg.to}. ${props.current.lang==='fr'?'Puis relancez le guidage au palier suivant.':'Then continue guidance from the next landing.'}`:'');
-      },teleport:(lv,p)=>{
+        const began=snapshot(),request=++guideRequest;keys.clear();path=[];pendingStair=null;setBusy(true);
+        const plan=await props.current.requestRoute?.(began,room.id,props.current.stepFree);
+        if(disposed||request!==guideRequest)return;setBusy(false);
+        const current=snapshot();if(current.floor!==began.floor||Math.hypot(current.x-began.x,current.y-began.y)>.4)return;
+        if(!plan){navigationGoal=null;guideLine.visible=false;setMessage(props.current.lang==='fr'?'Aucun passage accessible vers cette salle dans la géométrie actuelle.':'No accessible passage to this room in the current geometry.');return;}
+        const first=plan.legs.find(l=>l.kind==='walk'&&l.level===floor),transition=plan.legs.find(l=>l.kind!=='walk');
+        // Concatenate all walking legs before the first vertical transition.
+        const planned=[];for(const leg of plan.legs){if(leg.kind!=='walk')break;planned.push(...leg.points);}
+        if(!first||!planned.length)return;
+        guideLine.geometry.dispose();guideLine.geometry=new THREE.BufferGeometry().setFromPoints(planned.map(p=>toWorld(floor,p).add(new THREE.Vector3(0,.06,0))));guideLine.visible=true;
+        keys.clear();journey=null;onStair=null;setBusy(false);path=planned;navigationGoal=room.id;
+        pendingStair=transition?{linkId:transition.linkId,to:transition.to}:null;arrivalTarget=transition?null:planned.at(-1);
+        setMessage(transition?`${props.current.lang==='fr'?'Vers':'Towards'} ${transition.kind==='stairs'?(props.current.lang==='fr'?'l’escalier':'stairs'):(props.current.lang==='fr'?'l’ascenseur':'lift')} ${props.current.links.find(l=>l.id===transition.linkId)?.label||''} → ${transition.to}`:'');
+      }
+      api.current={clearGuide:()=>{guideRequest++;setBusy(false);guideLine.visible=false;path=[];pendingStair=null;navigationGoal=null;},guide,
+      teleport:(lv,p)=>{guideRequest++;navigationGoal=null;continueGuidance=false;
         const safe=safePosition(maps[lv],p);if(!safe||Math.hypot(safe[0]-p[0],safe[1]-p[1])>.8){setMessage(props.current.lang==='fr'?'Ce point est bloqué. Choisissez un espace libre à côté.':'This point is blocked. Choose a nearby open space.');return;}
         place(lv,safe);setMessage('');
-      },walkTo:(lv,p)=>{
+      },walkTo:(lv,p)=>{guideRequest++;navigationGoal=null;continueGuidance=false;
         if(lv!==floor)return;const planned=walkingPath(maps[floor],toLocal(floor,position),p);
         if(!planned){setMessage(props.current.lang==='fr'?'Aucun passage accessible vers ce point.':'No accessible path to this point.');return;}
         keys.clear();journey=null;onStair=null;pendingStair=null;setBusy(false);path=planned;targetMarker.position.copy(toWorld(floor,p)).add(new THREE.Vector3(0,.04,0));targetMarker.visible=true;setMessage('');
-      },travel,stop:()=>{keys.clear();path=[];pendingStair=null;journey=null;targetMarker.visible=false;setBusy(false);},goToDoor:()=>{
+      },travel,stop:()=>{guideRequest++;navigationGoal=null;continueGuidance=false;keys.clear();path=[];pendingStair=null;journey=null;targetMarker.visible=false;setBusy(false);},goToDoor:()=>{
         const room=props.current.selected;if(!room||room.level!==floor){setMessage(props.current.lang==='fr'?'Placez-vous d’abord dans la salle sélectionnée.':'First place yourself in the selected room.');return;}
         const candidates=(doorData[floor]||[]).filter(d=>d.roomId===room.id).sort((a,b)=>toWorld(floor,a.center).distanceTo(position)-toWorld(floor,b.center).distanceTo(position));
         for(const door of candidates){const destination=door.center.map((v,i)=>v-door.normal[i]*.8),planned=walkingPath(maps[floor],toLocal(floor,position),destination);if(planned){path=planned;targetMarker.position.copy(toWorld(floor,destination)).add(new THREE.Vector3(0,.04,0));targetMarker.visible=true;setMessage('');return;}}
@@ -236,7 +237,7 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
         const dt=Math.min(.05,(now-last)/1000);last=now;
         if(journey){
           const t=matchMedia('(prefers-reduced-motion: reduce)').matches?1:Math.min(1,(now-journey.started)/2800);position.copy(pathPosition(journey.path,t));
-          if(t===1){const {to,path:route}=journey,end=route.at(-1),before=route.at(-2),direction=end.clone().sub(before);direction.y=0;direction.normalize();journey=null;place(to,toLocal(to,end.clone().addScaledVector(direction,.45)));}
+          if(t===1){const {to,path:route}=journey,end=route.at(-1),before=route.at(-2),direction=end.clone().sub(before);direction.y=0;direction.normalize();journey=null;const goal=navigationGoal;place(to,toLocal(to,end.clone().addScaledVector(direction,.45)));navigationGoal=goal;continueGuidance=!!goal;}
         }else{
           const forward=(keys.has('KeyW')||keys.has('KeyZ')||keys.has('ArrowUp')?1:0)-(keys.has('KeyS')||keys.has('ArrowDown')?1:0);
           const side=(keys.has('KeyD')?1:0)-(keys.has('KeyA')||keys.has('KeyQ')?1:0);
@@ -262,6 +263,8 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
             }
           }
         }
+        if(navigationGoal&&arrivalTarget&&!path.length&&!journey&&!pendingStair&&Math.hypot(...toLocal(floor,position).map((v,i)=>v-arrivalTarget[i]))<.3){const room=props.current.rooms.find(r=>r.id===navigationGoal);setMessage(`${props.current.lang==='fr'?'Arrivée à':'Arrived at'} ${room?roomName(room,props.current.lang):navigationGoal}`);navigationGoal=null;arrivalTarget=null;}
+        if(continueGuidance&&!journey){continueGuidance=false;if(navigationGoal)guide();}
         if(pendingStair&&!path.length&&!journey){const pending=pendingStair;pendingStair=null;travel(pending.linkId,pending.to);}
         const moved=position.distanceTo(previousPosition),heading=Math.atan2(-(position.x-previousPosition.x),-(position.z-previousPosition.z));previousPosition.copy(position);
         if(!viewReady){visualPosition.copy(position);viewYaw=yaw;viewPitch=pitch;viewReady=true;}
