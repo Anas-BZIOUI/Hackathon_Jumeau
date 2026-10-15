@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { roomName, ACTIVITY_COLORS,searchRooms } from "../core.js";
+import { roomName,roomLabel, ACTIVITY_COLORS,searchRooms } from "../core.js";
+import RoomPracticalInfo from './RoomPracticalInfo.jsx';
 import {TYPE_LABEL} from '../i18n.js';
 import groundPlan from '../../plan_RDC.svg?url';
 import firstPlan from '../../plan_R+1.svg?url';
@@ -40,6 +41,7 @@ export default function Map2D({
   onVisit,
   onWalkTo,
   onLocatePosition,
+  onEditRoom,
 }) {
   const fr=lang==='fr';
   const size = floors.levels[level]?.size || [60, 60];
@@ -589,7 +591,7 @@ export default function Map2D({
           <span className="ensii-sheet-tag">Espace · {title}</span>
           <h2>{selected.number || roomName(selected, lang)}</h2>
           <p className="ensii-sheet-subtitle">
-            {selected.designation_plan || roomName(selected, lang)}
+            {roomLabel(selected,lang)}
           </p>
           <div className="ensii-sheet-grid">
             <div>
@@ -623,7 +625,9 @@ export default function Map2D({
           <div className="ensii-sheet-grid"><div><small>{lang==='fr'?'Capacité':'Capacity'}</small><strong>{selected.capacity??(selected.capacity_estimated?`${lang==='fr'?'Environ':'About'} ${selected.capacity_estimated}`:(lang==='fr'?'Inconnue':'Unknown'))}</strong></div><div><small>{lang==='fr'?'Qualité des données':'Data quality'}</small><strong>{selected.verified_on_site?(lang==='fr'?'Vérifié sur place':'Verified on site'):(lang==='fr'?'À vérifier sur place':'Not verified on site')}</strong></div></div>
           <div className="tags">{selected.activities?.map(a=><span className="tag" key={a} style={{background:ACTIVITY_COLORS[a]+'22'}}>{({teaching:lang==='fr'?'Enseignement':'Teaching',research:lang==='fr'?'Recherche':'Research',student_life:lang==='fr'?'Vie étudiante':'Student life',companies:lang==='fr'?'Entreprises':'Companies'})[a]}</span>)}</div>
           <p className="deeplink"><a href={`#/room/${encodeURIComponent(selected.id)}`}>{lang==='fr'?'Lien vers cette salle':'Link to this room'}</a></p>
+          <RoomPracticalInfo room={selected} lang={lang}/>
           <div className="ensii-sheet-actions">
+            {onEditRoom&&<button type="button" onClick={()=>onEditRoom(selected)}>{fr?'Modifier les informations':'Edit room information'}</button>}
             {onVisit&&<button type="button" onClick={()=>onVisit(selected)}>{fr?'Explorer ici en immersion':'Explore here in 3D'}</button>}
             {onWalkTo&&<button type="button" disabled={position?.floor!==selected.level} onClick={()=>onWalkTo(selected)}>{fr?'Marcher vers cette salle':'Walk to this room'}</button>}
             <button type="button" onClick={() => onUseAsStart?.(selected.id)}>

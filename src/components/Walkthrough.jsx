@@ -1,11 +1,12 @@
 import { useEffect,useRef,useState } from 'react';
 import * as THREE from 'three';
-import { worldPoint,roomName } from '../core.js';
+import { worldPoint,roomName,roomLabel } from '../core.js';
 import { collisionMap,safePosition,walkingPath } from '../walking.js';
 import { buildStairs,stairPath,pathPosition,stairProgress } from '../stairs.js';
 import { cutOpenings,roomAt } from '../openings.js';
 import { TYPE_LABEL } from '../i18n.js';
 import {physicalNavigation} from '../physicalNavigation.js';
+import RoomPracticalInfo from './RoomPracticalInfo.jsx';
 import ImmersivePlan from './ImmersivePlan.jsx';
 import {floorLeg} from '../visitNavigation.js';
 import {createAvatar} from '../avatar.js';
@@ -116,7 +117,7 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
           for(const side of [1,-1]){
             const handle=new THREE.Mesh(new THREE.BoxGeometry(.17,.035,.035),new THREE.MeshStandardMaterial({color:'#89969c',metalness:.8,roughness:.25}));handle.position.set(door.width-.19,1,side*.075);leafPivot.add(handle);
           }
-          const plaque=sign(`${room.number||room.designation_plan}`,Math.max(1.65,door.width),.58,ROOM_COLORS[room.type]||floorColors[lv],room.designation_plan,`${TYPE_LABEL[props.current.lang][room.type]||''} · ${lv}`);plaque.position.set(door.width/2,2.5,0);frame.add(plaque);
+          const plaque=sign(`${room.number||room.designation_plan}`,Math.max(1.65,door.width),.58,ROOM_COLORS[room.type]||floorColors[lv],roomLabel(room,props.current.lang),`${TYPE_LABEL[props.current.lang][room.type]||''} · ${lv}`);plaque.position.set(door.width/2,2.5,0);frame.add(plaque);
           const normal=toWorld(lv,[door.hinge[0]+door.normal[0],door.hinge[1]+door.normal[1]]).sub(a);
           doorLeaves.push({frame,room,pivot:leafPivot,center:toWorld(lv,door.center),floor:lv,angle:-Math.sign(normal.x*Math.sin(theta)+normal.z*Math.cos(theta))*Math.PI/2});
         }
@@ -291,7 +292,7 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
       cleanup=()=>{props.current.onPositionChange?.(snapshot(),true);observer.disconnect();canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('keydown',keydown);window.removeEventListener('keyup',keyup);window.removeEventListener('blur',blur);scene.traverse(o=>{o.geometry?.dispose();if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.dispose());});textures.forEach(t=>t.dispose());};
     }
     start();return()=>{disposed=true;abort.abort();cancelAnimationFrame(raf);cleanup();renderer?.dispose();renderer?.domElement.remove();api.current=null;};
-  },[floors,links,geometry,lang]);
+  },[floors,links,geometry,lang,rooms]);
   useEffect(()=>{api.current?.clearGuide();},[destination?.id,selected?.id,stepFree]);
   const connection=links.find(l=>l.id===(hud?.nearby||connectionId))||links[0];
   const points=connection?.points.slice().sort((a,b)=>LEVELS.indexOf(a.level)-LEVELS.indexOf(b.level))||[];
@@ -300,7 +301,7 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
     <div className="walk-stage" ref={host}/>
     <div className="walk-top" style={{borderLeft:`6px solid ${{RDC:'#3f806a','R+1':'#416d9c','R+2':'#86659d'}[hud?.floor]||'#416d9c'}`}}><div><strong>{hud?.room||(fr?'Couloir / espace commun':'Corridor / shared space')}</strong><span>{hud?`${hud.floor} · x ${hud.x.toFixed(1)} m · y ${hud.y.toFixed(1)} m${hud.onStair?(fr?' · Dans l’escalier':' · On the stairs'):''}`:(fr?'Préparation du bâtiment…':'Preparing the building…')}</span></div><button className="ghost" onClick={onOverview}>{fr?'Sortir vers le plan 2D':'Return to 2D plan'}</button></div>
     <div className="walk-perspective" role="group" aria-label={fr?'Point de vue':'Viewpoint'}>{[['third',fr?'Personnage':'Character'],['first',fr?'Première personne':'First person']].map(([id,label])=><button key={id} aria-pressed={perspective===id} onClick={()=>{thirdPerson.current=id==='third';setPerspective(id);}}>{label}</button>)}</div>
-    {hud?.detail&&<aside className="walk-room-info" style={{borderTopColor:ROOM_COLORS[hud.detail.type]||ROOM_COLORS.other}}><small>{hud.inside?(fr?'VOUS ÊTES DANS':'YOU ARE IN'):(fr?'À PROXIMITÉ':'NEARBY')}</small><strong>{roomName(hud.detail,lang)}</strong><span>{TYPE_LABEL[lang][hud.detail.type]} · {hud.floor}{!hud.inside&&hud.doorDistance?` · ${hud.doorDistance.toFixed(1)} m`:''}</span><p>{hud.detail[`description_${lang}`]}</p><div>{hud.detail.area_plan_m2?`${hud.detail.area_plan_m2} m²`:''}{hud.detail.capacity?` · ${hud.detail.capacity} ${fr?'places':'seats'}`:''}</div>{hud.detail.equipment?.length>0&&<p>{hud.detail.equipment.join(' · ')}</p>}<small>{hud.detail.verified_on_site?(fr?'Vérifié sur place':'Verified on site'):(fr?'Informations issues du plan':'Information from the plan')}</small></aside>}
+    {hud?.detail&&<aside className="walk-room-info" style={{borderTopColor:ROOM_COLORS[hud.detail.type]||ROOM_COLORS.other}}><small>{hud.inside?(fr?'VOUS ÊTES DANS':'YOU ARE IN'):(fr?'À PROXIMITÉ':'NEARBY')}</small><strong>{roomName(hud.detail,lang)}</strong><span>{TYPE_LABEL[lang][hud.detail.type]} · {hud.floor}{!hud.inside&&hud.doorDistance?` · ${hud.doorDistance.toFixed(1)} m`:''}</span><p>{hud.detail[`description_${lang}`]}</p><div>{hud.detail.area_plan_m2?`${hud.detail.area_plan_m2} m²`:''}{hud.detail.capacity?` · ${hud.detail.capacity} ${fr?'places':'seats'}`:''}</div><RoomPracticalInfo room={hud.detail} lang={lang}/><button className="ghost" onClick={()=>mapProps?.onEditRoom(hud.detail)}>{fr?'Modifier les informations':'Edit room information'}</button><small>{hud.detail.verified_on_site?(fr?'Vérifié sur place':'Verified on site'):(fr?'Informations issues du plan':'Information from the plan')}</small></aside>}
     <div className="walk-crosshair" aria-hidden="true">+</div>
     {hud&&mapProps&&<ImmersivePlan hud={hud} mapProps={mapProps} onTeleport={(lv,p)=>api.current?.teleport(lv,p)} onWalk={(lv,p)=>api.current?.walkTo(lv,p)}/>}
     {(destination||selected)&&<div className="walk-itinerary"><strong>{fr?'Destination':'Destination'} : {roomName(destination||selected,lang)}</strong>{route&&<span>{route.metres} m · {route.minutes} min · {fr?'itinéraire indicatif':'approximate route'}</span>}<button disabled={busy} onClick={()=>api.current?.guide()}>{fr?'Me guider depuis ma position':'Guide me from my position'}</button><button onClick={()=>api.current?.stop()}>{fr?'Arrêter':'Stop'}</button></div>}

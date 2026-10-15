@@ -23,6 +23,11 @@ export function roomDesc(room, lang) {
   return t || room.description_fr || room.description_en || '';
 }
 
+export function roomLabel(room,lang){
+ const name=roomName(room,lang),prefix=`${room.number} · `;
+ return room.number&&name.startsWith(prefix)?name.slice(prefix.length):name;
+}
+
 const NUMBER_RE = /(?:r\s*\+?\s*[012]|rdc)?\s*([cC]?\d{1,3}(?:bis|[A-F])?|amphi\s*\d+)/i;
 
 export function searchRooms(query, rooms, synonyms, lang) {
@@ -139,8 +144,8 @@ export function shortestPath(graph, fromId, toId, { stepFree = false } = {}) {
         kind: e?.kind || 'vertical',
         from: a,
         to: b,
-        text_fr: `${e?.kind === 'lift' ? 'Ascenseur' : 'Escaliers'} : ${a.level} → ${b.level}`,
-        text_en: `${e?.kind === 'lift' ? 'Lift' : 'Stairs'}: ${a.level} → ${b.level}`
+        text_fr: `${e?.kind === 'lift' ? 'Ascenseur' : 'Escaliers'} : ${a.level} â†’ ${b.level}`,
+        text_en: `${e?.kind === 'lift' ? 'Lift' : 'Stairs'}: ${a.level} â†’ ${b.level}`
       });
     }
   }

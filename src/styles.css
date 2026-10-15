@@ -924,3 +924,17 @@ body {font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;background
 .walk-itinerary strong,.walk-itinerary span { display:block; margin-bottom:5px; }
 .walk-itinerary button { cursor:pointer; border:1px solid #dce4ee; background:#f7f9fc; border-radius:6px; color:#244f68; padding:7px; margin:3px 4px 0 0; font-size:11px; }
 @media(max-width:1100px){.immersive-plan{top:112px;width:190px}.immersive-plan.is-open{top:14px}.walk-itinerary{top:auto;bottom:65px;left:14px;max-width:220px;}}
+.room-editor { width:min(950px,calc(100vw - 32px)); max-height:calc(100dvh - 32px); margin:auto; padding:0; border:1px solid #dce4ee; border-radius:16px; color:#253449; background:white; box-shadow:0 20px 80px #182b4a45; }
+.room-editor::backdrop { background:#17293f80; backdrop-filter:blur(4px); }
+.room-editor > header { display:flex; justify-content:space-between; gap:16px; padding:20px 24px; border-bottom:1px solid #dce4ee; }
+.room-editor h2 { margin:6px 0; font-size:21px; }.room-editor header p { font-size:12px; color:#627186; margin:0; }.room-editor header small { font-size:10px; color:#627186; letter-spacing:.08em; }
+.room-editor form { margin:0; }.room-editor-body { padding:18px 24px; display:grid; gap:15px; max-height:calc(100dvh - 265px); overflow:auto; }
+.room-editor-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.room-editor label { display:grid; gap:6px; color:#42556e; font-size:12px; }.room-editor input,.room-editor select,.room-editor textarea { width:100%; min-width:0; padding:9px; border:1px solid #ccd7e2; border-radius:7px; font:inherit; background:white; color:#253449; }.room-editor textarea { resize:vertical; }
+.room-editor fieldset { border:1px solid #dce4ee; border-radius:8px; display:flex; flex-wrap:wrap; gap:16px; padding:12px; }.room-editor legend { font-size:12px; color:#42556e; }
+.room-editor .room-editor-check { display:flex; align-items:center; gap:7px; }.room-editor-check input { width:auto; }
+.room-editor footer { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 24px; border-top:1px solid #dce4ee; }.room-editor footer > div { display:flex; flex-wrap:wrap; gap:6px; }.room-editor footer button { font-size:11px; }
+.room-editor-error { font-size:12px; color:#a92e39; background:#fff1f2; padding:10px; border-radius:7px; }
+.room-practical-info { font-size:12px; line-height:1.6; color:#53617d; }.room-practical-info p { overflow-wrap:anywhere; white-space:pre-line; }.room-practical-info ul { padding-left:18px; }.room-practical-info a { color:#3568a5; }.room-practical-info small { display:block; }
+.walk-room-info > button { font-size:10px; margin-top:8px; padding:6px; }
+@media(max-width:650px){.room-editor-grid{grid-template-columns:1fr}.room-editor footer{align-items:stretch;flex-direction:column}.room-editor-body{max-height:calc(100dvh - 310px)}}

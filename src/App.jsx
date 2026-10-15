@@ -13,6 +13,9 @@ import Map2D from './components/Map2D.jsx';
 import Map3D from './components/Map3D.jsx';
 import Walkthrough from './components/Walkthrough.jsx';
 import GeometryEditor from './components/GeometryEditor.jsx';
+import RoomDetailsEditor from './components/RoomDetailsEditor.jsx';
+import RoomPracticalInfo from './components/RoomPracticalInfo.jsx';
+import {ROOM_DETAILS_KEY,validateRoomDetails,applyRoomDetails} from './roomDetails.js';
 import {GEOMETRY_KEY,validateGeometry} from './drawnGeometry.js';
 import MetroMap from './components/MetroMap.jsx';
 import Constellation from './components/Constellation.jsx';
@@ -58,6 +61,7 @@ async function loadDataset() {
 }
 
 export default function App() {
+  const [roomDetails,setRoomDetails]=useState({version:1,rooms:{}}),[editingRoomId,setEditingRoomId]=useState(null);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [lang, setLang] = useState("fr");
@@ -149,7 +153,8 @@ export default function App() {
     };
   }, []);
 
-  const rooms = data?.rooms || [];
+  useEffect(()=>{if(!data)return;try{const saved=JSON.parse(localStorage.getItem(ROOM_DETAILS_KEY));if(saved)setRoomDetails(validateRoomDetails(saved,data.rooms));}catch{/* Invalid local metadata never blocks the building. */}},[data]);
+  const rooms=useMemo(()=>applyRoomDetails(data?.rooms||[],roomDetails),[data,roomDetails]);
   const selected = rooms.find((r) => r.id === selectedId) || null;
 
   // Un type choisi prime sur les catégories ; sinon filtrage par activité.
@@ -182,8 +187,9 @@ export default function App() {
   useEffect(()=>{
     const id=++routeRequest.current;setRoute(null);
     if(!startId||!endId||!routingWorker.current){setRouteStatus('idle');return;}
+    if(stepFree&&rooms.find(r=>r.id===endId)?.accessible===false){setRouteStatus('unreachable');return;}
     setRouteStatus('routing');routingWorker.current.postMessage({type:'route',id,from:startId,to:endId,stepFree});
-  },[data,sceneData,drawnGeometry,startId,endId,stepFree]);
+  },[data,sceneData,drawnGeometry,startId,endId,stepFree,roomDetails]);
 
   useEffect(() => {
     if (!selectedId) return;
@@ -236,13 +242,13 @@ export default function App() {
   };
 
   const currentTour = data.tours.find((x) => x.id === tourId);
-  const mapProps={onLocatePosition:setLevel,rooms,activeActivities:acts,typeFilter,floors:data.floors,links:sceneData.links,zones:data.zones,level,selectedId,startId,endId,route,routeStatus,onSelect:selectRoom,synonyms:data.synonyms,onClearSelection:closeRoomDetails,
+  const mapProps={onEditRoom:room=>setEditingRoomId(room.id),onLocatePosition:setLevel,rooms,activeActivities:acts,typeFilter,floors:data.floors,links:sceneData.links,zones:data.zones,level,selectedId,startId,endId,route,routeStatus,onSelect:selectRoom,synonyms:data.synonyms,onClearSelection:closeRoomDetails,
     onUseAsStart:id=>{setStartId(id);if(id===endId)setEndId(null);},
     onUseAsEnd:id=>{setEndId(id);if(id===startId)setStartId(null);},
     onClearRoute:()=>{setStartId(null);setEndId(null);},onSwapRoute:()=>{setStartId(endId);setEndId(startId);},lang};
   function enterRoom(room){const p={floor:room.level,x:room.centroid[0],y:room.centroid[1],yaw:lastPosition.current?.yaw||0,pitch:0};lastPosition.current=p;setPlayerPosition(p);setLevel(room.level);setMode('walk');}
   function updatePosition(p,final=false){lastPosition.current=p;if(final)setPlayerPosition(p);}
-  function requestWalkRoute(position,to,stepFree){if(!routingWorker.current)return Promise.resolve(null);const id=`walk-${++walkRequestId.current}`;return new Promise(resolve=>{walkRequests.current.set(id,resolve);routingWorker.current.postMessage({type:'route',id,from:null,to,stepFree,startPosition:position});});}
+  function requestWalkRoute(position,to,stepFree){if(stepFree&&rooms.find(r=>r.id===to)?.accessible===false)return Promise.resolve(null);if(!routingWorker.current)return Promise.resolve(null);const id=`walk-${++walkRequestId.current}`;return new Promise(resolve=>{walkRequests.current.set(id,resolve);routingWorker.current.postMessage({type:'route',id,from:null,to,stepFree,startPosition:position});});}
   function switchMode(next){if(next==='map2d'&&lastPosition.current){setPlayerPosition(lastPosition.current);setLevel(lastPosition.current.floor);}setMode(next);}
 
 
@@ -327,6 +333,7 @@ export default function App() {
         </div>
       </header>
 
+      {editingRoomId&&rooms.find(r=>r.id===editingRoomId)&&<RoomDetailsEditor key={editingRoomId} room={rooms.find(r=>r.id===editingRoomId)} baseRooms={data.rooms} details={roomDetails} lang={lang} onClose={()=>setEditingRoomId(null)} onSave={next=>{const checked=validateRoomDetails(next,data.rooms);try{localStorage.setItem(ROOM_DETAILS_KEY,JSON.stringify(checked));}catch{throw Error('storage');}setRoomDetails(checked);}}/>}
       {showGeometryEditor&&<GeometryEditor floors={data.floors} rooms={rooms} selected={selected} lang={lang} applied={drawnGeometry} onClose={()=>setShowGeometryEditor(false)} onApply={value=>{
         setDrawnGeometry(value);
         try{localStorage.setItem(GEOMETRY_KEY,JSON.stringify(value));}catch{/* The current preview still works. */}
@@ -644,6 +651,8 @@ export default function App() {
                   </span>
                 </div>
                 <p>{roomDesc(selected, lang)}</p>
+                <RoomPracticalInfo room={selected} lang={lang}/>
+                <button className="ghost" onClick={()=>setEditingRoomId(selected.id)}>{lang==='fr'?'Modifier les informations':'Edit room information'}</button>
                 {selected.programme_plan && (
                   <p className="hint">{selected.programme_plan}</p>
                 )}
@@ -654,7 +663,7 @@ export default function App() {
                   </div>
                   <div>
                     <small>{t.capacity}</small>
-                    {selected.capacity_estimated
+                    {selected.capacity!=null?selected.capacity:selected.capacity_estimated
                       ? `${t.estimated} ${selected.capacity_estimated}`
                       : t.unknown}
                   </div>
