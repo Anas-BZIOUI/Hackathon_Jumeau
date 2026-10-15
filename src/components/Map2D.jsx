@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
-import { polyToPath, roomColor } from '../core.js';
+import { polyToPath, roomColor, roomName } from '../core.js';
 
 export default function Map2D({
   rooms,
@@ -16,6 +16,8 @@ export default function Map2D({
   const size = floors.levels[level]?.size || [60, 60];
   const [view, setView] = useState({ x: -4, y: -4, w: size[0] + 8, h: size[1] + 8 });
   const drag = useRef(null);
+  const [hoveredRoom, setHoveredRoom] = useState(null);
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
 
   const levelRooms = useMemo(() => rooms.filter((r) => r.level === level), [rooms, level]);
   const routePts = useMemo(() => {
@@ -84,19 +86,19 @@ export default function Map2D({
       >
         <defs>
           <pattern id="grid" width="5" height="5" patternUnits="userSpaceOnUse">
-            <path d="M 5 0 L 0 0 0 5" fill="none" stroke="rgba(139, 92, 246, 0.12)" strokeWidth="0.08" />
+            <path d="M 5 0 L 0 0 0 5" fill="none" stroke="rgba(201, 162, 39, 0.15)" strokeWidth="0.08" />
           </pattern>
         </defs>
-        <rect x={0} y={0} width={size[0]} height={size[1]} fill="#141420" />
+        <rect x={0} y={0} width={size[0]} height={size[1]} fill="#f8f9fa" />
         <rect x={0} y={0} width={size[0]} height={size[1]} fill="url(#grid)" />
-        <rect x={0} y={0} width={size[0]} height={size[1]} fill="none" stroke="#8b5cf655" strokeWidth="0.25" />
+        <rect x={0} y={0} width={size[0]} height={size[1]} fill="none" stroke="#c9a22755" strokeWidth="0.25" />
 
         {zonePaths.map((z) => (
           <path
             key={z.i}
             d={z.d}
-            fill={z.kind === 'batiment' ? 'none' : 'rgba(56,189,248,0.07)'}
-            stroke={z.kind === 'batiment' ? '#99f6e4' : '#38bdf8'}
+            fill={z.kind === 'batiment' ? 'none' : 'rgba(201, 162, 39, 0.08)'}
+            stroke={z.kind === 'batiment' ? '#c9a227' : '#4a90e2'}
             strokeWidth={z.kind === 'batiment' ? 0.35 : 0.18}
           />
         ))}
@@ -105,17 +107,31 @@ export default function Map2D({
           const d = polyToPath(r.polygon, true, size[1]);
           const c = roomColor(r);
           const selected = r.id === selectedId;
+          const hovered = hoveredRoom?.id === r.id;
           const onRoute = route?.ids.includes(r.id);
           const [cx, cy] = r.centroid;
           return (
-            <g key={r.id} onClick={(e) => { e.stopPropagation(); onSelect(r.id); }} style={{ cursor: 'pointer' }}>
+            <g
+              key={r.id}
+              onClick={(e) => { e.stopPropagation(); onSelect(r.id); }}
+              onMouseEnter={(e) => {
+                const rect = svgRef.current.getBoundingClientRect();
+                setTooltipPos({
+                  x: e.clientX - rect.left + 15,
+                  y: e.clientY - rect.top - 10
+                });
+                setHoveredRoom(r);
+              }}
+              onMouseLeave={() => setHoveredRoom(null)}
+              style={{ cursor: 'pointer' }}
+            >
               <path
                 d={d}
                 fill={c}
-                fillOpacity={selected ? 0.85 : r.reliable ? 0.45 : 0.22}
-                stroke={selected ? '#ffffff' : onRoute ? '#8b5cf6' : '#1a1a28'}
-                strokeWidth={selected ? 0.35 : 0.12}
-                style={{ transition: 'all 0.2s ease' }}
+                fillOpacity={selected ? 0.9 : hovered ? 0.7 : r.reliable ? 0.45 : 0.22}
+                stroke={selected ? '#ffffff' : hovered ? '#c9a227' : onRoute ? '#4a90e2' : '#1a1a28'}
+                strokeWidth={selected ? 0.5 : hovered ? 0.35 : 0.12}
+                style={{ transition: 'all 0.15s ease' }}
               />
               {view.w < 90 && (
                 <text className="room-label" x={cx} y={size[1] - cy} textAnchor="middle" dy="0.35">
@@ -129,14 +145,14 @@ export default function Map2D({
         {routePts.length > 1 && (
           <polyline
             fill="none"
-            stroke="#8b5cf6"
+            stroke="#c9a227"
             strokeWidth="0.45"
             strokeDasharray="0.8 0.5"
             points={routePts.map((n) => `${n.x},${size[1] - n.y}`).join(' ')}
           />
         )}
         {routePts.map((n, i) => (
-          <circle key={i} cx={n.x} cy={size[1] - n.y} r="0.45" fill="#a78bfa" />
+          <circle key={i} cx={n.x} cy={size[1] - n.y} r="0.45" fill="#d4af37" />
         ))}
 
         {links.flatMap((link) =>
@@ -145,9 +161,9 @@ export default function Map2D({
             .map((p) => (
               <g key={`${link.id}-${level}`}>
                 {link.type === 'lift' ? (
-                  <rect x={p.x - 0.7} y={size[1] - p.y - 0.7} width="1.4" height="1.4" fill="#fbbf24" stroke="#111" strokeWidth="0.08" />
+                  <rect x={p.x - 0.7} y={size[1] - p.y - 0.7} width="1.4" height="1.4" fill="#c9a227" stroke="#2c3e50" strokeWidth="0.08" />
                 ) : (
-                  <circle cx={p.x} cy={size[1] - p.y} r="0.8" fill="#fb7185" />
+                  <circle cx={p.x} cy={size[1] - p.y} r="0.8" fill="#e74c3c" />
                 )}
                 <text x={p.x} y={size[1] - p.y + 0.25} textAnchor="middle" className="room-label">
                   {link.type === 'lift' ? 'L' : 'S'}
@@ -161,6 +177,51 @@ export default function Map2D({
           <text className="room-label" x="5" y="-0.4" textAnchor="middle">10 m</text>
         </g>
       </svg>
+
+      {hoveredRoom && (
+        <div
+          className="room-tooltip"
+          style={{
+            left: tooltipPos.x,
+            top: tooltipPos.y,
+            position: 'absolute',
+            pointerEvents: 'none',
+            zIndex: 100
+          }}
+        >
+          <strong>{roomName(hoveredRoom, lang)}</strong>
+          <div>{hoveredRoom.level} · {hoveredRoom.type}</div>
+          {hoveredRoom.area_plan_m2 && <div>{hoveredRoom.area_plan_m2} m²</div>}
+          {hoveredRoom.activities.length > 0 && (
+            <div style={{ marginTop: 4 }}>
+              {hoveredRoom.activities.map((a) => (
+                <span key={a} className="mini-tag">{a}</span>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      <div className="map-legend">
+        <div className="legend-title">{lang === 'fr' ? 'Légende' : 'Legend'}</div>
+        <div className="legend-item">
+          <span className="legend-color" style={{ background: '#4a90e2' }}></span>
+          <span>{lang === 'fr' ? 'Enseignement' : 'Teaching'}</span>
+        </div>
+        <div className="legend-item">
+          <span className="legend-color" style={{ background: '#c9a227' }}></span>
+          <span>{lang === 'fr' ? 'Recherche' : 'Research'}</span>
+        </div>
+        <div className="legend-item">
+          <span className="legend-color" style={{ background: '#27ae60' }}></span>
+          <span>{lang === 'fr' ? 'Vie étudiante' : 'Student Life'}</span>
+        </div>
+        <div className="legend-item">
+          <span className="legend-color" style={{ background: '#e74c3c' }}></span>
+          <span>{lang === 'fr' ? 'Entreprises' : 'Companies'}</span>
+        </div>
+      </div>
+
       <div className="banner">
         {floors.levels[level]?.[`label_${lang}`]} · {levelRooms.length} {lang === 'fr' ? 'espaces' : 'spaces'} ·{' '}
         {lang === 'fr' ? 'molette pour zoomer, glisser pour déplacer' : 'scroll to zoom, drag to pan'}

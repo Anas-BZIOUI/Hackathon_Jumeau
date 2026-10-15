@@ -179,10 +179,10 @@ export function setHash(state) {
 }
 
 export const ACTIVITY_COLORS = {
-  teaching: '#06b6d4',
-  research: '#8b5cf6',
-  student_life: '#10b981',
-  companies: '#f59e0b'
+  teaching: '#4a90e2',
+  research: '#c9a227',
+  student_life: '#27ae60',
+  companies: '#e74c3c'
 };
 
 export function roomColor(room) {
@@ -190,10 +190,10 @@ export function roomColor(room) {
   if (room.activities?.includes('research')) return ACTIVITY_COLORS.research;
   if (room.activities?.includes('student_life')) return ACTIVITY_COLORS.student_life;
   if (room.activities?.includes('companies')) return ACTIVITY_COLORS.companies;
-  if (room.type === 'toilets') return '#64748b';
-  if (room.type === 'office') return '#94a3b8';
-  if (room.type === 'admin') return '#fb923c';
-  return '#6b7280';
+  if (room.type === 'toilets') return '#7f8c8d';
+  if (room.type === 'office') return '#95a5a6';
+  if (room.type === 'admin') return '#e67e22';
+  return '#7f8c8d';
 }
 
 export function polyToPath(poly, flipY, h) {

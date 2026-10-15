@@ -23,7 +23,7 @@ export default function Map3D({
     if (!el) return;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0c1114);
+    scene.background = new THREE.Color(0xf8f9fa);
     const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 4000);
     camera.position.set(70, 110, 140);
 
@@ -35,10 +35,14 @@ export default function Map3D({
     controls.enableDamping = true;
     controls.target.set(55, 10, 55);
 
-    scene.add(new THREE.AmbientLight(0xbcd5d0, 0.85));
-    const sun = new THREE.DirectionalLight(0xffffff, 0.8);
+    scene.add(new THREE.AmbientLight(0xc9a227, 0.6));
+    const sun = new THREE.DirectionalLight(0xffffff, 1.0);
     sun.position.set(40, 90, 20);
     scene.add(sun);
+
+    const fillLight = new THREE.DirectionalLight(0x4a90e2, 0.4);
+    fillLight.position.set(-40, 50, -20);
+    scene.add(fillLight);
 
     const root = new THREE.Group();
     scene.add(root);
@@ -83,7 +87,7 @@ export default function Map3D({
       meshes.length = 0;
       const { rooms: rs, floors: fl, aligned: al, links: ln, zones: zn, selectedId: sel, route: rt } = pick.current;
 
-      const grid = new THREE.GridHelper(200, 40, 0x1f3d38, 0x152422);
+      const grid = new THREE.GridHelper(200, 40, 0xc9a227, 0xe0e0e0);
       grid.position.y = -0.2;
       root.add(grid);
 
@@ -91,7 +95,7 @@ export default function Map3D({
         const y = floorY(level);
         const slab = new THREE.Mesh(
           new THREE.BoxGeometry(meta.size[0], 0.2, meta.size[1]),
-          new THREE.MeshStandardMaterial({ color: 0x1a2428, transparent: true, opacity: 0.5 })
+          new THREE.MeshStandardMaterial({ color: 0xe0e0e0, transparent: true, opacity: 0.8 })
         );
         const [ox, oy] = al ? meta.offset : [0, 0];
         slab.position.set(ox + meta.size[0] / 2, y, oy + meta.size[1] / 2);
@@ -107,7 +111,7 @@ export default function Map3D({
         for (const f of zn.features) {
           const ring = f.geometry?.coordinates?.[0];
           if (!ring || ring.length < 3) continue;
-          const color = f.properties.kind === 'batiment' ? 0x99f6e4 : 0x38bdf8;
+          const color = f.properties.kind === 'batiment' ? 0xc9a227 : 0x4a90e2;
           addZoneOutline(ring, color, y, ox, oz);
         }
       }
@@ -152,7 +156,7 @@ export default function Map3D({
         const geo = new THREE.BufferGeometry().setFromPoints(pts);
         const line = new THREE.Line(
           geo,
-          new THREE.LineBasicMaterial({ color: al ? 0x34d399 : 0xfb7185 })
+          new THREE.LineBasicMaterial({ color: al ? 0x27ae60 : 0xe74c3c })
         );
         root.add(line);
       }
@@ -164,7 +168,7 @@ export default function Map3D({
         });
         root.add(new THREE.Line(
           new THREE.BufferGeometry().setFromPoints(pts),
-          new THREE.LineBasicMaterial({ color: 0x99f6e4 })
+          new THREE.LineBasicMaterial({ color: 0xc9a227 })
         ));
       }
     }
@@ -225,8 +229,8 @@ function makeText(text) {
   c.width = 256;
   c.height = 64;
   const ctx = c.getContext('2d');
-  ctx.fillStyle = '#99f6e4';
-  ctx.font = '28px sans-serif';
+  ctx.fillStyle = '#2c3e50';
+  ctx.font = 'bold 28px monospace';
   ctx.fillText(text, 8, 40);
   const tex = new THREE.CanvasTexture(c);
   const mat = new THREE.SpriteMaterial({ map: tex, transparent: true });

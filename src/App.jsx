@@ -162,8 +162,8 @@ export default function App() {
     <div className="app">
       <header className="topbar">
         <div className="brand">
-          <div className="brand-mark">é</div>
-          <div>
+          <img src="/logo.png" alt="EnsiiExplore Logo" className="brand-logo" />
+          <div className="brand-text">
             <h1>{t.school}</h1>
             <p>{t.app}</p>
           </div>
