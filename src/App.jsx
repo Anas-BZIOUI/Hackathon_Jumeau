@@ -189,21 +189,23 @@ export default function App() {
             </div>
           )}
         </div>
-        <div className="pills">
-          {['student', 'visitor', 'company'].map((p) => (
-            <button key={p} className={`pill ${persona === p ? 'active' : ''}`} onClick={() => {
-              setPersona(p);
-              if (personaStart[p]) setStartId(personaStart[p]);
-            }}>{t[p]}</button>
-          ))}
+        <div className="topbar-right">
+          <div className="seg">
+            <button className={view === 'guide' ? 'active' : ''} onClick={() => setView('guide')}>{t.guide}</button>
+            <button className={view === 'adventure' ? 'active' : ''} onClick={() => setView('adventure')}>{t.adventure}</button>
+          </div>
+          <div className="pills">
+            {['student', 'visitor', 'company'].map((p) => (
+              <button key={p} className={`pill ${persona === p ? 'active' : ''}`} onClick={() => {
+                setPersona(p);
+                if (personaStart[p]) setStartId(personaStart[p]);
+              }}>{t[p]}</button>
+            ))}
+          </div>
+          <button className="lang pill" onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}>
+            {lang === 'fr' ? 'FR | en' : 'fr | EN'}
+          </button>
         </div>
-        <div className="seg">
-          <button className={view === 'guide' ? 'active' : ''} onClick={() => setView('guide')}>{t.guide}</button>
-          <button className={view === 'adventure' ? 'active' : ''} onClick={() => setView('adventure')}>{t.adventure}</button>
-        </div>
-        <button className="lang pill" onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}>
-          {lang === 'fr' ? 'FR | en' : 'fr | EN'}
-        </button>
       </header>
 
       {view === 'adventure' ? (

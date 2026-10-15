@@ -54,6 +54,14 @@ if (fs.existsSync(distDir)) {
 }
 
 const port = Number(process.env.PORT || 5174);
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Jumeau API on http://127.0.0.1:${port}`);
+});
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.log(`Port ${port} already in use — reusing the existing API. Client: http://localhost:5173/`);
+    return;
+  }
+  console.error(err);
+  process.exit(1);
 });

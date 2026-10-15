@@ -84,12 +84,12 @@ export default function Map2D({
       >
         <defs>
           <pattern id="grid" width="5" height="5" patternUnits="userSpaceOnUse">
-            <path d="M 5 0 L 0 0 0 5" fill="none" stroke="rgba(45,212,191,0.12)" strokeWidth="0.08" />
+            <path d="M 5 0 L 0 0 0 5" fill="none" stroke="rgba(139, 92, 246, 0.12)" strokeWidth="0.08" />
           </pattern>
         </defs>
-        <rect x={0} y={0} width={size[0]} height={size[1]} fill="#10181c" />
+        <rect x={0} y={0} width={size[0]} height={size[1]} fill="#141420" />
         <rect x={0} y={0} width={size[0]} height={size[1]} fill="url(#grid)" />
-        <rect x={0} y={0} width={size[0]} height={size[1]} fill="none" stroke="#2dd4bf55" strokeWidth="0.25" />
+        <rect x={0} y={0} width={size[0]} height={size[1]} fill="none" stroke="#8b5cf655" strokeWidth="0.25" />
 
         {zonePaths.map((z) => (
           <path
@@ -113,8 +113,9 @@ export default function Map2D({
                 d={d}
                 fill={c}
                 fillOpacity={selected ? 0.85 : r.reliable ? 0.45 : 0.22}
-                stroke={selected ? '#ecfeff' : onRoute ? '#2dd4bf' : '#0b1220'}
+                stroke={selected ? '#ffffff' : onRoute ? '#8b5cf6' : '#1a1a28'}
                 strokeWidth={selected ? 0.35 : 0.12}
+                style={{ transition: 'all 0.2s ease' }}
               />
               {view.w < 90 && (
                 <text className="room-label" x={cx} y={size[1] - cy} textAnchor="middle" dy="0.35">
@@ -128,14 +129,14 @@ export default function Map2D({
         {routePts.length > 1 && (
           <polyline
             fill="none"
-            stroke="#2dd4bf"
+            stroke="#8b5cf6"
             strokeWidth="0.45"
             strokeDasharray="0.8 0.5"
             points={routePts.map((n) => `${n.x},${size[1] - n.y}`).join(' ')}
           />
         )}
         {routePts.map((n, i) => (
-          <circle key={i} cx={n.x} cy={size[1] - n.y} r="0.45" fill="#99f6e4" />
+          <circle key={i} cx={n.x} cy={size[1] - n.y} r="0.45" fill="#a78bfa" />
         ))}
 
         {links.flatMap((link) =>

@@ -179,10 +179,10 @@ export function setHash(state) {
 }
 
 export const ACTIVITY_COLORS = {
-  teaching: '#5b9dff',
-  research: '#b794f6',
-  student_life: '#4ade80',
-  companies: '#f5c542'
+  teaching: '#06b6d4',
+  research: '#8b5cf6',
+  student_life: '#10b981',
+  companies: '#f59e0b'
 };
 
 export function roomColor(room) {
