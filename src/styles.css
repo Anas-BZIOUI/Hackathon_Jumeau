@@ -359,3 +359,5 @@ button, input, select { font-family: inherit; }
 .entrance-adventure .adv-hud { gap:12px; }
 .entrance-adventure .adv-hud span:first-child { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .entrance-adventure .adv-hud span:last-child { white-space:nowrap; }
+
+.entrance-door-hint { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); max-width:90%; padding:8px 14px; background:#101923e6; border:1px solid #7da99b; border-radius:6px; color:#e0e9e5; font-size:11px; text-align:center; pointer-events:none; }

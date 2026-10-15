@@ -4,14 +4,14 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "data": "node scripts/build-data.js",
-    "dev": "node scripts/build-data.js && concurrently \"node server/index.js\" \"vite\"",
+    "data": "node scripts/build-data.js && node scripts/build-dungeon.mjs",
+    "dev": "npm run data && concurrently \"node server/index.js\" \"vite\"",
     "dev:client": "vite",
     "dev:server": "node server/index.js",
-    "build": "node scripts/build-data.js && vite build",
+    "build": "npm run data && vite build",
     "start": "node server/index.js",
     "data:rdc": "python scripts/build-rdc.py",
-    "test:rdc": "node scripts/test-rdc.mjs",
+    "test:rdc": "node scripts/test-authored-rdc.mjs",
     "data:dungeon": "node scripts/build-dungeon.mjs"
   },
   "dependencies": {
