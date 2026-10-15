@@ -1,0 +1,9 @@
+
+/* Navigation : sélection des points, sans tracé architectural non vérifié */
+.ensii-route-picker{position:absolute;z-index:9;left:18px;top:102px;width:min(290px,calc(100% - 120px));background:#fff;border:1px solid #e1e6f2;border-radius:15px;box-shadow:0 7px 24px #18203c15;padding:13px 15px;font-family:Inter,system-ui,sans-serif;color:#19223e}
+.ensii-route-title{font-weight:800;font-size:14px;margin-bottom:10px}.ensii-route-title small{display:block;font-weight:400;color:#73809b;margin-top:3px;font-size:11px}
+.ensii-route-entry{display:flex;align-items:center;gap:10px;margin:9px 0}.ensii-route-entry>span:last-child{min-width:0}.ensii-route-entry small{display:block;color:#7783a0;font-size:11px}.ensii-route-entry strong{display:block;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ensii-route-symbol{display:grid;place-items:center;flex:none;width:26px;height:26px;border-radius:50%;color:#fff;font-size:12px;font-weight:800}.ensii-route-symbol.start{background:#16a34a}.ensii-route-symbol.end{background:#dc2626}
+.ensii-route-actions{display:flex;gap:8px;margin-top:11px}.ensii-route-actions button{border:1px solid #dce3f0;background:#f7f8ff;border-radius:8px;padding:7px 9px;color:#352c68;cursor:pointer;font-size:12px}.ensii-route-actions button:disabled{opacity:.4;cursor:not-allowed}
+.ensii-route-note{font-size:11px;line-height:1.4;color:#8a5770;margin:9px 0 0}
+@media(max-width:720px){.ensii-route-picker{top:90px;left:10px;width:220px;padding:10px}}

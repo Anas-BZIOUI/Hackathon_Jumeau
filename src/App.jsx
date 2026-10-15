@@ -1,5 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
-import { STRINGS, TYPE_LABEL } from './i18n.js';
+import { useEffect, useMemo, useState } from "react";
+import { STRINGS, TYPE_LABEL } from "./i18n.js";
+import {resolveRoute} from "./routing.js";
+import LostAssistant from "./components/LostAssistant.jsx";
 import {
   ACTIVITY_COLORS,
   parseHash,
@@ -7,7 +9,6 @@ import {
   roomName,
   searchRooms,
   setHash,
-  shortestPath
 } from './core.js';
 import Map2D from './components/Map2D.jsx';
 import Map3D from './components/Map3D.jsx';
@@ -23,14 +24,24 @@ import { CALIBRATION_KEY, calibratedScene, validateCalibration, solveCalibration
 import projectCalibration from '../ensiie-control-points.json';
 import projectGeometry from '../data-src/drawn-geometry.json';
 
-const ACTIVITIES = ['teaching', 'research', 'student_life', 'companies'];
-const LEVELS = ['RDC', 'R+1', 'R+2'];
+const ACTIVITIES = ["teaching", "research", "student_life", "companies"];
+const LEVELS = ["RDC", "R+1", "R+2"];
 const TYPES = Object.keys(TYPE_LABEL.fr);
-const DATA_KEYS = ['rooms', 'floors', 'links', 'graph', 'tours', 'metro', 'synonyms', 'zones', 'resources'];
+const DATA_KEYS = [
+  "rooms",
+  "floors",
+  "links",
+  "graph",
+  "tours",
+  "metro",
+  "synonyms",
+  "zones",
+  "resources",
+];
 
 async function loadDataset() {
   try {
-    const r = await fetch('/api/bootstrap');
+    const r = await fetch("/api/bootstrap");
     if (r.ok) return r.json();
   } catch {
     /* fall through to static JSON */
@@ -40,7 +51,7 @@ async function loadDataset() {
       const r = await fetch(`/data/${key}.json`);
       if (!r.ok) throw new Error(key);
       return [key, await r.json()];
-    })
+    }),
   );
   return Object.fromEntries(entries);
 }
@@ -48,15 +59,16 @@ async function loadDataset() {
 export default function App() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [lang, setLang] = useState('fr');
-  const [view, setView] = useState('guide');
-  const [mode, setMode] = useState('map2d');
-  const [persona, setPersona] = useState('student');
-  const [level, setLevel] = useState('R+2');
+  const [lang, setLang] = useState("fr");
+  const [view, setView] = useState("guide");
+  const [mode, setMode] = useState("map2d");
+  const [persona, setPersona] = useState("student");
+  const [level, setLevel] = useState("R+2");
   const [acts, setActs] = useState(() => new Set(ACTIVITIES));
-  const [typeFilter, setTypeFilter] = useState('all');
-  const [query, setQuery] = useState('');
-  const [selectedId, setSelectedId] = useState('R+2-C53');
+  const [typeFilter, setTypeFilter] = useState("all");
+  const [query, setQuery] = useState("");
+  const [selectedId, setSelectedId] = useState(null);
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [startId, setStartId] = useState(null);
   const [endId, setEndId] = useState(null);
   const [stepFree, setStepFree] = useState(false);
@@ -70,6 +82,7 @@ export default function App() {
   const [drawnGeometry,setDrawnGeometry]=useState(null);
   const [calibration, setCalibration] = useState(null);
   const sceneData = useMemo(() => data ? calibratedScene(data.floors, data.links, calibration) : null, [data, calibration]);
+  const [lostOpen, setLostOpen] = useState(false);
 
   const t = STRINGS[lang];
 
@@ -110,7 +123,7 @@ export default function App() {
         }
         if (restoredCalibration) setCalibration(restoredCalibration);
         const h = parseHash();
-        if (h.view === 'adventure') setView('adventure');
+        if (h.view === "adventure") setView("adventure");
         if (h.roomId) {
           setSelectedId(h.roomId);
           const rm = d.rooms.find((x) => x.id === h.roomId);
@@ -125,32 +138,38 @@ export default function App() {
       .catch(() => {
         if (!cancelled) setError(true);
       });
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const rooms = data?.rooms || [];
   const selected = rooms.find((r) => r.id === selectedId) || null;
 
+  // Un type choisi prime sur les catégories ; sinon filtrage par activité.
   const filtered = useMemo(() => {
-    return rooms.filter((r) => {
-      if (typeFilter !== 'all' && r.type !== typeFilter) return false;
-      if (acts.size && r.activities.length) {
-        if (!r.activities.some((a) => acts.has(a))) return false;
-      } else if (acts.size && !r.activities.length && typeFilter === 'all') {
-        return true;
-      }
-      return true;
+    return rooms.filter((room) => {
+      const matchType = typeFilter === "all" || room.type === typeFilter;
+
+      const matchActivity =
+        acts.size === 0 ||
+        !room.activities?.length ||
+        room.activities.some((activity) => acts.has(activity));
+
+      return matchType && matchActivity;
     });
   }, [rooms, acts, typeFilter]);
 
   const hits = useMemo(
     () => (query.trim() ? searchRooms(query, rooms, data?.synonyms, lang) : []),
-    [query, rooms, data, lang]
+    [query, rooms, data, lang],
   );
 
   const route = useMemo(() => {
     if (!data || !startId || !endId) return null;
-    return shortestPath(data.graph, startId, endId, { stepFree });
+
+    // Prefer the incoming pilot; preserve the original cross-floor graph elsewhere.
+    return resolveRoute(data.graph,startId,endId,{stepFree});
   }, [data, startId, endId, stepFree]);
 
   useEffect(() => {
@@ -164,7 +183,20 @@ export default function App() {
     setSelectedId(id);
     setLevel(room.level);
     setOpenSearch(false);
-    setQuery('');
+    setQuery("");
+  }
+  function closeRoomDetails() {
+    setSelectedId(null);
+    setStartId(null);
+    setEndId(null);
+    setTourId(null);
+
+    // Supprimer les anciennes sélections de l'URL
+    window.history.replaceState(
+      null,
+      "",
+      window.location.pathname + window.location.search,
+    );
   }
 
   function startTour(id) {
@@ -193,9 +225,9 @@ export default function App() {
   if (!data) return <div className="loading">{t.loading}</div>;
 
   const personaStart = {
-    student: rooms.find((r) => r.id === 'R+2-accueil')?.id,
-    visitor: rooms.find((r) => /cabanes/i.test(r.designation_plan || ''))?.id,
-    company: rooms.find((r) => r.number === '216')?.id
+    student: rooms.find((r) => r.id === "R+2-accueil")?.id,
+    visitor: rooms.find((r) => /cabanes/i.test(r.designation_plan || ""))?.id,
+    company: rooms.find((r) => r.number === "216")?.id,
   };
 
   const currentTour = data.tours.find((x) => x.id === tourId);
@@ -206,7 +238,8 @@ export default function App() {
         <div className="brand">
           <img src="/logo.png" alt="EnsiiExplore" className="brand-logo" />
           <div className="brand-text">
-            <p>{t.app}</p>
+            <h1>EnsiiExplore</h1>
+            <p>Explore l’ensIIE</p>
           </div>
         </div>
         <div className="search-wrap">
@@ -214,17 +247,29 @@ export default function App() {
           <input
             value={query}
             placeholder={t.search}
-            onChange={(e) => { setQuery(e.target.value); setOpenSearch(true); }}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setOpenSearch(true);
+            }}
             onFocus={() => setOpenSearch(true)}
           />
           {openSearch && query && (
             <div className="search-results">
-              {hits.length === 0 && <button type="button">{t.emptySearch}</button>}
+              {hits.length === 0 && (
+                <button type="button">{t.emptySearch}</button>
+              )}
               {hits.map((r) => (
-                <button key={r.id} type="button" onClick={() => selectRoom(r.id)}>
+                <button
+                  key={r.id}
+                  type="button"
+                  onClick={() => selectRoom(r.id)}
+                >
                   {roomName(r, lang)}
                   <br />
-                  <small>{r.level} · {TYPE_LABEL[lang][r.type]} · {r.area_plan_m2 ?? '—'} m²</small>
+                  <small>
+                    {r.level} · {TYPE_LABEL[lang][r.type]} ·{" "}
+                    {r.area_plan_m2 ?? "—"} m²
+                  </small>
                 </button>
               ))}
             </div>
@@ -232,19 +277,38 @@ export default function App() {
         </div>
         <div className="topbar-right">
           <div className="seg">
-            <button className={view === 'guide' ? 'active' : ''} onClick={() => setView('guide')}>{t.guide}</button>
-            <button className={view === 'adventure' ? 'active' : ''} onClick={() => setView('adventure')}>{t.adventure}</button>
+            <button
+              className={view === "guide" ? "active" : ""}
+              onClick={() => setView("guide")}
+            >
+              {t.guide}
+            </button>
+            <button
+              className={view === "adventure" ? "active" : ""}
+              onClick={() => setView("adventure")}
+            >
+              {t.adventure}
+            </button>
           </div>
           <div className="pills">
-            {['student', 'visitor', 'company'].map((p) => (
-              <button key={p} className={`pill ${persona === p ? 'active' : ''}`} onClick={() => {
-                setPersona(p);
-                if (personaStart[p]) setStartId(personaStart[p]);
-              }}>{t[p]}</button>
+            {["student", "visitor", "company"].map((p) => (
+              <button
+                key={p}
+                className={`pill ${persona === p ? "active" : ""}`}
+                onClick={() => {
+                  setPersona(p);
+                  if (personaStart[p]) setStartId(personaStart[p]);
+                }}
+              >
+                {t[p]}
+              </button>
             ))}
           </div>
-          <button className="lang pill" onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}>
-            {lang === 'fr' ? 'FR | en' : 'fr | EN'}
+          <button
+            className="lang pill"
+            onClick={() => setLang(lang === "fr" ? "en" : "fr")}
+          >
+            {lang === "fr" ? "FR | en" : "fr | EN"}
           </button>
         </div>
       </header>
@@ -268,67 +332,151 @@ export default function App() {
       {view === 'adventure' ? (
         <AdventureView t={t} lang={lang} selected={selected} level={level} rooms={rooms} />
       ) : (
-        <div className="workspace">
-          <aside className="left">
+        <div className={`workspace modern-workspace mode-${mode}`}>
+          <aside
+            className={`left modern-filters ${filtersOpen ? "is-open" : ""}`}
+          >
+            <button
+              className="filters-close"
+              onClick={() => setFiltersOpen(false)}
+            >
+              × Fermer les filtres
+            </button>
             <div className="section-title">{t.filters}</div>
+            <button
+              type="button"
+              className="ghost"
+              onClick={() => {
+                setActs(new Set(ACTIVITIES));
+                setTypeFilter("all");
+              }}
+            >
+              {lang === "fr" ? "Réinitialiser les filtres" : "Reset filters"}
+            </button>
             {ACTIVITIES.map((a) => (
               <button
                 key={a}
-                className={`filter-row ${acts.has(a) ? '' : 'off'}`}
+                className={`filter-row ${acts.has(a) ? "" : "off"}`}
                 onClick={() => {
                   const n = new Set(acts);
-                  if (n.has(a)) n.delete(a); else n.add(a);
+                  if (n.has(a)) n.delete(a);
+                  else n.add(a);
                   setActs(n);
                 }}
               >
-                <span className="dot" style={{ background: ACTIVITY_COLORS[a] }} />
+                <span
+                  className="dot"
+                  style={{ background: ACTIVITY_COLORS[a] }}
+                />
                 {t[a]}
               </button>
             ))}
             <div className="section-title">{t.types}</div>
-            <select className="type-select" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
+            <select
+              className="type-select"
+              value={typeFilter}
+              onChange={(e) => setTypeFilter(e.target.value)}
+            >
               <option value="all">{t.allTypes}</option>
               {TYPES.map((tp) => (
-                <option key={tp} value={tp}>{TYPE_LABEL[lang][tp]}</option>
+                <option key={tp} value={tp}>
+                  {TYPE_LABEL[lang][tp]}
+                </option>
               ))}
             </select>
             <div className="section-title">{t.floors}</div>
             <div className="floor-list">
               {LEVELS.map((lv) => (
-                <button key={lv} className={level === lv ? 'active' : ''} onClick={() => { setLevel(lv); setMode('map2d'); }}>
+                <button
+                  key={lv}
+                  className={level === lv ? "active" : ""}
+                  onClick={() => {
+                    setLevel(lv);
+                    setMode("map2d");
+                    setFiltersOpen(false);
+                  }}
+                >
                   {data.floors.levels[lv][`label_${lang}`]}
-                  <div className="hint">{rooms.filter((r) => r.level === lv).length} {t.rooms}</div>
+                  <div className="hint">
+                    {rooms.filter((r) => r.level === lv).length} {t.rooms}
+                  </div>
                 </button>
               ))}
             </div>
             <div className="section-title">{t.tours}</div>
             <div className="tour-list">
               {data.tours.map((tour) => (
-                <button key={tour.id} className={tourId === tour.id ? 'active' : ''} onClick={() => startTour(tour.id)}>
-                  {lang === 'en' ? tour.title_en : tour.title_fr}
+                <button
+                  key={tour.id}
+                  className={tourId === tour.id ? "active" : ""}
+                  onClick={() => startTour(tour.id)}
+                >
+                  {lang === "en" ? tour.title_en : tour.title_fr}
                 </button>
               ))}
             </div>
             {currentTour && (
               <div className="tour-progress">
-                {tourStep + 1}/{currentTour.steps.length} — {lang === 'en' ? currentTour.steps[tourStep].text_en : currentTour.steps[tourStep].text_fr}
+                {tourStep + 1}/{currentTour.steps.length} —{" "}
+                {lang === "en"
+                  ? currentTour.steps[tourStep].text_en
+                  : currentTour.steps[tourStep].text_fr}
                 <div className="actions" style={{ marginTop: 8 }}>
-                  <button className="ghost" onClick={() => setTourStep((s) => Math.max(0, s - 1))}>{t.prev}</button>
-                  <button className="ghost" onClick={() => setTourStep((s) => Math.min(currentTour.steps.length - 1, s + 1))}>{t.next}</button>
-                  <button className="ghost" onClick={() => setTourId(null)}>{t.stopTour}</button>
+                  <button
+                    className="ghost"
+                    onClick={() => setTourStep((s) => Math.max(0, s - 1))}
+                  >
+                    {t.prev}
+                  </button>
+                  <button
+                    className="ghost"
+                    onClick={() =>
+                      setTourStep((s) =>
+                        Math.min(currentTour.steps.length - 1, s + 1),
+                      )
+                    }
+                  >
+                    {t.next}
+                  </button>
+                  <button className="ghost" onClick={() => setTourId(null)}>
+                    {t.stopTour}
+                  </button>
                 </div>
               </div>
             )}
             <div className="section-title">{t.resources}</div>
-            {data.resources.map((res) => (
-              res.href
-                ? <a key={res.id} href={res.href} target="_blank" rel="noreferrer" className="hint" style={{ display: 'block', color: 'var(--accent-2)', marginBottom: 6 }}>{lang === 'en' ? res.label_en : res.label_fr}</a>
-                : <div key={res.id} className="hint">{lang === 'en' ? res.label_en : res.label_fr}</div>
-            ))}
+            {data.resources.map((res) =>
+              res.href ? (
+                <a
+                  key={res.id}
+                  href={res.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hint"
+                  style={{
+                    display: "block",
+                    color: "var(--accent-2)",
+                    marginBottom: 6,
+                  }}
+                >
+                  {lang === "en" ? res.label_en : res.label_fr}
+                </a>
+              ) : (
+                <div key={res.id} className="hint">
+                  {lang === "en" ? res.label_en : res.label_fr}
+                </div>
+              ),
+            )}
           </aside>
 
           <main className="center">
             <div className="toolbar">
+              <button
+                className="ghost filters-toggle"
+                onClick={() => setFiltersOpen((v) => !v)}
+              >
+                ☰ Filtres et étages
+              </button>
               <div className="seg">
                 {[
                   ['map2d', t.map2d],
@@ -338,47 +486,89 @@ export default function App() {
                   ['constellation', t.constellation],
                   ['quality', t.quality]
                 ].map(([id, label]) => (
-                  <button key={id} className={mode === id ? 'active' : ''} onClick={() => setMode(id)}>{label}</button>
+                  <button
+                    key={id}
+                    className={mode === id ? "active" : ""}
+                    onClick={() => setMode(id)}
+                  >
+                    {label}
+                  </button>
                 ))}
               </div>
-              {mode === 'map3d' && (
+              {mode === "map3d" && (
                 <>
-                  <button className={`pill ${aligned ? 'active' : ''}`} onClick={() => setAligned((v) => !v)}>{aligned ? t.aligned : t.raw}</button>
-                  <button className={`pill ${explode ? 'active' : ''}`} onClick={() => setExplode((v) => !v)}>{explode ? t.explode : t.compact}</button>
+                  <button
+                    className={`pill ${aligned ? "active" : ""}`}
+                    onClick={() => setAligned((v) => !v)}
+                  >
+                    {aligned ? t.aligned : t.raw}
+                  </button>
+                  <button
+                    className={`pill ${explode ? "active" : ""}`}
+                    onClick={() => setExplode((v) => !v)}
+                  >
+                    {explode ? t.explode : t.compact}
+                  </button>
                 </>
               )}
+              {(mode==='map3d'||mode==='walk')&&<>
               <button className="ghost" onClick={() => setShowCalibration(true)}>{lang === 'fr' ? 'Aligner les étages' : 'Align floors'}</button>
               <button className="ghost" onClick={()=>setShowGeometryEditor(true)}>{lang==='fr'?'Dessiner murs / portes':'Draw walls / doors'}{drawnGeometry?' ●':''}</button>
               {calibration && <button className="ghost" onClick={() => {
                 setCalibration(null);
                 try { localStorage.removeItem(CALIBRATION_KEY); } catch { /* Session reset still works. */ }
               }}>{lang === 'fr' ? 'Annuler le calibrage' : 'Reset calibration'}</button>}
+              </>}
               <label className="hint" style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
                 <input type="checkbox" checked={stepFree} onChange={(e) => setStepFree(e.target.checked)} />
                 {t.stepFree}
               </label>
               <div className="spacer" />
-              <button className="ghost" onClick={() => {
-                const start = personaStart[persona];
-                if (start) setStartId(start);
-                if (selectedId) setEndId(selectedId);
-              }}>{t.imLost}</button>
+              <button
+                type="button"
+                className="ghost"
+                onClick={() => setLostOpen(true)}
+              >
+                🧭 {t.imLost}
+              </button>
             </div>
 
-            {mode === 'map2d' && (
+            {mode === "map2d" && (
               <Map2D
-                rooms={filtered}
+                rooms={rooms}
+                activeActivities={acts}
+                typeFilter={typeFilter}
                 floors={data.floors}
                 links={data.links}
                 zones={data.zones}
                 level={level}
                 selectedId={selectedId}
+                startId={startId}
+                endId={endId}
                 route={route}
                 onSelect={selectRoom}
+                synonyms={data.synonyms}
+                onClearSelection={closeRoomDetails}
+                onUseAsStart={(id) => {
+                  setStartId(id);
+                  if (id === endId) setEndId(null);
+                }}
+                onUseAsEnd={(id) => {
+                  setEndId(id);
+                  if (id === startId) setStartId(null);
+                }}
+                onClearRoute={() => {
+                  setStartId(null);
+                  setEndId(null);
+                }}
+                onSwapRoute={() => {
+                  setStartId(endId);
+                  setEndId(startId);
+                }}
                 lang={lang}
               />
             )}
-            {mode === 'map3d' && (
+            {mode === "map3d" && (
               <Map3D
                 onFloorChange={setLevel}
                 onCompactRequest={() => setExplode(false)}
@@ -399,58 +589,123 @@ export default function App() {
             {mode === 'metro' && (
               <MetroMap metro={data.metro} rooms={rooms} selectedId={selectedId} onSelect={selectRoom} lang={lang} />
             )}
-            {mode === 'constellation' && (
-              <Constellation rooms={filtered} selectedId={selectedId} onSelect={selectRoom} t={t} />
+            {mode === "constellation" && (
+              <Constellation
+                rooms={filtered}
+                selectedId={selectedId}
+                onSelect={selectRoom}
+                t={t}
+              />
             )}
-            {mode === 'quality' && <Dashboard rooms={rooms} graph={data.graph} t={t} />}
+            {mode === "quality" && (
+              <Dashboard rooms={rooms} graph={data.graph} t={t} />
+            )}
 
             <div className="route-bar">
-              {route ? (
-                <>
-                  <strong>{t.routeBar}</strong>
-                  <span>{rooms.find((r) => r.id === startId)?.name_fr} → {rooms.find((r) => r.id === endId)?.name_fr}</span>
-                  <span>{route.metres} {t.m} · {route.minutes} {t.min}</span>
-                  {stepFree && <span className="badge ok">{t.stepFree}</span>}
-                  {route.steps.map((s, i) => (
-                    <span key={i} className="badge">{lang === 'en' ? s.text_en : s.text_fr}</span>
-                  ))}
-                  <button className="ghost" onClick={() => { setStartId(null); setEndId(null); }}>{t.clearRoute}</button>
-                </>
-              ) : (
-                <span className="hint">{startId && endId ? t.routeNone : t.pickStart}</span>
-              )}
+              <span className="hint">
+                {startId && endId
+                  ? `Départ : ${rooms.find((r) => r.id === startId)?.number || startId} → Arrivée : ${rooms.find((r) => r.id === endId)?.number || endId} · ${route ? `Trajet automatique indicatif (${route.metres} m estimés, ${route.minutes} min estimées). Connexions non vérifiées sur les plans.` : "Aucun chemin trouvé dans le graphe actuel."}`
+                  : startId
+                    ? "Départ défini. Choisissez maintenant une arrivée."
+                    : endId
+                      ? "Arrivée définie. Choisissez maintenant un départ."
+                      : "Choisissez une salle de départ, puis une arrivée."}
+              </span>
+              {route?.steps?.map((step,i)=><span className="hint" key={i}>{step[`text_${lang}`]}</span>)}
+              {route&&stepFree&&<span className="badge">{t.stepFree}</span>}
             </div>
           </main>
 
-          <aside className="right">
+          <aside className="right legacy-room-panel">
             {selected ? (
               <div className="sheet">
-                <span className={`badge ${selected.verified_on_site ? 'ok' : 'warn'}`}>
-                  {selected.verified_on_site ? t.verified : t.unverified}
-                </span>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <span
+                    className={`badge ${selected.verified_on_site ? "ok" : "warn"}`}
+                  >
+                    {selected.verified_on_site ? t.verified : t.unverified}
+                  </span>
+
+                  <button
+                    type="button"
+                    className="ghost"
+                    onClick={closeRoomDetails}
+                    aria-label="Fermer"
+                  >
+                    ✕
+                  </button>
+                </div>
+
                 <h2>{roomName(selected, lang)}</h2>
-                <div className="sub">{selected.level} · {TYPE_LABEL[lang][selected.type]} · {t.fromPlan}</div>
+                <div className="sub">
+                  {selected.level} · {TYPE_LABEL[lang][selected.type]} ·{" "}
+                  {t.fromPlan}
+                </div>
                 <div className="tags">
                   {selected.activities.map((a) => (
-                    <span key={a} className="tag" style={{ background: ACTIVITY_COLORS[a] + '33' }}>{t[a]}</span>
+                    <span
+                      key={a}
+                      className="tag"
+                      style={{ background: ACTIVITY_COLORS[a] + "33" }}
+                    >
+                      {t[a]}
+                    </span>
                   ))}
-                  <span className="tag">{selected.reliable ? t.reliable : t.doubtful}</span>
+                  <span className="tag">
+                    {selected.reliable ? t.reliable : t.doubtful}
+                  </span>
                 </div>
                 <p>{roomDesc(selected, lang)}</p>
                 {selected.programme_plan && (
                   <p className="hint">{selected.programme_plan}</p>
                 )}
                 <div className="meta">
-                  <div><small>{t.area}</small>{selected.area_plan_m2 ?? '—'} m²</div>
-                  <div><small>{t.capacity}</small>{selected.capacity_estimated ? `${t.estimated} ${selected.capacity_estimated}` : t.unknown}</div>
-                  <div><small>{t.reliability}</small>{selected.contour_quality}</div>
-                  <div><small>PMR</small>{selected.accessible === true ? 'oui' : t.unknown}</div>
+                  <div>
+                    <small>{t.area}</small>
+                    {selected.area_plan_m2 ?? "—"} m²
+                  </div>
+                  <div>
+                    <small>{t.capacity}</small>
+                    {selected.capacity_estimated
+                      ? `${t.estimated} ${selected.capacity_estimated}`
+                      : t.unknown}
+                  </div>
+                  <div>
+                    <small>{t.reliability}</small>
+                    {selected.contour_quality}
+                  </div>
+                  <div>
+                    <small>PMR</small>
+                    {selected.accessible === true ? "oui" : t.unknown}
+                  </div>
                 </div>
                 <div className="actions">
-                  <button className="primary" onClick={() => setStartId(selected.id)}>{t.useAsStart}</button>
-                  <button className="ghost" onClick={() => { setEndId(selected.id); if (!startId && personaStart[persona]) setStartId(personaStart[persona]); }}>{t.useAsEnd}</button>
+                  <button
+                    className="primary"
+                    onClick={() => setStartId(selected.id)}
+                  >
+                    {t.useAsStart}
+                  </button>
+                  <button
+                    className="ghost"
+                    onClick={() => {
+                      setEndId(selected.id);
+                      if (!startId && personaStart[persona])
+                        setStartId(personaStart[persona]);
+                    }}
+                  >
+                    {t.useAsEnd}
+                  </button>
                 </div>
-                <p className="deeplink">{t.deeplink}: #/room/{selected.id}</p>
+                <p className="deeplink">
+                  {t.deeplink}: #/room/{selected.id}
+                </p>
                 <p className="hint">{t.simulation}</p>
               </div>
             ) : (
@@ -458,6 +713,21 @@ export default function App() {
             )}
           </aside>
         </div>
+      )}
+      {lostOpen && (
+        <LostAssistant
+          rooms={rooms}
+          onClose={() => setLostOpen(false)}
+          onNavigate={(origin, destination) => {
+            setView("guide");
+            setMode("map2d");
+            setLevel(origin.level);
+
+            setStartId(origin.id);
+            setEndId(destination.id);
+            setSelectedId(destination.id);
+          }}
+        />
       )}
     </div>
   );

@@ -1,231 +1,630 @@
-import { useMemo, useRef, useState } from 'react';
-import { polyToPath, roomColor, roomName } from '../core.js';
+import { useEffect, useMemo, useRef, useState } from "react";
+import { roomName, ACTIVITY_COLORS,searchRooms } from "../core.js";
+import {TYPE_LABEL} from '../i18n.js';
+import groundPlan from '../../plan_RDC.svg?url';
+import firstPlan from '../../plan_R+1.svg?url';
+import secondPlan from '../../plan_R+2.svg?url';
+const PLANS={RDC:groundPlan,'R+1':firstPlan,'R+2':secondPlan};
+import { indoorFloorSegments } from "../navigation.js";
+
+const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+const fit = ([w, h]) => ({ x: -2, y: -2, w: w + 4, h: h + 4 });
+const floorNames = {
+  RDC: "Rez-de-chaussée",
+  "R+1": "1er étage",
+  "R+2": "2e étage",
+};
 
 export default function Map2D({
-  rooms,
+  rooms = [],
+  activeActivities,
+  typeFilter = "all",
   floors,
-  links,
-  zones,
+  links=[],
   level,
   selectedId,
+  startId,
+  endId,
   route,
   onSelect,
-  lang
+  onClearSelection,
+  onUseAsStart,
+  onUseAsEnd,
+  onClearRoute,
+  onSwapRoute,
+  lang = "fr",
+  synonyms,
 }) {
-  const svgRef = useRef(null);
+  const fr=lang==='fr';
   const size = floors.levels[level]?.size || [60, 60];
-  const [view, setView] = useState({ x: -4, y: -4, w: size[0] + 8, h: size[1] + 8 });
+  const svgRef = useRef(null);
   const drag = useRef(null);
-  const [hoveredRoom, setHoveredRoom] = useState(null);
-  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+  const suppressClick = useRef(false);
+  const [view, setView] = useState(() => fit(size));
+  const [shapes, setShapes] = useState({});
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [showLabels, setShowLabels] = useState(true);
+  const [hovered, setHovered] = useState(null);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [term, setTerm] = useState("");
+  const [planError, setPlanError] = useState(false);
+  const levelRooms = useMemo(
+    () => rooms.filter((r) => r.level === level),
+    [rooms, level],
+  );
+  const selected = levelRooms.find((r) => r.id === selectedId);
+  const departure = rooms.find((r) => r.id === startId);
+  const arrival = rooms.find((r) => r.id === endId);
+  const active =
+    activeActivities instanceof Set
+      ? activeActivities
+      : new Set(["teaching", "research", "student_life", "companies"]);
+  const matchesFilters = (r) =>
+    typeFilter !== "all"
+      ? r.type === typeFilter
+      : active.size===0||!r.activities?.length||(r.activities || []).some((a) => active.has(a));
+  const matchingCount = levelRooms.filter(matchesFilters).length;
+  const colorFor = (r) => {
+    const category = (r.activities || []).find((a) => active.has(a));
+    // Les types sans activité (bureaux, escaliers, sanitaires...) restent visibles.
+    return ACTIVITY_COLORS[category] || "#818cf8";
+  };
+  const planUrl = PLANS[level];
 
-  const levelRooms = useMemo(() => rooms.filter((r) => r.level === level), [rooms, level]);
-  const routePts = useMemo(() => {
-    if (!route) return [];
-    return route.nodes.filter((n) => n.level === level);
-  }, [route, level]);
+  useEffect(() => {
+    let active = true;
+    setView(fit(size));
+    setHovered(null);
+    setShapes({});
+    setPlanError(false);
+    fetch(planUrl)
+      .then((r) => {
+        if (!r.ok) throw new Error("Plan absent");
+        return r.text();
+      })
+      .then((xml) => {
+        const doc = new DOMParser().parseFromString(xml, "image/svg+xml");
+        const paths = {};
+        doc.querySelectorAll("#pieces path[id]").forEach((path) => {
+          paths[path.id] = path.getAttribute("d");
+        });
+        if (active) setShapes(paths);
+      })
+      .catch(() => {
+        if (active) setPlanError(true);
+      });
+    return () => {
+      active = false;
+    };
+  }, [level, size[0], size[1], planUrl]);
 
-  const zonePaths = useMemo(() => {
-    if (level !== 'R+2' || !zones?.features) return [];
-    return zones.features.map((f, i) => {
-      const ring = f.geometry?.coordinates?.[0];
-      if (!ring) return null;
-      const h = size[1];
-      const d = ring
-        .map((p, idx) => `${idx ? 'L' : 'M'}${p[0].toFixed(2)} ${(h - p[1]).toFixed(2)}`)
-        .join(' ');
-      return { d, kind: f.properties.kind, nom: f.properties.nom, i };
-    }).filter(Boolean);
-  }, [zones, level, size]);
+  useEffect(() => {
+    if (selectedId && selected) setDetailsOpen(true);
+  }, [selectedId, level]);
 
-  function clientToWorld(e) {
-    const svg = svgRef.current;
-    const pt = svg.createSVGPoint();
-    pt.x = e.clientX;
-    pt.y = e.clientY;
-    const ctm = svg.getScreenCTM();
-    const p = pt.matrixTransform(ctm.inverse());
-    return [p.x, size[1] - p.y];
+  const matches = useMemo(() => {
+    const q = term.trim().toLocaleLowerCase();
+    return q
+      ? searchRooms(q,levelRooms,synonyms,lang).slice(0,12)
+      : [];
+  }, [term, levelRooms, lang,synonyms]);
+
+  function zoom(factor, point) {
+    setView((v) => {
+      const w = clamp(v.w * factor, 8, size[0] * 2.5);
+      const h = (w * v.h) / v.w;
+      const cx = point?.x ?? v.x + v.w / 2;
+      const cy = point?.y ?? v.y + v.h / 2;
+      return {
+        x: cx - ((cx - v.x) * w) / v.w,
+        y: cy - ((cy - v.y) * h) / v.h,
+        w,
+        h,
+      };
+    });
   }
+  function svgPoint(e) {
+    const svg = svgRef.current;
+    const m = svg?.getScreenCTM();
+    if (!m) return null;
+    const p = svg.createSVGPoint();
+    p.x = e.clientX;
+    p.y = e.clientY;
+    return p.matrixTransform(m.inverse());
+  }
+  function focusRoom(room) {
+    if (!room?.centroid) return;
+    const [x, y] = room.centroid;
+    setView((v) => {
+      const w = Math.min(size[0] + 4, Math.max(32, size[0] * 0.55));
+      const h = (w * v.h) / v.w;
+      return { x: x - w / 2, y: size[1] - y - h / 2, w, h };
+    });
+  }
+  function selectRoom(room) {
+    onSelect?.(room.id);
+    setDetailsOpen(true);
+    setSearchOpen(false);
+    setTerm("");
+    // Ne pas zoomer automatiquement : la carte reste lisible.
+  }
+  const title = fr?(floorNames[level]||level):({RDC:'Ground floor','R+1':'First floor','R+2':'Second floor'}[level]||level);
+  const routeIds = new Set(route?.ids || []);
+
+  const routeSegments = useMemo(
+    () => indoorFloorSegments(route, level, size[1]),
+    [route, level, size[1]],
+  );
 
   return (
-    <div className="map-host">
+    <div className="map-host ensii-modern-map ensii-blueprint-map">
       <svg
         ref={svgRef}
-        className="map-2d"
+        className="map-2d ensii-map-svg"
         viewBox={`${view.x} ${view.y} ${view.w} ${view.h}`}
+        preserveAspectRatio="xMidYMid meet"
+        aria-label={`Plan interactif : ${title}`}
         onWheel={(e) => {
           e.preventDefault();
-          const factor = e.deltaY > 0 ? 1.08 : 0.92;
-          const [wx, wy] = clientToWorld(e);
-          const sx = wx;
-          const sy = size[1] - wy;
-          const nw = view.w * factor;
-          const nh = view.h * factor;
-          const nx = sx - ((sx - view.x) / view.w) * nw;
-          const ny = sy - ((sy - view.y) / view.h) * nh;
-          setView({ x: nx, y: ny, w: nw, h: nh });
+          zoom(e.deltaY > 0 ? 1.12 : 0.89, svgPoint(e));
         }}
         onPointerDown={(e) => {
-          drag.current = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y };
-          e.currentTarget.setPointerCapture(e.pointerId);
+          if (e.button !== 0) return;
+          drag.current = {
+            x: e.clientX,
+            y: e.clientY,
+            view: { ...view },
+            moved: false,
+          };
+          suppressClick.current = false;
         }}
         onPointerMove={(e) => {
           if (!drag.current) return;
-          const svg = svgRef.current;
-          const k = view.w / svg.clientWidth;
-          setView((v) => ({
-            ...v,
-            x: drag.current.vx - (e.clientX - drag.current.x) * k,
-            y: drag.current.vy - (e.clientY - drag.current.y) * k
-          }));
+          const d = drag.current;
+          if (!d.moved && Math.hypot(e.clientX - d.x, e.clientY - d.y) <= 5)
+            return;
+          if (!d.moved) {
+            d.moved = true;
+            suppressClick.current = true;
+            e.currentTarget.setPointerCapture(e.pointerId);
+          }
+          const rect = e.currentTarget.getBoundingClientRect();
+          const k = Math.max(d.view.w / rect.width, d.view.h / rect.height);
+          setView({
+            ...d.view,
+            x: d.view.x - (e.clientX - d.x) * k,
+            y: d.view.y - (e.clientY - d.y) * k,
+          });
         }}
-        onPointerUp={() => {
+        onPointerUp={(e) => {
+          if (e.currentTarget.hasPointerCapture(e.pointerId))
+            e.currentTarget.releasePointerCapture(e.pointerId);
           drag.current = null;
         }}
+        onPointerCancel={(e) => {
+          if (e.currentTarget.hasPointerCapture(e.pointerId))
+            e.currentTarget.releasePointerCapture(e.pointerId);
+          drag.current = null;
+        }}
+        onClickCapture={(e) => {
+          if (suppressClick.current) {
+            e.stopPropagation();
+            suppressClick.current = false;
+            return;
+          }
+
+          // Maintenir Shift et cliquer pour relever
+          // les coordonnées d'une porte sur le plan.
+          if (e.shiftKey) {
+            e.stopPropagation();
+
+            const point = svgPoint(e);
+            if (!point) return;
+
+            const x = Number(point.x.toFixed(3));
+            const y = Number((size[1] - point.y).toFixed(3));
+
+            console.log("Coordonnées navigation :", {
+              level,
+              x,
+              y,
+            });
+          }
+        }}
       >
-        <defs>
-          <pattern id="grid" width="5" height="5" patternUnits="userSpaceOnUse">
-            <path d="M 5 0 L 0 0 0 5" fill="none" stroke="rgba(201, 162, 39, 0.15)" strokeWidth="0.08" />
-          </pattern>
-        </defs>
-        <rect x={0} y={0} width={size[0]} height={size[1]} fill="#f8f9fa" />
-        <rect x={0} y={0} width={size[0]} height={size[1]} fill="url(#grid)" />
-        <rect x={0} y={0} width={size[0]} height={size[1]} fill="none" stroke="#c9a22755" strokeWidth="0.25" />
-
-        {zonePaths.map((z) => (
-          <path
-            key={z.i}
-            d={z.d}
-            fill={z.kind === 'batiment' ? 'none' : 'rgba(201, 162, 39, 0.08)'}
-            stroke={z.kind === 'batiment' ? '#c9a227' : '#4a90e2'}
-            strokeWidth={z.kind === 'batiment' ? 0.35 : 0.18}
-          />
-        ))}
-
+        <rect
+          x="-100"
+          y="-100"
+          width={size[0] + 200}
+          height={size[1] + 200}
+          fill="#f8fafc"
+        />
+        <image
+          href={planUrl}
+          x="0"
+          y="0"
+          width={size[0]}
+          height={size[1]}
+          preserveAspectRatio="none"
+        />
         {levelRooms.map((r) => {
-          const d = polyToPath(r.polygon, true, size[1]);
-          const c = roomColor(r);
-          const selected = r.id === selectedId;
-          const hovered = hoveredRoom?.id === r.id;
-          const onRoute = route?.ids.includes(r.id);
-          const [cx, cy] = r.centroid;
+          const d = shapes[r.id];
+          if (!d) return null;
+          const isSelected = r.id === selectedId;
+          const matches = matchesFilters(r);
+          const color = colorFor(r);
+          const isHovered = hovered === r.id;
           return (
             <g
               key={r.id}
-              onClick={(e) => { e.stopPropagation(); onSelect(r.id); }}
-              onMouseEnter={(e) => {
-                const rect = svgRef.current.getBoundingClientRect();
-                setTooltipPos({
-                  x: e.clientX - rect.left + 15,
-                  y: e.clientY - rect.top - 10
-                });
-                setHoveredRoom(r);
+              onPointerEnter={() => setHovered(r.id)}
+              onPointerLeave={() => setHovered(null)}
+              onClick={(e) => {
+                e.stopPropagation();
+                selectRoom(r);
               }}
-              onMouseLeave={() => setHoveredRoom(null)}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: "pointer" }}
             >
               <path
                 d={d}
-                fill={c}
-                fillOpacity={selected ? 0.9 : hovered ? 0.7 : r.reliable ? 0.45 : 0.22}
-                stroke={selected ? '#ffffff' : hovered ? '#c9a227' : onRoute ? '#4a90e2' : '#1a1a28'}
-                strokeWidth={selected ? 0.5 : hovered ? 0.35 : 0.12}
-                style={{ transition: 'all 0.15s ease' }}
+                fill={isSelected ? "#818cf8" : color}
+                fillOpacity={
+                  isSelected
+                    ? 0.62
+                    : matches
+                      ? isHovered
+                        ? 0.42
+                        : 0.23
+                      : 0.015
+                }
+                stroke={
+                  isSelected
+                    ? "#4f46e5"
+                    : routeIds.has(r.id)
+                      ? "#0d9488"
+                      : matches
+                        ? color
+                        : "none"
+                }
+                strokeOpacity={isSelected ? 1 : matches ? 0.9 : 0}
+                strokeWidth={isSelected ? 0.28 : matches ? 0.12 : 0}
+                strokeLinejoin="round"
               />
-              {view.w < 90 && (
-                <text className="room-label" x={cx} y={size[1] - cy} textAnchor="middle" dy="0.35">
-                  {r.number || r.designation_plan?.slice(0, 10)}
-                </text>
+              {isSelected && r.centroid && (
+                <circle
+                  cx={r.centroid[0]}
+                  cy={size[1] - r.centroid[1]}
+                  r=".22"
+                  fill="#4f46e5"
+                  pointerEvents="none"
+                />
               )}
             </g>
           );
         })}
 
-        {routePts.length > 1 && (
-          <polyline
-            fill="none"
-            stroke="#c9a227"
-            strokeWidth="0.45"
-            strokeDasharray="0.8 0.5"
-            points={routePts.map((n) => `${n.x},${size[1] - n.y}`).join(' ')}
-          />
-        )}
-        {routePts.map((n, i) => (
-          <circle key={i} cx={n.x} cy={size[1] - n.y} r="0.45" fill="#d4af37" />
-        ))}
+        {/* Itinéraire automatique indicatif */}
+        <g className="automatic-route" pointerEvents="none">
+          {routeSegments.map((segment, index) => {
+            const points = segment.map((p) => `${p.x},${p.y}`).join(" ");
 
-        {links.flatMap((link) =>
-          link.points
-            .filter((p) => p.level === level)
-            .map((p) => (
-              <g key={`${link.id}-${level}`}>
-                {link.type === 'lift' ? (
-                  <rect x={p.x - 0.7} y={size[1] - p.y - 0.7} width="1.4" height="1.4" fill="#c9a227" stroke="#2c3e50" strokeWidth="0.08" />
-                ) : (
-                  <circle cx={p.x} cy={size[1] - p.y} r="0.8" fill="#e74c3c" />
-                )}
-                <text x={p.x} y={size[1] - p.y + 0.25} textAnchor="middle" className="room-label">
-                  {link.type === 'lift' ? 'L' : 'S'}
-                </text>
+            return (
+              <g key={`route-${index}`}>
+                {/* Contour blanc pour distinguer le trajet */}
+                <polyline
+                  points={points}
+                  fill="none"
+                  stroke="#ffffff"
+                  strokeWidth="1.15"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  opacity="0.95"
+                />
+
+                {/* Chemin bleu en pointillés */}
+                <polyline
+                  points={points}
+                  fill="none"
+                  stroke="#2563eb"
+                  strokeWidth="0.65"
+                  strokeDasharray="1.3 0.65"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </g>
-            ))
-        )}
-
-        <g transform={`translate(2, ${size[1] - 3})`}>
-          <line className="scale-bar" x1="0" y1="0" x2="10" y2="0" />
-          <text className="room-label" x="5" y="-0.4" textAnchor="middle">10 m</text>
+            );
+          })}
         </g>
-      </svg>
 
-      {hoveredRoom && (
-        <div
-          className="room-tooltip"
-          style={{
-            left: tooltipPos.x,
-            top: tooltipPos.y,
-            position: 'absolute',
-            pointerEvents: 'none',
-            zIndex: 100
-          }}
+        {/* Repères indicatifs : centroïdes JSON, non des portes vérifiées. */}
+        {[
+          { room: departure, text: "D", color: "#16a34a" },
+          { room: arrival, text: "A", color: "#dc2626" },
+        ]
+          .filter((item) => item.room?.level === level && item.room.centroid)
+          .map((item) => (
+            <g
+              key={item.text}
+              transform={`translate(${item.room.centroid[0]} ${size[1] - item.room.centroid[1]})`}
+              pointerEvents="none"
+            >
+              <circle
+                r="1.0"
+                fill="white"
+                stroke={item.color}
+                strokeWidth=".25"
+              />
+              <circle r=".76" fill={item.color} />
+              <text
+                textAnchor="middle"
+                dominantBaseline="central"
+                fill="white"
+                fontSize=".85"
+                fontWeight="bold"
+              >
+                {item.text}
+              </text>
+            </g>
+          ))}
+        {showLabels &&
+          levelRooms
+            .filter(
+              (r) =>
+                !shapes[r.id] &&
+                r.centroid &&
+                (matchesFilters(r) || r.id === selectedId),
+            )
+            .map((r) => (
+              <circle
+                key={r.id}
+                cx={r.centroid[0]}
+                cy={size[1] - r.centroid[1]}
+                r=".28"
+                fill={r.id === selectedId ? "#4f46e5" : colorFor(r)}
+                stroke="#fff"
+                strokeWidth=".08"
+                onClick={() => selectRoom(r)}
+                style={{ cursor: "pointer" }}
+              />
+            ))}
+        {links.flatMap(link=>link.points.filter(p=>p.level===level).map((p,i)=><g key={`${link.id}-${i}`} transform={`translate(${p.x} ${size[1]-p.y})`}><circle r=".8" fill={link.type==='lift'?'#278f9f':'#b87a32'} stroke="white" strokeWidth=".15"/><text textAnchor="middle" dominantBaseline="central" fill="white" fontSize=".85">{link.type==='lift'?'L':'S'}</text><title>{link.type==='lift'?(lang==='fr'?'Ascenseur':'Lift'):(lang==='fr'?'Escalier':'Stairs')} {link.label||link.id}</title></g>))}
+        <g transform={`translate(${view.x+view.w*.04},${view.y+view.h*.93})`} pointerEvents="none"><path d="M0,-.4 V0 H10 V-.4" fill="none" stroke="#24445b" strokeWidth=".15"/><text x="5" y="-.7" textAnchor="middle" fontSize=".9" fill="#24445b" stroke="white" strokeWidth=".06" paintOrder="stroke">10 m</text></g>
+      </svg>
+      <section className="ensii-route-picker" aria-label="Départ et arrivée">
+        <div className="ensii-route-title">
+          Itinéraire <small>Étape 1 : points de départ et d’arrivée</small>
+        </div>
+        <div className="ensii-route-entry">
+          <span className="ensii-route-symbol start">D</span>
+          <span>
+            <small>{fr?'Départ':'Start'}</small>
+            <strong>
+              {departure
+                ? `${departure.number || ""} · ${roomName(departure, lang)}`
+                : (fr?"Choisir une salle":"Choose a room")}
+            </strong>
+          </span>
+        </div>
+        <div className="ensii-route-entry">
+          <span className="ensii-route-symbol end">A</span>
+          <span>
+            <small>{fr?'Arrivée':'Destination'}</small>
+            <strong>
+              {arrival
+                ? `${arrival.number || ""} · ${roomName(arrival, lang)}`
+                : (fr?"Choisir une salle":"Choose a room")}
+            </strong>
+          </span>
+        </div>
+        <div className="ensii-route-actions">
+          <button
+            type="button"
+            onClick={onSwapRoute}
+            disabled={!startId || !endId}
+          >
+            {fr?'⇅ Inverser':'⇅ Swap'}
+          </button>
+          <button
+            type="button"
+            onClick={onClearRoute}
+            disabled={!startId && !endId}
+          >
+            Effacer
+          </button>
+        </div>
+        {departure && arrival && (
+          <p className="ensii-route-note">
+            {routeSegments.length > 0
+              ? `Trajet automatique indicatif affiché en bleu (${route?.metres ?? "—"} m estimés).`
+              : "Aucun segment de trajet disponible sur cet étage."}
+          </p>
+        )}
+        {departure && arrival && departure.level !== arrival.level && (
+          <p className="ensii-route-note">
+            Changement d'étage : {departure.level} → {arrival.level} (liaison à
+            vérifier).
+          </p>
+        )}
+      </section>
+      <div className="ensii-floor-card">
+        <strong>{title}</strong>
+        <span>
+          {matchingCount} / {levelRooms.length} espaces correspondants · plan
+          architectural
+        </span>
+      </div>
+      <div className="ensii-map-controls" aria-label="Commandes de la carte">
+        <button type="button" title={fr?"Zoom avant":"Zoom in"} onClick={() => zoom(0.78)}>
+          ＋
+        </button>
+        <button type="button" title={fr?"Zoom arrière":"Zoom out"} onClick={() => zoom(1.28)}>
+          −
+        </button>
+        <button
+          type="button"
+          title={fr?"Afficher tout l'étage":"Fit floor"}
+          onClick={() => setView(fit(size))}
         >
-          <strong>{roomName(hoveredRoom, lang)}</strong>
-          <div>{hoveredRoom.level} · {hoveredRoom.type}</div>
-          {hoveredRoom.area_plan_m2 && <div>{hoveredRoom.area_plan_m2} m²</div>}
-          {hoveredRoom.activities.length > 0 && (
-            <div style={{ marginTop: 4 }}>
-              {hoveredRoom.activities.map((a) => (
-                <span key={a} className="mini-tag">{a}</span>
-              ))}
-            </div>
+          ⛶
+        </button>
+        <button
+          type="button"
+          disabled={!selected}
+          title={fr?"Centrer sur la salle":"Center on room"}
+          onClick={() => focusRoom(selected)}
+        >
+          ⌖
+        </button>
+      </div>
+      {hovered && !detailsOpen && (
+        <div className="ensii-hover-label">
+          {roomName(
+            levelRooms.find((r) => r.id === hovered),
+            lang,
           )}
         </div>
       )}
-
-      <div className="map-legend">
-        <div className="legend-title">{lang === 'fr' ? 'Légende' : 'Legend'}</div>
-        <div className="legend-item">
-          <span className="legend-color" style={{ background: '#4a90e2' }}></span>
-          <span>{lang === 'fr' ? 'Enseignement' : 'Teaching'}</span>
-        </div>
-        <div className="legend-item">
-          <span className="legend-color" style={{ background: '#c9a227' }}></span>
-          <span>{lang === 'fr' ? 'Recherche' : 'Research'}</span>
-        </div>
-        <div className="legend-item">
-          <span className="legend-color" style={{ background: '#27ae60' }}></span>
-          <span>{lang === 'fr' ? 'Vie étudiante' : 'Student Life'}</span>
-        </div>
-        <div className="legend-item">
-          <span className="legend-color" style={{ background: '#e74c3c' }}></span>
-          <span>{lang === 'fr' ? 'Entreprises' : 'Companies'}</span>
-        </div>
+      <div className="ensii-modern-legend">
+        <strong>{fr?'Légende':'Legend'}</strong>
+        <span>
+          <i className="ensii-legend-dot selected" /> Salle sélectionnée
+        </span>
+        {[
+          ["teaching", "Enseignement"],
+          ["research", "Recherche"],
+          ["student_life", "Vie étudiante"],
+          ["companies", "Entreprises"],
+        ].map(([key, label]) => (
+          <span key={key} style={{ opacity: active.has(key) ? 1 : 0.35 }}>
+            <i
+              className="ensii-legend-dot"
+              style={{ background: ACTIVITY_COLORS[key] }}
+            />{" "}
+            {label}
+          </span>
+        ))}
+        <span>
+          <i
+            className="ensii-legend-dot"
+            style={{
+              background: "#fff",
+              border: "2px solid #ea580c",
+              borderRadius: "50%",
+            }}
+          />{" "}
+          Position sans contour
+        </span>
+        <label>
+          <input
+            type="checkbox"
+            checked={showLabels}
+            onChange={(e) => setShowLabels(e.target.checked)}
+          />{" "}
+          Positions seules
+        </label>
       </div>
-
-      <div className="banner">
-        {floors.levels[level]?.[`label_${lang}`]} · {levelRooms.length} {lang === 'fr' ? 'espaces' : 'spaces'} ·{' '}
-        {lang === 'fr' ? 'molette pour zoomer, glisser pour déplacer' : 'scroll to zoom, drag to pan'}
+      {planError && (
+        <div className="ensii-plan-error">
+          {fr?'Plan indisponible. Réessayez en rechargeant la page.':'Plan unavailable. Try reloading the page.'}
+        </div>
+      )}
+      <div className="ensii-search-wrap">
+        {searchOpen && (
+          <div className="ensii-search-panel">
+            <input
+              autoFocus
+              value={term}
+              onChange={(e) => setTerm(e.target.value)}
+              placeholder="Numéro ou nom de salle…"
+            />
+            <div className="ensii-search-results">
+              {matches.map((r) => (
+                <button type="button" key={r.id} onClick={() => selectRoom(r)}>
+                  <strong>{r.number || "—"}</strong>
+                  <span>{roomName(r, lang)}</span>
+                </button>
+              ))}
+              {term && !matches.length && (
+                <p>Aucune salle trouvée à cet étage.</p>
+              )}
+            </div>
+          </div>
+        )}
+        <button
+          className="ensii-search-trigger"
+          type="button"
+          onClick={() => setSearchOpen((v) => !v)}
+        >
+          {searchOpen ? (fr?"Fermer":"Close") : (fr?"⌕  Rechercher une salle":"⌕  Find a room")}
+        </button>
       </div>
+      {selected && detailsOpen && (
+        <aside
+          className="ensii-side-details"
+          aria-label="Informations de la salle"
+        >
+          <button
+            className="ensii-sheet-close"
+            type="button"
+            aria-label="Fermer la fiche"
+            onClick={() => {
+              setDetailsOpen(false);
+              onClearSelection?.();
+              setHovered(null);
+            }}
+          >
+            ×
+          </button>
+          <span className="ensii-sheet-tag">Espace · {title}</span>
+          <h2>{selected.number || roomName(selected, lang)}</h2>
+          <p className="ensii-sheet-subtitle">
+            {selected.designation_plan || roomName(selected, lang)}
+          </p>
+          <div className="ensii-sheet-grid">
+            <div>
+              <small>{fr?'Étage':'Floor'}</small>
+              <strong>{title}</strong>
+            </div>
+            <div>
+              <small>Type</small>
+              <strong>{TYPE_LABEL[lang][selected.type] || "Non renseigné"}</strong>
+            </div>
+            <div>
+              <small>{fr?'Surface du plan':'Plan area'}</small>
+              <strong>
+                {selected.area_plan_m2 != null
+                  ? `${selected.area_plan_m2} m²`
+                  : "Non renseignée"}
+              </strong>
+            </div>
+            <div>
+              <small>{fr?'Accessibilité PMR':'Step-free access'}</small>
+              <strong>
+                {selected.accessible == null ? (fr?"À vérifier":"Unknown") : selected.accessible ? (fr?"Indiquée accessible":"Reported accessible") : (fr?"Non accessible":"Not accessible")}
+              </strong>
+            </div>
+          </div>
+          <p className="ensii-sheet-description">
+            {selected[`description_${lang}`] ||
+              selected.description_fr ||
+              "Aucune description disponible."}
+          </p>
+          <div className="ensii-sheet-grid"><div><small>{lang==='fr'?'Capacité':'Capacity'}</small><strong>{selected.capacity??(selected.capacity_estimated?`${lang==='fr'?'Environ':'About'} ${selected.capacity_estimated}`:(lang==='fr'?'Inconnue':'Unknown'))}</strong></div><div><small>{lang==='fr'?'Qualité des données':'Data quality'}</small><strong>{selected.verified_on_site?(lang==='fr'?'Vérifié sur place':'Verified on site'):(lang==='fr'?'À vérifier sur place':'Not verified on site')}</strong></div></div>
+          <div className="tags">{selected.activities?.map(a=><span className="tag" key={a} style={{background:ACTIVITY_COLORS[a]+'22'}}>{({teaching:lang==='fr'?'Enseignement':'Teaching',research:lang==='fr'?'Recherche':'Research',student_life:lang==='fr'?'Vie étudiante':'Student life',companies:lang==='fr'?'Entreprises':'Companies'})[a]}</span>)}</div>
+          <p className="deeplink"><a href={`#/room/${encodeURIComponent(selected.id)}`}>{lang==='fr'?'Lien vers cette salle':'Link to this room'}</a></p>
+          <div className="ensii-sheet-actions">
+            <button type="button" onClick={() => onUseAsStart?.(selected.id)}>
+              {startId === selected.id ? (fr?"✓ Départ":"✓ Start") : (fr?"Départ":"Start")}
+            </button>
+            <button type="button" onClick={() => onUseAsEnd?.(selected.id)}>
+              {endId === selected.id ? (fr?"✓ Arrivée":"✓ Destination") : (fr?"Arrivée":"Destination")}
+            </button>
+          </div>
+          <small className="ensii-sheet-warning">
+            {fr?"Les itinéraires et l'accessibilité restent à vérifier sur place.":"Routes and accessibility require on-site verification."}
+          </small>
+        </aside>
+      )}
     </div>
   );
 }
