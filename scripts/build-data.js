@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { extractDoors } from './doors.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -584,5 +585,34 @@ write('metro.json', metro);
 write('synonyms.json', synonyms);
 write('zones.json', zones);
 write('resources.json', resources);
+
+// Long straight strokes from the architect's wall layer. Short door swings and
+// annotation details are intentionally omitted from this simplified walkthrough.
+const walls = {};
+for (const [level, height] of [['RDC',35],['R+1',60],['R+2',125]]) {
+  const svg = fs.readFileSync(path.join(root, `plan_${level}.svg`), 'utf8');
+  const group = svg.match(/<g id="murs"[^>]*>([\s\S]*?)<\/g>/)?.[1] || '';
+  const segments = [], seen = new Set();
+  for (const path of group.matchAll(/<path[^>]*\sd="([^"]+)"/g)) {
+    let previous = null;
+    for (const token of path[1].matchAll(/([ML])\s*(-?\d+(?:\.\d+)?)[,\s]+(-?\d+(?:\.\d+)?)/g)) {
+      const p = [Number(token[2]), height - Number(token[3])];
+      if (token[1] === 'L' && previous && Math.hypot(p[0]-previous[0],p[1]-previous[1]) >= 1.3) {
+        const key = [previous.join(','), p.join(',')].sort().join(':');
+        if (!seen.has(key)) { seen.add(key); segments.push([previous,p]); }
+      }
+      previous = p;
+    }
+  }
+  walls[level] = segments;
+}
+write('walls.json', walls);
+const doors = {};
+const symbolFile=path.join(root,'data-src','door-symbols.json');
+const doorSymbols=fs.existsSync(symbolFile)?JSON.parse(fs.readFileSync(symbolFile,'utf8')):{};
+for (const [level,height] of [['RDC',35],['R+1',60],['R+2',125]]) {
+  doors[level] = extractDoors(fs.readFileSync(path.join(root,`plan_${level}.svg`),'utf8'),height,rooms.filter(r=>r.level===level),doorSymbols[level]);
+}
+write('doors.json',doors);
 
 console.log(`rooms=${rooms.length} nodes=${nodes.length} edges=${edges.length}`);

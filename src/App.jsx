@@ -11,6 +11,9 @@ import {
 } from './core.js';
 import Map2D from './components/Map2D.jsx';
 import Map3D from './components/Map3D.jsx';
+import Walkthrough from './components/Walkthrough.jsx';
+import GeometryEditor from './components/GeometryEditor.jsx';
+import {GEOMETRY_KEY,validateGeometry} from './drawnGeometry.js';
 import MetroMap from './components/MetroMap.jsx';
 import Constellation from './components/Constellation.jsx';
 import Dashboard from './components/Dashboard.jsx';
@@ -62,6 +65,8 @@ export default function App() {
   const [tourStep, setTourStep] = useState(0);
   const [openSearch, setOpenSearch] = useState(false);
   const [showCalibration, setShowCalibration] = useState(false);
+  const [showGeometryEditor,setShowGeometryEditor]=useState(false);
+  const [drawnGeometry,setDrawnGeometry]=useState(null);
   const [calibration, setCalibration] = useState(null);
   const sceneData = useMemo(() => data ? calibratedScene(data.floors, data.links, calibration) : null, [data, calibration]);
 
@@ -73,6 +78,10 @@ export default function App() {
       .then((d) => {
         if (cancelled) return;
         setData(d);
+        try {
+          const saved=JSON.parse(localStorage.getItem(GEOMETRY_KEY));
+          if(saved)setDrawnGeometry(validateGeometry(saved,d.floors,d.rooms));
+        } catch { /* Keep the generated scene if local drawings are unavailable. */ }
         let restoredCalibration = null;
         try {
           const saved = JSON.parse(localStorage.getItem(CALIBRATION_KEY));
@@ -228,6 +237,16 @@ export default function App() {
         </div>
       </header>
 
+      {showGeometryEditor&&<GeometryEditor floors={data.floors} rooms={rooms} selected={selected} lang={lang} applied={drawnGeometry} onClose={()=>setShowGeometryEditor(false)} onApply={value=>{
+        setDrawnGeometry(value);
+        try{localStorage.setItem(GEOMETRY_KEY,JSON.stringify(value));}catch{/* The current preview still works. */}
+        setShowGeometryEditor(false);setMode('walk');setView('guide');
+      }} onRestore={()=>{
+        setDrawnGeometry(null);
+        try{localStorage.removeItem(GEOMETRY_KEY);}catch{/* The current preview still resets. */}
+        setShowGeometryEditor(false);setMode('walk');
+      }}/>}
+
       {showCalibration && <CalibrationTool floors={data.floors} lang={lang} applied={calibration} onClose={() => setShowCalibration(false)} onApply={(draft) => {
         setCalibration(draft);
         try { localStorage.setItem(CALIBRATION_KEY, JSON.stringify(draft)); } catch { /* Session preview still works. */ }
@@ -302,6 +321,7 @@ export default function App() {
                 {[
                   ['map2d', t.map2d],
                   ['map3d', t.map3d],
+                  ['walk', lang === 'fr' ? 'Visite immersive' : 'First-person visit'],
                   ['metro', t.metro],
                   ['constellation', t.constellation],
                   ['quality', t.quality]
@@ -316,6 +336,7 @@ export default function App() {
                 </>
               )}
               <button className="ghost" onClick={() => setShowCalibration(true)}>{lang === 'fr' ? 'Aligner les étages' : 'Align floors'}</button>
+              <button className="ghost" onClick={()=>setShowGeometryEditor(true)}>{lang==='fr'?'Dessiner murs / portes':'Draw walls / doors'}{drawnGeometry?' ●':''}</button>
               {calibration && <button className="ghost" onClick={() => {
                 setCalibration(null);
                 try { localStorage.removeItem(CALIBRATION_KEY); } catch { /* Session reset still works. */ }
@@ -362,6 +383,7 @@ export default function App() {
                 onSelect={selectRoom}
               />
             )}
+            {mode === 'walk' && <Walkthrough geometry={drawnGeometry} rooms={rooms} floors={sceneData.floors} links={sceneData.links} selected={selected} lang={lang} onOverview={() => setMode('map3d')} onFloorChange={setLevel} />}
             {mode === 'metro' && (
               <MetroMap metro={data.metro} rooms={rooms} selectedId={selectedId} onSelect={selectRoom} lang={lang} />
             )}

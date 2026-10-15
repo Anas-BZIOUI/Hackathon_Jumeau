@@ -745,3 +745,58 @@ input[type='checkbox'] { accent-color: var(--accent); width: 16px; height: 16px;
 .three-connections small { display:block; font-size:10px; line-height:1.6; color:var(--muted); margin-top:10px; }
 .map3d:focus-visible { outline:3px solid #729cd4; outline-offset:-3px; }
 @media (max-width:1100px) { .map3d .three-info { display:none; } .three-connections { right:10px; bottom:85px; padding:10px; width:210px; } }
+
+/* Eye-level visit */
+.walkthrough { position:relative; min-height:0; min-width:0; overflow:hidden; background:#cbdce9; }
+.walk-stage { position:absolute; inset:0; }
+.walk-stage canvas { width:100%; height:100%; display:block; touch-action:none; cursor:crosshair; outline-offset:-3px; }
+.walk-stage canvas:focus-visible { outline:3px solid #729cd4; }
+.walk-top { position:absolute; top:14px; left:14px; right:14px; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 14px; border:1px solid #dce4ee; border-radius:10px; background:#ffffffed; backdrop-filter:blur(10px); pointer-events:none; }
+.walk-top strong { display:block; font-size:13px; color:var(--navy); }
+.walk-top span { display:block; font-size:11px; color:var(--muted); margin-top:3px; }
+.walk-top button { pointer-events:auto; font-size:11px; }
+.walk-crosshair { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font:22px var(--mono); color:white; text-shadow:0 1px 4px #244f80; pointer-events:none; }
+.walk-controls,.walk-landings { position:absolute; bottom:16px; border:1px solid #dce4ee; border-radius:10px; background:#ffffffed; padding:14px; backdrop-filter:blur(10px); box-shadow:var(--shadow); }
+.walk-controls { left:14px; width:260px; max-width:45%; }
+.walk-landings { right:14px; width:220px; max-width:45%; }
+.walk-controls strong { font-size:12px; color:var(--navy); }
+.walk-controls p,.walk-landings p { font-size:11px; line-height:1.6; color:var(--muted); margin:8px 0; }
+.walk-controls small,.walk-landings small { display:block; font-size:10px; color:var(--muted); line-height:1.5; margin-top:8px; }
+.walk-landings label { font-size:11px; color:var(--muted); display:grid; gap:6px; }
+.walk-landings select { min-width:0; padding:7px; border:1px solid var(--line); border-radius:6px; background:white; color:var(--text); }
+.walk-landings > button { margin-top:8px; font-size:11px; width:100%; }
+.walk-message { position:absolute; top:95px; left:14px; right:14px; padding:12px; border-radius:8px; background:#fff8e6; border:1px solid #e2d5b7; color:#805919; font-size:12px; display:flex; justify-content:space-between; gap:10px; }
+.walk-message button { border:0; background:none; color:inherit; cursor:pointer; }
+@media (max-width:1100px) { .walk-controls { max-width:43%; width:210px; padding:10px; } .walk-controls p { font-size:10px; } .walk-controls small { display:none; } .walk-landings { padding:10px; } .walk-top { flex-wrap:wrap; } }
+.walk-minimap { position:absolute; top:98px; right:14px; width:155px; background:#ffffffeb; padding:8px; border:1px solid var(--line); border-radius:9px; pointer-events:none; }
+.walk-minimap span { display:block; font-size:10px; color:var(--navy); margin-bottom:6px; }
+.walk-minimap svg { display:block; width:100%; max-height:125px; }
+@media(max-width:1100px){.walk-minimap{width:110px;top:112px;}}
+
+/* Manual wall-and-door drawing workspace */
+.geometry-dialog { width:min(1500px,calc(100vw - 32px)); }
+.geometry-dialog .calibration-body { grid-template-columns:290px minmax(0,1fr); }
+.geometry-sidebar .calibration-floor-list { flex-wrap:wrap; }
+.geometry-sidebar .calibration-floor-list button { display:grid; gap:4px; text-align:left; }
+.geometry-sidebar .calibration-floor-list small { font-size:10px; opacity:.75; }
+.geometry-tools { display:grid; gap:5px; }
+.geometry-tools button,.geometry-region-list button { background:#f6f8fb; border:1px solid var(--line); border-radius:7px; padding:9px 11px; text-align:left; font:inherit; font-size:12px; color:var(--text); cursor:pointer; }
+.geometry-tools button.active,.geometry-region-list button.active { border-color:#7398c4; background:#eaf2fc; color:var(--navy); box-shadow:inset 3px 0 #3569a5; }
+.geometry-check { display:flex; align-items:flex-start; gap:7px; font-size:11px; color:var(--muted); line-height:1.5; margin:10px 0; }
+.geometry-check input { flex:0 0 14px; height:14px; margin:2px 0 0; }
+.geometry-sidebar input[type=number] { width:100%; min-width:0; padding:8px; border:1px solid var(--line); border-radius:6px; font:inherit; font-size:12px; background:white; color:var(--text); }
+.geometry-warning,.geometry-notice { background:#fff7e8; border:1px solid #ecd9b6; border-radius:7px; padding:10px; font-size:11px; line-height:1.5; color:#805919; }
+.geometry-notice { margin-top:7px; }
+.geometry-region-list { display:grid; gap:5px; }
+.geometry-point-fields { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:8px; }
+.geometry-properties .calibration-field { margin:8px 0; }
+.geometry-properties .primary,.geometry-properties .ghost { font-size:11px; }
+.geometry-opacity { display:flex; align-items:center; gap:8px; font-size:11px; color:var(--muted); }
+.geometry-opacity input { max-width:100px; accent-color:var(--accent); }
+.geometry-plan { background:#eef2f7; }
+.geometry-canvas-status { position:absolute; top:12px; left:12px; padding:7px 10px; background:#ffffffeb; border:1px solid var(--line); border-radius:6px; font:10px var(--mono); color:var(--muted); pointer-events:none; }
+.geometry-plan .calibration-zoom { flex-wrap:wrap; max-width:calc(100% - 24px); }
+.geometry-dialog .calibration-footer { align-items:flex-start; }
+.geometry-dialog .calibration-footer > div:first-child { max-width:55%; }
+@media(max-width:1000px){.geometry-dialog .calibration-body{grid-template-columns:225px minmax(0,1fr)}.geometry-dialog .calibration-footer > div:first-child{max-width:100%}.geometry-dialog .calibration-footer{flex-wrap:wrap}.geometry-dialog .calibration-header h2{font-size:21px}}
+@media(max-width:600px){.geometry-dialog{width:calc(100vw - 12px)}.geometry-dialog .calibration-body{grid-template-columns:160px minmax(0,1fr)}.geometry-tools button{font-size:11px;padding:8px}.geometry-dialog .calibration-header p{font-size:10px}.geometry-point-fields{grid-template-columns:1fr}.geometry-opacity input{max-width:70px}}

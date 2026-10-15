@@ -72,7 +72,7 @@ export default function Map3D({ rooms, floors, links, selectedId, route, aligned
     const pointer = new THREE.Vector2();
     const floorY = lv => {
       const d = current.current;
-      return Object.keys(d.floors.levels).indexOf(lv) * (d.explode ? 48 : 5);
+      return Object.keys(d.floors.levels).indexOf(lv) * (d.explode ? 48 : 3.2);
     };
     function point(lv, x, y, lift = 0) {
       const d = current.current;
@@ -206,7 +206,7 @@ export default function Map3D({ rooms, floors, links, selectedId, route, aligned
           }
         }
         for (const p of points) {
-          const g = link.type === 'lift' ? new THREE.BoxGeometry(1.8, 1.3, 1.8) : new THREE.BoxGeometry(1.7, .18, 1.7);
+          const g = link.type === 'lift' ? new THREE.BoxGeometry(1.8, 1.3, 1.8) : new THREE.SphereGeometry(.18,8,8);
           const m = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color }));
           m.position.copy(point(p.level, p.x, p.y, .2)); m.userData.linkId = link.id; root.add(m); connectors.push(m);
           text(`${link.type === 'lift' ? (d.lang === 'fr' ? 'Ascenseur' : 'Lift') : (d.lang === 'fr' ? 'Escalier' : 'Stairs')} ${link.label || ''} · ${p.level}`, point(p.level, p.x, p.y, 2.6), color, 12);
