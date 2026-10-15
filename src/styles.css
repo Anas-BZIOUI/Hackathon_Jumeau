@@ -335,3 +335,27 @@ button, input, select { font-family: inherit; }
   .workspace { grid-template-columns: 1fr; }
   .left, .right { display: none; }
 }
+
+/* Ground-floor entrance game */
+.entrance-adventure { min-height: 0; grid-template-rows: 42px minmax(0,1fr) 112px; }
+.entrance-stage { grid-area: stage; min-height: 0; overflow: auto; display: flex; flex-direction: column; align-items: center; background: radial-gradient(ellipse at center,#203343,#101923 75%); padding: 16px 24px 8px; }
+.entrance-heading { width: 100%; max-width: 768px; }
+.entrance-kicker { color: #81c5bb; font-size: 10px; letter-spacing: .18em; }
+.entrance-heading h2 { margin: 6px 0; font-size: 20px; color: #edf4f5; }
+.entrance-heading p, .entrance-controls { color: #a8bcc9; font-size: 11px; line-height: 1.6; margin: 4px 0; }
+.entrance-canvas-wrap { position: relative; width: min(100%,768px); min-height: 180px; flex: 1; display: grid; place-items: center; }
+.entrance-canvas-wrap canvas { width: 100%; height: 100%; max-height: 576px; object-fit: contain; image-rendering: pixelated; outline: 1px solid transparent; border-radius: 8px; }
+.entrance-canvas-wrap canvas:focus-visible { outline: 2px solid #81c5bb; }
+.entrance-label { position: absolute; pointer-events: none; font-size: 10px; color: #bad0db; background: #101923df; padding: 5px 8px; border-radius: 4px; }
+.entrance-label-west { left: 8%; top: 29%; }.entrance-label-east { right: 8%; top: 29%; }.entrance-label-street { bottom: 12%; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+.entrance-overlay { position: absolute; inset: 0; display: grid; place-items: center; background: #101923ee; padding: 20px; text-align: center; }
+.entrance-interact { position: absolute; bottom: 3%; left: 50%; transform: translateX(-50%); background: #d7eee5; color: #172d2d; border: 1px solid #81c5bb; padding: 10px 18px; border-radius: 8px; font: inherit; font-size: 12px; cursor: pointer; white-space: nowrap; }
+.entrance-interact:active { transform: translateX(-50%); }.entrance-interact:disabled { background: #283945; color: #a8bcc9; cursor: default; }
+.entrance-objective { display: flex; gap: 10px; padding: 12px 0; border-bottom: 1px solid #23343b; font-size: 12px; color: #a8bcc9; }.entrance-objective.done { color: #81c5bb; }
+.entrance-adventure .adv-dialog { overflow: auto; font-size: 12px; line-height: 1.6; }
+@media(max-width:700px) { .entrance-adventure { grid-template-columns: 1fr; grid-template-areas: "hud" "stage" "dialog"; }.entrance-adventure .adv-log { display: none; }.entrance-label { font-size: 8px; }.entrance-stage { padding: 12px; } }
+
+.rdc-controls { width: min(100%,768px); display:flex; align-items:center; justify-content:space-between; gap:12px; padding-top:8px; }
+.entrance-adventure .adv-hud { gap:12px; }
+.entrance-adventure .adv-hud span:first-child { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.entrance-adventure .adv-hud span:last-child { white-space:nowrap; }
