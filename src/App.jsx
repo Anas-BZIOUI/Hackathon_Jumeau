@@ -21,6 +21,7 @@ import AdventureView from './components/AdventureView.jsx';
 import CalibrationTool from './components/CalibrationTool.jsx';
 import { CALIBRATION_KEY, calibratedScene, validateCalibration, solveCalibration } from './calibration.js';
 import projectCalibration from '../ensiie-control-points.json';
+import projectGeometry from '../data-src/drawn-geometry.json';
 
 const ACTIVITIES = ['teaching', 'research', 'student_life', 'companies'];
 const LEVELS = ['RDC', 'R+1', 'R+2'];
@@ -78,7 +79,18 @@ export default function App() {
       .then((d) => {
         if (cancelled) return;
         setData(d);
+        setDrawnGeometry(validateGeometry(projectGeometry,d.floors,d.rooms));
         try {
+          const revisionKey=GEOMETRY_KEY+'-project-revision';
+          if(localStorage.getItem(revisionKey)!==projectGeometry.project_revision){
+            // Keep pre-adoption browser work recoverable while adopting the exported model.
+            for(const key of [GEOMETRY_KEY,GEOMETRY_KEY+'-draft']){
+              const previous=localStorage.getItem(key);
+              if(previous)localStorage.setItem(key+'-before-project',previous);
+              localStorage.setItem(key,JSON.stringify(projectGeometry));
+            }
+            localStorage.setItem(revisionKey,projectGeometry.project_revision);
+          }
           const saved=JSON.parse(localStorage.getItem(GEOMETRY_KEY));
           if(saved)setDrawnGeometry(validateGeometry(saved,d.floors,d.rooms));
         } catch { /* Keep the generated scene if local drawings are unavailable. */ }

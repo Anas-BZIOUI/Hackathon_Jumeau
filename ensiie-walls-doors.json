@@ -1,0 +1,4442 @@
+{
+  "version": 1,
+  "levels": {
+    "RDC": {
+      "walls": [
+        {
+          "id": "wall-703f5ab7-168c-4d26-9ec1-dcf0719c9326",
+          "a": [
+            7,
+            3
+          ],
+          "b": [
+            23.75,
+            3
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-ed588cd9-a04f-4eaf-ac44-596a762646d8",
+          "a": [
+            23.75,
+            3
+          ],
+          "b": [
+            23.5,
+            16.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-5e8732ec-f5c8-4956-b0aa-53e8f24578f1",
+          "a": [
+            23.5,
+            16.25
+          ],
+          "b": [
+            6.75,
+            16.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-530808fe-1962-44a4-963c-798ece9b7e5f",
+          "a": [
+            7,
+            3
+          ],
+          "b": [
+            7,
+            18.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-438a9286-2d95-4a03-9dc5-7ee1f4f2911d",
+          "a": [
+            7,
+            18.75
+          ],
+          "b": [
+            9.25,
+            18.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-269a6b8c-fe7b-4080-b206-aebd52d30712",
+          "a": [
+            9.25,
+            18.75
+          ],
+          "b": [
+            9.25,
+            23.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-7ff3b0f1-0b6f-445b-b32b-c8804927bbc1",
+          "a": [
+            9.25,
+            23.75
+          ],
+          "b": [
+            5.25,
+            23.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-29ad47b8-9cfd-4d40-aa0f-076ddfc1257e",
+          "a": [
+            5.25,
+            23.75
+          ],
+          "b": [
+            5.5,
+            17
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-36b1a7e8-01cf-4b2f-a536-8bf4cc1fbd1e",
+          "a": [
+            5.5,
+            17
+          ],
+          "b": [
+            7,
+            17
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-ed8f9b2e-e843-4e5b-8809-93407aedacd2",
+          "a": [
+            21.25,
+            16.25
+          ],
+          "b": [
+            21.5,
+            3.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-3ff25cbe-67c6-4ff3-92bd-7bafeccccb1d",
+          "a": [
+            21.25,
+            7.25
+          ],
+          "b": [
+            23.75,
+            7.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-7b9e7a8e-e383-4dc3-ab39-c1fa521cdd11",
+          "a": [
+            23.5,
+            13.25
+          ],
+          "b": [
+            21.25,
+            13.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-1e278fcc-767a-41cf-aa21-848feb5787f5",
+          "a": [
+            7,
+            18.75
+          ],
+          "b": [
+            5.5,
+            18.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-5190a2e3-d773-40fd-ab32-b7bb96212da5",
+          "a": [
+            9.25,
+            21.5
+          ],
+          "b": [
+            21.5,
+            21.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-8c46cc0d-8e29-422f-b4ec-20870c226451",
+          "a": [
+            21.5,
+            21.5
+          ],
+          "b": [
+            19,
+            23.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-20c56ad4-a13d-400a-8de7-014bfd38d048",
+          "a": [
+            19,
+            23.75
+          ],
+          "b": [
+            9.25,
+            23.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-26bce57c-40b6-4cc9-88f8-01a8c26f1165",
+          "a": [
+            12,
+            23.75
+          ],
+          "b": [
+            12,
+            21.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-92a22ffc-71b4-49ba-82b4-fd3433e15417",
+          "a": [
+            13.5,
+            23.75
+          ],
+          "b": [
+            13.5,
+            21.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-a696f8b2-ff84-4fac-945c-2d0adb4a96f2",
+          "a": [
+            10.25,
+            16.5
+          ],
+          "b": [
+            10.25,
+            19.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-c8f1759c-cb9f-4542-8a52-ee1e507caa42",
+          "a": [
+            10.25,
+            19.75
+          ],
+          "b": [
+            21.5,
+            19.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-3185cc36-a65a-49b2-b042-a736ee6a04cd",
+          "a": [
+            14.25,
+            19.5
+          ],
+          "b": [
+            14.25,
+            16.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-6627c84b-aa86-45d2-b072-303bbbe72bb6",
+          "a": [
+            17,
+            19.5
+          ],
+          "b": [
+            17,
+            16.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-e61cb3dc-3052-4a76-8048-b0335e5ca19a",
+          "a": [
+            19,
+            23.75
+          ],
+          "b": [
+            20.75,
+            25.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-b5d8f2a8-3b93-48f6-ac85-db350af1e81b",
+          "a": [
+            20.75,
+            25.25
+          ],
+          "b": [
+            18,
+            27.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-e3598d2f-be80-4ab0-9192-9ab2b227bfd7",
+          "a": [
+            18,
+            27.75
+          ],
+          "b": [
+            18.25,
+            29.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-7a53ada0-8fb0-4415-a32f-b8982ba2f3ea",
+          "a": [
+            18.25,
+            29.25
+          ],
+          "b": [
+            21.25,
+            32.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-3b2d5217-bc6c-4d1b-8fab-8e917e0528b1",
+          "a": [
+            21.25,
+            32.5
+          ],
+          "b": [
+            55.5,
+            32.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-6b28d0bf-06d1-44a1-8776-2988e19c182c",
+          "a": [
+            55.5,
+            32.5
+          ],
+          "b": [
+            55.5,
+            32
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-66ddb9f7-26b5-4796-9e98-02d005d53445",
+          "a": [
+            55.5,
+            32
+          ],
+          "b": [
+            56.25,
+            31.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-c1140787-34a8-48e5-92d2-23739be236f3",
+          "a": [
+            56.25,
+            31.75
+          ],
+          "b": [
+            56.25,
+            29.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-43eaf4f9-52d5-4878-8958-cb78eb32f123",
+          "a": [
+            56.25,
+            29.25
+          ],
+          "b": [
+            55.25,
+            29.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-f22da085-1d30-411e-84d2-fce5f24bec6f",
+          "a": [
+            55.25,
+            29.25
+          ],
+          "b": [
+            55.25,
+            18.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-7fd34613-d998-4621-936d-d2f5ee65fa1c",
+          "a": [
+            55.25,
+            18.75
+          ],
+          "b": [
+            54.5,
+            18.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-81dab058-1060-459b-8f0c-b540eca58968",
+          "a": [
+            54.5,
+            18.5
+          ],
+          "b": [
+            54.75,
+            4.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-19365767-7fbe-4ca9-ac7f-3e288d1006c2",
+          "a": [
+            54.75,
+            4.75
+          ],
+          "b": [
+            55,
+            4.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-04008429-c44b-475d-ab1f-0e9824bb0d05",
+          "a": [
+            55,
+            4.75
+          ],
+          "b": [
+            55,
+            4
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-210e1e2a-41b3-41ee-b0a6-8d8bafb3c65d",
+          "a": [
+            55,
+            4
+          ],
+          "b": [
+            43.5,
+            4
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-13c0786e-3c46-4dc2-ba47-43afbf9a2721",
+          "a": [
+            43.5,
+            4
+          ],
+          "b": [
+            43.5,
+            4.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-40e3f627-d899-42d1-9b0c-fe6f84dc2cff",
+          "a": [
+            43.5,
+            4.5
+          ],
+          "b": [
+            39,
+            4.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-eb076e1e-ba5c-440e-bca5-0995b720b1bb",
+          "a": [
+            39,
+            4.5
+          ],
+          "b": [
+            39.25,
+            4
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-67895291-d33d-4581-90aa-40cfe619193d",
+          "a": [
+            39.25,
+            4
+          ],
+          "b": [
+            37.5,
+            4
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-ed5064b1-e37c-4bb9-8987-2838072af107",
+          "a": [
+            37.5,
+            4
+          ],
+          "b": [
+            37.5,
+            4.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-5fe75e2b-9368-476d-a8a7-6d0b05bb4cbd",
+          "a": [
+            37.5,
+            4.5
+          ],
+          "b": [
+            23.75,
+            4.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-ed6cb846-94f9-4846-b452-2ef823787942",
+          "a": [
+            27.25,
+            4.75
+          ],
+          "b": [
+            27.25,
+            7.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-5f92c839-9001-43aa-a5bc-28625e734ae2",
+          "a": [
+            27.25,
+            7.5
+          ],
+          "b": [
+            31,
+            7.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-33c31bf9-c828-4c98-a512-18a7af5db09a",
+          "a": [
+            31,
+            7.5
+          ],
+          "b": [
+            31,
+            4.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-5c308e27-10e7-4668-a3d0-e0e9b169e5ab",
+          "a": [
+            37.5,
+            4.5
+          ],
+          "b": [
+            37.5,
+            7.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-4f2b8ac8-9f78-4a32-b330-8d2aaf4cb19a",
+          "a": [
+            37.5,
+            7.75
+          ],
+          "b": [
+            54.75,
+            7.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-b787c879-f904-453f-a187-601d1da2bff8",
+          "a": [
+            48,
+            7.75
+          ],
+          "b": [
+            48,
+            4
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-c2e77238-7cdf-45bc-b5bb-d19d19791b53",
+          "a": [
+            44.75,
+            7.75
+          ],
+          "b": [
+            44.75,
+            4
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-aa99ad64-8eca-4a94-9935-5a2495f6217b",
+          "a": [
+            41.25,
+            7.75
+          ],
+          "b": [
+            41.25,
+            4.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-433bc189-9d56-4264-bdbc-39ac20a70ee8",
+          "a": [
+            23.75,
+            32.5
+          ],
+          "b": [
+            23.75,
+            28.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-ee248736-29bf-496c-940a-deee286aab01",
+          "a": [
+            23.75,
+            28.75
+          ],
+          "b": [
+            21.5,
+            28.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-e980c8e5-f403-4967-b14f-8d97aabc0014",
+          "a": [
+            21.5,
+            28.75
+          ],
+          "b": [
+            21.75,
+            24.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-43a5720e-af84-484d-91a0-7a0abb30aa2a",
+          "a": [
+            21.75,
+            24.75
+          ],
+          "b": [
+            24.75,
+            21.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-85ae7808-d4da-4321-b864-0f4c22162c3a",
+          "a": [
+            22.75,
+            23.5
+          ],
+          "b": [
+            26,
+            27
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-4ca4faf0-c982-4555-ad66-651f1f0b1b98",
+          "a": [
+            26,
+            27
+          ],
+          "b": [
+            29.5,
+            27
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-41d59ed7-0ce7-4e43-8510-6c25c8269653",
+          "a": [
+            29.5,
+            27
+          ],
+          "b": [
+            29.5,
+            21.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-4467fa76-0e90-424a-a5e7-c2bfa1cbe200",
+          "a": [
+            26.25,
+            21.5
+          ],
+          "b": [
+            26.25,
+            27.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-350973a1-48a0-4b66-bc93-8f13f310891a",
+          "a": [
+            29,
+            27.25
+          ],
+          "b": [
+            29,
+            32.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-65d6cd2f-8081-45fe-8d7a-604935bd3d7f",
+          "a": [
+            33,
+            32.5
+          ],
+          "b": [
+            33,
+            21.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-4009cf03-a3d1-427e-9835-3b9fafe8a402",
+          "a": [
+            33,
+            25
+          ],
+          "b": [
+            43.25,
+            25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-e2f1b191-9309-493b-81dc-98959df45b4d",
+          "a": [
+            43.25,
+            25
+          ],
+          "b": [
+            43.25,
+            21.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-1df45c6c-fc84-42ea-b365-55d417aec0bc",
+          "a": [
+            41,
+            25
+          ],
+          "b": [
+            41,
+            32.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-45b29a95-ffd2-46c7-83d2-5be8c070b41b",
+          "a": [
+            45.25,
+            32.5
+          ],
+          "b": [
+            45.25,
+            21.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-128bf639-c868-4a35-a632-7f006bc0b905",
+          "a": [
+            48.5,
+            21.5
+          ],
+          "b": [
+            48.5,
+            30.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-016d1d16-ba23-4e4a-81fb-573bed9e7500",
+          "a": [
+            48.5,
+            30.5
+          ],
+          "b": [
+            50,
+            30.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-365c598e-af89-453f-bad9-8218bfb3301c",
+          "a": [
+            50,
+            32.5
+          ],
+          "b": [
+            50,
+            21.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-fca757f8-e00a-460f-bdbf-19d22106c772",
+          "a": [
+            48.5,
+            30
+          ],
+          "b": [
+            45.25,
+            30
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-ce102ed8-4dbe-44b9-85f9-ca9b2199eacf",
+          "a": [
+            45.25,
+            28
+          ],
+          "b": [
+            48.5,
+            28
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-fde5c1c9-bba4-4c11-af73-67bbf3f14e06",
+          "a": [
+            48.5,
+            25.75
+          ],
+          "b": [
+            45,
+            25.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-18f35f9b-1c42-4213-8649-8c5510311e74",
+          "a": [
+            45.25,
+            23.75
+          ],
+          "b": [
+            48.5,
+            23.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-7f9ff413-4211-4611-a8a6-895da7dd7039",
+          "a": [
+            50.25,
+            24.25
+          ],
+          "b": [
+            55.25,
+            24.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-d36f5ef7-a135-432e-8f0d-b76b6ea861b1",
+          "a": [
+            55,
+            26.75
+          ],
+          "b": [
+            50,
+            26.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-d682c5bc-7a31-486f-8c59-a6b153872813",
+          "a": [
+            50,
+            29.5
+          ],
+          "b": [
+            55.25,
+            29.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-26ab6a95-f8da-4f78-a1dd-8777a6d97c6d",
+          "a": [
+            24.75,
+            21.5
+          ],
+          "b": [
+            29.5,
+            21.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-19d0db48-e764-49a7-af5a-9b05fa7798fb",
+          "a": [
+            31.5,
+            21.5
+          ],
+          "b": [
+            55.25,
+            21.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-4a22044d-b082-40a0-bd25-caadb7d13319",
+          "a": [
+            55.25,
+            19.5
+          ],
+          "b": [
+            40.75,
+            19.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-4d6589cc-a066-4d1b-9cd9-6b7e08f20fe4",
+          "a": [
+            40.75,
+            19.5
+          ],
+          "b": [
+            41,
+            16.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-2280c22a-0407-414c-9768-bfb30dda5dc8",
+          "a": [
+            41,
+            16.25
+          ],
+          "b": [
+            54.5,
+            16.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-7874eb67-857b-4e19-b9bb-cc65ec644ab3",
+          "a": [
+            51,
+            16.25
+          ],
+          "b": [
+            51,
+            19.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-c639641b-37ae-402c-b592-0bb080069e15",
+          "a": [
+            47,
+            16.25
+          ],
+          "b": [
+            47,
+            19.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-f7dea394-c5e3-43e2-818b-bd58b205f5a2",
+          "a": [
+            44.75,
+            16
+          ],
+          "b": [
+            44.75,
+            19.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-0914dc35-9d7e-44d0-9a45-2cc95db4b1b6",
+          "a": [
+            41,
+            16.25
+          ],
+          "b": [
+            38.75,
+            16.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-06d18c79-540a-479f-a4a7-3d9a7f750755",
+          "a": [
+            38.75,
+            16.25
+          ],
+          "b": [
+            38.75,
+            7.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-42c1eb52-acb7-4f9d-bfb3-83752aca9efc",
+          "a": [
+            43,
+            21.5
+          ],
+          "b": [
+            43,
+            19.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-3b4a0951-e679-4b5a-a355-00cdd3d994cd",
+          "a": [
+            37.25,
+            25
+          ],
+          "b": [
+            37.25,
+            21.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-9fbc1721-f656-43f4-9910-fb1d3b4a3a41",
+          "a": [
+            34.75,
+            25
+          ],
+          "b": [
+            34.75,
+            21.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-de5fe936-24b5-4300-ab2c-4bfed073d342",
+          "a": [
+            41.25,
+            25
+          ],
+          "b": [
+            41.25,
+            21.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-969e91d9-2abd-479e-b4b7-ccad13cdfb72",
+          "a": [
+            42.75,
+            22.5
+          ],
+          "b": [
+            41.25,
+            22.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-99464beb-6daa-4cc7-9d80-f7075eb2950e",
+          "a": [
+            42.75,
+            23.5
+          ],
+          "b": [
+            42.75,
+            21.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-bdc04ac3-6c89-4605-954a-29d26cbd9e66",
+          "a": [
+            43.25,
+            23.5
+          ],
+          "b": [
+            41.25,
+            23.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-59666992-cff2-4fa1-8b15-dafcbc9e720e",
+          "a": [
+            33.25,
+            22.5
+          ],
+          "b": [
+            34.75,
+            22.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-22d30968-a876-429b-bea5-a96102f1ef2c",
+          "a": [
+            33.25,
+            23.5
+          ],
+          "b": [
+            33.25,
+            21.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-82180647-c091-4512-8f9c-0164439cab2f",
+          "a": [
+            33,
+            23.5
+          ],
+          "b": [
+            34.75,
+            23.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-f6b2985c-8a84-4472-aa09-1072c6df185e",
+          "a": [
+            38.75,
+            25
+          ],
+          "b": [
+            38.75,
+            21.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        }
+      ],
+      "doors": [
+        {
+          "id": "door-80ad5d85-55fe-428f-b16d-b089b81ee1ae",
+          "wallId": "wall-5e8732ec-f5c8-4956-b0aa-53e8f24578f1",
+          "t": 0.9466948438046584,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-Amphi002"
+        },
+        {
+          "id": "door-77a034fa-c9b6-4f22-b669-87b0dac15929",
+          "wallId": "wall-ed8f9b2e-e843-4e5b-8809-93407aedacd2",
+          "t": 0.06895822183041388,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-Amphi002"
+        },
+        {
+          "id": "door-3fc3ebed-be3e-4970-8859-a73c2197e886",
+          "wallId": "wall-ed588cd9-a04f-4eaf-ac44-596a762646d8",
+          "t": 0.8289056526808553,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-Amphi002"
+        },
+        {
+          "id": "door-a0026c9c-b39e-423e-9efa-6c8b10ae1b14",
+          "wallId": "wall-ed8f9b2e-e843-4e5b-8809-93407aedacd2",
+          "t": 0.9029490754696886,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-Amphi002"
+        },
+        {
+          "id": "door-0fa6f2c0-4d18-450f-8d86-2cc5d0896ee0",
+          "wallId": "wall-ed588cd9-a04f-4eaf-ac44-596a762646d8",
+          "t": 0.2669821389629323,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-Amphi002"
+        },
+        {
+          "id": "door-8bf70ac9-7667-4864-8b2d-0ff75ec44d6b",
+          "wallId": "wall-7b9e7a8e-e383-4dc3-ab39-c1fa521cdd11",
+          "t": 0.5018125394495522,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-002B"
+        },
+        {
+          "id": "door-460a81b1-1a96-43eb-9abf-78bc7fc20152",
+          "wallId": "wall-269a6b8c-fe7b-4080-b206-aebd52d30712",
+          "t": 0.33046531677246094,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-007"
+        },
+        {
+          "id": "door-db99106c-c8de-494d-8479-591a846842c6",
+          "wallId": "wall-1e278fcc-767a-41cf-aa21-848feb5787f5",
+          "t": 0.5331703821818033,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-007"
+        },
+        {
+          "id": "door-90e0f653-7761-43de-9ee6-d11e066af9e7",
+          "wallId": "wall-c8f1759c-cb9f-4542-8a52-ee1e507caa42",
+          "t": 0.31392643882397486,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-006"
+        },
+        {
+          "id": "door-fbc95e29-4d58-4e9c-810a-7108f93d7d64",
+          "wallId": "wall-c8f1759c-cb9f-4542-8a52-ee1e507caa42",
+          "t": 0.5637614823517418,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-005"
+        },
+        {
+          "id": "door-91f19e36-4066-4df5-aea9-d26116cdafae",
+          "wallId": "wall-c8f1759c-cb9f-4542-8a52-ee1e507caa42",
+          "t": 0.910320442026483,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-003"
+        },
+        {
+          "id": "door-98906215-8588-42b7-9131-092de394b13e",
+          "wallId": "wall-5190a2e3-d773-40fd-ab32-b7bb96212da5",
+          "t": 0.13315449928750797,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-008"
+        },
+        {
+          "id": "door-0e1e56e3-467c-44a4-8d46-1c926576e745",
+          "wallId": "wall-5190a2e3-d773-40fd-ab32-b7bb96212da5",
+          "t": 0.30832142732581314,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-008"
+        },
+        {
+          "id": "door-33684fb5-4c27-401a-92fd-76fb0654837b",
+          "wallId": "wall-5190a2e3-d773-40fd-ab32-b7bb96212da5",
+          "t": 0.503225599016462,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-008"
+        },
+        {
+          "id": "door-a7a6945f-972b-47a9-a058-09a61cf2ac79",
+          "wallId": "wall-8c46cc0d-8e29-422f-b4ec-20870c226451",
+          "t": 0.5008029621609007,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-009"
+        },
+        {
+          "id": "door-c68f2f0f-0db8-4d71-a8e6-05e6382cc84e",
+          "wallId": "wall-e980c8e5-f403-4967-b14f-8d97aabc0014",
+          "t": 0.4256590906284198,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-010"
+        },
+        {
+          "id": "door-62f8ede2-632a-497e-8f0c-35f0843a1303",
+          "wallId": "wall-43a5720e-af84-484d-91a0-7a0abb30aa2a",
+          "t": 0.16599075024882068,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-010"
+        },
+        {
+          "id": "door-c249c583-ac3b-4ec5-b650-ac5ff7688e7f",
+          "wallId": "wall-85ae7808-d4da-4321-b864-0f4c22162c3a",
+          "t": 0.7722557799456872,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-011"
+        },
+        {
+          "id": "door-0489a595-04b5-44df-b22a-4d25653f36a8",
+          "wallId": "wall-4467fa76-0e90-424a-a5e7-c2bfa1cbe200",
+          "t": 0.2537483547044837,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-012"
+        },
+        {
+          "id": "door-dd488de6-4113-49a3-a6eb-3af29a440447",
+          "wallId": "wall-26ab6a95-f8da-4f78-a1dd-8777a6d97c6d",
+          "t": 0.6215639616313734,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-012"
+        },
+        {
+          "id": "door-07b5b8a8-a066-4a4a-9eda-3202a895f3fd",
+          "wallId": "wall-19d0db48-e764-49a7-af5a-9b05fa7798fb",
+          "t": 0.027082423159950658,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-013"
+        },
+        {
+          "id": "door-a82ac0ba-1644-4c2d-92c8-e3927ac9f106",
+          "wallId": "wall-19d0db48-e764-49a7-af5a-9b05fa7798fb",
+          "t": 0.5248936703330592,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-016"
+        },
+        {
+          "id": "door-cee24473-076f-4f71-bee6-0a50958c16f2",
+          "wallId": "wall-128bf639-c868-4a35-a632-7f006bc0b905",
+          "t": 0.1934967041015625,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-017"
+        },
+        {
+          "id": "door-59e592c6-dd55-433a-895f-c2204fa415b7",
+          "wallId": "wall-128bf639-c868-4a35-a632-7f006bc0b905",
+          "t": 0.31251758999294704,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-018"
+        },
+        {
+          "id": "door-6e1d8204-7c98-4980-aa71-db090aa320e7",
+          "wallId": "wall-128bf639-c868-4a35-a632-7f006bc0b905",
+          "t": 0.6772591272989908,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-019"
+        },
+        {
+          "id": "door-ec43f771-4caf-495f-af21-62c13964935d",
+          "wallId": "wall-128bf639-c868-4a35-a632-7f006bc0b905",
+          "t": 0.8077981207105849,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-020"
+        },
+        {
+          "id": "door-e48862c8-ba30-48e5-833d-5dd9d4efe96a",
+          "wallId": "wall-016d1d16-ba23-4e4a-81fb-573bed9e7500",
+          "t": 0.6712020253892854,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-021"
+        },
+        {
+          "id": "door-e90beb7f-9d26-4349-aee0-4757f9f98f17",
+          "wallId": "wall-365c598e-af89-453f-bad9-8218bfb3301c",
+          "t": 0.22912823070179333,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-022"
+        },
+        {
+          "id": "door-4225e744-630b-45d8-ae09-1fb4fa949d6d",
+          "wallId": "wall-365c598e-af89-453f-bad9-8218bfb3301c",
+          "t": 0.436454946344549,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-023"
+        },
+        {
+          "id": "door-b2681a29-9ce7-48b7-a521-04a3575a74ce",
+          "wallId": "wall-365c598e-af89-453f-bad9-8218bfb3301c",
+          "t": 0.6720535104924982,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-024"
+        },
+        {
+          "id": "door-15a9fe34-9124-417c-b56b-52c17dd1688b",
+          "wallId": "wall-365c598e-af89-453f-bad9-8218bfb3301c",
+          "t": 0.9264999736439098,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-025"
+        },
+        {
+          "id": "door-b454ceb7-e290-4171-b1c1-081c9ec1808c",
+          "wallId": "wall-06d18c79-540a-479f-a4a7-3d9a7f750755",
+          "t": 0.13491888607249541,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-028"
+        },
+        {
+          "id": "door-ac4290c3-ea0c-409b-b074-49bac24f9d2d",
+          "wallId": "wall-06d18c79-540a-479f-a4a7-3d9a7f750755",
+          "t": 0.8809708987965303,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-028"
+        },
+        {
+          "id": "door-e250b6cb-5f22-4895-aebe-32eecbccd06c",
+          "wallId": "wall-42c1eb52-acb7-4f9d-bfb3-83752aca9efc",
+          "t": 0.4915640089246962,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-028"
+        },
+        {
+          "id": "door-947410a9-0ce3-4e2d-a563-29de8338fb50",
+          "wallId": "wall-2280c22a-0407-414c-9768-bfb30dda5dc8",
+          "t": 0.23666523121021413,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-027"
+        },
+        {
+          "id": "door-8c1f2648-e7a9-41a6-99a2-0aaae10bc545",
+          "wallId": "wall-2280c22a-0407-414c-9768-bfb30dda5dc8",
+          "t": 0.3784199467411748,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-029"
+        },
+        {
+          "id": "door-e98f463d-ab22-4430-9a1a-7b7187b5eff0",
+          "wallId": "wall-4a22044d-b082-40a0-bd25-caadb7d13319",
+          "t": 0.775354056522764,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-027"
+        },
+        {
+          "id": "door-888623b0-69c3-404a-b1b8-45a1d558c6b9",
+          "wallId": "wall-4a22044d-b082-40a0-bd25-caadb7d13319",
+          "t": 0.5269238702182112,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-026"
+        },
+        {
+          "id": "door-0e060434-6d7a-4ba0-af46-05ed3d567c88",
+          "wallId": "wall-2280c22a-0407-414c-9768-bfb30dda5dc8",
+          "t": 0.7703303584346065,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-030"
+        },
+        {
+          "id": "door-045a2f10-8a7e-4b62-8299-b0a12f6175c2",
+          "wallId": "wall-4f2b8ac8-9f78-4a32-b330-8d2aaf4cb19a",
+          "t": 0.8126452902088994,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-031"
+        },
+        {
+          "id": "door-61f207a0-f015-4589-8afe-d0f8ec04d611",
+          "wallId": "wall-210e1e2a-41b3-41ee-b0a6-8d8bafb3c65d",
+          "t": 0.6416977592136549,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-035"
+        },
+        {
+          "id": "door-6476e165-ac22-418c-8c52-036c4f68122f",
+          "wallId": "wall-4f2b8ac8-9f78-4a32-b330-8d2aaf4cb19a",
+          "t": 0.37937816675158514,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-032"
+        },
+        {
+          "id": "door-5eeb44e1-f353-4b49-9176-93aafa33fa36",
+          "wallId": "wall-40e3f627-d899-42d1-9b0c-fe6f84dc2cff",
+          "t": 0.1737179226345486,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-032"
+        },
+        {
+          "id": "door-589621ed-ad76-4eaf-8245-b342022f37ae",
+          "wallId": "wall-aa99ad64-8eca-4a94-9935-5a2495f6217b",
+          "t": 0.15384615384615385,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-033"
+        },
+        {
+          "id": "door-8eaecb5e-e88d-4b7a-9986-d3a0a6b3f983",
+          "wallId": "wall-5c308e27-10e7-4668-a3d0-e0e9b169e5ab",
+          "t": 0.8461538461538461,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-033"
+        },
+        {
+          "id": "door-839b8a05-1486-487b-8c66-102a244a7c5d",
+          "wallId": "wall-40e3f627-d899-42d1-9b0c-fe6f84dc2cff",
+          "t": 0.8434185451931424,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-033"
+        },
+        {
+          "id": "door-b2cb7263-3ea9-4ecd-9fd0-2a9c952fff42",
+          "wallId": "wall-19d0db48-e764-49a7-af5a-9b05fa7798fb",
+          "t": 0.2717420076069079,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-033"
+        },
+        {
+          "id": "door-7bbd6454-6400-48ab-bd2f-8f653fa0a7f3",
+          "wallId": "wall-4009cf03-a3d1-427e-9835-3b9fafe8a402",
+          "t": 0.5021001304068217,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-033"
+        },
+        {
+          "id": "door-0cf65627-62f9-4597-9b38-d652238d4e0a",
+          "wallId": "wall-3b4a0951-e679-4b5a-a355-00cdd3d994cd",
+          "t": 0.6140578133719308,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-008"
+        },
+        {
+          "id": "door-c6026cc5-b3f0-44df-814c-ac20396c8176",
+          "wallId": "wall-9fbc1721-f656-43f4-9910-fb1d3b4a3a41",
+          "t": 0.5144076029459635,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-008"
+        },
+        {
+          "id": "door-38e8512f-3ad8-4c18-b33c-eefa8c32018d",
+          "wallId": "wall-9fbc1721-f656-43f4-9910-fb1d3b4a3a41",
+          "t": 0.7932937622070313,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-008"
+        },
+        {
+          "id": "door-ab3aec32-93a0-4d67-acf9-be198d42ae45",
+          "wallId": "wall-9fbc1721-f656-43f4-9910-fb1d3b4a3a41",
+          "t": 0.13333333333333333,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-008"
+        },
+        {
+          "id": "door-164a3951-e275-438c-a576-0b6eb71a5893",
+          "wallId": "wall-de5fe936-24b5-4300-ab2c-4bfed073d342",
+          "t": 0.13333333333333333,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-008"
+        },
+        {
+          "id": "door-ebdc6bf4-a01e-4618-8c23-ecc3a04ece20",
+          "wallId": "wall-de5fe936-24b5-4300-ab2c-4bfed073d342",
+          "t": 0.5364250183105469,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-008"
+        },
+        {
+          "id": "door-716be665-a89b-4f01-9252-8a692db824a5",
+          "wallId": "wall-de5fe936-24b5-4300-ab2c-4bfed073d342",
+          "t": 0.8199511210123698,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-008"
+        },
+        {
+          "id": "door-47cb0469-516f-44d3-978e-dfd376bfa06c",
+          "wallId": "wall-f6b2985c-8a84-4472-aa09-1072c6df185e",
+          "t": 0.5584424336751302,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "RDC-008"
+        }
+      ],
+      "regions": [
+        {
+          "id": "region-0c2e3e49-f4db-4673-86e4-12f893ba05e3",
+          "min": [
+            0,
+            0
+          ],
+          "max": [
+            60,
+            35
+          ]
+        }
+      ]
+    },
+    "R+1": {
+      "walls": [
+        {
+          "id": "wall-3c858b57-d2a8-446d-abaf-f9d176641087",
+          "a": [
+            56.75,
+            20
+          ],
+          "b": [
+            56.75,
+            1.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-1e96bd62-428c-42b8-bf2d-3445036b24d3",
+          "a": [
+            56.75,
+            1.25
+          ],
+          "b": [
+            38.5,
+            1.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-9cabfccc-eaf7-4d8c-a41d-4779be5035cc",
+          "a": [
+            38.5,
+            1.5
+          ],
+          "b": [
+            38.5,
+            1.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-24f63abe-6b19-4ad0-87fd-daa5d038fd04",
+          "a": [
+            38.5,
+            1.25
+          ],
+          "b": [
+            28,
+            1
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-bb4be722-0962-4cc2-982a-9e10e01e8c8b",
+          "a": [
+            28,
+            1
+          ],
+          "b": [
+            28,
+            15
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-755be682-d395-42dc-828f-7321d495f32f",
+          "a": [
+            28,
+            15
+          ],
+          "b": [
+            5.25,
+            15
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-9099bc4d-0b0e-4841-b7c4-ed4f900352d4",
+          "a": [
+            27.75,
+            1.5
+          ],
+          "b": [
+            5,
+            1.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-5fe5e48c-2dc6-4587-9bb7-aa777aeb5c6b",
+          "a": [
+            5,
+            1.5
+          ],
+          "b": [
+            4.75,
+            41
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-926aac0b-8000-4d5c-85d0-f67430c12892",
+          "a": [
+            4.75,
+            41
+          ],
+          "b": [
+            15.5,
+            50.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-db067210-10fb-4bec-9657-58955a4b25ec",
+          "a": [
+            15.5,
+            50.75
+          ],
+          "b": [
+            14.5,
+            51.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-6ad19634-e6da-4763-a064-48927e6c6415",
+          "a": [
+            14.5,
+            51.25
+          ],
+          "b": [
+            19.5,
+            56.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-12934b33-27c2-430e-8737-03096bf53e1d",
+          "a": [
+            19.5,
+            56.5
+          ],
+          "b": [
+            20.5,
+            57
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-8731ee24-1ff2-42f3-bd68-8aad8c0c2f90",
+          "a": [
+            20.5,
+            57
+          ],
+          "b": [
+            21,
+            56.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-6496f5a8-cdca-45ff-8a0c-93a53b19de8b",
+          "a": [
+            21,
+            56.5
+          ],
+          "b": [
+            51.5,
+            56.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-84350fe4-a602-49a3-b3cc-fe62643033c9",
+          "a": [
+            51.5,
+            56.5
+          ],
+          "b": [
+            57,
+            51
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-056a780a-5a64-47d9-96c0-d7a4e6a279ab",
+          "a": [
+            57,
+            51
+          ],
+          "b": [
+            56.75,
+            28.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-686c7f8c-414d-4dfa-b803-713e9ff17a75",
+          "a": [
+            56.75,
+            28.5
+          ],
+          "b": [
+            55.75,
+            28
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-f3a90bd3-b271-4417-a6c0-4de32c96f755",
+          "a": [
+            55.75,
+            28
+          ],
+          "b": [
+            55.75,
+            20.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-6a607acd-841a-4699-8cd8-2c27ffcce265",
+          "a": [
+            55.75,
+            20.25
+          ],
+          "b": [
+            45.75,
+            20.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-8e41ca34-6053-4b38-a6d7-42b4effc7728",
+          "a": [
+            45.75,
+            20.25
+          ],
+          "b": [
+            45.75,
+            26.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-d3be902e-f5a4-47f5-b7f7-0c416479948a",
+          "a": [
+            45.75,
+            26.5
+          ],
+          "b": [
+            55.5,
+            26.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-7738d9ae-b072-4735-89e3-d80d5cbf77b4",
+          "a": [
+            55.5,
+            26.5
+          ],
+          "b": [
+            55.75,
+            26.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-e4b76b8c-05fb-40f6-8610-0646b1f95194",
+          "a": [
+            45.75,
+            20.25
+          ],
+          "b": [
+            44.25,
+            20.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-aabcdd28-c4f3-4345-968d-86b8caf259cf",
+          "a": [
+            44.25,
+            20.5
+          ],
+          "b": [
+            44.5,
+            1.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-57140fbd-f710-4b08-ba23-77d8db82fd44",
+          "a": [
+            44.25,
+            10.75
+          ],
+          "b": [
+            56.75,
+            10.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-1ca5e303-40b9-4eae-b04c-46bf0f3eb70a",
+          "a": [
+            45.75,
+            30.5
+          ],
+          "b": [
+            45.75,
+            26.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-3442afb2-ea28-4e0a-bdfa-d925ff6fdb37",
+          "a": [
+            45.75,
+            30.75
+          ],
+          "b": [
+            49.25,
+            33.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-e1fef40f-dfb0-4863-bc7b-b12606c6a36e",
+          "a": [
+            49.25,
+            33.5
+          ],
+          "b": [
+            54,
+            28.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-d808838d-bc2e-45f9-a680-57adb3ebf8b6",
+          "a": [
+            54,
+            28.5
+          ],
+          "b": [
+            56.75,
+            28.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-b9a3d5da-8b47-494a-b52f-c164b5256185",
+          "a": [
+            54.25,
+            28.5
+          ],
+          "b": [
+            54.25,
+            26.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-8fcddeb1-1b62-4b06-8597-a182e505528b",
+          "a": [
+            52.25,
+            30
+          ],
+          "b": [
+            48.75,
+            26.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-d6d43bcd-7ac3-47f4-ba37-0093935f7023",
+          "a": [
+            49.25,
+            33.5
+          ],
+          "b": [
+            52.75,
+            37
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-c80e360f-86a1-4959-992d-fa92f4d9393b",
+          "a": [
+            52.75,
+            37
+          ],
+          "b": [
+            57.25,
+            37.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-8662c4e5-eb85-4969-8762-e44749440071",
+          "a": [
+            52.75,
+            37
+          ],
+          "b": [
+            52.75,
+            55.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-c0ef64cf-10b8-495e-b44a-10a5c814dbb6",
+          "a": [
+            50.75,
+            53.75
+          ],
+          "b": [
+            47.75,
+            56.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-646013c4-a7db-4a1f-bd2a-dcc05f026029",
+          "a": [
+            50.75,
+            53.75
+          ],
+          "b": [
+            51,
+            38.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-fa58b8ee-e2f2-4fcf-9bf5-798cb1276216",
+          "a": [
+            51,
+            38.5
+          ],
+          "b": [
+            46,
+            33.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-724c35f2-7327-4c99-8f56-62d323263a4d",
+          "a": [
+            46,
+            33.5
+          ],
+          "b": [
+            44,
+            33.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-45d28063-55de-42e8-8808-77b802533ce2",
+          "a": [
+            44,
+            33.5
+          ],
+          "b": [
+            41.5,
+            36.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-660f629f-8dc9-4b69-bc28-e74e79400867",
+          "a": [
+            48.75,
+            36.25
+          ],
+          "b": [
+            31.5,
+            36.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-ecf85f9b-7d03-45d9-ac45-c1ca8d53ac14",
+          "a": [
+            34.75,
+            56.5
+          ],
+          "b": [
+            35,
+            31
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-6c70ce6f-8619-46c8-9f03-540683865737",
+          "a": [
+            35,
+            31
+          ],
+          "b": [
+            38.25,
+            31
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-9c209f86-95b7-4841-8b9d-f4ffc22c6f86",
+          "a": [
+            38.25,
+            31
+          ],
+          "b": [
+            36.75,
+            32.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-79ea1610-b6c0-4a0a-93fa-a9872d9fac10",
+          "a": [
+            36.75,
+            32.75
+          ],
+          "b": [
+            35,
+            32.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-0589e0a4-cc87-441a-b6dd-5de079591b02",
+          "a": [
+            36.75,
+            32.75
+          ],
+          "b": [
+            40,
+            36.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-91b0ed4c-3517-4c4d-a905-2652b3da6686",
+          "a": [
+            38.25,
+            34.5
+          ],
+          "b": [
+            41.75,
+            31
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-7bbba687-ec65-45d7-b9a5-d7eddb5b190e",
+          "a": [
+            41.75,
+            32.5
+          ],
+          "b": [
+            41,
+            31.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-bab4c8e1-a92c-4af6-9584-6bd3626ae4a6",
+          "a": [
+            41.75,
+            32.5
+          ],
+          "b": [
+            43.25,
+            31.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-176912d3-d551-434e-9961-b3a675707def",
+          "a": [
+            43.25,
+            31.25
+          ],
+          "b": [
+            43.25,
+            28.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-cef608d5-7b7f-4f65-9d9f-c50e000a241b",
+          "a": [
+            44,
+            33.5
+          ],
+          "b": [
+            44,
+            32
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-1de370a2-ce10-44a4-a73a-bc9a694fb32d",
+          "a": [
+            44,
+            32
+          ],
+          "b": [
+            43,
+            31
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-8f0c5ab0-9181-49b6-9536-a28b02ecc53b",
+          "a": [
+            41.5,
+            31
+          ],
+          "b": [
+            40.75,
+            30.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-62848dfc-8127-43f2-9ee4-603605444984",
+          "a": [
+            40.75,
+            30.25
+          ],
+          "b": [
+            39,
+            30
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-c8aed569-262b-415b-86c6-a4f0b172d012",
+          "a": [
+            39,
+            30
+          ],
+          "b": [
+            38.25,
+            31
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-3d3a322a-97a5-48a2-9e67-087ed48bc6fd",
+          "a": [
+            44.25,
+            28.5
+          ],
+          "b": [
+            44.25,
+            22.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-1c410a49-7a4c-442f-8415-9add26be1b74",
+          "a": [
+            44.25,
+            22.5
+          ],
+          "b": [
+            31.75,
+            22.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-3fa550bc-a74b-4f58-b850-59f7fccc35e0",
+          "a": [
+            34.75,
+            22.75
+          ],
+          "b": [
+            35,
+            28.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-84ae6c66-3df7-45c9-87ab-9623eda298ca",
+          "a": [
+            35,
+            28.5
+          ],
+          "b": [
+            43.25,
+            28.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-8f47c2f4-31ca-4f54-9f22-e9340bfac7d7",
+          "a": [
+            40.75,
+            15
+          ],
+          "b": [
+            33.25,
+            15
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-19fe1603-fe47-4b08-a7f2-167ed145389e",
+          "a": [
+            33.25,
+            15
+          ],
+          "b": [
+            33.25,
+            14.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-d9773452-2cc1-40ac-a018-98764ce25a19",
+          "a": [
+            33.25,
+            14.25
+          ],
+          "b": [
+            30.75,
+            12.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-8bde8591-5c7f-487b-9cb5-951c82751c14",
+          "a": [
+            30.75,
+            12.25
+          ],
+          "b": [
+            30.25,
+            10.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-5270f64e-99fc-489a-8717-f97ccc58a770",
+          "a": [
+            30.25,
+            10.5
+          ],
+          "b": [
+            33.25,
+            9.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-ab6a11e7-3ea7-402e-8e1d-b8e44f02719c",
+          "a": [
+            31,
+            10.25
+          ],
+          "b": [
+            31,
+            7.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-0f87b23c-8075-4ff6-a331-3b302830796a",
+          "a": [
+            31,
+            7.5
+          ],
+          "b": [
+            31.5,
+            6
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-83fb4421-d100-492c-b8a5-f117f293a613",
+          "a": [
+            31.5,
+            6
+          ],
+          "b": [
+            34,
+            7.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-59e0eb80-413b-464b-8e68-9e20d76cd16a",
+          "a": [
+            32.25,
+            6.25
+          ],
+          "b": [
+            33.5,
+            4.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-131a0516-4e7b-4921-98ef-aea7f737eccb",
+          "a": [
+            33.5,
+            4.5
+          ],
+          "b": [
+            35,
+            3.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-cbe92e0b-33c9-40db-b320-142ce67be2f0",
+          "a": [
+            35,
+            3.5
+          ],
+          "b": [
+            35.75,
+            5.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-9163484d-f8c4-41f3-9a04-04a90d8b95b2",
+          "a": [
+            35.25,
+            4.25
+          ],
+          "b": [
+            38.25,
+            3.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-09cd9ae5-9c64-46bd-98f1-b315321b9aa2",
+          "a": [
+            38.25,
+            3.75
+          ],
+          "b": [
+            41.25,
+            5.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-7ce7f45b-c834-4fb3-9938-9b70ae338601",
+          "a": [
+            41.25,
+            5.5
+          ],
+          "b": [
+            42.5,
+            7.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-97c45238-2186-4629-9ae9-ca5f015f342c",
+          "a": [
+            42.5,
+            7.75
+          ],
+          "b": [
+            42.5,
+            15
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-752923e4-d588-451c-91e5-d33104a97a57",
+          "a": [
+            42.5,
+            15
+          ],
+          "b": [
+            40.5,
+            15
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-6e0dbd5b-83df-4564-83ab-177714ed0871",
+          "a": [
+            46,
+            41
+          ],
+          "b": [
+            45.75,
+            36
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-ba2bc74a-4adb-42c7-a24f-d9c6b45ec366",
+          "a": [
+            34.75,
+            41.25
+          ],
+          "b": [
+            46,
+            41.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-b0010db3-52d8-4ad5-836b-698744e1c561",
+          "a": [
+            46,
+            41.25
+          ],
+          "b": [
+            45.5,
+            56.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-94d6d6a5-7b07-4095-af54-34bc1e75e560",
+          "a": [
+            34.5,
+            51.25
+          ],
+          "b": [
+            45.75,
+            51.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-628b8493-c754-4b8c-85d6-9332ee415e4b",
+          "a": [
+            46,
+            45.5
+          ],
+          "b": [
+            51,
+            45.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-ce12e675-5be4-418a-bda2-af4330e95715",
+          "a": [
+            52.75,
+            40.5
+          ],
+          "b": [
+            56.75,
+            40.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-d555d58a-c05b-405d-bd2d-a46b4fd7affc",
+          "a": [
+            40.75,
+            15
+          ],
+          "b": [
+            41,
+            14.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-0bf70115-723d-46a2-9613-4974bbcc225e",
+          "a": [
+            41,
+            14.25
+          ],
+          "b": [
+            34.75,
+            14.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-4f6b2115-d0bf-4041-af52-00fa5fce9ff8",
+          "a": [
+            34.75,
+            14.25
+          ],
+          "b": [
+            34.75,
+            15
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-0055ab53-946f-4656-99bb-e1bdcc81b712",
+          "a": [
+            23.75,
+            15
+          ],
+          "b": [
+            24,
+            9.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-037a6fa9-0324-44c4-ac60-5bbd995b7f51",
+          "a": [
+            24,
+            9.5
+          ],
+          "b": [
+            28,
+            9.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-26b02c3f-cf65-4dca-8ea7-7ec7d4b39620",
+          "a": [
+            22,
+            14.75
+          ],
+          "b": [
+            22,
+            9.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-8e9ee682-95c0-4723-a90f-10348d969ef0",
+          "a": [
+            22,
+            9.25
+          ],
+          "b": [
+            11.75,
+            9.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-1f97279b-5425-4a3e-9273-e19d0f088c19",
+          "a": [
+            11.75,
+            9.5
+          ],
+          "b": [
+            11.75,
+            15
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-1cd5a919-de60-4b1a-a299-568638a322f0",
+          "a": [
+            15.5,
+            14.75
+          ],
+          "b": [
+            15.5,
+            9.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-f34d21fd-0c65-4005-93d6-498b513d0457",
+          "a": [
+            27.75,
+            7.75
+          ],
+          "b": [
+            8.25,
+            7.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-7f5827e6-4179-40c3-ad6b-e00352f972ed",
+          "a": [
+            8.25,
+            7.75
+          ],
+          "b": [
+            8,
+            1.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-c08e1aca-e022-4e59-abe2-35b20b0db4d2",
+          "a": [
+            10.5,
+            7.75
+          ],
+          "b": [
+            10.75,
+            1.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-2b063005-e465-49e1-8446-143ce2027157",
+          "a": [
+            13,
+            7.75
+          ],
+          "b": [
+            13,
+            1.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-b1727a6b-e47f-406e-bfa7-0e997d231c69",
+          "a": [
+            15.75,
+            7.75
+          ],
+          "b": [
+            15.75,
+            1.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-d91f9481-c337-4444-9202-1039ea929e5d",
+          "a": [
+            18,
+            1.5
+          ],
+          "b": [
+            18.25,
+            7.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-65c79aae-05a9-4747-833c-5bb4dc9985f3",
+          "a": [
+            20.75,
+            7.75
+          ],
+          "b": [
+            20.75,
+            1.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-fe2e7772-4155-4e97-ad36-0f22991105fe",
+          "a": [
+            23.25,
+            1.5
+          ],
+          "b": [
+            23,
+            7.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-f664e29a-f121-4d77-a4a0-886e115e5aa1",
+          "a": [
+            5,
+            9.5
+          ],
+          "b": [
+            10.25,
+            9.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-c9be42e7-e9a4-4dca-9355-84ff7ce7f972",
+          "a": [
+            10.25,
+            9.25
+          ],
+          "b": [
+            10.25,
+            15
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-5339aa1b-38e2-4916-a18c-fd34ad69a104",
+          "a": [
+            5,
+            12
+          ],
+          "b": [
+            10.25,
+            12
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-fd0e7d65-d385-4c74-aa1e-5839846dedfd",
+          "a": [
+            5,
+            20.5
+          ],
+          "b": [
+            10,
+            20.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-82150fbd-e418-40d1-9d31-1b5338c06aa1",
+          "a": [
+            10,
+            20.25
+          ],
+          "b": [
+            10.25,
+            37
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-b0c24162-2d23-49cc-9111-8f3ecf2efd31",
+          "a": [
+            10.25,
+            37
+          ],
+          "b": [
+            18,
+            44.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-aa0ef1db-1226-4913-b930-b65283f5d44d",
+          "a": [
+            18,
+            44.5
+          ],
+          "b": [
+            13.25,
+            48.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-16c4f39a-5d94-4fae-9d83-8da4409944d2",
+          "a": [
+            11.25,
+            37.75
+          ],
+          "b": [
+            6.25,
+            42.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-014d68db-cd33-41e5-ac96-46d7e7f119c1",
+          "a": [
+            10,
+            25
+          ],
+          "b": [
+            5,
+            25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-84273ad4-565b-44bc-abcd-a8930fd8e822",
+          "a": [
+            5,
+            28.5
+          ],
+          "b": [
+            10.25,
+            28.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-81486c7d-6ea9-477d-816e-f19583509911",
+          "a": [
+            10.25,
+            31
+          ],
+          "b": [
+            5,
+            31
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-ec7dcba9-d30a-43e6-9416-10b1b0f6dd76",
+          "a": [
+            12,
+            20.25
+          ],
+          "b": [
+            28.75,
+            20.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-d06c121e-d6f4-4504-8397-7a5d20a08f66",
+          "a": [
+            31,
+            20.5
+          ],
+          "b": [
+            31.25,
+            20.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-24ef80dd-0d60-496e-b8a7-67702db64813",
+          "a": [
+            31.25,
+            20.5
+          ],
+          "b": [
+            31.5,
+            26.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-1879691c-c104-461a-a48e-933b2118cb9c",
+          "a": [
+            31.5,
+            26.25
+          ],
+          "b": [
+            25.75,
+            20.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-7ab35bde-e2bb-418a-ac12-c3786c0bcb62",
+          "a": [
+            19.75,
+            20.5
+          ],
+          "b": [
+            19.75,
+            26
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-365bfc38-adab-45db-a632-c3fa77f56704",
+          "a": [
+            19.75,
+            26
+          ],
+          "b": [
+            15.25,
+            30.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-bd258a50-2ca9-4851-a6c4-0b2b515d551e",
+          "a": [
+            15.25,
+            30.25
+          ],
+          "b": [
+            15.25,
+            31.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-f84641d0-be4e-4fb6-ac4c-0fa3683cb05e",
+          "a": [
+            15.25,
+            31.75
+          ],
+          "b": [
+            19.5,
+            36
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-5403ab04-bda3-499c-8db7-24281f35d609",
+          "a": [
+            19.5,
+            36
+          ],
+          "b": [
+            21.5,
+            36
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-4ce8077a-15a5-421b-8a25-b0813229696f",
+          "a": [
+            21.5,
+            36
+          ],
+          "b": [
+            25.5,
+            31.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-6f652419-6ef4-424e-b099-86c82ec9469d",
+          "a": [
+            25.5,
+            31.5
+          ],
+          "b": [
+            25.5,
+            30.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-34542615-cfc9-45b7-85fd-cebf8124a044",
+          "a": [
+            25.5,
+            30.25
+          ],
+          "b": [
+            21.25,
+            25.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-99e481d7-1b8d-4f74-8860-dc7d785f6f80",
+          "a": [
+            21.25,
+            25.75
+          ],
+          "b": [
+            19.75,
+            25.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-a8df1137-bc0a-48c3-b736-ca75b0053901",
+          "a": [
+            12,
+            20.25
+          ],
+          "b": [
+            12,
+            35.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-bdf9fa53-7127-4a61-ac8a-afb0b7cfef2a",
+          "a": [
+            12,
+            35.5
+          ],
+          "b": [
+            19.5,
+            43.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-1721351f-6328-47d0-b0b3-15b22b8cda0d",
+          "a": [
+            19.5,
+            43.25
+          ],
+          "b": [
+            20.5,
+            42
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-6e189a2f-02fb-4788-83d5-ab711f33815a",
+          "a": [
+            20.5,
+            42
+          ],
+          "b": [
+            22.75,
+            44.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-95742579-c2d3-4596-b3bb-b2800b77b957",
+          "a": [
+            22.75,
+            44.25
+          ],
+          "b": [
+            31.5,
+            44.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-0b598433-faf8-4846-bd6a-14036341af4f",
+          "a": [
+            31.5,
+            44.25
+          ],
+          "b": [
+            31.5,
+            26.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-b892a100-e5fb-4cd9-9654-7a8bf7c28e4f",
+          "a": [
+            31.25,
+            31.75
+          ],
+          "b": [
+            25.25,
+            31.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-8491eb16-ca1d-49ec-b626-1586abbee0fa",
+          "a": [
+            31.5,
+            42.25
+          ],
+          "b": [
+            25.25,
+            42.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-fa923e97-e69c-40fb-bc87-362bb6a40ecc",
+          "a": [
+            25.25,
+            44.25
+          ],
+          "b": [
+            25.25,
+            42.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-1f5c1c65-1859-471a-a457-cded63e0b486",
+          "a": [
+            25.25,
+            42.25
+          ],
+          "b": [
+            20.5,
+            37.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-0f0edfd8-bac1-46ff-b2de-f61a28cdfa0c",
+          "a": [
+            20.5,
+            37.25
+          ],
+          "b": [
+            17,
+            40.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-b3a6bba9-2d81-4af3-bb50-3e349ab37ce6",
+          "a": [
+            18,
+            39.75
+          ],
+          "b": [
+            20.5,
+            42
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-dda46af0-9d88-48bb-b82f-0080d0c895df",
+          "a": [
+            20.5,
+            45.5
+          ],
+          "b": [
+            19,
+            45.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-531fb809-dc89-4e56-9a80-0f95f75be7fb",
+          "a": [
+            19,
+            45.5
+          ],
+          "b": [
+            15.5,
+            49.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-c88f27d9-dbbb-46cc-a144-5ed0b813db4a",
+          "a": [
+            15.5,
+            49.25
+          ],
+          "b": [
+            15.5,
+            50.75
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-ed4088c0-7284-4bd8-b772-252f1f70f2a1",
+          "a": [
+            21,
+            56.5
+          ],
+          "b": [
+            25.5,
+            52
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-c745062b-42de-43c9-a16e-3693b6f53c15",
+          "a": [
+            25.5,
+            52
+          ],
+          "b": [
+            25.5,
+            50.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-54180849-b52a-4dc4-a572-af94ca40ce63",
+          "a": [
+            25.5,
+            50.5
+          ],
+          "b": [
+            20.25,
+            46
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-085f5b71-3793-4f94-80b4-ba8b56616dc9",
+          "a": [
+            20.25,
+            46
+          ],
+          "b": [
+            20.5,
+            45.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-06fc53cb-719d-4560-b226-c120b45e33c0",
+          "a": [
+            20.25,
+            46
+          ],
+          "b": [
+            31.25,
+            46
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-9c151a0d-86ab-4483-a6ab-8b5b4b330355",
+          "a": [
+            31.25,
+            46
+          ],
+          "b": [
+            31.25,
+            56.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-30b9108e-2603-4fcc-bb22-9f65a26035a8",
+          "a": [
+            25.5,
+            56.5
+          ],
+          "b": [
+            25.5,
+            46
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-28e3d8f7-621a-4f0f-bf70-8bf1a04e948a",
+          "a": [
+            19.25,
+            55.75
+          ],
+          "b": [
+            16.25,
+            58.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-1b86221e-d2b5-4ca5-af5b-8cfce4f402e2",
+          "a": [
+            16.25,
+            58.25
+          ],
+          "b": [
+            17.75,
+            60
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-760e7841-69c6-45ce-862b-6326c39ed72d",
+          "a": [
+            17.75,
+            60
+          ],
+          "b": [
+            19,
+            60
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-0e09437c-7ea4-4f23-b1b2-45e6d39caa68",
+          "a": [
+            19,
+            60
+          ],
+          "b": [
+            19.5,
+            59.5
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-f504a683-0d7b-4ba2-8805-4de873ed9848",
+          "a": [
+            19.5,
+            59.5
+          ],
+          "b": [
+            20.75,
+            59.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-261a2b14-4097-4f1b-b355-dd2b4c2e43aa",
+          "a": [
+            20.75,
+            59.25
+          ],
+          "b": [
+            22,
+            60
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-3bffc885-31d4-452a-88b6-b18e189c9360",
+          "a": [
+            22,
+            60
+          ],
+          "b": [
+            51,
+            60
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-27545886-32f2-4b3c-98ef-77edf64bc8e5",
+          "a": [
+            51,
+            60
+          ],
+          "b": [
+            51,
+            56.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-6517feb6-012d-46f5-905c-08663acc1cf3",
+          "a": [
+            15.5,
+            31
+          ],
+          "b": [
+            12,
+            31
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-00081b9d-07d7-4cd3-b4cc-a047e1b4ac37",
+          "a": [
+            12,
+            27
+          ],
+          "b": [
+            15.25,
+            30.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        },
+        {
+          "id": "wall-3e793a01-804b-4f1d-b06a-f4a4fee64974",
+          "a": [
+            8.25,
+            7.75
+          ],
+          "b": [
+            8.25,
+            9.25
+          ],
+          "height": 2.8,
+          "thickness": 0.12
+        }
+      ],
+      "doors": [
+        {
+          "id": "door-933d4da1-df1f-42ca-aa81-23b0d1fe5937",
+          "wallId": "wall-aabcdd28-c4f3-4345-968d-86b8caf259cf",
+          "t": 0.05126736208319061,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-101"
+        },
+        {
+          "id": "door-32cede8d-52d3-4019-a3bc-e5ba759ee533",
+          "wallId": "wall-aabcdd28-c4f3-4345-968d-86b8caf259cf",
+          "t": 0.4572871730862339,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-101"
+        },
+        {
+          "id": "door-a6427b63-1a1b-405b-91e4-534ebb49d5d5",
+          "wallId": "wall-aabcdd28-c4f3-4345-968d-86b8caf259cf",
+          "t": 0.5397599038547046,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-102"
+        },
+        {
+          "id": "door-4c51b98b-c22b-4d99-a3ac-d0533d82db1a",
+          "wallId": "wall-aabcdd28-c4f3-4345-968d-86b8caf259cf",
+          "t": 0.9319894182742345,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-102"
+        },
+        {
+          "id": "door-4edfc979-1ac3-49ff-909b-8527e33c1736",
+          "wallId": "wall-752923e4-d588-451c-91e5-d33104a97a57",
+          "t": 0.34807395935058594,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-103"
+        },
+        {
+          "id": "door-f91ca1e0-87da-4520-9efb-fca79e5fee70",
+          "wallId": "wall-8f47c2f4-31ca-4f54-9f22-e9340bfac7d7",
+          "t": 0.8662261962890625,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-103"
+        },
+        {
+          "id": "door-4a4f442c-57c2-44d9-b009-ee2fa93e4839",
+          "wallId": "wall-8e41ca34-6053-4b38-a6d7-42b4effc7728",
+          "t": 0.92,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-138"
+        },
+        {
+          "id": "door-c89129e0-2c78-4cbd-b69d-369e15539dac",
+          "wallId": "wall-d3be902e-f5a4-47f5-b7f7-0c416479948a",
+          "t": 0.9478990603715945,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-138"
+        },
+        {
+          "id": "door-d15ca48b-370a-4dd9-91cf-c20e5217b358",
+          "wallId": "wall-b9a3d5da-8b47-494a-b52f-c164b5256185",
+          "t": 0.6980569022042411,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-142"
+        },
+        {
+          "id": "door-4f09c91a-6c69-4bb4-a18d-5b67339df9f9",
+          "wallId": "wall-3442afb2-ea28-4e0a-bdfa-d925ff6fdb37",
+          "t": 0.2900400492671161,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-140"
+        },
+        {
+          "id": "door-1697f159-fc4a-43d8-ac00-266f50696051",
+          "wallId": "wall-d6d43bcd-7ac3-47f4-ba37-0093935f7023",
+          "t": 0.10101525445522107,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-141"
+        },
+        {
+          "id": "door-10dbeab2-7f70-4dd3-a968-3033feb21680",
+          "wallId": "wall-d808838d-bc2e-45f9-a680-57adb3ebf8b6",
+          "t": 0.3973444158380682,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-141"
+        },
+        {
+          "id": "door-b86aa7db-617d-437c-950c-137d7a51f242",
+          "wallId": "wall-8662c4e5-eb85-4969-8762-e44749440071",
+          "t": 0.1227666776474208,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-143"
+        },
+        {
+          "id": "door-9fc6a196-3248-4570-bd46-27d52dc1a5f3",
+          "wallId": "wall-8662c4e5-eb85-4969-8762-e44749440071",
+          "t": 0.34174576850786603,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-144"
+        },
+        {
+          "id": "door-cd1c4298-953d-4882-81dd-bc1df35ddeba",
+          "wallId": "wall-8662c4e5-eb85-4969-8762-e44749440071",
+          "t": 0.6755667385989672,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-146"
+        },
+        {
+          "id": "door-3b91292c-5a21-4dd8-8a8b-0e5dca33509c",
+          "wallId": "wall-6496f5a8-cdca-45ff-8a0c-93a53b19de8b",
+          "t": 0.9196532202548668,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-146"
+        },
+        {
+          "id": "door-2f1c249e-9df7-4c57-9290-48d0117d0399",
+          "wallId": "wall-c0ef64cf-10b8-495e-b44a-10a5c814dbb6",
+          "t": 0.4395625996139814,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-148"
+        },
+        {
+          "id": "door-34b2275a-9550-48a8-b0fa-38dca6c6d145",
+          "wallId": "wall-646013c4-a7db-4a1f-bd2a-dcc05f026029",
+          "t": 0.425419569143616,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-148"
+        },
+        {
+          "id": "door-fcc01d91-6d15-4f2c-b664-d1d8a50cf360",
+          "wallId": "wall-b0010db3-52d8-4ad5-836b-698744e1c561",
+          "t": 0.9666851697673615,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-135"
+        },
+        {
+          "id": "door-adaf2d84-8042-4e89-9fe9-b244c66769d4",
+          "wallId": "wall-ecf85f9b-7d03-45d9-ac45-c1ca8d53ac14",
+          "t": 0.16406605989528583,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-135"
+        },
+        {
+          "id": "door-a13fa75f-b8cb-40ac-af05-e45cb1463e4c",
+          "wallId": "wall-646013c4-a7db-4a1f-bd2a-dcc05f026029",
+          "t": 0.6121858066925753,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-149"
+        },
+        {
+          "id": "door-12962acc-af13-4f09-911b-068c88afc231",
+          "wallId": "wall-660f629f-8dc9-4b69-bc28-e74e79400867",
+          "t": 0.13101218403249548,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-149"
+        },
+        {
+          "id": "door-646d033a-eec8-4bf8-aec6-ab0939c19d63",
+          "wallId": "wall-724c35f2-7327-4c99-8f56-62d323263a4d",
+          "t": 0.5388889312744141,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-150"
+        },
+        {
+          "id": "door-75e2127c-46d4-4f21-a13d-0b91a21676fc",
+          "wallId": "wall-176912d3-d551-434e-9961-b3a675707def",
+          "t": 0.7613365866921165,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-150"
+        },
+        {
+          "id": "door-a1430d4a-9218-4296-b812-9195cbffbccb",
+          "wallId": "wall-7bbba687-ec65-45d7-b9a5-d7eddb5b190e",
+          "t": 0.5716650390625,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-150"
+        },
+        {
+          "id": "door-8a0776cf-9ae1-4946-b973-ea006a0d5dc5",
+          "wallId": "wall-c8aed569-262b-415b-86c6-a4f0b172d012",
+          "t": 0.5116558837890625,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-150"
+        },
+        {
+          "id": "door-3bc32582-f198-4ae6-a171-b04680a536ea",
+          "wallId": "wall-ecf85f9b-7d03-45d9-ac45-c1ca8d53ac14",
+          "t": 0.9108252903408067,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-137"
+        },
+        {
+          "id": "door-1beea06f-8ac4-48db-b126-5da4cee562c6",
+          "wallId": "wall-6c70ce6f-8619-46c8-9f03-540683865737",
+          "t": 0.5152623103215144,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-137"
+        },
+        {
+          "id": "door-0a713ee4-a8b4-45ac-ae0a-17e0890ceb59",
+          "wallId": "wall-660f629f-8dc9-4b69-bc28-e74e79400867",
+          "t": 0.943313819774683,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-137"
+        },
+        {
+          "id": "door-1630b0ed-f455-4173-a153-68e07ae33fde",
+          "wallId": "wall-3fa550bc-a74b-4f58-b850-59f7fccc35e0",
+          "t": 0.906761975558299,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-138"
+        },
+        {
+          "id": "door-9cb74f2b-004e-45d9-8a9d-75296fde3d36",
+          "wallId": "wall-3d3a322a-97a5-48a2-9e67-087ed48bc6fd",
+          "t": 0.08333333333333333,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-138"
+        },
+        {
+          "id": "door-81608d09-752a-41f7-bfeb-4fc91f1bb80c",
+          "wallId": "wall-1c410a49-7a4c-442f-8415-9add26be1b74",
+          "t": 0.9347142063584724,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-138"
+        },
+        {
+          "id": "door-f4170309-7c03-4ced-945f-a85185a37041",
+          "wallId": "wall-ecf85f9b-7d03-45d9-ac45-c1ca8d53ac14",
+          "t": 0.774341005089763,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-136"
+        },
+        {
+          "id": "door-191b36f2-167a-45cc-9cce-70ab3c8e17de",
+          "wallId": "wall-ecf85f9b-7d03-45d9-ac45-c1ca8d53ac14",
+          "t": 0.31056489811557697,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-136"
+        },
+        {
+          "id": "door-ec990f20-4c9c-4c3e-a6eb-0669f0516b28",
+          "wallId": "wall-9c151a0d-86ab-4483-a6ab-8b5b4b330355",
+          "t": 0.7703062239147368,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-133"
+        },
+        {
+          "id": "door-c78d5974-c842-4d4e-875a-30f43bb48161",
+          "wallId": "wall-06fc53cb-719d-4560-b226-c120b45e33c0",
+          "t": 0.5293539220636542,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-133"
+        },
+        {
+          "id": "door-fce25929-e9c7-43d5-bc87-a0ea5a12f8fd",
+          "wallId": "wall-0b598433-faf8-4846-bd6a-14036341af4f",
+          "t": 0.07911862267388238,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-132"
+        },
+        {
+          "id": "door-4fd84ab4-6a32-41a8-87cb-9cf1a0504ece",
+          "wallId": "wall-0b598433-faf8-4846-bd6a-14036341af4f",
+          "t": 0.13249693976508248,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-131"
+        },
+        {
+          "id": "door-66f60b41-f18d-4fa9-a108-b3bb6f037d27",
+          "wallId": "wall-b892a100-e5fb-4cd9-9654-7a8bf7c28e4f",
+          "t": 0.7769142786661783,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-131"
+        },
+        {
+          "id": "door-179ee1e3-91c2-461d-8c4e-1ef0d604fbb6",
+          "wallId": "wall-0b598433-faf8-4846-bd6a-14036341af4f",
+          "t": 0.9704791174994575,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-130"
+        },
+        {
+          "id": "door-d595b087-5a10-4c8c-ae9a-cbf557162fa8",
+          "wallId": "wall-7ab35bde-e2bb-418a-ac12-c3786c0bcb62",
+          "t": 0.8334100896661932,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-130"
+        },
+        {
+          "id": "door-084dd4b9-a42a-43f5-92f4-68d993bc6bf8",
+          "wallId": "wall-24ef80dd-0d60-496e-b8a7-67702db64813",
+          "t": 0.6880433136562132,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-129"
+        },
+        {
+          "id": "door-0d673480-47bb-47d4-b38e-16a74cb88542",
+          "wallId": "wall-a8df1137-bc0a-48c3-b736-ca75b0053901",
+          "t": 0.11688957839715676,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-127"
+        },
+        {
+          "id": "door-3e3b3537-16ec-42f2-8bcc-789aceee478c",
+          "wallId": "wall-00081b9d-07d7-4cd3-b4cc-a047e1b4ac37",
+          "t": 0.8696647057166463,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-128"
+        },
+        {
+          "id": "door-4c92c63e-2755-4b0a-bbe3-f5f6da555897",
+          "wallId": "wall-82150fbd-e418-40d1-9d31-1b5338c06aa1",
+          "t": 0.2579780638085176,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-118"
+        },
+        {
+          "id": "door-6798e9a8-1700-4490-a09f-673c1f0b76fd",
+          "wallId": "wall-82150fbd-e418-40d1-9d31-1b5338c06aa1",
+          "t": 0.46724561423660654,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-119"
+        },
+        {
+          "id": "door-daec6281-5ca6-4cd5-8394-f9aaa23975d9",
+          "wallId": "wall-82150fbd-e418-40d1-9d31-1b5338c06aa1",
+          "t": 0.6716815795558598,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-121"
+        },
+        {
+          "id": "door-e994b35a-7ae5-4151-b7e0-e204d497d57b",
+          "wallId": "wall-b0c24162-2d23-49cc-9111-8f3ecf2efd31",
+          "t": 0.05028787907062839,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-121"
+        },
+        {
+          "id": "door-5afcecf8-d6fa-4335-b882-001f2531fc63",
+          "wallId": "wall-b0c24162-2d23-49cc-9111-8f3ecf2efd31",
+          "t": 0.1443578093875678,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-122"
+        },
+        {
+          "id": "door-6fcccbb6-a98a-4b70-9cf2-13ddc60b51ca",
+          "wallId": "wall-aa0ef1db-1226-4913-b930-b65283f5d44d",
+          "t": 0.8410204667311448,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-122"
+        },
+        {
+          "id": "door-48551c7c-6943-4c0f-a104-d1b6af07976f",
+          "wallId": "wall-a8df1137-bc0a-48c3-b736-ca75b0053901",
+          "t": 0.7435639178166624,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-126"
+        },
+        {
+          "id": "door-86fd8555-6107-4387-b8de-e6d339e590e6",
+          "wallId": "wall-bdf9fa53-7127-4a61-ac8a-afb0b7cfef2a",
+          "t": 0.5903231596703301,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-126"
+        },
+        {
+          "id": "door-8458c818-3922-4219-aa25-7af5aea4709f",
+          "wallId": "wall-1721351f-6328-47d0-b0b3-15b22b8cda0d",
+          "t": 0.4742774032964939,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-125"
+        },
+        {
+          "id": "door-c124724f-e27a-4d8c-a57b-f20e2026517e",
+          "wallId": "wall-06fc53cb-719d-4560-b226-c120b45e33c0",
+          "t": 0.40429201993075287,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-124"
+        },
+        {
+          "id": "door-4afb3844-01f4-4d00-9434-1d6a376a4b5a",
+          "wallId": "wall-dda46af0-9d88-48bb-b82f-0080d0c895df",
+          "t": 0.6182479858398438,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-123"
+        },
+        {
+          "id": "door-fb76e88a-8ee0-4e5e-bd5d-766f8b880b87",
+          "wallId": "wall-c88f27d9-dbbb-46cc-a144-5ed0b813db4a",
+          "t": 0.5431995391845703,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-123"
+        },
+        {
+          "id": "door-2934bbaa-a880-4374-99dd-48701bab56ee",
+          "wallId": "wall-6496f5a8-cdca-45ff-8a0c-93a53b19de8b",
+          "t": 0.07468839551581712,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-134"
+        },
+        {
+          "id": "door-ad9045cc-a0a6-4959-83e9-89f06ab607cb",
+          "wallId": "wall-6496f5a8-cdca-45ff-8a0c-93a53b19de8b",
+          "t": 0.3770274177926486,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-134"
+        },
+        {
+          "id": "door-26ee8634-89e0-4187-8ad8-de875e89f594",
+          "wallId": "wall-c9be42e7-e9a4-4dca-9355-84ff7ce7f972",
+          "t": 0.5817028543223506,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-113"
+        },
+        {
+          "id": "door-c1da775b-ee2a-42b3-a636-440b2f1dbf4b",
+          "wallId": "wall-c9be42e7-e9a4-4dca-9355-84ff7ce7f972",
+          "t": 0.38603077764096466,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-112"
+        },
+        {
+          "id": "door-cbcac033-c39a-4e8a-ab16-c31856248978",
+          "wallId": "wall-3e793a01-804b-4f1d-b06a-f4a4fee64974",
+          "t": 0.5715535481770834,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-111"
+        },
+        {
+          "id": "door-808a2f4c-6357-4f4c-823d-b615deb17479",
+          "wallId": "wall-f34d21fd-0c65-4005-93d6-498b513d0457",
+          "t": 0.9040767963115985,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-110"
+        },
+        {
+          "id": "door-411a0448-56e5-4b6d-8944-0e7298b74c9c",
+          "wallId": "wall-f34d21fd-0c65-4005-93d6-498b513d0457",
+          "t": 0.8443865653796073,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-109"
+        },
+        {
+          "id": "door-640249c3-a7c8-4f2b-bdf8-d6840c8bb66d",
+          "wallId": "wall-f34d21fd-0c65-4005-93d6-498b513d0457",
+          "t": 0.6469497191600311,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-108"
+        },
+        {
+          "id": "door-14038e1f-06f3-4a47-bba0-d98a2509c444",
+          "wallId": "wall-f34d21fd-0c65-4005-93d6-498b513d0457",
+          "t": 0.5872594393216647,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-107"
+        },
+        {
+          "id": "door-17c66294-58a1-45de-af75-14885847a3d5",
+          "wallId": "wall-f34d21fd-0c65-4005-93d6-498b513d0457",
+          "t": 0.38982264200846356,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-106"
+        },
+        {
+          "id": "door-da388457-e5af-4226-a9fc-7a3557b67f4b",
+          "wallId": "wall-f34d21fd-0c65-4005-93d6-498b513d0457",
+          "t": 0.33472393720577925,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-105"
+        },
+        {
+          "id": "door-69cd3be8-e503-48bc-9371-d1e709053b72",
+          "wallId": "wall-f34d21fd-0c65-4005-93d6-498b513d0457",
+          "t": 0.17401954455253404,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-104"
+        },
+        {
+          "id": "door-b5d65ffb-2715-47d0-9497-2e4c6f6f23e3",
+          "wallId": "wall-037a6fa9-0324-44c4-ac60-5bbd995b7f51",
+          "t": 0.15137529373168945,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-117"
+        },
+        {
+          "id": "door-acdbeb14-2f73-4a5c-8a31-3c371510926d",
+          "wallId": "wall-8e9ee682-95c0-4723-a90f-10348d969ef0",
+          "t": 0.5735877555275645,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-115"
+        },
+        {
+          "id": "door-bd1f4208-adda-45b7-b825-78e53a2f0b54",
+          "wallId": "wall-8e9ee682-95c0-4723-a90f-10348d969ef0",
+          "t": 0.7621899354188537,
+          "width": 0.9,
+          "swing": 1,
+          "hinge": "start",
+          "roomId": "R+1-114"
+        }
+      ],
+      "regions": [
+        {
+          "id": "region-25ec03d0-82ab-4771-a6da-5de85ffc1ceb",
+          "min": [
+            0,
+            0.75
+          ],
+          "max": [
+            60,
+            60
+          ]
+        }
+      ]
+    },
+    "R+2": {
+      "walls": [],
+      "doors": [],
+      "regions": []
+    }
+  },
+  "exported_at": "2026-10-15T20:57:26.579Z"
+}
