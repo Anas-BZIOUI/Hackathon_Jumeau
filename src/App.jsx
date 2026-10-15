@@ -57,7 +57,7 @@ export default function App() {
   const [view, setView] = useState("guide");
   const [mode, setMode] = useState("map2d");
   const [persona, setPersona] = useState("student");
-  const [level, setLevel] = useState("R+2");
+  const [level, setLevel] = useState("RDC");
   const [acts, setActs] = useState(() => new Set(ACTIVITIES));
   const [typeFilter, setTypeFilter] = useState("all");
   const [query, setQuery] = useState("");
