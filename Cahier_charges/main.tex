@@ -276,7 +276,7 @@ Avec \textbf{EnsiiExplore}, nous souhaitons dépasser la simple consultation d'u
 \section{Mise à jour du prototype : plan et immersion}
 Le Guide partage les identifiants de salles, fiches, destination et position virtuelle entre le plan architectural et la visite immersive. La vue Stack 3D est une vue d'ensemble distincte. La position du personnage n'est pas une géolocalisation réelle. Une origine déclarée par l'utilisateur reste distincte de cette position virtuelle.
 
-L'éditeur de murs et portes permet une correction manuelle ; le calibrage aligne les niveaux à partir de repères. Le routeur géométrique utilise ces données et calcule en arrière-plan. Les fiches disposent d'une édition locale, d'un historique, d'un import avec aperçu et d'un export. L'échange de fichiers ne constitue pas une édition simultanée sur serveur.
+Les murs et portes déjà dessinés et les repères de calibrage enregistrés alimentent le modèle. Les commandes publiques d'alignement, de dessin et de réinitialisation du calibrage ont été retirées de l'interface à la demande de l'équipe. Le routeur géométrique utilise ces données et calcule en arrière-plan. Les fiches disposent d'une édition locale, d'un historique, d'un import avec aperçu et d'un export. L'échange de fichiers ne constitue pas une édition simultanée sur serveur.
 
 \subsection{Périmètre et limites de couverture}
 Le plan comprend RDC, R+1 et R+2 ; le secteur de navigation préparé est principalement RDC/R+1. L'audit de référence trouve 23 salles sur 32 au RDC et 35 sur 50 au R+1 depuis ses origines de test, dans les deux sens. Cela ne valide ni toutes les paires de salles ni les accès physiques. Les escaliers, ascenseurs, portes et usages doivent encore être confrontés au terrain. Le R+2 ne bénéficie pas de la même couverture.
@@ -289,4 +289,62 @@ Une couche optionnelle de données de démonstration illustre six fiches avec ca
 \subsection{Recette et présentation}
 Le scénario, les limites, la solution de secours 2D et les essais restant à exécuter sont consignés dans \texttt{docs/DEMONSTRATION.md}. Les résultats automatiques ne remplacent pas les essais utilisateurs, le contrôle des plans sur place, la mesure de fluidité sur le PC de démonstration et la répétition devant le jury.
 
+
+\section{Suivi coordonné et scénarios de démonstration}
+À chaque modification du prototype, le backlog \texttt{AMELIORATIONS\_RESTANTES.md}, le présent cahier des charges et le guide \texttt{docs/DEMONSTRATION.md} sont actualisés ensemble. Une fonctionnalité implémentée, un scénario rédigé et un scénario exécuté sont trois états distincts. Les résultats doivent conserver date, machine, navigateur, version, données de démonstration activées ou non, observation et remise en état.
+
+\subsection{Guidage partagé entre plan et immersion}
+Le panneau de consignes exploite la même position virtuelle du personnage dans les deux vues. Il présente la prochaine action et sa distance courante, annonce la liaison d'étage au palier et reconnaît l'arrivée au point terminal. Une arrivée à la porte ne prouve pas l'entrée dans la pièce. Une position hors trajet doit produire un état explicite, sans surligner arbitrairement la première instruction. Le libellé du panneau distingue cette position virtuelle d'une localisation réelle ou déclarée.
+
+\subsection{Scénarios de recette référencés}
+Les procédures détaillées, leurs préconditions et leurs résultats attendus sont dans le guide de démonstration. Les identifiants suivants servent de références communes :
+\begin{description}
+\item[S01] Recherche par numéro ou besoin, fiche et langue.
+\item[S02] Position, destination et guidage conservés entre plan et immersion ; arrivée sans retour au premier virage.
+\item[S03] Itinéraire RDC--R+1, inversion et option sans marches, avec limites explicites.
+\item[S04] Interruption et reprise d'une montée puis d'une descente sur l'escalier A.
+\item[S05] Parcours Recherche, progression, pause et reprise entre vues.
+\item[S06] Découverte sans marche, badge commun et document imprimable.
+\item[S07] Exemples fictifs réversibles et séparation avec les fiches éditables originales.
+\item[S08] Personnalisation, caméra et conservation des réglages.
+\item[S09] Repères proches et distinction entre origine virtuelle et déclarée.
+\item[S10] Modification temporaire d'une fiche, affichage partagé et annulation.
+\item[S11] Clavier, focus, filtres fermés, dialogues, langue et zoom.
+\item[S12] Diagnostic du réseau courant et export des anomalies.
+\item[S13] Préparation de la copie locale puis rechargement avec serveur arrêté.
+\item[S14] Absence des outils techniques retirés, sans perte du modèle existant.
+\end{description}
+
+\subsection{Conditions d'acceptation}
+Le scénario court de cinq minutes sélectionne S01, S03, S02, S05 et S06. S07 peut illustrer une fiche enrichie uniquement en montrant le marquage fictif. La recette manuelle complète doit être répétée sur le poste de présentation. Les tests automatiques du guidage couvrent des trajets synthétiques, notamment virage, transition, arrivée et absence de chemin ; ils ne certifient ni les usages réels des salles, ni l'accessibilité complète, ni toutes les interactions du navigateur.
+
+
+\subsection{Vérification de la dernière correction}
+La passe de guidage partagé est accompagnée de 61 tests réussis, dont huit sur le guidage, des contrôles du jeu sur 51 espaces et d'un build complet réussi. Un contrôle navigateur sur RDC-011 vers R+1-127 a conservé la position virtuelle RDC, 25 m restants et le virage à gauche à 1 m en passant du plan à l'immersion puis au plan. Les cas terminaux et de palier sont testés automatiquement ; la recette complète S02/S03 reste à répéter sur le poste de présentation. Les distances courtes ne sont plus présentées comme des portions de zéro mètre.
+
+\section{Lot de navigation et confort : cinq améliorations}
+Le recalcul automatique après écart est optionnel, différé de 900 ms et fondé sur le dernier instantané virtuel, hors escalier et hors calcul en cours. Une commande explicite de recalcul et reprise est disponible dans les deux vues ; elle ne lance pas automatiquement la marche.
+
+L'assistant propose des fiches déjà marquées vérifiées, avec provenance lorsqu'elle existe et exclusion des exemples fictifs. Il distingue départ déclaré et départ virtuel ; le statut d'une fiche n'est pas une certification de son chemin d'accès.
+
+La caméra se rapproche immédiatement lorsqu'un obstacle réduit sa portée, puis retrouve progressivement sa distance. Des seuils distincts limitent les changements répétés de vue ; la réduction des mouvements est respectée. Un réglage de déplacement latéral maintient l'orientation de la vue sans réorienter la caméra, tout en préservant les directions des trajets automatiques.
+
+Les panneaux de salles adaptent leur contenu à la distance : nom complet proche, numéro et étage à moyenne distance, masquage lointain. La destination est prioritaire et les entrées d'une même salle évitent de multiplier les panneaux complets. La recette est détaillée dans les scénarios S15 à S19 du guide ; les tests et observations sont consignés dans le guide et dans le bilan du lot du backlog.
+
+\subsection{Bilan du lot de cinq}
+Les cinq améliorations sont clôturées après tests ciblés et essais navigateur : recalcul automatique et reprise manuelle avec destination conservée, retour vers une fiche marquée vérifiée, rapprochement de caméra près d'un mur puis restauration, déplacement latéral sans rotation imposée de caméra et niveaux de détail des panneaux. Le départ virtuel est également représenté correctement sur le plan ; l'inversion exige un départ dans une salle lorsqu'aucune salle de retour n'est définie pour ce point virtuel.
+
+Le bilan du backlog passe à 65 tâches terminées et 58 restantes sur 123. Les 66 tests automatiques et les contrôles du jeu sur 51 espaces ne constituent pas une validation des accès réels. Les variantes et limites des essais S15--S19 sont consignées dans le guide ; les sources de fiches déjà marquées vérifiées n'ont pas été remplacées par de nouvelles affirmations terrain.
+
+\section{Missions communes et conversations virtuelles}
+Le moteur de découverte associe deux conditions par mission : découvrir un lieu et lire une réponse du guide correspondant. Quatre missions illustrent enseignement, vie étudiante, repérage d'un service du plan et orientation. Trois guides fictifs présentent chacun deux choix de conversation bilingues et un accès à la fiche et au trajet. Les placements virtuels ne décrivent pas des personnes réellement présentes.
+
+Dans Aventure, des balises interactives sont placées sur des points libres et ne changent pas les collisions. Le dialogue peut être ouvert à proximité par E ou un bouton. Un équivalent à distance est disponible depuis les outils communs du plan et de l'immersion. Les découvertes et réponses sont sauvegardées et partagées ; ouvrir un dialogue sans lire de réponse ne complète pas son étape.
+
+La progression propre de la partie peut être remise à zéro puis restaurée par annulation dans la vue courante. Les découvertes et dialogues communs sont explicitement conservés. La révélation de démonstration affiche le plan complet de la géométrie du jeu et sa liste d'espaces, sans valider leur découverte. Les procédures S20 à S24 détaillent ces cinq tâches et les contrôles de reprise.
+
+\subsection{Bilan du deuxième lot de cinq}
+Les cinq tâches Aventure sont clôturées : proximité et dialogues à choix, moteur de missions utiles, quatre missions avec trois guides, reprise et remise à zéro annulable de la partie, révélation d'une carte complète. Les missions demandent une découverte virtuelle et une réponse consultée ; les quatre missions ont été complétées dans le navigateur, puis retrouvées après rechargement et changement de vue.
+
+La conversation au sas a été ouverte avec E et son bouton fiche/trajet testé. La sauvegarde de partie à deux pas, sa remise à zéro et son annulation ont été contrôlées sans effacer les acquis communs. Le plan complet du jeu s'affiche sans valider de découverte. Les 70 tests automatiques et les contrôles RDC sur 51 espaces passent. Le backlog compte désormais 70 tâches terminées et 53 restantes sur 123 ; ces résultats ne certifient pas les accès physiques ni l'exactitude des usages réels.
 \end{document}

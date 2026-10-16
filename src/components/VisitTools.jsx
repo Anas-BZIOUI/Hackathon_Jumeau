@@ -1,10 +1,11 @@
+import MissionPanel from './MissionPanel.jsx';
 import OfflineTools from './OfflineTools.jsx';
 import PrintVisit from './PrintVisit.jsx';
 import {visitReport,downloadVisit} from '../visitExport.js';
 import {playCue} from '../audio.js';
 import {useState} from 'react';
 import {roomName} from '../core.js';
-export default function VisitTools({rooms,selected,lang,favorites,onFavorite,recents,onSelect,onLocate,onTutorial,settings,onSettings,tour,onPause,onAdvance,onPrevious,onStop,discovered=[],onDiscover,tourRoomIds=[]}){
+export default function VisitTools({rooms,selected,lang,favorites,onFavorite,recents,onSelect,onLocate,onTutorial,settings,onSettings,tour,onPause,onAdvance,onPrevious,onStop,discovered=[],onDiscover,tourRoomIds=[],readGuides=[],onReadGuide,onMissionRoute}){
  const fr=lang==='fr',[open,setOpen]=useState(false),[printText,setPrintText]=useState(null);
  return <section className="visit-tools" aria-label={fr?'Outils de visite':'Visit tools'}>
   <button className="ghost" aria-expanded={open} onClick={()=>setOpen(!open)}>{fr?'Favoris et réglages':'Favorites and settings'}</button>
@@ -16,8 +17,11 @@ export default function VisitTools({rooms,selected,lang,favorites,onFavorite,rec
   <button className="ghost" disabled={!discovered.length&&!tour} onClick={()=>setPrintText(visitReport({rooms,ids:tour?tourRoomIds:discovered,title:tour?.title||(fr?"Passeport de découverte":"Discovery passport"),lang}))}>{fr?"Version imprimable":"Printable version"}</button>
   {printText&&<PrintVisit text={printText} lang={lang} onClose={()=>setPrintText(null)}/>}
   {tour&&<button className="ghost" onClick={()=>downloadVisit({rooms,ids:tourRoomIds,title:tour.title,lang})}>{fr?"Exporter les étapes":"Export tour stops"}</button>}
+  <MissionPanel discovered={discovered} read={readGuides} onRead={onReadGuide} onSelect={onSelect} onRoute={onMissionRoute} lang={lang}/>
   {open&&<div className="visit-settings">
    <OfflineTools lang={lang}/>
+   <label><input type="checkbox" checked={settings.autoReroute!==false} onChange={e=>onSettings({...settings,autoReroute:e.target.checked})}/>{fr?'Recalcul automatique en cas d’écart en immersion':'Automatically recalculate when off route in immersion'}</label>
+   <label><input type="checkbox" checked={!!settings.strafeFacing} onChange={e=>onSettings({...settings,strafeFacing:e.target.checked})}/>{fr?'Déplacement latéral : garder l’orientation de la vue':'Strafe: keep character aligned with view'}</label>
    <label><input type="checkbox" checked={!!settings.demoData} onChange={e=>onSettings({...settings,demoData:e.target.checked})}/>{fr?"Utiliser des exemples fictifs de démonstration":"Use fictional demo examples"}</label>
    {[['favorites',fr?'Favoris':'Favorites',favorites],['recent',fr?'Destinations récentes':'Recent destinations',recents]].map(([id,label,ids])=><div key={id}><strong>{label}</strong>{ids.map(id=>rooms.find(r=>r.id===id)).filter(Boolean).map(r=><button className="ghost" key={r.id} onClick={()=>onSelect(r.id)}>{roomName(r,lang)} · {r.level}</button>)}</div>)}
    <label><input type="checkbox" checked={!!settings.accessibilityLens} onChange={e=>onSettings({...settings,accessibilityLens:e.target.checked})}/>{fr?'Couche accessibilité : vert = confirmé, rouge = restriction, gris = inconnu':'Accessibility layer: green = confirmed, red = restricted, grey = unknown'}</label>

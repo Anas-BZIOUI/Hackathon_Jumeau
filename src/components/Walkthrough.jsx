@@ -12,6 +12,7 @@ import ImmersivePlan from './ImmersivePlan.jsx';
 import {floorLeg} from '../visitNavigation.js';
 import {createAvatar} from '../avatar.js';
 import {dampFactor,dampAngle,cameraFraction} from '../motion.js';
+import {cameraComfort,characterHeading,roomLabelDetail} from '../viewComfort.js';
 import groundPlan from '../../plan_RDC.png';
 import firstPlan from '../../plan_R+1.png';
 import secondPlan from '../../plan_R+2.png';
@@ -59,6 +60,12 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
         const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;texture.anisotropy=renderer.capabilities.getMaxAnisotropy();textures.push(texture);
         const panel=new THREE.Group();
         for(const side of [1,-1]){const face=new THREE.Mesh(new THREE.PlaneGeometry(width,height),new THREE.MeshBasicMaterial({map:texture}));face.position.z=side*.095;face.rotation.y=side===1?0:Math.PI;panel.add(face);}
+        panel.userData.fullTexture=texture;
+        if(detail){
+          const small=document.createElement('canvas');small.width=256;small.height=80;
+          const c=small.getContext('2d');c.fillStyle='#f7f8f5';c.fillRect(0,0,256,80);c.fillStyle=color;c.fillRect(0,0,6,80);c.textAlign='center';c.textBaseline='middle';c.font='700 32px system-ui';c.fillText(`${value} · ${detail.split(' · ').at(-1)}`,132,40,235);
+          const compact=new THREE.CanvasTexture(small);compact.colorSpace=THREE.SRGBColorSpace;textures.push(compact);panel.userData.compactTexture=compact;
+        }
         return panel;
       }
       const material=new THREE.MeshStandardMaterial({color:'#f0eee8',roughness:1});
@@ -137,7 +144,7 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
         label.position.copy(beacon.position).add(new THREE.Vector3(0,1.2,0));groups[p.level].add(label);
       }
       const character=createAvatar(props.current.initialPosition?.heading||0),avatar=character.root;scene.add(avatar);
-      const previousPosition=new THREE.Vector3(),visualPosition=new THREE.Vector3();let viewYaw=0,viewPitch=0,viewReady=false,visibilityTime=0;
+      const previousPosition=new THREE.Vector3(),visualPosition=new THREE.Vector3();let viewYaw=0,viewPitch=0,viewReady=false,visibilityTime=0,cameraState=null;
       const targetMarker=new THREE.Mesh(new THREE.TorusGeometry(.35,.06,8,24),new THREE.MeshBasicMaterial({color:'#e69528'}));targetMarker.rotation.x=Math.PI/2;targetMarker.visible=false;scene.add(targetMarker);
       const savedPosition=props.current.initialPosition;
       let velocity=new THREE.Vector3();
@@ -283,23 +290,32 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
         if(pendingStair&&!path.length&&!journey){const pending=pendingStair;pendingStair=null;travel(pending.linkId,pending.to);}
         const moved=position.distanceTo(previousPosition),heading=Math.atan2(-(position.x-previousPosition.x),-(position.z-previousPosition.z));previousPosition.copy(position);
         if(props.current.settings.sound){if(soundFloor!==floor){playCue('floor');soundFloor=floor;}else if(moved>.005&&now-soundAt>420){playCue('step');soundAt=now;}}
-        if(!viewReady){visualPosition.copy(position);viewYaw=yaw;viewPitch=pitch;viewReady=true;}
+        if(!viewReady){visualPosition.copy(position);viewYaw=yaw;viewPitch=pitch;viewReady=true;cameraState=null;}
         visualPosition.lerp(position,dampFactor(22,dt));viewYaw=dampAngle(viewYaw,yaw,20,dt);viewPitch+=(pitch-viewPitch)*dampFactor(20,dt);
-        avatar.visible=thirdPerson.current;avatar.position.copy(visualPosition);character.setOutfit(props.current.settings.outfit);character.setAppearance(props.current.settings);character.update(dt,moved,heading,(props.current.settings.reducedMotion||matchMedia('(prefers-reduced-motion: reduce)').matches),!!onStair||!!journey);
+        avatar.visible=thirdPerson.current;avatar.position.copy(visualPosition);character.setOutfit(props.current.settings.outfit);character.setAppearance(props.current.settings);character.update(dt,moved,characterHeading(yaw,heading,!!props.current.settings.strafeFacing,!!path.length||!!journey||!!onStair),(props.current.settings.reducedMotion||matchMedia('(prefers-reduced-motion: reduce)').matches),!!onStair||!!journey);
         if(thirdPerson.current){
           const target=visualPosition.clone().add(new THREE.Vector3(0,1.4,0));
           const offset=new THREE.Vector3(Math.sin(viewYaw)*(props.current.settings.cameraDistance||3.5),THREE.MathUtils.clamp(.6+Math.sin(-viewPitch)*1.1,.1,1.1),Math.cos(viewYaw)*(props.current.settings.cameraDistance||3.5));
-          const fraction=cameraFraction(cameraMaps[floor],toLocal(floor,position),toLocal(floor,target.clone().add(offset)));
-          if(fraction*offset.length()<=.65){avatar.visible=false;camera.position.copy(visualPosition).add(new THREE.Vector3(0,1.65,0));camera.rotation.set(viewPitch,viewYaw,0,'YXZ');}
-          else{camera.position.copy(target).addScaledVector(offset,fraction);camera.lookAt(target.clone().add(new THREE.Vector3(-Math.sin(viewYaw)*1.2,0,-Math.cos(viewYaw)*1.2)));}
+          const fraction=cameraFraction(cameraMaps[floor],toLocal(floor,visualPosition),toLocal(floor,target.clone().add(offset)));
+          cameraState=cameraComfort(cameraState,fraction*offset.length(),offset.length(),dt,!!props.current.settings.reducedMotion);
+          if(cameraState.firstPerson){avatar.visible=false;camera.position.copy(visualPosition).add(new THREE.Vector3(0,1.65,0));camera.rotation.set(viewPitch,viewYaw,0,'YXZ');}
+          else{camera.position.copy(target).addScaledVector(offset,cameraState.distance/offset.length());camera.lookAt(target.clone().add(new THREE.Vector3(-Math.sin(viewYaw)*1.2,0,-Math.cos(viewYaw)*1.2)));}
         }else{camera.position.copy(visualPosition).add(new THREE.Vector3(0,1.65,0));camera.rotation.set(viewPitch,viewYaw,0,'YXZ');}
-        if(now-visibilityTime>120){visibilityTime=now;for(const door of doorLeaves){const distance=door.center.distanceToSquared(position);door.frame.visible=groups[door.floor].visible&&distance<32*32;door.plaque.visible=distance<14*14;}}
+        if(now-visibilityTime>120){visibilityTime=now;
+          const nearestLabels=new Map();for(const door of doorLeaves){if(!groups[door.floor].visible)continue;const distance=door.center.distanceToSquared(position),old=nearestLabels.get(door.room.id);if(!old||distance<old.distance)nearestLabels.set(door.room.id,{door,distance});}
+          for(const door of doorLeaves){const distance=door.center.distanceToSquared(position);door.frame.visible=groups[door.floor].visible&&distance<32*32;const detail=roomLabelDetail(Math.sqrt(distance),door.room.id===props.current.destination?.id||door.room.id===props.current.selected?.id,nearestLabels.get(door.room.id)?.door===door);
+          door.plaque.visible=detail!=='hidden';
+          if(detail!=='hidden'&&door.plaque.userData.detail!==detail){
+            door.plaque.userData.detail=detail;const texture=detail==='compact'?door.plaque.userData.compactTexture:door.plaque.userData.fullTexture;
+            for(const face of door.plaque.children)if(texture){face.material.map=texture;face.material.needsUpdate=true;}
+            door.plaque.scale.set(detail==='compact'?.62:1,detail==='compact'?.82:1,1);
+          }}}
         if(now-hudTime>250){hudTime=now;const p=toLocal(floor,position),near=nearestLink();const nearby=near&&Math.hypot(p[0]-near.p.x,p[1]-near.p.y)<4?near.link.id:null;
           const room=roomAt(p,props.current.rooms.filter(r=>r.level===floor));
           let closest=null;for(const door of doorLeaves){if(door.floor!==floor)continue;const distance=door.center.distanceTo(position);if(!closest||distance<closest.distance)closest={door,distance};}
           const nearRoom=closest&&closest.distance<6?closest.door.room:null;
           props.current.onPositionChange?.(snapshot());
-          setHud({floor,x:p[0],y:p[1],nearby,yaw,room:room?roomName(room,props.current.lang):null,detail:room||nearRoom,inside:!!room,doorDistance:closest?.distance,fps:measuredFps,onStair:!!onStair});
+          setHud({floor,x:p[0],y:p[1],nearby,yaw,room:room?roomName(room,props.current.lang):null,detail:room||nearRoom,inside:!!room,doorDistance:closest?.distance,fps:measuredFps,cameraTight:thirdPerson.current&&!!cameraState?.firstPerson,onStair:!!onStair});
         }
         for(const door of doorLeaves){if(!door.frame.visible)continue;const close=door.floor===floor&&position.distanceToSquared(door.center)<2.4*2.4;door.pivot.rotation.y=THREE.MathUtils.lerp(door.pivot.rotation.y,close?door.angle:0,dampFactor(5,dt));}
         const quality=props.current.settings.quality||'auto';
@@ -321,6 +337,7 @@ export default function Walkthrough({rooms,floors,links,selected,lang,onOverview
     <div className="walk-top" style={{borderLeft:`6px solid ${{RDC:'#3f806a','R+1':'#416d9c','R+2':'#86659d'}[hud?.floor]||'#416d9c'}`}}><div><strong>{hud?.room||(fr?'Couloir / espace commun':'Corridor / shared space')}</strong><span>{hud?`${hud.floor} · x ${hud.x.toFixed(1)} m · y ${hud.y.toFixed(1)} m${hud.onStair?(fr?' · Dans l’escalier':' · On the stairs'):''}`:(fr?'Préparation du bâtiment…':'Preparing the building…')}</span></div><button className="ghost" onClick={onOverview}>{fr?'Sortir vers le plan 2D':'Return to 2D plan'}</button></div>
     <div className="walk-perspective" role="group" aria-label={fr?'Point de vue':'Viewpoint'}>{[['third',fr?'Personnage':'Character'],['first',fr?'Première personne':'First person']].map(([id,label])=><button key={id} aria-pressed={perspective===id} onClick={()=>{thirdPerson.current=id==='third';setPerspective(id);}}>{label}</button>)}</div>
     {hud?.detail&&<aside className="walk-room-info" style={{borderTopColor:ROOM_COLORS[hud.detail.type]||ROOM_COLORS.other}}><small>{hud.inside?(fr?'VOUS ÊTES DANS':'YOU ARE IN'):(fr?'À PROXIMITÉ':'NEARBY')}</small><strong>{roomName(hud.detail,lang)}</strong><span>{TYPE_LABEL[lang][hud.detail.type]} · {hud.floor}{!hud.inside&&hud.doorDistance?` · ${hud.doorDistance.toFixed(1)} m`:''}</span><p>{hud.detail[`description_${lang}`]}</p><div>{hud.detail.area_plan_m2?`${hud.detail.area_plan_m2} m²`:''}{hud.detail.capacity?` · ${hud.detail.demo_data?'DEMO · ':''}${hud.detail.capacity} ${fr?'places':'seats'}`:''}</div><RoomPracticalInfo room={hud.detail} lang={lang}/><button className="ghost" onClick={()=>mapProps?.onEditRoom(hud.detail)}>{fr?'Modifier les informations':'Edit room information'}</button><small>{hud.detail.verified_on_site?(fr?'Vérifié sur place':'Verified on site'):(fr?'Informations issues du plan':'Information from the plan')}</small></aside>}
+    {hud?.cameraTight&&<div className="walk-camera-notice" role="status">{fr?'Caméra rapprochée automatiquement : espace étroit':'Camera moved in automatically: tight space'}</div>}
     {settings.showPerformance&&hud&&<div className="walk-performance">{hud.fps||'…'} FPS · {settings.quality||'auto'}</div>}
     <div className="walk-crosshair" aria-hidden="true">+</div>
     {hud&&mapProps&&<ImmersivePlan hud={hud} mapProps={mapProps} onTeleport={(lv,p)=>api.current?.teleport(lv,p)} onWalk={(lv,p)=>api.current?.walkTo(lv,p)}/>}

@@ -1,0 +1,6 @@
+import {useEffect,useRef,useState} from 'react';
+export default function GuideDialogue({guide,lang,onRead,onRoute,onClose}){
+ const ref=useRef(null),[choice,setChoice]=useState(null),fr=lang==='fr';
+ useEffect(()=>{const previous=document.activeElement;ref.current.showModal();return()=>previous?.focus();},[]);
+ return <dialog ref={ref} className="room-editor quick-help" aria-labelledby="virtual-guide-title" onCancel={e=>{e.preventDefault();onClose();}}><header><h2 id="virtual-guide-title">{guide[lang]}</h2><button className="ghost" onClick={onClose} aria-label={fr?'Fermer':'Close'}>×</button></header><div className="room-editor-body"><p>{guide['intro_'+lang]}</p><p className="hint">{fr?'Personnage fictif ; sa position dans le jeu est illustrative. Une réponse consultée valide l’étape de dialogue.':'Fictional character; its game placement is illustrative. Reading an answer completes the dialogue step.'}</p><div className="actions">{guide.choices.map(c=><button className="ghost" key={c.id} onClick={()=>{setChoice(c);onRead(guide.id);}}>{c[lang]}</button>)}</div>{choice&&<p role="status">{choice['answer_'+lang]}</p>}<button className="primary" onClick={()=>{onClose();onRoute(guide.roomId);}}>{fr?'Voir la fiche et le trajet':'View room and route'}</button></div></dialog>;
+}

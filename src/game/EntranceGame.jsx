@@ -1,22 +1,23 @@
+import {placeVirtualGuides,nearbyVirtualGuide} from './virtualGuides.js';
 import {useEffect,useRef,useState} from 'react';
 import {DIRECTIONS} from './rdc-world.js';
 import {compileRoom,canOccupy,moveInRoom,portalAt,fixtureDistance} from './authored-world.js';
 const loadImage=src=>new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(new Error(src));image.src=src;});
-export default function EntranceGame({lang,onProgress,initialProgress,onPosition}){
- const canvas=useRef(null),progress=useRef(onProgress),positionCallback=useRef(onPosition);progress.current=onProgress;positionCallback.current=onPosition;
- const [status,setStatus]=useState('loading'),[current,setCurrent]=useState('Sas d’entrée'),[hint,setHint]=useState(null);
+export default function EntranceGame({lang,onProgress,initialProgress,onPosition,onTalkGuide}){
+ const canvas=useRef(null),progress=useRef(onProgress),positionCallback=useRef(onPosition),talkCallback=useRef(onTalkGuide);talkCallback.current=onTalkGuide;progress.current=onProgress;positionCallback.current=onPosition;
+ const [status,setStatus]=useState('loading'),[current,setCurrent]=useState('Sas d’entrée'),[hint,setHint]=useState(null),[nearGuide,setNearGuide]=useState(null);
  const fr=lang==='fr';
  useEffect(()=>{
   const el=canvas.current,ctx=el.getContext('2d'),abort=new AbortController(),keys=new Set(),visited=new Set(initialProgress?.visited||[]),opened=new Set(initialProgress?.opened||[]);
-  let disposed=false,raf,layout,room,player,images,decorImages,last=0,clock=0,distance=(initialProgress?.steps||0)*24,direction='up',arrival=null,flash=0,signature='',hintId='';
+  let disposed=false,raf,layout,room,player,images,decorImages,last=0,clock=0,distance=(initialProgress?.steps||0)*24,direction='up',arrival=null,flash=0,signature='',hintId='',virtualGuides=[],currentGuide=null;
   function safeSpawn(target,p){
    if(canOccupy(target,{x:p[0],y:p[1]}))return p;
    for(let radius=2;radius<100;radius+=2)for(let n=0;n<32;n++){const q=[p[0]+Math.cos(n*Math.PI/16)*radius,p[1]+Math.sin(n*Math.PI/16)*radius];if(canOccupy(target,{x:q[0],y:q[1]}))return q;}
    throw Error('No safe arrival '+target.id);
   }
-  function enter(id,p,door=null){room=layout.rooms.find(r=>r.id===id);const at=safeSpawn(room,p);player={x:at[0],y:at[1]};arrival=door;visited.add(id);keys.clear();flash=.16;setCurrent(room.name);}
+  function enter(id,p,door=null){room=layout.rooms.find(r=>r.id===id);const at=safeSpawn(room,p);player={x:at[0],y:at[1]};arrival=door;visited.add(id);keys.clear();flash=.16;setCurrent(room.name);positionCallback.current?.({floor:'RDC',x:at[0]/layout.scale,y:35-at[1]/layout.scale,yaw:0,pitch:0});}
   async function setup(){
-   const response=await fetch('/game/maps/rdc-dungeon.json',{signal:abort.signal});if(!response.ok)throw Error('map');layout=await response.json();layout.rooms=layout.rooms.map(compileRoom);
+   const response=await fetch('/game/maps/rdc-dungeon.json',{signal:abort.signal});if(!response.ok)throw Error('map');layout=await response.json();layout.rooms=layout.rooms.map(compileRoom);virtualGuides=placeVirtualGuides(layout);
    images=await Promise.all(['idle_32x32_2.png','run_horizontal_32x32_2.png','Wood Tile Pattern 1.png','Wooden Door 32x32 (Front).png','Wooden Door 32x32 (Side).png','elevator.png','Wooden Door (Front) 1.png','Wooden Door (Front) 2.png','Sliding Door R1.png','Sliding Door L1.png','Sliding Door 32x32 (Side).png'].map(name=>loadImage('/game/tilesets/'+encodeURIComponent(name))));
    const decorNames=['noticeboard','plant','computer','stationery','bench-back','desk','chair','bin','amelia'];
    decorImages=Object.fromEntries(await Promise.all(decorNames.map(async name=>[name,await loadImage('/game/decor/'+name+'.png')])));
@@ -36,6 +37,7 @@ export default function EntranceGame({lang,onProgress,initialProgress,onPosition
    if(portal){const target=layout.rooms.find(r=>r.id===portal.target),back=target.doors.find(d=>d.id===portal.id);opened.add(portal.id);enter(target.id,back.at,portal.id);}
    const near=room.doors.filter(d=>Math.hypot(player.x-d.at[0],player.y-d.at[1])<55).sort((a,b)=>Math.hypot(player.x-a.at[0],player.y-a.at[1])-Math.hypot(player.x-b.at[0],player.y-b.at[1]))[0];
    const fixture=(room.fixtures||[]).find(f=>['stairs','elevator-panel','npc'].includes(f.kind)&&fixtureDistance(f,player)<34);
+   const guide=nearbyVirtualGuide(virtualGuides,room,player);if(guide?.id!==currentGuide?.id){currentGuide=guide;setNearGuide(guide);}
    const nextHint=fixture?{id:fixture.id,kind:fixture.kind,name:fixture.label}:room.kind==='elevator'?{id:'elevator-info',kind:'elevator'}:near?{id:near.id,inactive:near.inactive,name:layout.rooms.find(r=>r.id===near.target)?.name}:null;
    if((nextHint?.id||'')!==hintId){hintId=nextHint?.id||'';setHint(nextHint);}
    const report=[room.id,Math.floor(distance/24),visited.size].join(':');if(report!==signature){signature=report;progress.current({steps:Math.floor(distance/24),zone:room.id,roomName:room.name,visited:[...visited],opened:[...opened],total:layout.rooms.length,position:[player.x,player.y],roomIds:room.roomIds||[],rooms:layout.rooms.map(r=>({id:r.id,name:r.name,roomIds:r.roomIds||[]}))});}
@@ -95,11 +97,14 @@ export default function EntranceGame({lang,onProgress,initialProgress,onPosition
      ctx.drawImage(decorImages[f.asset],f.frame*16,0,16,32,x,y,w,h);
     }else ctx.drawImage(decorImages[f.asset],x,y,w,h);
    }}));
+   for(const guide of virtualGuides.filter(g=>g.zone===room.id))objects.push({depth:guide.y,draw:()=>{
+    ctx.fillStyle='#d6f2eb';ctx.strokeStyle='#28695a';ctx.lineWidth=2;ctx.beginPath();ctx.arc(guide.x,guide.y-12,12,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle='#28695a';ctx.beginPath();ctx.moveTo(guide.x,guide.y-23);ctx.lineTo(guide.x+5,guide.y-6);ctx.lineTo(guide.x,guide.y-10);ctx.lineTo(guide.x-5,guide.y-6);ctx.closePath();ctx.fill();ctx.font='10px monospace';ctx.textAlign='center';ctx.fillText(lang==='fr'?'Guide virtuel':'Virtual guide',guide.x,guide.y-31);ctx.textAlign='start';
+   }});
    objects.push({depth:player.y,draw:drawPlayer});objects.sort((a,b)=>a.depth-b.depth);for(const object of objects)object.draw();
    ctx.restore();if(flash){ctx.fillStyle=`rgba(16,25,35,${flash*3})`;ctx.fillRect(0,0,768,576);}
   }
   const movement=['arrowup','arrowdown','arrowleft','arrowright','z','q','s','d','w','a'];
-  function down(e){const k=e.key.toLowerCase();if(movement.includes(k)){e.preventDefault();keys.add(k);}}
+  function down(e){const k=e.key.toLowerCase();if(k==='e'&&currentGuide){e.preventDefault();keys.clear();talkCallback.current?.(currentGuide.id);return;}if(movement.includes(k)){e.preventDefault();keys.add(k);}}
   function up(e){keys.delete(e.key.toLowerCase());}const clear=()=>keys.clear();
   el.addEventListener('keydown',down);el.addEventListener('keyup',up);el.addEventListener('blur',clear);window.addEventListener('blur',clear);
   setup().catch(e=>{if(!disposed&&e.name!=='AbortError')setStatus('error');});
@@ -109,5 +114,5 @@ export default function EntranceGame({lang,onProgress,initialProgress,onPosition
  <div className="entrance-canvas-wrap"><canvas ref={canvas} width="768" height="576" tabIndex={0} onPointerDown={()=>canvas.current.focus()} aria-label={fr?'ZQSD ou flèches pour marcher. Portes automatiques.':'WASD or arrows to walk. Automatic door transitions.'}/>
  {status!=='ready'&&<div className="entrance-overlay">{status==='error'?(fr?'Chargement impossible. Relancez npm run data puis rechargez.':'Could not load the map. Run npm run data and reload.'):(fr?'Chargement…':'Loading…')}</div>}
  {status==='ready'&&hint&&<div className="entrance-door-hint">{hint.kind==='stairs'?(fr?'Escalier · R+1 indisponible pour le moment':'Stairs · R+1 is not available yet'):hint.kind==='elevator'||hint.kind==='elevator-panel'?(fr?'Ascenseur · RDC · R+1 indisponible pour le moment':'Elevator · Ground floor · R+1 is not available yet'):hint.inactive?(fr?'Sortie extérieure · inactive':'Exterior exit · inactive'):hint.name}</div>}
- </div><p className="entrance-controls">{fr?'Cliquez dans le jeu · ZQSD / flèches : marcher · Portes : passage automatique':'Click the game · WASD / arrows: walk · Doors: automatic passage'}</p></div>;
+ </div>{nearGuide&&<button className="primary" onClick={()=>talkCallback.current?.(nearGuide.id)}>{fr?"Parler au guide proche (E)":"Talk to nearby guide (E)"}</button>}<p className="entrance-controls">{fr?'Cliquez dans le jeu · ZQSD / flèches : marcher · Portes : passage automatique':'Click the game · WASD / arrows: walk · Doors: automatic passage'}</p></div>;
 }

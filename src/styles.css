@@ -1011,3 +1011,7 @@ html[data-reduced-motion=true] *,html[data-reduced-motion=true] *::before,html[d
 .ensii-map-svg [role="button"]:focus-visible{outline:none;stroke:#153c73;stroke-width:.3}.ensii-map-svg g[role="button"]:focus-visible path{stroke:#153c73;stroke-width:.3}
 
 .modern-filters:not(.is-open){visibility:hidden;pointer-events:none}
+
+.walk-camera-notice{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);max-width:40%;padding:7px 10px;border-radius:8px;background:#fffef2ed;color:#334b54;font-size:11px;pointer-events:none}
+
+.shared-missions{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:10px 14px;font-size:12px;line-height:1.6}.shared-missions summary{cursor:pointer;font-weight:650}.shared-missions[open]{flex-basis:100%;max-height:38vh;overflow:auto}.shared-missions article{padding:12px 0;border-bottom:1px solid var(--line)}.adventure .shared-missions[open]{max-height:55vh}.adventure-reveal{margin:12px 0}.adventure-reveal img{display:block;width:100%;height:auto;background:white;border:1px solid var(--line)}.adventure-reveal figcaption{font-size:11px;line-height:1.5}

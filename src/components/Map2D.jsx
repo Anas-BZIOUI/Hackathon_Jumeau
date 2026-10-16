@@ -25,6 +25,7 @@ export default function Map2D({
   level,
   selectedId,
   startId,
+  virtualStart=null,
   endId,
   route,
   routeStatus='idle',
@@ -62,7 +63,7 @@ export default function Map2D({
     [rooms, level],
   );
   const selected = levelRooms.find((r) => r.id === selectedId);
-  const departure = rooms.find((r) => r.id === startId);
+  const departure = virtualStart?{id:'virtual-start',level:virtualStart.floor,centroid:[virtualStart.x,virtualStart.y],name_fr:'Position virtuelle',name_en:'Virtual position'}:rooms.find((r) => r.id === startId);
   const arrival = rooms.find((r) => r.id === endId);
   const active =
     activeActivities instanceof Set
@@ -439,7 +440,8 @@ export default function Map2D({
           <button
             type="button"
             onClick={onSwapRoute}
-            disabled={!startId || !endId}
+            disabled={!!virtualStart || !startId || !endId}
+            title={virtualStart?(fr?"Choisissez un départ dans une salle pour inverser":"Choose a room start to swap this route"):undefined}
           >
             {fr?'⇅ Inverser':'⇅ Swap'}
           </button>

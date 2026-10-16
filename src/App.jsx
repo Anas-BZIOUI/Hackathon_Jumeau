@@ -1,3 +1,4 @@
+import {validGuideReads} from './discoveryMissions.js';
 import {loadDataset} from './dataset.js';
 import { useEffect, useMemo, useState, useRef, lazy, Suspense, useCallback } from "react";
 import SimulationView from './components/SimulationView.jsx';
@@ -14,7 +15,7 @@ import {
 import Map2D from './components/Map2D.jsx';
 const Map3D=lazy(()=>import('./components/Map3D.jsx'));
 const Walkthrough=lazy(()=>import('./components/Walkthrough.jsx'));
-import {routeProgress} from './guidance.js';
+import {rerouteOrigin} from './guidance.js';
 import RouteGuide from './components/RouteGuide.jsx';
 import VisitTools from './components/VisitTools.jsx';
 import {withDemoRooms} from './demoRooms.js';
@@ -63,6 +64,8 @@ export default function App() {
   const [tourStep, setTourStep] = useSaved("ensiie-tour-step", 0, v=>Number.isInteger(v)&&v>=0);
   const [tourPaused,setTourPaused]=useSaved('ensiie-tour-paused',false,v=>typeof v==='boolean');
   const [discovered,setDiscovered]=useSaved('ensiie-discovered-rooms',[],v=>Array.isArray(v)&&v.every(x=>typeof x==='string'));
+  const [readGuides,setReadGuides]=useSaved('ensiie-game-guide-dialogues',[],validGuideReads);
+  const recordGuideRead=id=>setReadGuides(prev=>prev.includes(id)?prev:[...prev,id]);
   const [favorites,setFavorites]=useSaved('ensiie-favorites',[],v=>Array.isArray(v)&&v.every(x=>typeof x==='string'));
   const [recents,setRecents]=useSaved('ensiie-recents',[],v=>Array.isArray(v)&&v.every(x=>typeof x==='string'));
   const [settings,setSettings]=useSaved('ensiie-settings',{reducedMotion:false,sensitivity:.004,cameraDistance:3.5,invertY:false,quality:'auto',outfit:'#347b91'},v=>v&&typeof v.reducedMotion==='boolean'&&v.sensitivity>=.001&&v.sensitivity<=.01&&v.cameraDistance>=1&&v.cameraDistance<=6&&typeof v.invertY==='boolean'&&['auto','low','high'].includes(v.quality)&&/^#[0-9a-f]{6}$/i.test(v.outfit));
@@ -230,13 +233,15 @@ export default function App() {
     const sync=()=>{const h=parseHash();setView(h.view);setSelectedId(h.roomId||h.toId);setStartId(h.fromId);setEndId(h.toId);setVirtualStart(null);const r=rooms.find(r=>r.id===(h.roomId||h.toId));if(r)setLevel(r.level);};
     window.addEventListener('hashchange',sync);return()=>window.removeEventListener('hashchange',sync);
   },[rooms]);
-  const offRoute=mode==='walk'&&route&&playerPosition&&!playerPosition.stairLink&&routeProgress(route,playerPosition)?.offRoute;
+  const offRoute=!!rerouteOrigin(route,playerPosition,{enabled:mode==='walk'&&settings.autoReroute!==false,status:routeStatus});
   useEffect(()=>{
-    if(mode!=='walk'||!route||!endId||!playerPosition||playerPosition.stairLink||routeStatus==='routing')return;
-    if(!routeProgress(route,playerPosition)?.offRoute)return;
-    const timer=setTimeout(()=>setVirtualStart({...lastPosition.current}),900);
+    if(!offRoute||!endId)return;
+    const timer=setTimeout(()=>{
+      const origin=rerouteOrigin(route,lastPosition.current,{enabled:mode==='walk'&&settings.autoReroute!==false,status:routeStatus});
+      if(origin)setVirtualStart(origin);
+    },900);
     return()=>clearTimeout(timer);
-  },[mode,route,endId,!!offRoute,routeStatus]);
+  },[mode,route,endId,offRoute,routeStatus,settings.autoReroute]);
   const requestRoomRoute=useCallback((from,to)=>{if(!routingWorker.current)return Promise.resolve(null);const id='walk-'+(++walkRequestId.current);return new Promise(resolve=>{walkRequests.current.set(id,resolve);routingWorker.current.postMessage({type:'route',id,from,to,stepFree:false});});},[]);
   function runAudit(){
     auditWorker.current?.terminate();const worker=new Worker(new URL('./routing.worker.js',import.meta.url),{type:'module'});auditWorker.current=worker;setAuditStatus('running');
@@ -255,7 +260,7 @@ export default function App() {
   };
 
   const currentTour = tours.find((x) => x.id === tourId && x.steps[tourStep]);
-  const mapProps={accessibilityLens:!!settings.accessibilityLens,onEditRoom:room=>setEditingRoomId(room.id),onLocatePosition:setLevel,rooms,activeActivities:acts,typeFilter,floors:data.floors,links:sceneData.links,zones:data.zones,level,selectedId,startId,endId,route,routeStatus,onSelect:selectRoom,synonyms:data.synonyms,onClearSelection:closeRoomDetails,
+  const mapProps={accessibilityLens:!!settings.accessibilityLens,onEditRoom:room=>setEditingRoomId(room.id),onLocatePosition:setLevel,rooms,activeActivities:acts,typeFilter,floors:data.floors,links:sceneData.links,zones:data.zones,level,selectedId,startId,virtualStart,endId,route,routeStatus,onSelect:selectRoom,synonyms:data.synonyms,onClearSelection:closeRoomDetails,
     onUseAsStart:id=>{setVirtualStart(null);setStartId(id);if(id===endId)setEndId(null);},
     onUseAsEnd:id=>{setEndId(id);if(id===startId)setStartId(null);},
     onClearRoute:()=>{setVirtualStart(null);setStartId(null);setEndId(null);},onSwapRoute:()=>{setVirtualStart(null);setStartId(endId);setEndId(startId);},lang};
@@ -356,7 +361,7 @@ export default function App() {
       {helpOpen&&<QuickHelp lang={lang} onClose={()=>setHelpOpen(false)}/>}
       {editingRoomId&&rooms.find(r=>r.id===editingRoomId)&&<RoomDetailsEditor key={editingRoomId} room={recordedRooms.find(r=>r.id===editingRoomId)} baseRooms={data.rooms} details={roomDetails} lang={lang} onClose={()=>setEditingRoomId(null)} onSave={next=>{const checked=validateRoomDetails(next,data.rooms);try{localStorage.setItem(ROOM_DETAILS_KEY,JSON.stringify(checked));}catch{throw Error('storage');}setRoomHistory(prev=>[roomDetails,...prev].slice(0,20));setRoomDetails(checked);}}/>}
       {view === 'adventure' ? (
-        <AdventureView discovered={discovered} onDiscover={ids=>setDiscovered(prev=>ids.every(id=>prev.includes(id))?prev:[...new Set([...prev,...ids])])} persona={persona} onPosition={p=>{lastPosition.current=p;setPlayerPosition(p);}} onSelect={id=>{selectRoom(id);setView('guide');setMode('map2d');}} onGuide={id=>{selectRoom(id);setView('guide');setMode('map2d');setEndId(id);if(!startId)setStartId('RDC-011');}} t={t} lang={lang} selected={selected} level={level} rooms={rooms} />
+        <AdventureView readGuides={readGuides} onReadGuide={recordGuideRead} discovered={discovered} onDiscover={ids=>setDiscovered(prev=>ids.every(id=>prev.includes(id))?prev:[...new Set([...prev,...ids])])} persona={persona} onPosition={p=>{lastPosition.current=p;setPlayerPosition(p);setLevel(p.floor);}} onSelect={id=>{selectRoom(id);setView('guide');setMode('map2d');}} onGuide={id=>{selectRoom(id);setView('guide');setMode('map2d');setEndId(id);if(!startId)setStartId('RDC-011');}} t={t} lang={lang} selected={selected} level={level} rooms={rooms} />
       ) : (
         <div className={`workspace modern-workspace mode-${mode} ${selected?'has-selection':'no-selection'}`}>
           <aside
@@ -524,7 +529,7 @@ export default function App() {
             </div>
 
             <div className="visit-tools-row">{roomHistory.length>0&&<button className="ghost" onClick={()=>{try{const previous=validateRoomDetails(roomHistory[0],data.rooms);localStorage.setItem(ROOM_DETAILS_KEY,JSON.stringify(previous));setRoomDetails(previous);setRoomHistory(roomHistory.slice(1));}catch{setRoomHistory([]);}}}>{lang==='fr'?'Annuler la dernière modification des fiches':'Undo last room edit'}</button>}
-            <VisitTools tourRoomIds={currentTour?.steps.map(s=>s.roomId)||[]} discovered={discovered} onDiscover={id=>setDiscovered(prev=>prev.includes(id)?prev:[...prev,id])} rooms={rooms} selected={selected} lang={lang} favorites={favorites} recents={recents} onFavorite={id=>setFavorites(prev=>prev.includes(id)?prev.filter(x=>x!==id):[...prev,id])} onSelect={selectRoom} onLocate={id=>{setVirtualStart(null);setStartId(id);}} onTutorial={()=>setHelpOpen(true)} settings={settings} onSettings={setSettings} tour={currentTour&&tourRoom?{title:currentTour['title_'+lang],objective:currentTour['objective_'+lang],index:tourStep,total:currentTour.steps.length,text:currentTour.steps[tourStep]['text_'+lang],verified:!!tourRoom.verified_on_site,paused:tourPaused,arrived:tourReached}:null} onPause={()=>setTourPaused(!tourPaused)} onPrevious={()=>setTourStep(s=>Math.max(0,s-1))} onAdvance={advanceTour} onStop={()=>{setTourId(null);setTourStep(0);}}/></div>
+            <VisitTools readGuides={readGuides} onReadGuide={recordGuideRead} onMissionRoute={id=>{selectRoom(id);setEndId(id);if(!startId&&!virtualStart)setStartId('RDC-011');}} tourRoomIds={currentTour?.steps.map(s=>s.roomId)||[]} discovered={discovered} onDiscover={id=>setDiscovered(prev=>prev.includes(id)?prev:[...prev,id])} rooms={rooms} selected={selected} lang={lang} favorites={favorites} recents={recents} onFavorite={id=>setFavorites(prev=>prev.includes(id)?prev.filter(x=>x!==id):[...prev,id])} onSelect={selectRoom} onLocate={id=>{setVirtualStart(null);setStartId(id);}} onTutorial={()=>setHelpOpen(true)} settings={settings} onSettings={setSettings} tour={currentTour&&tourRoom?{title:currentTour['title_'+lang],objective:currentTour['objective_'+lang],index:tourStep,total:currentTour.steps.length,text:currentTour.steps[tourStep]['text_'+lang],verified:!!tourRoom.verified_on_site,paused:tourPaused,arrived:tourReached}:null} onPause={()=>setTourPaused(!tourPaused)} onPrevious={()=>setTourStep(s=>Math.max(0,s-1))} onAdvance={advanceTour} onStop={()=>{setTourId(null);setTourStep(0);}}/></div>
             {mode === "map2d" && (
               <Map2D {...mapProps} position={playerPosition} onVisit={enterRoom}/>
             )}
@@ -568,7 +573,7 @@ export default function App() {
                   ? (lang==='fr'?'Départ':'Start')+' : '+(virtualStart?(lang==='fr'?'position virtuelle':'virtual position'):(rooms.find(r=>r.id===startId)?.number||startId))+' → '+(rooms.find(r=>r.id===endId)?.number||endId)+' · '+(route?route.metres+' m · '+route.minutes+' min · '+(lang==='fr'?'estimations du modèle':'model estimates'):routeStatus==='routing'?(lang==='fr'?'Calcul en cours…':'Calculating…'):(lang==='fr'?'Aucun passage trouvé dans le modèle actuel.':'No passage found in the current model.'))
                   : lang==='fr'?'Choisissez un départ et une destination.':'Choose a start and a destination.'}
               </span>
-              <RouteGuide route={route} position={mode==='walk'?playerPosition:null} lang={lang} onResume={()=>{if(lastPosition.current)setVirtualStart({...lastPosition.current});}}/>
+              <RouteGuide route={route} position={playerPosition} lang={lang} onResume={()=>{if(lastPosition.current)setVirtualStart({...lastPosition.current});}}/>
               {route&&stepFree&&<span className="badge">{t.stepFree}</span>}
             </div>
           </main>
