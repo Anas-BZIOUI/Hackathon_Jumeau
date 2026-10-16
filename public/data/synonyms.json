@@ -3,20 +3,29 @@
     "imprimer",
     "photocopie",
     "reprographie",
-    "printer"
+    "printer",
+    "printing",
+    "photocopier",
+    "scan",
+    "scanner"
   ],
   "eat": [
     "manger",
     "restaurant",
     "cafet",
     "foyer",
-    "cuisine"
+    "cuisine",
+    "food",
+    "lunch",
+    "cafeteria"
   ],
   "toilets": [
     "wc",
     "toilettes",
     "sanitaires",
-    "bathroom"
+    "bathroom",
+    "restroom",
+    "washroom"
   ],
   "lift": [
     "ascenseur",
@@ -27,13 +36,18 @@
     "associations",
     "assos",
     "club",
-    "foyer"
+    "foyer",
+    "student club",
+    "student society"
   ],
   "admin": [
     "scolarité",
     "secrétariat",
     "accueil",
-    "administration"
+    "administration",
+    "student services",
+    "registrar",
+    "reception"
   ],
   "lab": [
     "tp",
@@ -49,7 +63,9 @@
   "meeting": [
     "réunion",
     "meeting",
-    "entreprises"
+    "entreprises",
+    "business",
+    "conference room"
   ],
   "amphi": [
     "amphithéâtre",

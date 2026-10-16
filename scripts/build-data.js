@@ -81,7 +81,7 @@ function classify(libelle, numero, programme) {
       type: 'office',
       activities: ['companies', 'teaching'],
       audience: 'all',
-      keywords: ['réunion', 'meeting', 'entreprises']
+      keywords: ['réunion', 'meeting', 'entreprises', 'business', 'conference room']
     };
   }
   if (/scolarité|archives rh|accueil|comptabilité|courrier/.test(t)) {
@@ -543,15 +543,15 @@ const metro = {
 };
 
 const synonyms = {
-  print: ['imprimer', 'photocopie', 'reprographie', 'printer'],
-  eat: ['manger', 'restaurant', 'cafet', 'foyer', 'cuisine'],
-  toilets: ['wc', 'toilettes', 'sanitaires', 'bathroom'],
+  print: ['imprimer', 'photocopie', 'reprographie', 'printer', 'printing', 'photocopier', 'scan', 'scanner'],
+  eat: ['manger', 'restaurant', 'cafet', 'foyer', 'cuisine', 'food', 'lunch', 'cafeteria'],
+  toilets: ['wc', 'toilettes', 'sanitaires', 'bathroom', 'restroom', 'washroom'],
   lift: ['ascenseur', 'elevator', 'pmr'],
-  clubs: ['associations', 'assos', 'club', 'foyer'],
-  admin: ['scolarité', 'secrétariat', 'accueil', 'administration'],
+  clubs: ['associations', 'assos', 'club', 'foyer', 'student club', 'student society'],
+  admin: ['scolarité', 'secrétariat', 'accueil', 'administration', 'student services', 'registrar', 'reception'],
   lab: ['tp', 'labo', 'laboratoire', 'platech', 'c53'],
   sport: ['gym', 'salle de sport'],
-  meeting: ['réunion', 'meeting', 'entreprises'],
+  meeting: ['réunion', 'meeting', 'entreprises', 'business', 'conference room'],
   amphi: ['amphithéâtre', 'lecture', 'conférence'],
   classroom: ['td', 'cours', 'salle'],
   entrance: ['entrée', 'accueil', 'sas']

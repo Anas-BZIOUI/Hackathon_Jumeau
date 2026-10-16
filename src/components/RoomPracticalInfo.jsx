@@ -3,6 +3,7 @@ import RoomQR from './RoomQR.jsx';
 export default function RoomPracticalInfo({room,lang}){
  const fr=lang==='fr';
  return <div className="room-practical-info">
+  {room.demo_data&&<p className="demo-data-warning" role="note">{fr?"EXEMPLE FICTIF — capacité, équipements et horaires inventés pour la démonstration.":"FICTIONAL EXAMPLE — capacity, equipment and hours invented for the demo."}</p>}
   <RoomQR room={room} lang={lang}/>
   {room.equipment?.length>0&&<p><strong>{fr?'Équipement':'Equipment'}</strong><br/>{room.equipment.join(' · ')}</p>}
   {room.opening_hours&&<p><strong>{fr?'Horaires / accès':'Hours / access'}</strong><br/>{room.opening_hours}</p>}

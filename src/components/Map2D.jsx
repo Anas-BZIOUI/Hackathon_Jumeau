@@ -270,6 +270,8 @@ export default function Map2D({
           return (
             <g
               key={r.id}
+              role="button" tabIndex={0} aria-label={`${roomName(r,lang)} · ${level}`} aria-pressed={isSelected}
+              onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();selectRoom(r);}}}
               onPointerEnter={() => setHovered(r.id)}
               onPointerLeave={() => setHovered(null)}
               onClick={(e) => {
@@ -391,6 +393,8 @@ export default function Map2D({
             .map((r) => (
               <circle
                 key={r.id}
+                role="button" tabIndex={0} aria-label={`${roomName(r,lang)} · ${level}`}
+                onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();selectRoom(r);}}}
                 cx={r.centroid[0]}
                 cy={size[1] - r.centroid[1]}
                 r=".28"
@@ -415,7 +419,7 @@ export default function Map2D({
             <small>{fr?'Départ':'Start'}</small>
             <strong>
               {departure
-                ? `${departure.number || ""} · ${roomName(departure, lang)}`
+                ? roomName(departure, lang)
                 : (fr?"Choisir une salle":"Choose a room")}
             </strong>
           </span>
@@ -426,7 +430,7 @@ export default function Map2D({
             <small>{fr?'Arrivée':'Destination'}</small>
             <strong>
               {arrival
-                ? `${arrival.number || ""} · ${roomName(arrival, lang)}`
+                ? roomName(arrival, lang)
                 : (fr?"Choisir une salle":"Choose a room")}
             </strong>
           </span>
@@ -457,16 +461,14 @@ export default function Map2D({
         {route?.arrivalAtDoor&&<p className="ensii-route-note">{fr?'Arrivée à une porte de la salle.':'Arrival at a room doorway.'}</p>}
         {departure && arrival && departure.level !== arrival.level && (
           <p className="ensii-route-note">
-            {fr?'Changement d’étage':'Floor change'} : {departure.level} → {arrival.level} (liaison à
-            vérifier).
+            {fr?'Changement d’étage':'Floor change'} : {departure.level} → {arrival.level} ({fr?"liaison à vérifier":"connection unverified"}).
           </p>
         )}
       </section>
       <div className="ensii-floor-card">
         <strong>{title}</strong>
         <span>
-          {matchingCount} / {levelRooms.length} espaces correspondants · plan
-          architectural
+          {matchingCount} / {levelRooms.length} {fr?"espaces correspondants · plan architectural":"matching spaces · architectural plan"}
         </span>
       </div>
       <div className="ensii-map-controls" aria-label={fr?'Commandes de la carte':'Map controls'}>
@@ -504,13 +506,13 @@ export default function Map2D({
       <div className="ensii-modern-legend">
         <strong>{fr?'Légende':'Legend'}</strong>
         <span>
-          <i className="ensii-legend-dot selected" /> Salle sélectionnée
+          <i className="ensii-legend-dot selected" /> {fr?"Salle sélectionnée":"Selected room"}
         </span>
         {[
-          ["teaching", "Enseignement"],
-          ["research", "Recherche"],
-          ["student_life", "Vie étudiante"],
-          ["companies", "Entreprises"],
+          ["teaching", fr?"Enseignement":"Teaching"],
+          ["research", fr?"Recherche":"Research"],
+          ["student_life", fr?"Vie étudiante":"Student life"],
+          ["companies", fr?"Entreprises":"Companies"],
         ].map(([key, label]) => (
           <span key={key} style={{ opacity: active.has(key) ? 1 : 0.35 }}>
             <i
@@ -529,7 +531,7 @@ export default function Map2D({
               borderRadius: "50%",
             }}
           />{" "}
-          Position sans contour
+          {fr?"Position sans contour":"Position without outline"}
         </span>
         <label>
           <input
@@ -537,7 +539,7 @@ export default function Map2D({
             checked={showLabels}
             onChange={(e) => setShowLabels(e.target.checked)}
           />{" "}
-          Positions seules
+          {fr?"Positions seules":"Label positions"}
         </label>
       </div>
       {planError && (
@@ -552,7 +554,7 @@ export default function Map2D({
               autoFocus
               value={term}
               onChange={(e) => setTerm(e.target.value)}
-              placeholder="Numéro ou nom de salle…"
+              placeholder={fr?"Numéro ou nom de salle…":"Room number or name…"}
             />
             <div className="ensii-search-results">
               {matches.map((r) => (
@@ -592,7 +594,7 @@ export default function Map2D({
           >
             ×
           </button>
-          <span className="ensii-sheet-tag">Espace · {title}</span>
+          <span className="ensii-sheet-tag">{fr?"Espace":"Space"} · {title}</span>
           <h2>{selected.number || roomName(selected, lang)}</h2>
           <p className="ensii-sheet-subtitle">
             {roomLabel(selected,lang)}
@@ -626,7 +628,7 @@ export default function Map2D({
               selected.description_fr ||
               (fr?'Aucune description disponible.':'No description available.')}
           </p>
-          <div className="ensii-sheet-grid"><div><small>{lang==='fr'?'Capacité':'Capacity'}</small><strong>{selected.capacity??(selected.capacity_estimated?`${lang==='fr'?'Environ':'About'} ${selected.capacity_estimated}`:(lang==='fr'?'Inconnue':'Unknown'))}</strong></div><div><small>{lang==='fr'?'Qualité des données':'Data quality'}</small><strong>{selected.verified_on_site?(lang==='fr'?'Vérifié sur place':'Verified on site'):(lang==='fr'?'À vérifier sur place':'Not verified on site')}</strong></div></div>
+          <div className="ensii-sheet-grid"><div><small>{lang==='fr'?'Capacité':'Capacity'}</small><strong>{selected.demo_data?'DEMO · ':''}{selected.capacity??(selected.capacity_estimated?`${lang==='fr'?'Environ':'About'} ${selected.capacity_estimated}`:(lang==='fr'?'Inconnue':'Unknown'))}</strong></div><div><small>{lang==='fr'?'Qualité des données':'Data quality'}</small><strong>{selected.verified_on_site?(lang==='fr'?'Vérifié sur place':'Verified on site'):(lang==='fr'?'À vérifier sur place':'Not verified on site')}</strong></div></div>
           <div className="tags">{selected.activities?.map(a=><span className="tag" key={a} style={{background:ACTIVITY_COLORS[a]+'22'}}>{({teaching:lang==='fr'?'Enseignement':'Teaching',research:lang==='fr'?'Recherche':'Research',student_life:lang==='fr'?'Vie étudiante':'Student life',companies:lang==='fr'?'Entreprises':'Companies'})[a]}</span>)}</div>
           <p className="deeplink"><a href={`#/room/${encodeURIComponent(selected.id)}`}>{lang==='fr'?'Lien vers cette salle':'Link to this room'}</a></p>
           {accessibilityLens&&<p>{selected.accessible===true&&selected.verification?.fields?.includes('accessible')?(fr?'Accessibilité confirmée dans la fiche':'Accessibility confirmed in room details'):(fr?'Accessibilité non confirmée ou accès restreint : vérifier la fiche.':'Accessibility unconfirmed or access restricted: check room details.')}</p>}

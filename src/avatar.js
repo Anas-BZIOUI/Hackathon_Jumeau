@@ -28,7 +28,7 @@ export function createAvatar(initialHeading=0){
   const elbow=new THREE.Group();elbow.position.y=-.27;arm.add(elbow);capsule(elbow,.057,.15,'jacket',0,-.11,0);capsule(elbow,.06,.025,'skin',0,-.25,0);
   joints.push({side,leg,knee,arm,elbow});
  }
- let phase=0,blend=0,heading=initialHeading;
+ let phase=0,blend=0,heading=initialHeading,lastAppearance=null,lastOutfit=null;
  function update(dt,distance,targetHeading,reduced=false,climbing=false){
   const moving=distance>.0005&&distance<.5;blend+=((moving?1:0)-blend)*dampFactor(14,dt);
   if(moving){phase+=distance*8;heading=dampAngle(heading,targetHeading,14,dt);}
@@ -40,5 +40,5 @@ export function createAvatar(initialHeading=0){
    j.arm.rotation.x=reduced?0:-swing*.42;j.elbow.rotation.x=-.14-Math.max(0,swing)*.18;
   }
  }
- return {root,update,setOutfit:color=>{if(/^#[0-9a-f]{6}$/i.test(color||''))materials.jacket.color.set(color);}};
+ return {root,update,setAppearance:settings=>{if(lastAppearance===settings)return;lastAppearance=settings;for(const key of ['skin','hair','trousers'])if(/^#[0-9a-f]{6}$/i.test(settings[key]||''))materials[key].color.set(settings[key]);bag.visible=settings.backpack!==false;body.children.filter(o=>o.material===materials.bag).forEach(o=>o.visible=settings.backpack!==false);},setOutfit:color=>{if(lastOutfit===color)return;lastOutfit=color;if(/^#[0-9a-f]{6}$/i.test(color||''))materials.jacket.color.set(color);}};
 }

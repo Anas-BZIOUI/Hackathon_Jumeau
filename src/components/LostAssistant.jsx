@@ -1,5 +1,6 @@
 import {useEffect,useRef,useState} from 'react';
 import {searchRooms,roomName} from '../core.js';
+import {nearbyLandmarks} from '../landmarks.js';
 export default function LostAssistant({rooms,lang='fr',position,onVirtualNavigate,onClose,onNavigate}){
  const fr=lang==='fr',dialog=useRef(null),[origin,setOrigin]=useState(null),[query,setQuery]=useState(''),[destination,setDestination]=useState(null);
  useEffect(()=>{const previous=document.activeElement;dialog.current.showModal();return()=>previous?.focus();},[]);
@@ -9,6 +10,7 @@ export default function LostAssistant({rooms,lang='fr',position,onVirtualNavigat
   <header><div><h2 id="lost-title">{fr?'Retrouver mon chemin':'Find my way'}</h2><p>{fr?'Déclarez la salle près de laquelle vous êtes, puis choisissez votre destination.':'Select the room you are near, then choose a destination.'}</p></div><button className="ghost" aria-label={fr?'Fermer':'Close'} onClick={onClose}>×</button></header>
   <div className="room-editor-body">
    {position&&<p>{fr?'Position virtuelle du personnage':'Virtual character position'} : {position.floor}, {position.x.toFixed(1)} / {position.y.toFixed(1)} m.</p>}
+   {position&&<section aria-label={fr?'Repères virtuels proches':'Nearby virtual landmarks'}><strong>{fr?'Près de votre personnage, selon le plan':'Near your character, according to the plan'}</strong>{nearbyLandmarks(rooms,position,lang).map(({room,name,distance})=><p key={room.id}>{name} · {Math.round(distance)} m {fr?'à vol d’oiseau':'straight-line'} <button className="ghost" onClick={()=>{onVirtualNavigate(room);onClose();}}>{fr?'Rejoindre ce repère':'Go to this landmark'}</button></p>)}{!rooms.some(r=>r.verified_on_site)&&<p className="hint">{fr?'Aucun repère confirmé sur place disponible. Ces suggestions ne sont pas une localisation réelle.':'No on-site verified landmark is available. These suggestions are not real-world positioning.'}</p>}</section>}
    {origin&&<p>{fr?'Départ déclaré':'Declared start'} : {roomName(origin,lang)} · {origin.level}</p>}
    {destination?<><p role="status">{fr?'Destination sélectionnée. Le calcul du trajet est affiché dans la vue principale.':'Destination selected. Route calculation appears in the main view.'}</p><button className="primary" onClick={onClose}>{fr?'Voir le trajet':'View route'}</button><button className="ghost" onClick={()=>{setOrigin(null);setDestination(null);setQuery('');}}>{fr?'Recommencer':'Start again'}</button></>:<>
     <label>{origin?(fr?'Destination':'Destination'):(fr?'Salle proche ou repère connu':'Nearby room or known landmark')}<input autoFocus value={query} onChange={e=>setQuery(e.target.value)}/></label>

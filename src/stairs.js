@@ -21,6 +21,11 @@ export function stairProgress(path,position,width=.82) {
   const distance=Math.hypot(position.x-a.x-t*dx,position.z-a.z-t*dz);
   return t>=-.14&&t<=1.14&&distance<=width?Math.max(0,Math.min(1,t)):null;
 }
+export function stairVisitState(record,position,to=null){
+  if(!record)return {stairLink:null,stairProgress:null,stairTo:null};
+  const progress=stairProgress(record.path,position,.85);
+  return progress===null?{stairLink:null,stairProgress:null,stairTo:null}:{stairLink:record.linkId,stairProgress:progress,stairTo:to===record.lower||to===record.upper?to:null};
+}
 export function buildStairs(a,b,linkId,direction) {
   const group=new THREE.Group(),path=stairPath(a,b,direction),[start,end]=path;
   const horizontal=Math.hypot(end.x-start.x,end.z-start.z),rise=end.y-start.y;

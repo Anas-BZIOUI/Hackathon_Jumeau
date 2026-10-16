@@ -9,7 +9,7 @@
     "dev": "npm run data && concurrently \"node server/index.js\" \"vite\"",
     "dev:client": "vite",
     "dev:server": "node server/index.js",
-    "build": "npm run data && vite build",
+    "build": "npm run data && vite build && node scripts/build-offline.mjs",
     "start": "node server/index.js",
     "data:rdc": "python scripts/build-rdc.py",
     "test:rdc": "node scripts/test-authored-rdc.mjs",

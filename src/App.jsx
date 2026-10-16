@@ -1,3 +1,4 @@
+import {loadDataset} from './dataset.js';
 import { useEffect, useMemo, useState, useRef, lazy, Suspense, useCallback } from "react";
 import SimulationView from './components/SimulationView.jsx';
 import { STRINGS, TYPE_LABEL } from "./i18n.js";
@@ -16,9 +17,10 @@ const Walkthrough=lazy(()=>import('./components/Walkthrough.jsx'));
 import {routeProgress} from './guidance.js';
 import RouteGuide from './components/RouteGuide.jsx';
 import VisitTools from './components/VisitTools.jsx';
+import {withDemoRooms} from './demoRooms.js';
+import {buildActivityTours} from './activityTours.js';
 import QuickHelp from './components/QuickHelp.jsx';
 import {useSaved} from './preferences.js';
-import GeometryEditor from './components/GeometryEditor.jsx';
 import RoomDetailsEditor from './components/RoomDetailsEditor.jsx';
 import RoomPracticalInfo from './components/RoomPracticalInfo.jsx';
 import {ROOM_DETAILS_KEY,validateRoomDetails,applyRoomDetails} from './roomDetails.js';
@@ -27,7 +29,6 @@ import MetroMap from './components/MetroMap.jsx';
 import Constellation from './components/Constellation.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import AdventureView from './components/AdventureView.jsx';
-import CalibrationTool from './components/CalibrationTool.jsx';
 import { CALIBRATION_KEY, calibratedScene, validateCalibration, solveCalibration } from './calibration.js';
 import projectCalibration from '../ensiie-control-points.json';
 import projectGeometry from '../data-src/drawn-geometry.json';
@@ -35,37 +36,6 @@ import projectGeometry from '../data-src/drawn-geometry.json';
 const ACTIVITIES = ["teaching", "research", "student_life", "companies"];
 const LEVELS = ["RDC", "R+1", "R+2"];
 const TYPES = Object.keys(TYPE_LABEL.fr);
-const DATA_KEYS = [
-  "rooms",
-  "floors",
-  "links",
-  "graph",
-  "tours",
-  "metro",
-  "synonyms",
-  "zones",
-  "resources",
-  "walls",
-  "doors",
-];
-
-async function loadDataset() {
-  try {
-    const r = await fetch("/api/bootstrap");
-    if (r.ok) {const data=await r.json();const [walls,doors]=await Promise.all(['walls','doors'].map(async name=>{const response=await fetch(`/data/${name}.json`);if(!response.ok)throw Error(name);return response.json();}));return {...data,walls,doors};}
-  } catch {
-    /* fall through to static JSON */
-  }
-  const entries = await Promise.all(
-    DATA_KEYS.map(async (key) => {
-      const r = await fetch(`/data/${key}.json`);
-      if (!r.ok) throw new Error(key);
-      return [key, await r.json()];
-    }),
-  );
-  return Object.fromEntries(entries);
-}
-
 export default function App() {
   const [roomHistory,setRoomHistory]=useSaved('ensiie-room-history',[],v=>Array.isArray(v)&&v.length<=20);
   const [roomDetails,setRoomDetails]=useState({version:1,rooms:{}}),[editingRoomId,setEditingRoomId]=useState(null);
@@ -99,8 +69,6 @@ export default function App() {
   const [helpOpen,setHelpOpen]=useState(false),[audit,setAudit]=useState(null),[auditStatus,setAuditStatus]=useState('idle');
   const auditWorker=useRef(null),[virtualStart,setVirtualStart]=useState(null);
   const [openSearch, setOpenSearch] = useState(false);
-  const [showCalibration, setShowCalibration] = useState(false);
-  const [showGeometryEditor,setShowGeometryEditor]=useState(false);
   const [drawnGeometry,setDrawnGeometry]=useState(null);
   const [calibration, setCalibration] = useState(null);
   const sceneData = useMemo(() => data ? calibratedScene(data.floors, data.links, calibration) : null, [data, calibration]);
@@ -110,7 +78,8 @@ export default function App() {
 
   useEffect(() => {
     let cancelled = false;
-    loadDataset()
+    const controller=new AbortController();
+    loadDataset({signal:controller.signal})
       .then((d) => {
         if (cancelled) return;
         setData(d);
@@ -163,12 +132,15 @@ export default function App() {
         if (!cancelled) setError(true);
       });
     return () => {
-      cancelled = true;
+      cancelled = true;controller.abort();
     };
   }, []);
 
   useEffect(()=>{if(!data)return;try{const saved=JSON.parse(localStorage.getItem(ROOM_DETAILS_KEY));if(saved)setRoomDetails(validateRoomDetails(saved,data.rooms));}catch{/* Invalid local metadata never blocks the building. */}},[data]);
-  const rooms=useMemo(()=>applyRoomDetails(data?.rooms||[],roomDetails),[data,roomDetails]);
+  const recordedRooms=useMemo(()=>applyRoomDetails(data?.rooms||[],roomDetails),[data,roomDetails]);
+  const rooms=useMemo(()=>withDemoRooms(recordedRooms,settings.demoData),[recordedRooms,settings.demoData]);
+  const activityTours=useMemo(()=>buildActivityTours(rooms),[rooms]);
+  const tours=useMemo(()=>[...(data?.tours||[]),...activityTours],[data?.tours,activityTours]);
   const selected = rooms.find((r) => r.id === selectedId) || null;
 
   // Un type choisi prime sur les catégories ; sinon filtrage par activité.
@@ -225,7 +197,7 @@ export default function App() {
   }
 
   function startTour(id) {
-    const tour = data.tours.find((x) => x.id === id);
+    const tour = tours.find((x) => x.id === id);
     if (!tour?.steps?.length) return;
     setTourId(id);
     setTourPaused(false);
@@ -238,7 +210,9 @@ export default function App() {
 
   useEffect(() => {
     if (!tourId || !data || tourPaused) return;
-    const tour = data.tours.find((x) => x.id === tourId);
+    const tour = tours.find((x) => x.id === tourId);
+    if(!tour){setTourId(null);setTourStep(0);return;}
+    if(tourStep>=tour.steps.length){setTourStep(Math.max(0,tour.steps.length-1));return;}
     const step = tour?.steps[tourStep];
     if (!step?.roomId) return;
     const room = data.rooms.find((r) => r.id === step.roomId);
@@ -246,7 +220,7 @@ export default function App() {
     setSelectedId(room.id);
     setLevel(room.level);
     setEndId(room.id);
-  }, [tourId, tourStep, data, tourPaused]);
+  }, [tourId, tourStep, data, tourPaused,tours]);
 
   useEffect(()=>{setAudit(null);setAuditStatus('idle');auditWorker.current?.terminate();return()=>auditWorker.current?.terminate();},[data,sceneData,drawnGeometry]);
   useEffect(()=>{if(endId)setRecents(prev=>[endId,...prev.filter(id=>id!==endId)].slice(0,8));},[endId]);
@@ -280,7 +254,7 @@ export default function App() {
     company: rooms.find((r) => r.number === "216")?.id,
   };
 
-  const currentTour = data.tours.find((x) => x.id === tourId && x.steps[tourStep]);
+  const currentTour = tours.find((x) => x.id === tourId && x.steps[tourStep]);
   const mapProps={accessibilityLens:!!settings.accessibilityLens,onEditRoom:room=>setEditingRoomId(room.id),onLocatePosition:setLevel,rooms,activeActivities:acts,typeFilter,floors:data.floors,links:sceneData.links,zones:data.zones,level,selectedId,startId,endId,route,routeStatus,onSelect:selectRoom,synonyms:data.synonyms,onClearSelection:closeRoomDetails,
     onUseAsStart:id=>{setVirtualStart(null);setStartId(id);if(id===endId)setEndId(null);},
     onUseAsEnd:id=>{setEndId(id);if(id===startId)setStartId(null);},
@@ -296,6 +270,7 @@ export default function App() {
   function advanceTour(){if(!currentTour)return;if(tourStep+1>=currentTour.steps.length){setTourId(null);setTourStep(0);}else setTourStep(tourStep+1);}
   return (
     <div className="app">
+      <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">{lang==='fr'?'Étage affiché':'Displayed floor'} : {level}. {routeStatus==='routing'?(lang==='fr'?'Calcul du trajet':'Calculating route'):routeStatus==='unreachable'?(lang==='fr'?'Aucun trajet disponible':'No route available'):''}</div>
       <a className="skip-link" href="#main-content" onClick={e=>{e.preventDefault();document.getElementById("main-content")?.focus();}}>{lang==='fr'?'Aller au contenu':'Skip to content'}</a>
       <header className="topbar">
         <div className="brand">
@@ -379,29 +354,14 @@ export default function App() {
       </header>
 
       {helpOpen&&<QuickHelp lang={lang} onClose={()=>setHelpOpen(false)}/>}
-      {editingRoomId&&rooms.find(r=>r.id===editingRoomId)&&<RoomDetailsEditor key={editingRoomId} room={rooms.find(r=>r.id===editingRoomId)} baseRooms={data.rooms} details={roomDetails} lang={lang} onClose={()=>setEditingRoomId(null)} onSave={next=>{const checked=validateRoomDetails(next,data.rooms);try{localStorage.setItem(ROOM_DETAILS_KEY,JSON.stringify(checked));}catch{throw Error('storage');}setRoomHistory(prev=>[roomDetails,...prev].slice(0,20));setRoomDetails(checked);}}/>}
-      {showGeometryEditor&&<GeometryEditor floors={data.floors} rooms={rooms} selected={selected} lang={lang} applied={drawnGeometry} onClose={()=>setShowGeometryEditor(false)} onApply={value=>{
-        setDrawnGeometry(value);
-        try{localStorage.setItem(GEOMETRY_KEY,JSON.stringify(value));}catch{/* The current preview still works. */}
-        setShowGeometryEditor(false);setMode('walk');setView('guide');
-      }} onRestore={()=>{
-        setDrawnGeometry(null);
-        try{localStorage.removeItem(GEOMETRY_KEY);}catch{/* The current preview still resets. */}
-        setShowGeometryEditor(false);setMode('walk');
-      }}/>}
-
-      {showCalibration && <CalibrationTool floors={data.floors} lang={lang} applied={calibration} onClose={() => setShowCalibration(false)} onApply={(draft) => {
-        setCalibration(draft);
-        try { localStorage.setItem(CALIBRATION_KEY, JSON.stringify(draft)); } catch { /* Session preview still works. */ }
-        setAligned(true); setMode('map3d'); setView('guide'); setShowCalibration(false);
-      }} />}
-
+      {editingRoomId&&rooms.find(r=>r.id===editingRoomId)&&<RoomDetailsEditor key={editingRoomId} room={recordedRooms.find(r=>r.id===editingRoomId)} baseRooms={data.rooms} details={roomDetails} lang={lang} onClose={()=>setEditingRoomId(null)} onSave={next=>{const checked=validateRoomDetails(next,data.rooms);try{localStorage.setItem(ROOM_DETAILS_KEY,JSON.stringify(checked));}catch{throw Error('storage');}setRoomHistory(prev=>[roomDetails,...prev].slice(0,20));setRoomDetails(checked);}}/>}
       {view === 'adventure' ? (
         <AdventureView discovered={discovered} onDiscover={ids=>setDiscovered(prev=>ids.every(id=>prev.includes(id))?prev:[...new Set([...prev,...ids])])} persona={persona} onPosition={p=>{lastPosition.current=p;setPlayerPosition(p);}} onSelect={id=>{selectRoom(id);setView('guide');setMode('map2d');}} onGuide={id=>{selectRoom(id);setView('guide');setMode('map2d');setEndId(id);if(!startId)setStartId('RDC-011');}} t={t} lang={lang} selected={selected} level={level} rooms={rooms} />
       ) : (
         <div className={`workspace modern-workspace mode-${mode} ${selected?'has-selection':'no-selection'}`}>
           <aside
             className={`left modern-filters ${filtersOpen ? "is-open" : ""}`}
+            aria-hidden={!filtersOpen} inert={filtersOpen?undefined:""}
           >
             <button
               className="filters-close"
@@ -472,7 +432,7 @@ export default function App() {
             </div>
             <div className="section-title">{t.tours}</div>
             <div className="tour-list">
-              {data.tours.map((tour) => (
+              {tours.map((tour) => (
                 <button
                   key={tour.id}
                   className={tourId === tour.id ? "active" : ""}
@@ -549,14 +509,6 @@ export default function App() {
                   </button>
                 </>
               )}
-              {(mode==='map3d'||mode==='walk')&&<>
-              <button className="ghost" onClick={() => setShowCalibration(true)}>{lang === 'fr' ? 'Aligner les étages' : 'Align floors'}</button>
-              <button className="ghost" onClick={()=>setShowGeometryEditor(true)}>{lang==='fr'?'Dessiner murs / portes':'Draw walls / doors'}{drawnGeometry?' ●':''}</button>
-              {calibration && <button className="ghost" onClick={() => {
-                setCalibration(null);
-                try { localStorage.removeItem(CALIBRATION_KEY); } catch { /* Session reset still works. */ }
-              }}>{lang === 'fr' ? 'Annuler le calibrage' : 'Reset calibration'}</button>}
-              </>}
               <label className="hint" style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
                 <input type="checkbox" checked={stepFree} onChange={(e) => setStepFree(e.target.checked)} />
                 {t.stepFree}
@@ -572,7 +524,7 @@ export default function App() {
             </div>
 
             <div className="visit-tools-row">{roomHistory.length>0&&<button className="ghost" onClick={()=>{try{const previous=validateRoomDetails(roomHistory[0],data.rooms);localStorage.setItem(ROOM_DETAILS_KEY,JSON.stringify(previous));setRoomDetails(previous);setRoomHistory(roomHistory.slice(1));}catch{setRoomHistory([]);}}}>{lang==='fr'?'Annuler la dernière modification des fiches':'Undo last room edit'}</button>}
-            <VisitTools discovered={discovered} onDiscover={id=>setDiscovered(prev=>prev.includes(id)?prev:[...prev,id])} rooms={rooms} selected={selected} lang={lang} favorites={favorites} recents={recents} onFavorite={id=>setFavorites(prev=>prev.includes(id)?prev.filter(x=>x!==id):[...prev,id])} onSelect={selectRoom} onLocate={id=>{setVirtualStart(null);setStartId(id);}} onTutorial={()=>setHelpOpen(true)} settings={settings} onSettings={setSettings} tour={currentTour&&tourRoom?{title:currentTour['title_'+lang],index:tourStep,total:currentTour.steps.length,text:currentTour.steps[tourStep]['text_'+lang],verified:!!tourRoom.verified_on_site,paused:tourPaused,arrived:tourReached}:null} onPause={()=>setTourPaused(!tourPaused)} onPrevious={()=>setTourStep(s=>Math.max(0,s-1))} onAdvance={advanceTour} onStop={()=>{setTourId(null);setTourStep(0);}}/></div>
+            <VisitTools tourRoomIds={currentTour?.steps.map(s=>s.roomId)||[]} discovered={discovered} onDiscover={id=>setDiscovered(prev=>prev.includes(id)?prev:[...prev,id])} rooms={rooms} selected={selected} lang={lang} favorites={favorites} recents={recents} onFavorite={id=>setFavorites(prev=>prev.includes(id)?prev.filter(x=>x!==id):[...prev,id])} onSelect={selectRoom} onLocate={id=>{setVirtualStart(null);setStartId(id);}} onTutorial={()=>setHelpOpen(true)} settings={settings} onSettings={setSettings} tour={currentTour&&tourRoom?{title:currentTour['title_'+lang],objective:currentTour['objective_'+lang],index:tourStep,total:currentTour.steps.length,text:currentTour.steps[tourStep]['text_'+lang],verified:!!tourRoom.verified_on_site,paused:tourPaused,arrived:tourReached}:null} onPause={()=>setTourPaused(!tourPaused)} onPrevious={()=>setTourStep(s=>Math.max(0,s-1))} onAdvance={advanceTour} onStop={()=>{setTourId(null);setTourStep(0);}}/></div>
             {mode === "map2d" && (
               <Map2D {...mapProps} position={playerPosition} onVisit={enterRoom}/>
             )}
@@ -598,7 +550,7 @@ export default function App() {
               <MetroMap onRoute={id=>{setEndId(id);if(!startId)setStartId('RDC-011');selectRoom(id);setMode('map2d');}} metro={data.metro} rooms={rooms} selectedId={selectedId} onSelect={selectRoom} lang={lang} />
             )}
             {mode === "constellation" && (
-              <Constellation lang={lang} onActivity={id=>setActs(new Set(id?[id]:ACTIVITIES))} onRoute={id=>{setEndId(id);if(!startId)setStartId('RDC-011');selectRoom(id);setMode('map2d');}}
+              <Constellation activityTours={activityTours} onStartTour={(id,targetMode)=>{startTour(id);setMode(targetMode);setFiltersOpen(false);}} lang={lang} onActivity={id=>setActs(new Set(id?[id]:ACTIVITIES))} onRoute={id=>{setEndId(id);if(!startId)setStartId('RDC-011');selectRoom(id);setMode('map2d');}}
                 rooms={rooms}
                 selectedId={selectedId}
                 onSelect={selectRoom}

@@ -272,4 +272,21 @@ Avec \textbf{EnsiiExplore}, nous souhaitons dépasser la simple consultation d'u
 \item Les extensions qui pourront réellement être montrées au jury.
 \item Les noms des membres de l'équipe à inscrire sur la couverture.
 \end{itemize}
+
+\section{Mise à jour du prototype : plan et immersion}
+Le Guide partage les identifiants de salles, fiches, destination et position virtuelle entre le plan architectural et la visite immersive. La vue Stack 3D est une vue d'ensemble distincte. La position du personnage n'est pas une géolocalisation réelle. Une origine déclarée par l'utilisateur reste distincte de cette position virtuelle.
+
+L'éditeur de murs et portes permet une correction manuelle ; le calibrage aligne les niveaux à partir de repères. Le routeur géométrique utilise ces données et calcule en arrière-plan. Les fiches disposent d'une édition locale, d'un historique, d'un import avec aperçu et d'un export. L'échange de fichiers ne constitue pas une édition simultanée sur serveur.
+
+\subsection{Périmètre et limites de couverture}
+Le plan comprend RDC, R+1 et R+2 ; le secteur de navigation préparé est principalement RDC/R+1. L'audit de référence trouve 23 salles sur 32 au RDC et 35 sur 50 au R+1 depuis ses origines de test, dans les deux sens. Cela ne valide ni toutes les paires de salles ni les accès physiques. Les escaliers, ascenseurs, portes et usages doivent encore être confrontés au terrain. Le R+2 ne bénéficie pas de la même couverture.
+
+\subsection{Exigences et extensions}
+La navigation, la recherche et l'accès aux informations répondent à l'énoncé. Le personnage, la vue éclatée, la constellation, les parcours guidés, le jeu et la simulation sont des choix de l'équipe. Le jeu RDC conserve une géométrie distincte de celle du Guide. Les agents de simulation et leurs horaires sont fictifs ; aucune occupation réelle n'est mesurée.
+
+Une couche optionnelle de données de démonstration illustre six fiches avec capacités, équipements et horaires inventés, signalés comme tels. Elle est désactivée par défaut et ne vaut pas collecte terrain. Les valeurs sont recensées dans le document \texttt{docs/DONNEES\_FICTIVES.md}.
+
+\subsection{Recette et présentation}
+Le scénario, les limites, la solution de secours 2D et les essais restant à exécuter sont consignés dans \texttt{docs/DEMONSTRATION.md}. Les résultats automatiques ne remplacent pas les essais utilisateurs, le contrôle des plans sur place, la mesure de fluidité sur le PC de démonstration et la répétition devant le jury.
+
 \end{document}

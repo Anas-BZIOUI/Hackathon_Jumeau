@@ -15,6 +15,7 @@ export function worldPoint(floors, level, x, y, aligned) {
 }
 
 export function roomName(room, lang) {
+  if(!room)return '';
   return (lang === 'en' ? room.name_en : room.name_fr) || room.name_fr || room.id;
 }
 

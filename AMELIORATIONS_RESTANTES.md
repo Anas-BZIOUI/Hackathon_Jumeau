@@ -2,11 +2,21 @@
 
 État de référence : **16 octobre 2026**.
 
-**Point de suivi : 43 tâches cochées sur 123.** Une case vide peut être partiellement réalisée : les notes sous chaque section précisent les limites. Ce bilan ne signifie pas que tout le backlog est terminé. Les contrôles terrain, les sources manquantes et les essais restant à exécuter ne sont pas cochés.
+**Point de suivi : 60 tâches cochées sur 123.** Une case vide peut être partiellement réalisée : les notes sous chaque section précisent les limites. Ce bilan ne signifie pas que tout le backlog est terminé. Les contrôles terrain, les sources manquantes et les essais restant à exécuter ne sont pas cochés.
 
 Ce document regroupe les idées évoquées pendant le développement, les fonctionnalités proposées dans `steps.md`, les demandes de l’énoncé `jumeau_numerique_ensIIE.md` et le cahier des charges `Cahier_charges/main.tex`. La référence utilisée pour la liste de fonctionnalités est `steps.md` : aucun fichier nommé `test.md` n’est présent à la racine.
 
 Ce backlog décrit **ce qui manque ou reste incomplet**, sans présenter les propositions de jeu ou de simulation comme des obligations de l’énoncé officiel. Les cases seront cochées après implémentation **et vérification**.
+
+## Comment utiliser cette liste
+
+- **Case vide** : fonctionnalité absente, réalisation partielle ou validation encore manquante. Lire la note d’avancement avant de la développer pour éviter de refaire ce qui existe.
+- **Case cochée** : élément déjà livré et vérifié, conservé pour suivre les progrès ; il ne fait plus partie du travail restant.
+- **Source des idées** : nos échanges sur le personnage, la caméra, la fluidité, les repères, la mini-carte et le partage 2D/immersion ; `steps.md` pour les propositions de fonctionnalités ; `jumeau_numerique_ensIIE.md` pour les objectifs du projet.
+- **À propos du fichier « test »** : `test.js` est un exemple Leaflet d’affichage des plans et des informations GeoJSON, pas une liste de fonctionnalités. Aucun `test.md` n’a été trouvé dans le dépôt ; les idées détaillées sont dans `steps.md`.
+- **Dépendances humaines** : les usages réels des salles, les horaires, les équipements, les photos autorisées et les passages physiques doivent être confirmés par l’équipe. Les autres améliorations peuvent avancer avec les données disponibles, en indiquant leurs limites.
+
+Les sections 1 à 13 constituent la liste détaillée. L’ordre proposé à la fin permet de choisir une amélioration à la fois ; chaque amélioration commune doit être disponible dans le plan 2D et dans la visite immersive.
 
 ## Règle commune aux prochains développements
 
@@ -19,7 +29,7 @@ Ce backlog décrit **ce qui manque ou reste incomplet**, sans présenter les pro
 
 ## Déjà disponible — ne pas reconstruire
 
-Le socle comprend le plan architectural 2D, la sélection et la recherche de salles, les filtres, les fiches, la vue éclatée, le calibrage, le dessin manuel des murs et portes, le personnage, les collisions, les portes animées et leurs panneaux, la première personne, le plan 2D intégré dans l’immersion, la position partagée et les changements de vue.
+Le socle comprend le plan architectural 2D, la sélection et la recherche de salles, les filtres, les fiches, la vue éclatée, les données de calibrage et de murs/portes déjà enregistrées, le personnage, les collisions, les portes animées et leurs panneaux, la première personne, le plan 2D intégré dans l’immersion, la position partagée et les changements de vue.
 
 Les itinéraires fondés sur la géométrie dessinée, le passage automatique RDC ↔ R+1 et le calcul en arrière-plan existent. La couverture reste partielle. Un éditeur partagé des informations des salles existe également, avec sauvegarde locale, import/export JSON et restauration.
 
@@ -63,7 +73,7 @@ Diagnostic relancé le 16 octobre 2026 avec `npm run audit:routing` : mêmes cou
 - [ ] Corriger les repères de contrôle qui présentent encore un écart de superposition.
 - [ ] Vérifier les liaisons d’ascenseur et leur accès réel avant de qualifier un trajet d’accessible.
 - [ ] Compléter le dessin et la validation du R+2 avant d’y promettre la même couverture que sur RDC/R+1.
-- [ ] Tester les changements de vue pendant une montée, une descente ou un trajet automatique, ainsi que leur interruption et leur reprise.
+- [x] Tester les changements de vue pendant une montée, une descente ou un trajet automatique, ainsi que leur interruption et leur reprise.
 
 **Validation :** les départs et arrivées correspondent aux mêmes paliers physiques dans le plan et dans l’immersion.
 
@@ -83,7 +93,7 @@ Diagnostic relancé le 16 octobre 2026 avec `npm run audit:routing` : mêmes cou
 
 ## 2. Informations réelles sur les salles et services — P0 / P1
 
-L’éditeur est disponible ; **le contenu vérifié reste à collecter**.
+L’éditeur des fiches de salles est disponible ; **le contenu vérifié reste à collecter**.
 
 - [ ] Confirmer sur place les numéros, usages et noms des salles du secteur choisi.
 - [ ] Renseigner les équipements réellement présents et les capacités confirmées.
@@ -110,12 +120,14 @@ Cette partie répond directement à l’énoncé : relier les espaces à **l’e
 - [x] Ajouter une progression conservée entre les vues et après réouverture du navigateur.
 - [ ] Proposer des parcours réellement adaptés aux étudiants, visiteurs et entreprises ; étudier un profil personnel si pertinent.
 - [x] Prévoir pause, reprise, passage d’une étape et abandon du parcours.
-- [ ] Relier la constellation existante à ces parcours et aux itinéraires.
+- [x] Relier la constellation existante à ces parcours et aux itinéraires.
 - [x] Enrichir la carte métro existante : surlignage d’une ligne, légende cohérente, informations et accès au trajet depuis une station.
 
 **Validation :** on peut découvrir un lieu, comprendre son lien avec une activité, consulter sa fiche et s’y rendre depuis les deux vues.
 
-**Avancement — parcours :** panneau commun au plan et à l’immersion, état persistant, pause/reprise, précédent, validation, saut et abandon. Arrivée détectée près du centroïde virtuel (1,5 m), sans validation physique d’une entrée. Objectif générique et durée de **lecture** estimée ajoutés ; étapes, durées de déplacement et adaptation approfondie aux profils restent à vérifier. La constellation donne accès aux fiches et aux itinéraires ; son lien direct avec le lancement d’un parcours reste à faire.
+**Avancement — parcours :** panneau commun au plan et à l’immersion, état persistant, pause/reprise, précédent, validation, saut et abandon. Arrivée détectée près du centroïde virtuel (1,5 m), sans validation physique d’une entrée. Objectif générique et durée de **lecture** estimée ajoutés ; étapes, durées de déplacement et adaptation approfondie aux profils restent à vérifier. La constellation donne accès aux fiches et aux itinéraires ; son lien direct avec le lancement d’un parcours est maintenant intégré et contrôlé dans le navigateur.
+
+**Ajout — parcours par activité :** quatre parcours générés à partir des associations présentes dans les fiches (enseignement, recherche, vie étudiante, entreprises), avec au maximum trois étapes chacun. La constellation propose leur lancement dans le plan ou en immersion ; ils utilisent le même état de progression que les parcours existants. Chaque étape présente la fonction et l’activité enregistrées, en FR/EN, sans les qualifier de vérifiées. Trois nouveaux tests contrôlent les associations, l’ordre, les limites et la prise en compte des données modifiées. Les 44 tests automatisés et les contrôles RDC (51 espaces) passent ; compilation Vite réussie. Contrôle navigateur effectué ensuite : lancement du parcours Recherche sur le plan, passage à l’étape 2/3, puis ouverture de l’immersion avec cette même étape. Aperçu imprimable contrôlé, dont le marquage des données fictives.
 
 ## 4. Localisation et accès rapide — P1
 
@@ -124,7 +136,7 @@ Cette partie répond directement à l’énoncé : relier les espaces à **l’e
 - [x] Permettre « Je suis près de cette salle » pour définir un départ réel, distinct de la position virtuelle du personnage.
 - [x] Ajouter un tutoriel court expliquant sélection, destination, guidage, position et changement de vue.
 - [x] Ajouter favoris, destinations récentes et retour à un repère connu.
-- [ ] Étudier une localisation automatique intérieure seulement si une infrastructure et des données adaptées sont disponibles ; elle n’existe pas actuellement.
+- [x] Étudier une localisation automatique intérieure seulement si une infrastructure et des données adaptées sont disponibles ; elle n’existe pas actuellement.
 
 **Validation :** la localisation déclarée par une personne et le déplacement virtuel restent clairement distingués.
 
@@ -138,8 +150,8 @@ Le personnage et son animation articulée existent ; les points suivants sont de
 - [ ] Ajouter une vraie animation d’escaliers, avec placement des pieds et flexion des jambes adaptés aux marches.
 - [x] Améliorer les transitions entre repos, marche, course et montée/descente.
 - [ ] Affiner les proportions, les vêtements et les expressions du personnage ; envisager un modèle animé léger si le gain visuel justifie son coût.
-- [ ] Proposer une personnalisation simple : tenue, couleurs et apparence, sans collecte de données personnelles.
-- [ ] Ajouter des réglages de sensibilité, vitesse de caméra, distance de suivi et inversion verticale.
+- [x] Proposer une personnalisation simple : tenue, couleurs et apparence, sans collecte de données personnelles.
+- [x] Ajouter des réglages de sensibilité, vitesse de caméra, distance de suivi et inversion verticale.
 - [ ] Améliorer le comportement de la caméra près des murs et dans les petits espaces, où le personnage peut disparaître ou occuper trop de place.
 - [ ] Séparer plus clairement l’orientation de la caméra et celle du personnage lors des déplacements latéraux.
 - [x] Ajouter un mode exploration plein écran et une réduction rapide des panneaux.
@@ -163,7 +175,7 @@ Le personnage et son animation articulée existent ; les points suivants sont de
 ## 7. Recherche, filtres et interface partagée — P1 / P2
 
 - [ ] Valider la recherche par besoin sur les services réellement identifiés : imprimer, manger, trouver un service, etc.
-- [ ] Étendre les synonymes FR/EN et tester les fautes de frappe, accents et numéros ambigus.
+- [x] Étendre les synonymes FR/EN et tester les fautes de frappe, accents et numéros ambigus.
 - [x] Ajouter un accès direct à l’itinéraire depuis les résultats de recherche.
 - [x] Améliorer les résultats vides avec des suggestions de filtres et de recherche.
 - [ ] Terminer la traduction de tous les libellés encore écrits directement en français, notamment dans les panneaux et l’assistant.
@@ -207,7 +219,7 @@ Les optimisations de rendu et le calcul des itinéraires en arrière-plan existe
 
 - [ ] Mesurer les performances sur le PC de démonstration : temps de chargement, fluidité en mouvement et durée des requêtes de trajet.
 - [x] Ajouter des niveaux de qualité graphique et un ajustement automatique selon les performances.
-- [ ] Continuer à réduire les objets, textures et éléments lointains rendus inutilement.
+- [x] Continuer à réduire les objets, textures et éléments lointains rendus inutilement.
 - [x] Étudier le chargement différé de l’immersion pour alléger le démarrage du mode 2D.
 - [ ] Vérifier les annulations de calcul, changements rapides de destination, sauvegardes et reprises de visite.
 - [ ] Étendre les tests de parcours à toutes les salles du secteur validé, dans les deux sens et avec les différents profils de mobilité.
@@ -222,12 +234,12 @@ Les optimisations de rendu et le calcul des itinéraires en arrière-plan existe
 `steps.md` décrit un jeu plus ambitieux, tandis que `prompt-agent-frontend.md` limitait sa première livraison à une interface. Ces idées restent donc des **extensions à arbitrer**, pas des fonctionnalités déjà terminées ou toutes obligatoires pour le jury.
 
 - [ ] Transformer l’interface Aventure actuelle en exploration jouable du même secteur, en réutilisant position, collisions et itinéraires.
-- [ ] Ajouter une introduction par profil, avec des objectifs adaptés.
+- [x] Ajouter une introduction par profil, avec des objectifs adaptés.
 - [ ] Ajouter une mascotte originale et des guides aux services réellement identifiés.
 - [ ] Ajouter des interactions de proximité et des dialogues bilingues avec choix et accès au trajet.
 - [ ] Construire des missions utiles : atteindre un lieu, visiter une activité, trouver un service, parler à un guide.
 - [ ] Prévoir au moins quatre missions complètes et trois guides si l’on retient les critères avancés de `steps.md`.
-- [ ] Ajouter un carnet de progression et un passeport avec badges liés aux activités de l’école.
+- [x] Ajouter un carnet de progression et un passeport avec badges liés aux activités de l’école.
 - [ ] Conserver la progression et permettre sa réinitialisation.
 - [x] Ajouter la découverte progressive des espaces et un pourcentage exploré.
 - [x] Réserver le brouillard de découverte au mode Aventure ; le plan d’orientation doit rester complet.
@@ -245,9 +257,9 @@ Les optimisations de rendu et le calcul des itinéraires en arrière-plan existe
 - [ ] Simulation « une journée dans l’école » avec agents synthétiques et occupation fictive, toujours étiquetée **Simulation**.
 - [ ] Estimation de capacité à partir des blocs de mobilier du R+1, avec validation sur quelques salles ; ne pas présenter une estimation par surface comme un comptage de sièges.
 - [ ] Intégration éventuelle de disponibilités de salles, emplois du temps ou occupation réelle seulement avec une source autorisée et adaptée.
-- [ ] Étudier une localisation intérieure automatique avec une infrastructure appropriée.
-- [ ] Étudier le géoréférencement et un export vers un standard de cartographie intérieure si ces besoins sont retenus.
-- [ ] Prévoir une restitution imprimable du parcours ou du passeport de visite.
+- [x] Étudier une localisation intérieure automatique avec une infrastructure appropriée.
+- [x] Étudier le géoréférencement et un export vers un standard de cartographie intérieure si ces besoins sont retenus.
+- [x] Prévoir une restitution imprimable du parcours ou du passeport de visite.
 
 **Avancement — simulation :** vue avec curseur 8 h–18 h, agents synthétiques sur les trajets du modèle et avertissement explicite « Simulation ». Interpolation des agents testée ; validation de la vue complète et enrichissement des horaires fictifs restent ouverts. Pas d’occupation réelle, de planning connecté ni de données personnelles. Les autres extensions de cette section restent à réaliser ou à documenter selon leurs sources disponibles.
 
@@ -255,14 +267,14 @@ Les optimisations de rendu et le calcul des itinéraires en arrière-plan existe
 
 Le cahier des charges **existe déjà** dans `Cahier_charges/`.
 
-- [ ] Le mettre à jour pour refléter la visite immersive, l’édition des salles et des murs, le nouveau routeur et le partage entre vues.
-- [ ] Distinguer exigences de l’énoncé, choix de l’équipe, propositions et fonctionnalités non livrées.
-- [ ] Définir clairement le secteur démontré et les limites de couverture.
+- [x] Le mettre à jour pour refléter la visite immersive, l’édition des salles et des murs, le nouveau routeur et le partage entre vues.
+- [x] Distinguer exigences de l’énoncé, choix de l’équipe, propositions et fonctionnalités non livrées.
+- [x] Définir clairement le secteur démontré et les limites de couverture.
 - [ ] Réaliser ou compléter les retours d’utilisateurs : étudiant, visiteur, personnel ou entreprise selon disponibilité.
-- [ ] Préparer un scénario court : rechercher un service, consulter sa fiche, tracer un trajet RDC ↔ R+1, le suivre, revenir au plan, puis découvrir une activité.
+- [x] Préparer un scénario court : rechercher un service, consulter sa fiche, tracer un trajet RDC ↔ R+1, le suivre, revenir au plan, puis découvrir une activité.
 - [ ] Répéter ce scénario sur le PC de présentation avec une solution de secours si WebGL n’est pas disponible.
 - [ ] Vérifier les crédits et licences des éléments réutilisés.
-- [ ] Préparer une liste transparente des données vérifiées, des approximations et des suites envisagées.
+- [x] Préparer une liste transparente des données vérifiées, des approximations et des suites envisagées.
 
 ## Ordre proposé pour avancer une fonctionnalité à la fois
 
@@ -276,3 +288,28 @@ Le cahier des charges **existe déjà** dans `Cahier_charges/`.
 8. Enrichir le jeu et les simulations seulement si le socle et les livrables sont stabilisés.
 
 Pour chaque étape : définir le résultat attendu, réutiliser l’état partagé, vérifier les deux vues, tester, puis mettre à jour ce document.
+
+## Compléments livrés et limites après cette passe
+
+- Personnage : couleurs de peau, cheveux, pantalon et tenue ; sac à dos désactivable ; vitesse de rotation clavier distincte de la sensibilité souris. Les réglages restent locaux. Le placement exact des pieds sur chaque marche reste à faire.
+- Navigation : trois repères proches de la position virtuelle dans « Je suis perdu », distances à vol d’oiseau clairement indiquées et commande de trajet. Cela ne valide pas les repères sur place ; cette partie de la tâche reste ouverte.
+- Partage : exports texte et aperçu imprimable de parcours/passeport depuis les outils communs. Prévisualisation contrôlée dans le navigateur ; impression papier et QR depuis téléphone encore à tester.
+- Démonstration : six fiches peuvent recevoir des exemples fictifs via un réglage désactivé par défaut. Liste exhaustive dans `docs/DONNEES_FICTIVES.md`. Les valeurs réelles restent séparées, l’éditeur utilise les fiches originales et aucune accessibilité ni géométrie n’est inventée.
+- Robustesse : chargement API limité dans le temps, repli sur JSON statiques, annulation au démontage et tests de stockage refusé/corrompu. Les défauts réseau testés automatiquement ne remplacent pas toute la campagne de panne WebGL/plan.
+- Interface : sélection des contours et positions de salles au clavier Entrée/Espace, annonce d’étage, légende et libellés du plan complétés en anglais. Sélection clavier de R+1-131 contrôlée dans le navigateur. Audit exhaustif clavier/contrastes/traduction toujours ouvert.
+- Rendu : géométries et matériaux de portes mutualisés, panneaux masqués au-delà de 14 m et portes au-delà de 32 m. Ces changements ne constituent pas une mesure de FPS sur le PC du jury.
+- Livrables : cahier des charges actualisé et compilation confirmée par le compilateur intégré. `docs/DEMONSTRATION.md` contient scénario, périmètre, limites et recette manuelle. Études de localisation, géoréférencement et données temps réel dans `docs/LOCALISATION_ET_DONNEES.md` : décision de différer ces intégrations faute de sources/infrastructure ; les études cochées ne signifient pas que ces fonctions sont disponibles.
+
+**Travail encore ouvert :** les cases restantes conservent leur portée d’origine. En particulier : continuité réelle des portes, validation et dessin R+2, animation de pieds dans les escaliers, caméra et ambiance, audit complet d’accessibilité, tests d’intégration automatisés, partage d’édition sur serveur, unification des géométries du jeu et du Guide, missions avancées, photos et données réelles, collecte des retours utilisateurs et répétition de démonstration. Les exemples fictifs ne ferment pas les tâches de validation terrain.
+
+**Hors ligne et escaliers — contrôles supplémentaires :** copie locale optionnelle du build (53 fichiers, environ 8 Mo), sans cache des réponses API ni de sites externes. Rechargement du plan, ouverture de l’immersion et lancement d’un parcours vérifiés après arrêt du serveur de prévisualisation. Le test dans les conditions exactes du jury reste ouvert. La sauvegarde d’une montée automatique conserve désormais sa liaison, sa progression et sa destination ; le double bloc de restauration a été retiré. Un test automatisé couvre la conservation du sens montée/descente. Les scénarios de changement de vue pendant la montée RDC → R+1 et la descente R+1 → RDC ont été exécutés jusqu’à leur arrivée. La liaison A a été testée ; cela ne valide pas les autres liaisons ni le terrain.
+
+**Résultat final de cette passe :** 55 tests automatisés, contrôles physiques du jeu sur 51 espaces, build complet avec génération des données et copie hors ligne. Le carnet/badge a été contrôlé sans marcher : consultation de l’amphithéâtre depuis Aventure, validation dans le Guide, retour au jeu avec mission 1/4 et badge affichés. La progression du jeu et les découvertes communes restent deux états distincts ; la remise à zéro de la partie ne supprime pas les découvertes du Guide.
+
+## Suivi continu des modifications — 16 octobre 2026
+
+Chaque fonctionnalité ou correction est désormais consignée dans ce fichier pendant sa réalisation, avec son état de vérification. Une implémentation partielle ne clôt pas une tâche plus large.
+
+**Interface simplifiée — terminé :** retrait des commandes « Aligner les étages », « Dessiner murs / portes » et « Annuler le calibrage » du Stack 3D et de la visite immersive. Les panneaux d’édition de géométrie et de calibrage ne sont plus montés dans l’application. Les murs, portes et repères déjà enregistrés continuent à alimenter le modèle et les itinéraires. Cette suppression d’interface ne constitue pas une nouvelle validation de la géométrie.
+
+**Vérification de cette suppression :** build de production réussi avec génération des données et copie hors ligne ; aucune référence aux commandes retirées ni aux panneaux correspondants dans `src/App.jsx`.

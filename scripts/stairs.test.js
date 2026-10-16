@@ -50,3 +50,14 @@ test('path sampling clamps progress and handles one-point positioning',()=>{
   assert(pathPosition([p],.5).equals(p));
   assert(pathPosition([p,new THREE.Vector3(4,5,6)],-1).equals(p));
 });
+
+
+test('automatic stair visits preserve direction and position for view switching',async()=>{
+ const {stairVisitState}=await import('../src/stairs.js');
+ const record={linkId:'A',lower:'RDC',upper:'R+1',path:[new THREE.Vector3(0,0,0),new THREE.Vector3(6,3.2,0)]};
+ const state=stairVisitState(record,new THREE.Vector3(3,1.6,0),'R+1');
+ assert.equal(state.stairProgress,.5);assert.equal(state.stairTo,'R+1');assert.equal(state.stairLink,'A');
+ assert.equal(stairVisitState(record,new THREE.Vector3(3,1.6,0),'RDC').stairTo,'RDC');
+ assert.equal(stairVisitState(record,new THREE.Vector3(3,1.6,5),'RDC').stairLink,null);
+ assert.equal(stairVisitState(null,new THREE.Vector3()).stairProgress,null);
+});
