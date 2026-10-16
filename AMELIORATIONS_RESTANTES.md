@@ -2,7 +2,7 @@
 
 État de référence : **16 octobre 2026**.
 
-**Point de suivi : 65 tâches cochées sur 114.** Une case vide peut être partiellement réalisée : les notes sous chaque section précisent les limites. Ce bilan ne signifie pas que tout le backlog est terminé. Les contrôles terrain, les sources manquantes et les essais restant à exécuter ne sont pas cochés.
+**Point de suivi : 69 tâches cochées sur 114.** Une case vide peut être partiellement réalisée : les notes sous chaque section précisent les limites. Ce bilan ne signifie pas que tout le backlog est terminé. Les contrôles terrain, les sources manquantes et les essais restant à exécuter ne sont pas cochés.
 
 Ce document regroupe les idées évoquées pendant le développement, les fonctionnalités proposées dans `steps.md`, les demandes de l’énoncé `jumeau_numerique_ensIIE.md` et le cahier des charges `Cahier_charges/main.tex`. La référence utilisée pour la liste de fonctionnalités est `steps.md` : aucun fichier nommé `test.md` n’est présent à la racine.
 
@@ -169,7 +169,7 @@ Le personnage et son animation articulée existent ; les points suivants sont de
 - [ ] Ajouter du mobilier léger dans un secteur représentatif, à partir des plans ou d’observations ; signaler les dispositions illustratives.
 - [ ] Améliorer les matériaux des sols, murs, plafonds et portes sans dégrader les performances.
 - [ ] Ajouter des fenêtres et éléments architecturaux seulement lorsqu’ils peuvent être positionnés correctement.
-- [ ] Améliorer l’éclairage et éviter les zones visuellement plates ou trop sombres.
+- [x] Améliorer l’éclairage et éviter les zones visuellement plates ou trop sombres.
 - [ ] Ajouter des repères d’orientation vérifiés : noms de zones, indications de services, panneaux d’étage et directions.
 - [x] Adapter les étiquettes et panneaux à la distance pour limiter les chevauchements et garder les noms lisibles.
 - [ ] Faire apparaître les mêmes repères utiles dans la carte, les consignes et l’immersion.
@@ -181,11 +181,11 @@ Le personnage et son animation articulée existent ; les points suivants sont de
 - [x] Ajouter un accès direct à l’itinéraire depuis les résultats de recherche.
 - [x] Améliorer les résultats vides avec des suggestions de filtres et de recherche.
 - [ ] Terminer la traduction de tous les libellés encore écrits directement en français, notamment dans les panneaux et l’assistant.
-- [ ] Harmoniser les panneaux de fiche, de trajet et de visite pour éviter les superpositions ou les informations répétées.
+- [x] Harmoniser les panneaux de fiche, de trajet et de visite pour éviter les superpositions ou les informations répétées.
 - [x] Mémoriser les préférences utiles : langue, affichage et réglages de caméra.
-- [ ] Vérifier les liens directs et l’historique précédent/suivant du navigateur dans les deux vues.
+- [x] Vérifier les liens directs et l’historique précédent/suivant du navigateur dans les deux vues.
 
-**Avancement — interface :** recherche par numéro corrigée (étage explicite et absence de correspondance par simple suffixe), tolérance à une faute ajoutée et testée. Les synonymes existants sont conservés ; leur enrichissement et leur validation terrain ne sont pas terminés. Assistant, résumé du trajet et plusieurs panneaux traduits, mais la traduction exhaustive reste ouverte. L’historique des liens est pris en charge et les liens mal formés sont testés ; précédent/suivant dans les deux vues reste à vérifier manuellement.
+**Avancement — interface :** recherche par numéro corrigée (étage explicite et absence de correspondance par simple suffixe), tolérance à une faute ajoutée et testée. Les synonymes existants sont conservés ; leur enrichissement et leur validation terrain ne sont pas terminés. Assistant, résumé du trajet et plusieurs panneaux traduits, mais la traduction exhaustive reste ouverte. L’historique des liens et les liens mal formés sont pris en charge ; sélection et fermeture de fiche, Précédent/Suivant en 2D et consultation en immersion ont été vérifiés dans le lot S30–S34. Cela ne clôt pas tous les tests d’intégration de navigation.
 
 ### Ressources ENSIIE — lot de cinq, 16 octobre 2026
 
@@ -247,14 +247,14 @@ Les optimisations de rendu et le calcul des itinéraires en arrière-plan existe
 
 - [ ] Parcours de portes ouvertes avec points de passage et QR codes.
 - [ ] Ambiance selon l’heure et statut « ouvert maintenant », uniquement après collecte d’horaires fiables.
-- [ ] Simulation « une journée dans l’école » avec agents synthétiques et occupation fictive, toujours étiquetée **Simulation**.
+- [x] Simulation « une journée dans l’école » avec agents synthétiques et occupation fictive, toujours étiquetée **Simulation**.
 - [ ] Estimation de capacité à partir des blocs de mobilier du R+1, avec validation sur quelques salles ; ne pas présenter une estimation par surface comme un comptage de sièges.
 - [ ] Intégration éventuelle de disponibilités de salles, emplois du temps ou occupation réelle seulement avec une source autorisée et adaptée.
 - [x] Étudier une localisation intérieure automatique avec une infrastructure appropriée.
 - [x] Étudier le géoréférencement et un export vers un standard de cartographie intérieure si ces besoins sont retenus.
 - [x] Prévoir une restitution imprimable du parcours ou du passeport de visite.
 
-**Avancement — simulation :** vue avec curseur 8 h–18 h, agents synthétiques sur les trajets du modèle et avertissement explicite « Simulation ». Interpolation des agents testée ; validation de la vue complète et enrichissement des horaires fictifs restent ouverts. Pas d’occupation réelle, de planning connecté ni de données personnelles. Les autres extensions de cette section restent à réaliser ou à documenter selon leurs sources disponibles.
+**Avancement — simulation :** journée fictive de 8 h à 18 h avec cinq phases inventées, lecture/pause, vitesse, curseur et remise à zéro. Douze agents au maximum, quatre par trajet disponible ; trajet impossible exclu et reprise proposée. Arrêt de lecture à 18 h, quand l’onglet est masqué ou en mode mouvements réduits. Les trois trajets, les deux étages, la lecture, pause, phase de midi, réinitialisation et mouvements réduits ont été contrôlés dans le navigateur. Pas d’occupation réelle, de planning connecté ni de données personnelles ; chiffres et phases documentés dans `docs/DONNEES_FICTIVES.md`. Les autres extensions restent ouvertes.
 
 ## 12. Livrables et présentation — P0
 
@@ -337,7 +337,33 @@ Tests ciblés dans `scripts/comfortBatch.test.js` ; scénarios S15–S19 dans le
 
 14 tâches liées au jeu Aventure ont été retirées (terminées ou restantes), y compris les défis chronométrés et les découvertes cachées. La version actuelle du jeu reste inchangée.
 
-**Total actuel : 114 tâches — 65 terminées et 49 non terminées.**
+**Total actuel : 114 tâches — 69 terminées et 45 non terminées.**
 
 
 **Vérification du lot ressources :** 75 tests automatisés réussis, dont cinq tests du catalogue, et contrôles RDC sur 51 espaces. Build complet réussi, y compris les 28 ressources générées et la copie hors ligne. Compilation du cahier des charges confirmée. Contrôles navigateur : certificat → Aurion ; filtres Entreprise/Entreprises et projets → cinq ressources ; résultat vide et retour aux 28 ressources ; checklist 1/6 conservée après rechargement puis remise à zéro ; sélection du bureau candidat 220 sur R+2 sans trajet ; aide et recherche housing en immersion ; fermeture Échap avec retour du focus au déclencheur. La disponibilité externe, les démarches après connexion, le rendu mobile complet et les accès physiques ne sont pas validés par ces essais.
+
+
+## Lot de cinq — immersion, confort et journée fictive, 16 octobre 2026
+
+1. **Plein écran immersif corrigé :** bouton directement dans la scène, agrandissement de la scène seule, repli fenêtre si refus, sortie visible et Échap. La scène reste montée, même position et destination. Cette tâche était déjà cochée ; la version précédente agrandissait seulement la page entière depuis les réglages.
+2. **Panneaux harmonisés :** Plan, Salle, Trajet, Étages et Commandes partagent une barre et un seul emplacement ; choix actif explicite et commande Tout masquer. Les fiches et consignes continuent à utiliser les mêmes données dans le plan.
+3. **Historique vérifié et corrigé :** fermer une fiche ajoute un état consultable au lieu d’écraser l’entrée précédente. Précédent/Suivant, sélection 2D, consultation immersive sans téléportation et lien d’itinéraire après rechargement contrôlés.
+4. **Éclairage amélioré :** ambiance, source chaude et remplissage froid avec compression des hautes lumières ; pas de passe d’ombres supplémentaire. Silhouette, murs, portes et plafond contrôlés au RDC ; ne représente pas une étude d’éclairage réel ni un benchmark du PC du jury.
+5. **Journée fictive enrichie :** phases, lecture/pause/vitesse/remise à zéro, agents sur trajets calculés, erreurs et réduction des mouvements. Aucun planning ou effectif réel n’est inféré.
+
+**Vérification :** 80 tests automatisés passent, dont cinq nouveaux tests plein écran/journée ; contrôles RDC sur 51 espaces et build de production réussi. Plein écran natif testé : coordonnées RDC x 23,9 m / y 23,8 m conservées, aucun panneau à l’entrée ; catalogue Services accessible au-dessus de la scène, fermeture du dialogue puis sortie plein écran par Échap ; sélection du panneau Étages sans carte superposée. Les trois trajets de simulation ont chargé : 8 agents fictifs RDC, 4 au R+1 ; lecture jusqu’à 09:41, pause, phase 12:00, réinitialisation et lecture désactivée avec mouvements réduits contrôlées. Le repli fenêtre et le refus de sortie natif sont couverts automatiquement ; compatibilité mobile et visite de toutes les salles restent à contrôler. Recette S30–S34 et limites dans le guide.
+
+**Bilan :** cinq éléments traités, dont la correction d’une tâche déjà cochée ; quatre tâches précédemment ouvertes sont clôturées. Le nombre total ne change pas.
+
+**Bilan actuel après ce lot : 69 terminées / 45 non terminées / 114 au total.**
+
+
+### Correction suivante — commandes de l’ascenseur
+
+Accès explicite Ascenseur dans la barre immersive et depuis le plan, choix direct de l’étage, indication de l’étage actuel, distance au repère choisi et placement virtuel identifié. Le choix d’ascenseur n’est plus remplacé par une liaison voisine. Les repères bleus deviennent cliquables et E ouvre l’ascenseur à proximité. Arrivée au point sûr sans le décalage utilisé pour quitter un escalier ; un palier bloqué reste signalé. Quatre tests ciblés couvrent sélection/proximité, états de reprise et suspension du recalcul en ascenseur. Recette S35 : accès depuis le plan, placement virtuel, RDC ↔ R+1 et RDC → R+2 vérifiés dans le navigateur. La reprise après changement de vue est codée et testée au niveau de son état ; le retour navigateur a été interrompu avant conclusion et reste à rejouer, de même que la commande d’arrêt. Les validations physiques de l’ascenseur restent ouvertes.
+
+
+**Clôture de la passe demandée :** pas de nouveau développement engagé. Démonstration et cahier des charges actualisés ; l’ascenseur conserve sa liaison choisie, présente des boutons d’étage explicites et suspend le recalcul pendant le transfert. La correction d’interface ne coche pas la vérification physique de l’ascenseur. Le décompte reste **69 terminées / 45 restantes / 114 au total**.
+
+
+**Contrôle final :** 84 tests automatisés réussis, contrôles RDC sur 51 espaces et build complet avec copie hors ligne réussi. Les limites de recette manuelle signalées ci-dessus restent ouvertes.

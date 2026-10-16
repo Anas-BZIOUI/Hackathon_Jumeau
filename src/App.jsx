@@ -78,6 +78,7 @@ export default function App() {
   const sceneData = useMemo(() => data ? calibratedScene(data.floors, data.links, calibration) : null, [data, calibration]);
   const [lostOpen, setLostOpen] = useState(false);
   const [resourcesSection,setResourcesSection]=useState(null);
+  const [walkConnection,setWalkConnection]=useState(null);
 
   const t = STRINGS[lang];
 
@@ -198,7 +199,7 @@ export default function App() {
   function closeRoomDetails() {
     setSelectedId(null);
     // Closing information must not discard an itinerary shared with immersion.
-    if(!startId&&!endId)window.history.replaceState(null,'',window.location.pathname+window.location.search);
+    // The shared URL effect records closing as a navigable history entry.
   }
 
   function startTour(id) {
@@ -269,7 +270,7 @@ export default function App() {
   function enterRoom(room){const p={floor:room.level,x:room.centroid[0],y:room.centroid[1],yaw:lastPosition.current?.yaw||0,pitch:0};lastPosition.current=p;setPlayerPosition(p);setLevel(room.level);setMode('walk');}
   function updatePosition(p,final=false){lastPosition.current=p;setPlayerPosition(p);}
   function requestWalkRoute(position,to,stepFree){if(stepFree&&rooms.find(r=>r.id===to)?.accessible===false)return Promise.resolve(null);if(!routingWorker.current)return Promise.resolve(null);const id=`walk-${++walkRequestId.current}`;return new Promise(resolve=>{walkRequests.current.set(id,resolve);routingWorker.current.postMessage({type:'route',id,from:null,to,stepFree,startPosition:position});});}
-  function switchMode(next){if(next==='map2d'&&lastPosition.current){setPlayerPosition(lastPosition.current);setLevel(lastPosition.current.floor);}setMode(next);}
+  function switchMode(next){if(next!=='walk')setWalkConnection(null);if(next==='map2d'&&lastPosition.current){setPlayerPosition(lastPosition.current);setLevel(lastPosition.current.floor);}setMode(next);}
 
 
   const tourRoom=rooms.find(r=>r.id===currentTour?.steps[tourStep]?.roomId);
@@ -458,6 +459,7 @@ export default function App() {
 
           <main className="center" id="main-content" tabIndex={-1}>
             <div className="toolbar">
+              {mode==='map2d'&&sceneData.links.some(l=>l.type==='lift')&&<button type="button" className="ghost" onClick={()=>{setWalkConnection(sceneData.links.find(l=>l.type==='lift').id);switchMode('walk');}}>{lang==='fr'?'⇅ Ascenseur en immersion':'⇅ Lift in immersion'}</button>}
               <button type="button" className="ghost" onClick={()=>setResourcesSection('catalogue')}>{lang==='fr'?'Services et ressources':'Services and resources'}</button>
               <button type="button" className="ghost" onClick={()=>setResourcesSection('help')}>{lang==='fr'?'Besoin d’aide':'Need help'}</button>
               <button
@@ -536,7 +538,7 @@ export default function App() {
                 onSelect={selectRoom}
               /></Suspense>
             )}
-            {mode === 'walk' && <Suspense fallback={<p role="status">{t.loading}</p>}><Walkthrough onGuidancePlan={setRoute} settings={settings} geometry={drawnGeometry} rooms={rooms} floors={sceneData.floors} links={sceneData.links} selected={selected} lang={lang} requestRoute={requestWalkRoute} mapProps={mapProps} initialPosition={lastPosition.current} onPositionChange={updatePosition} route={route} destination={rooms.find(r=>r.id===endId)} stepFree={stepFree} onOverview={() => switchMode('map2d')} onFloorChange={setLevel} /></Suspense>}
+            {mode === 'walk' && <Suspense fallback={<p role="status">{t.loading}</p>}><Walkthrough initialConnection={walkConnection} onResources={()=>setResourcesSection('catalogue')} onGuidancePlan={setRoute} settings={settings} geometry={drawnGeometry} rooms={rooms} floors={sceneData.floors} links={sceneData.links} selected={selected} lang={lang} requestRoute={requestWalkRoute} mapProps={mapProps} initialPosition={lastPosition.current} onPositionChange={updatePosition} route={route} destination={rooms.find(r=>r.id===endId)} stepFree={stepFree} onOverview={() => switchMode('map2d')} onFloorChange={setLevel} /></Suspense>}
             {mode === 'metro' && (
               <MetroMap onRoute={id=>{setEndId(id);if(!startId)setStartId('RDC-011');selectRoom(id);setMode('map2d');}} metro={data.metro} rooms={rooms} selectedId={selectedId} onSelect={selectRoom} lang={lang} />
             )}
@@ -548,7 +550,7 @@ export default function App() {
                 t={t}
               />
             )}
-            {mode==='simulation'&&<SimulationView lang={lang} floors={data.floors} requestRoute={requestRoomRoute}/>}
+            {mode==='simulation'&&<SimulationView reducedMotion={settings.reducedMotion} lang={lang} floors={data.floors} requestRoute={requestRoomRoute}/>}
             {mode === "quality" && (
               <Dashboard rooms={rooms} t={t} lang={lang} audit={audit} auditStatus={auditStatus} onAudit={runAudit} onSelect={id=>{selectRoom(id);setMode("map2d");}} calibration={calibration}/>
             )}

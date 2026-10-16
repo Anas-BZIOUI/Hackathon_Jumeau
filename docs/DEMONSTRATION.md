@@ -11,13 +11,15 @@ Dernière mise à jour : **16 octobre 2026**. À chaque modification, mettre à 
 - Pour rejouer les missions à zéro sans effacer vos acquis, utiliser un profil de navigateur réservé aux essais ou une origine locale de prévisualisation différente ; ne pas vider le stockage de votre session de travail.
 - Les commandes « Aligner les étages », « Dessiner murs / portes » et « Annuler le calibrage » ont été retirées. Les données de géométrie et de calibrage existantes continuent à fonctionner.
 
-## Démonstration courte — environ cinq minutes
+## Démonstration courte — environ sept minutes
 
 1. **Recherche et information (45 s)** : chercher « RDC 011 », ouvrir sa fiche, montrer étage, provenance et inconnues (S01).
-2. **Orientation (60 s)** : choisir RDC-011 comme départ et R+1-131 comme destination ; ouvrir « Consignes du trajet » et montrer la liaison d’étage (S03).
-3. **Continuité 2D/immersion (60 s)** : entrer dans la visite, marcher, revenir au plan et montrer le marqueur et la destination. Les consignes utilisent maintenant la même position virtuelle dans les deux vues (S02).
-4. **Découverte des activités (60 s)** : Constellation → Recherche → Démarrer sur le plan ; passer à 2/3 et ouvrir l’immersion ; pause/reprise (S05).
-5. **Bilan (45 s)** : valider une découverte sans marcher, ouvrir la version imprimable et montrer les limites des données (S06). Si nécessaire, illustrer une fiche fictive puis désactiver immédiatement le mode Démo (S07).
+2. **Orientation (60 s)** : choisir RDC-011 comme départ et R+1-131 comme destination ; montrer les consignes et la liaison d’étage (S03).
+3. **Immersion lisible et continuité (75 s)** : entrer dans la visite, cliquer « Plein écran immersif », masquer les panneaux, marcher puis afficher Plan et Escaliers séparément. Montrer aussi « Ascenseur » et les boutons d’étage. Quitter le plein écran et revenir au plan : marqueur et destination conservés (S02/S30/S31/S35).
+4. **Découverte des activités (45 s)** : Constellation → Recherche → Démarrer sur le plan ; montrer une étape partagée et pause/reprise (S05).
+5. **Services concrets (60 s)** : « Services et ressources » → certificat → Aurion et badge « Compte requis » ; logement → contact et source. Passer au profil Entreprise pour montrer recrutement et Dièse (S25/S26).
+6. **Premiers jours et aide (30 s)** : cocher une ressource dans « Mes premiers jours », fermer et rouvrir ; montrer « Besoin d’aide » et les limites des bureaux candidats 220/221, sans annoncer de trajet certain (S27–S29).
+7. **Bilan transparent (45 s)** : découverte sans marcher, aperçu imprimable, état des informations et limites (S06). En option après ces sept minutes, montrer la journée fictive et son avertissement permanent (S34).
 
 Ne pas annoncer de temps de déplacement ou d’accessibilité comme une mesure terrain. Si un trajet échoue, expliquer la limite et montrer le diagnostic au lieu de prétendre qu’il est valide.
 
@@ -62,10 +64,10 @@ Ne pas annoncer de temps de déplacement ou d’accessibilité comme une mesure 
 
 **Précondition :** visite immersive, personnage au RDC, parcours guidé terminé.
 
-1. Déplier « Changer d’étage », sélectionner « Escalier A », puis « Me placer au palier ».
+1. Cliquer « Escaliers » dans la barre inférieure, sélectionner « Escalier A », puis « Me placer au palier ».
 2. Cliquer « Monter » ; immédiatement passer au Plan 2D puis revenir dans la visite.
 3. Attendre la fin de la montée et vérifier R+1 dans le bandeau et le plan intégré.
-4. Déplier à nouveau « Changer d’étage », cliquer « Descendre » et répéter le changement de vue.
+4. Rouvrir le panneau « Escaliers », cliquer « Descendre » et répéter le changement de vue.
 
 **Attendu :** la progression et le sens de la liaison sont conservés ; arrivée R+1 à la montée et RDC au retour. Le personnage ne repart pas du sol inférieur après le changement de vue.
 
@@ -381,3 +383,94 @@ Préconditions communes : ouvrir le Guide, langue FR, profil Étudiant. Aucune c
 - S29 : sélection du bureau candidat 220 sur le plan R+2, sans lancement de route ; accès à l’aide et au catalogue depuis l’immersion. Pas de nouvelle validation du bureau 221 ni de campagne d’interruption d’un trajet déjà en cours.
 
 Suite : 75 tests réussis, contrôles RDC sur 51 espaces et build complet réussi. Le cahier des charges compile. Les scénarios restent à répéter sur le PC de présentation ; la recette ne certifie ni les portails externes ni les accès réels.
+
+
+## Immersion et confort — recette S30 à S34
+
+### S30 — Agrandir uniquement la visite immersive
+
+1. Depuis le plan, ouvrir la visite et relever étage, coordonnées virtuelles et destination.
+2. Dans le bandeau de la scène, cliquer « Plein écran immersif ».
+3. Vérifier que la scène remplit l’écran et que les panneaux sont masqués au départ ; le personnage ne doit pas être replacé.
+4. Ouvrir « Services » puis fermer le catalogue. Tester « Quitter le plein écran » puis une nouvelle entrée suivie d’Échap.
+5. Si le navigateur refuse l’API plein écran, vérifier le message « Vue agrandie dans la fenêtre » et la sortie par Échap.
+
+**Attendu :** agrandissement de la scène seule, même instance 3D et même position/destination ; bandeau et commandes de sortie accessibles. Le repli remplit la fenêtre de l’application, sans promettre de masquer l’interface du navigateur. Échap dans un dialogue ferme d’abord le dialogue.
+
+### S31 — Panneaux sans superposition
+
+1. Dans la visite, cliquer successivement Plan, Salle, Trajet, Escaliers, Ascenseur et Commandes dans la barre inférieure.
+2. Vérifier qu’un seul panneau de cette barre est visible à la fois, avec bouton actif explicite.
+3. Agrandir le plan intégré, le réduire puis choisir Escaliers ; vérifier les commandes de palier.
+4. Cliquer « Tout masquer » ; vérifier que la scène reste navigable et que les panneaux sont réouvrables au clavier.
+
+**Attendu :** fin de l’empilement simultané de la fiche, de la mini-carte, des commandes et des escaliers. Les fiches et parcours partagés restent disponibles dans le plan. Une salle éloignée ou une destination absente produit une explication plutôt qu’un panneau vide.
+
+### S32 — Liens directs et historique
+
+1. Ouvrir le lien direct d’une salle RDC, sélectionner une deuxième salle et utiliser Précédent/Suivant du navigateur.
+2. Fermer la fiche ; Précédent doit rétablir la salle précédente au lieu de perdre cette entrée.
+3. Ouvrir la visite, sélectionner une autre salle depuis son plan intégré et répéter Précédent/Suivant.
+4. Tester un lien d’itinéraire RDC-011 → R+1-131 et vérifier départ, arrivée et calcul après rechargement.
+
+**Attendu :** salle/étage ou départ/arrivée suivent le lien ; consulter l’historique en immersion ne téléporte pas le personnage. Les coordonnées virtuelles restent indépendantes de la salle consultée. Les liens ne constituent pas une certification des passages.
+
+### S33 — Lisibilité de l’éclairage
+
+1. Entrer dans une salle du secteur RDC et tourner la caméra vers deux murs de directions différentes.
+2. Comparer murs, porte, plafond et silhouette du personnage ; vérifier que les faces restent discernables et que les zones claires ne sont pas brûlées.
+3. Refaire un court déplacement en qualité basse puis automatique et en première personne.
+
+**Attendu :** éclairage ambiant, lumière principale chaude et remplissage froid, avec compression des hautes lumières. Pas de nouvelle passe d’ombres ni de texture ajoutée. Il s’agit d’un rendu illustratif, pas d’une étude de l’éclairage réel. La lisibilité de chaque salle reste à juger sur l’écran de présentation.
+
+### S34 — Une journée fictive contrôlable
+
+1. Quitter la visite et ouvrir Simulation. Lire l’avertissement « aucune donnée en temps réel ».
+2. Sélectionner les phases de 08:00 à 18:00 et vérifier titre, heure et agents affichés.
+3. Lancer la lecture à 15 minutes fictives par seconde ; mettre en pause, changer la vitesse puis revenir à 08:00.
+4. Vérifier que les trajets indisponibles sont annoncés et exclus ; utiliser Réessayer si nécessaire.
+5. Activer « Réduire les mouvements » dans les réglages : la lecture automatique est désactivée, mais le curseur et les phases restent utilisables.
+
+**Attendu :** cinq périodes inventées, agents synthétiques contraints aux trajets calculés, lecture/pause/vitesse/réinitialisation ; arrêt à 18:00 et lors du masquage de l’onglet. Le nombre de points n’est jamais présenté comme une occupation réelle. Les données inventées sont détaillées dans `docs/DONNEES_FICTIVES.md`.
+
+**Statut :** scénarios écrits, tests ciblés et contrôles navigateur exécutés selon le bilan ci-dessous. Les anciens scénarios Aventure restent des références de la version conservée, hors des nouveaux développements.
+
+
+### Résultats observés S30–S34 — 16 octobre 2026
+
+- **S30 :** plein écran natif de la scène observé, sans bandeau de page, outils généraux ni panneau à l’entrée. Position RDC x 23,9 / y 23,8 conservée ; Services s’ouvre au-dessus du plein écran. Échap ferme le catalogue ; Échap ou bouton de sortie rend ensuite la page normale sans déplacer le personnage. Le repli fenêtre et les refus API sont couverts par tests unitaires, pas par une simulation de permission dans le navigateur.
+- **S31 :** panneau Étages ouvert avec liaison A et commandes de palier, sans mini-carte superposée. La carte et la fiche restent montées mais masquées, avec un seul panneau visible selon le choix. Les contrôles de toutes les tailles mobiles et chaque panneau dans toutes les salles restent à approfondir.
+- **S32 :** en 2D, RDC-011 → RDC-028, retour puis suivant ; fermeture de fiche vers #, retour rétablissant RDC-028. En immersion, recherche d’une autre salle puis retour vers RDC-028 : vue immersive et coordonnées RDC 23,9/23,8 conservées. Lien direct RDC-011 → R+1-131 rechargé : départ/arrivée et trajet de 28 m (estimation du modèle) restaurés.
+- **S33 :** contrôle visuel RDC près de la porte 011 : faces de murs différenciées, porte, plafond et silhouette lisibles, y compris dans le plein écran. Ce contrôle ne constitue pas un relevé photométrique ni un benchmark de tous les modes graphiques. Comparaison sur le PC de présentation encore recommandée.
+- **S34 :** trois trajets chargés, 12 agents fictifs (8 RDC, 4 R+1). Lecture avancée à 09:41 puis pause ; phase de midi → 12:00 ; retour 08:00. « Réduire les mouvements » désactive Lire la journée et affiche l’équivalent manuel ; réglage initial rétabli après essai. Phases, positions sur trajets et frontières horaires testées automatiquement. Arrêt à 18:00 et masquage d’onglet sont implémentés, à rejouer sur le poste de présentation.
+
+**Bilan de vérification :** 80 tests automatisés réussis, contrôles RDC sur 51 espaces et build de production réussi. Compilation du cahier des charges confirmée. Le lot clôt quatre tâches ouvertes et corrige le plein écran déjà coché : **69 tâches terminées, 45 restantes, 114 au total**.
+
+
+### S35 — Trouver et utiliser les commandes de l’ascenseur
+
+1. Depuis le plan, cliquer « Ascenseur en immersion » ; ou, dans la visite, cliquer le bouton explicite « Ascenseur » dans la barre inférieure.
+2. Vérifier la sélection Ascenseur B et les boutons RDC, R+1 et R+2. Une liaison choisie ne doit plus être remplacée par l’escalier le plus proche.
+3. Rejoindre le repère enregistré ou cliquer « Me placer près de l’ascenseur (virtuel) ». Cette commande est un placement dans le modèle, pas une géolocalisation.
+4. Cliquer « Aller à R+1 », attendre l’arrivée, puis « Aller à RDC ». Tester ensuite R+2 si le repère n’est pas bloqué.
+5. Vérifier le même étage et la même position en revenant au plan. Refaire l’ouverture de l’ascenseur en plein écran.
+6. Près d’un repère d’ascenseur, la touche E ou le clic sur le repère bleu ouvre aussi le panneau. Le bouton de la barre reste l’équivalent clavier/souris accessible.
+
+**Attendu :** étage actuel indiqué et désactivé ; autres étages activés seulement près du repère sélectionné, hors trajet en cours. Pendant le déplacement, les commandes sont désactivées. Si un palier est bloqué dans le modèle, un message explicite apparaît : aucun mur ni point de contrôle n’est déplacé. Les déplacements sont virtuels ; fonctionnement réel et accessibilité physique restent à vérifier. Le retour au plan préserve la destination.
+
+
+### Bilan final de la correction ascenseur — 16 octobre 2026
+
+- Accès depuis « Ascenseur en immersion » dans le plan testé : ouverture sur Ascenseur B avec boutons d’étage, sans déplacement automatique du personnage.
+- Placement virtuel au repère RDC testé : position 30,6 / 22,7 m et boutons R+1/R+2 activés.
+- RDC → R+1 : arrivée virtuelle 30,2 / 20,9 m ; étage courant désactivé. Retour R+1 → RDC testé. RDC → R+2 testé : arrivée 103,1 / 23,0 m.
+- Les murs et repères enregistrés restent inchangés. Ces essais ne valident pas l’accès physique réel.
+- Sauvegarde de la progression de l’ascenseur lors du passage au plan et restauration à la réouverture codées ; validation et rejet d’états corrompus couverts automatiquement. L’essai navigateur de retour en immersion après interruption a été interrompu avant conclusion : à rejouer avant la présentation.
+- Le guidage ne recalcule plus depuis une position intermédiaire dans l’ascenseur ; message de déplacement en cours et reprise à l’arrivée. La commande Arrêter ramène à un palier du modèle ; contrôle navigateur de cette commande restant à effectuer.
+
+Pour vérifier la reprise : lancer R+2 → RDC, sortir immédiatement au plan, revenir à la visite puis attendre l’arrivée. Vérifier étage RDC, commandes réactivées et destination conservée. Les clics sur le repère bleu et la touche E restent des raccourcis secondaires ; les boutons explicites constituent le parcours de démonstration principal.
+
+**Fin de cette passe :** démonstration courte, ressources S25–S29, plein écran et confort S30–S34 et ascenseur S35 documentés ; les validations terrain restent ouvertes. Backlog : **69 tâches terminées, 45 restantes, 114 au total**.
+
+
+**Contrôle final :** 84 tests automatisés réussis, contrôles RDC sur 51 espaces et build complet avec copie hors ligne réussi. Les limites de recette manuelle signalées ci-dessus restent ouvertes.

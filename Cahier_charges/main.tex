@@ -359,4 +359,31 @@ Les bureaux 220 et 221 sont présentés uniquement comme correspondances candida
 
 Les scénarios S25 à S29 du guide de démonstration détaillent recherche, filtres, badges, progression, contacts et continuité entre vues. Cinq tests ciblés complètent la suite automatique. Les autres ressources candidates, événements et informations exclusivement attestées par email restent à valider avant intégration. Le jeu Aventure est conservé dans sa version actuelle et retiré du backlog actif ; le plan 2D et la visite immersive restent dans le périmètre.
 
+
+\section{Lisibilité de l'immersion et journée fictive}
+Le bouton « Plein écran immersif », directement dans la scène, agrandit uniquement la visite. L'API native est privilégiée ; un repli remplit la fenêtre si elle est refusée ou indisponible. Le rendu reste monté : position, orientation, destination et trajet ne sont pas réinitialisés. Une commande de sortie reste visible et les services restent consultables. Échap ferme le dialogue actif avant de sortir du repli fenêtre.
+
+La carte, la fiche de salle, le trajet, les liaisons d'étage et les commandes se partagent un emplacement de panneau unique, sélectionné dans une barre inférieure. « Tout masquer » libère la scène ; le plein écran commence sans panneau. Les mêmes données continuent à alimenter les fiches et consignes du plan 2D. La fermeture d'une fiche crée une entrée d'historique consultable avec Précédent/Suivant au lieu d'écraser la salle précédente.
+
+L'éclairage combine ambiance, source chaude et remplissage froid avec compression des hautes lumières, sans ajouter de passe d'ombres. Il améliore la lecture des formes mais ne reproduit pas un relevé d'éclairage réel.
+
+La journée fictive comporte cinq périodes de 08:00 à 18:00, des agents synthétiques sur les seuls trajets calculables, lecture/pause, vitesses et réinitialisation. Elle est distincte du personnage et des fiches réelles. Les horaires et effectifs sont inventés et documentés ; aucun planning ni statut d'occupation réel n'est annoncé. La réduction des mouvements permet une consultation manuelle sans lecture automatique. Le guide décrit les procédures S30 à S34, en complément de la nouvelle démonstration courte incluant les services S25 à S29.
+
+\subsection{Vérification et bilan du lot}
+Les 80 tests automatiques, contrôles RDC sur 51 espaces et build complet passent. Le plein écran natif conserve les coordonnées et permet l'ouverture du catalogue de services. Échap ferme le dialogue actif puis permet la sortie de scène agrandie. Le panneau Étages a été observé sans carte superposée. L'historique 2D et immersif, la fermeture de fiche et le lien direct multi-étage après rechargement ont été contrôlés.
+
+Les trois trajets illustratifs de simulation ont chargé avec douze agents synthétiques ; lecture, pause, phase de midi, retour au début et réduction des mouvements ont été vérifiés. Le rendu lumineux a été observé près de la porte 011 au RDC ; le repli plein écran est testé automatiquement. Ces vérifications ne constituent pas une validation de toutes les salles, de tous les écrans ni de l'accès réel. Le lot comporte une correction déjà cochée et quatre clôtures de tâches ouvertes : le backlog actif compte 69 tâches terminées et 45 restantes sur 114.
+
+\subsection{Commandes explicites d'ascenseur}
+Le plan donne accès à « Ascenseur en immersion » et la visite présente un bouton Ascenseur distinct d'Escaliers. Le panneau affiche l'étage courant et les destinations ; les commandes sont activées uniquement près du repère choisi et hors déplacement. La sélection n'est plus remplacée par l'escalier le plus proche. Le clic sur un repère bleu ou la touche E à proximité ouvre également ce panneau.
+
+Le placement au palier est explicitement virtuel. L'arrivée de l'ascenseur utilise le point sûr prévu, sans le décalage de sortie d'escalier. Un repère bloqué dans le modèle produit un message ; aucun mur n'est supprimé. Cette correction d'interface ne certifie ni le fonctionnement réel ni l'accessibilité de l'ascenseur. Recette S35 dans le guide.
+
+\subsection{Bilan final de l'ascenseur et clôture de passe}
+L'accès depuis le plan, le placement virtuel au repère RDC, les transferts RDC vers R+1, le retour R+1 vers RDC et le transfert RDC vers R+2 ont été observés dans le navigateur. La sélection de l'ascenseur ne bascule plus automatiquement vers une liaison voisine. Aucun repère ni mur n'a été modifié.
+
+L'état de déplacement peut être conservé pendant un changement de vue, avec validation de la liaison, du chemin et de la progression avant restauration. Le recalcul depuis une position intermédiaire dans l'ascenseur est suspendu et le guidage annonce le transfert. L'arrêt volontaire revient à un palier du modèle. Les tests automatiques couvrent l'état de reprise et le recalcul ; la recette navigateur de retour après interruption et celle de l'arrêt restent à rejouer, car la dernière séance a été interrompue avant conclusion. Aucun essai logiciel ne certifie l'accès physique.
+
+Le guide contient le déroulé court actualisé et les scénarios jusqu'à S35, avec distinction entre résultats attendus et observés. La passe est clôturée à la demande de l'utilisateur ; le backlog conserve 69 tâches terminées et 45 restantes sur 114.
+Les contrôles finaux passent : 84 tests automatisés, vérification RDC sur 51 espaces et build de production avec copie hors ligne. Les limites de recette manuelle et de validation terrain décrites ci-dessus restent ouvertes.
 \end{document}

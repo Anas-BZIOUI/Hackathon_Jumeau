@@ -67,6 +67,6 @@ export function routeProgress(route,position){
 }
 
 export function rerouteOrigin(route,position,{enabled=true,status='ready'}={}){
- if(!enabled||status!=='ready'||!position||position.stairLink||![position.x,position.y].every(Number.isFinite))return null;
+ if(!enabled||status!=='ready'||!position||position.stairLink||position.inLift||![position.x,position.y].every(Number.isFinite))return null;
  return routeProgress(route,position)?.offRoute?{...position}:null;
 }
