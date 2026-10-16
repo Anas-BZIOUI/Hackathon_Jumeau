@@ -62,6 +62,14 @@ export default function Map2D({
     () => rooms.filter((r) => r.level === level),
     [rooms, level],
   );
+  // Use matched architectural contours, never the estimated rectangular polygons.
+  const roomShapes = useMemo(() => Object.fromEntries(levelRooms.map(room => {
+    const polygon = room.geometry_source === 'architect-svg' && room.polygon;
+    const path = polygon?.length >= 3
+      ? polygon.map(([x, y], index) => `${index ? 'L' : 'M'}${x},${size[1] - y}`).join(' ') + ' Z'
+      : shapes[room.id];
+    return [room.id, path];
+  })), [levelRooms, shapes, size[1]]);
   const selected = levelRooms.find((r) => r.id === selectedId);
   const departure = virtualStart?{id:'virtual-start',level:virtualStart.floor,centroid:[virtualStart.x,virtualStart.y],name_fr:'Position virtuelle',name_en:'Virtual position'}:rooms.find((r) => r.id === startId);
   const arrival = rooms.find((r) => r.id === endId);
@@ -262,7 +270,7 @@ export default function Map2D({
           preserveAspectRatio="none"
         />
         {levelRooms.map((r) => {
-          const d = shapes[r.id];
+          const d = roomShapes[r.id];
           if (!d) return null;
           const isSelected = r.id === selectedId;
           const matches = matchesFilters(r);
@@ -303,7 +311,8 @@ export default function Map2D({
                         : "none"
                 }
                 strokeOpacity={isSelected ? 1 : matches ? 0.9 : 0}
-                strokeWidth={isSelected ? 0.28 : matches ? 0.12 : 0}
+                strokeWidth={isSelected ? 0.5 : matches ? 0.35 : 0}
+                vectorEffect="non-scaling-stroke"
                 strokeDasharray={accessibilityLens&&!(r.accessible===true&&r.verification?.fields?.includes('accessible'))?'.5 .3':undefined}
                 strokeLinejoin="round"
               />
@@ -387,7 +396,7 @@ export default function Map2D({
           levelRooms
             .filter(
               (r) =>
-                !shapes[r.id] &&
+                !roomShapes[r.id] &&
                 r.centroid &&
                 (matchesFilters(r) || r.id === selectedId),
             )
