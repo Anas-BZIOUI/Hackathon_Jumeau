@@ -1,16 +1,526 @@
 [
   {
     "id": "site",
-    "label_fr": "Site de l’ensIIE",
-    "label_en": "ensIIE website",
-    "href": "https://www.ensiie.fr",
-    "official": true
+    "category": "visit",
+    "audiences": [
+      "all"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/",
+    "label_fr": "Découvrir l’ENSIIE",
+    "label_en": "Discover ENSIIE",
+    "summary_fr": "Site officiel : enseignement, recherche, vie étudiante et entreprises.",
+    "summary_en": "Official website: teaching, research, student life and companies.",
+    "keywords": "ensiie école school découverte discovery",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
   },
   {
-    "id": "note",
-    "label_fr": "Autres ressources numériques : à valider avec le référent",
-    "label_en": "Other digital resources: confirm with the referent",
-    "href": null,
-    "official": false
+    "id": "contact",
+    "category": "visit",
+    "audiences": [
+      "all"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/contact",
+    "label_fr": "Contacter l’école",
+    "label_en": "Contact the school",
+    "summary_fr": "Je ne sais pas à qui m’adresser : formulaire de contact officiel.",
+    "summary_en": "Not sure whom to contact? Use the official contact form.",
+    "keywords": "contact accueil rendez-vous appointment department",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "admissions",
+    "category": "visit",
+    "audiences": [
+      "visitor"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/formation/concours-et-admission",
+    "label_fr": "Candidater à l’ENSIIE",
+    "label_en": "Apply to ENSIIE",
+    "summary_fr": "Consulter les voies d’admission et les modalités de la campagne.",
+    "summary_en": "Find admission routes and the relevant application campaign.",
+    "keywords": "concours candidature admission apply",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "programmes",
+    "category": "visit",
+    "audiences": [
+      "visitor",
+      "company"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/formation",
+    "label_fr": "Découvrir les formations",
+    "label_en": "Explore programmes",
+    "summary_fr": "Comprendre les formations proposées par l’école.",
+    "summary_en": "Explore the school’s programmes.",
+    "keywords": "formation cursus diplôme programmes degree",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "official-reference",
+    "publisher": "school"
+  },
+  {
+    "id": "faq",
+    "category": "visit",
+    "audiences": [
+      "visitor",
+      "student"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/faq",
+    "label_fr": "Questions sur l’école",
+    "label_en": "School FAQ",
+    "summary_fr": "Admissions, intégration, cursus et vie à l’école. Vérifier le millésime des informations.",
+    "summary_en": "Admissions, arrival, studies and school life. Check the year of the information.",
+    "keywords": "faq intégration question admissions",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "career",
+    "category": "career",
+    "audiences": [
+      "student"
+    ],
+    "access": "account",
+    "href": "https://ensiie-evry.jobteaser.com/",
+    "label_fr": "Trouver un stage ou un emploi",
+    "label_en": "Find an internship or a job",
+    "summary_fr": "Career Center ENSIIE : offres et événements carrière.",
+    "summary_en": "ENSIIE Career Center: opportunities and career events.",
+    "keywords": "stage alternance emploi carrière internship apprenticeship job career",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "partner"
+  },
+  {
+    "id": "internship-guide",
+    "category": "career",
+    "audiences": [
+      "student",
+      "company"
+    ],
+    "access": "public",
+    "href": "https://stages.ensiie.fr/docs/",
+    "label_fr": "Comprendre les étapes du stage",
+    "label_en": "Understand internship steps",
+    "summary_fr": "Documentation : sujet, convention, validation, rapport et soutenance.",
+    "summary_en": "Documentation: subject, agreement, validation, report and presentation.",
+    "keywords": "stage rapport soutenance internship report validation",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "agreement",
+    "category": "career",
+    "audiences": [
+      "student"
+    ],
+    "access": "account",
+    "href": "https://stages.ensiie.fr/",
+    "label_fr": "Demander une convention de stage",
+    "label_en": "Request an internship agreement",
+    "summary_fr": "Accéder à l’application de gestion des conventions ; suivre les consignes de votre année.",
+    "summary_en": "Open the agreement application; follow the instructions for your year.",
+    "keywords": "convention stage agreement internship",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "agreement-help",
+    "category": "career",
+    "audiences": [
+      "student",
+      "company"
+    ],
+    "access": "public",
+    "href": "https://stages.ensiie.fr/docs/generalites_convention.html",
+    "label_fr": "Aide sur les conventions",
+    "label_en": "Internship agreement help",
+    "summary_fr": "Consulter le circuit de validation et les contacts selon votre année.",
+    "summary_en": "Find the approval process and contacts for your year.",
+    "keywords": "convention validation tuteur bicursus agreement supervisor",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "recruit",
+    "category": "company",
+    "audiences": [
+      "company"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/entreprise/deposer-une-offre-de-stage",
+    "label_fr": "Recruter un étudiant",
+    "label_en": "Recruit a student",
+    "summary_fr": "Entrée entreprise pour proposer un stage ou une offre ; le dépôt peut demander un compte.",
+    "summary_en": "Employer entry point for opportunities; submission may require an account.",
+    "keywords": "recruter offre entreprise hire recruitment internship",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "partners",
+    "category": "company",
+    "audiences": [
+      "company"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/entreprise/devenir-partenaire",
+    "label_fr": "Collaborer avec l’école",
+    "label_en": "Partner with the school",
+    "summary_fr": "Découvrir les relations et partenariats avec les entreprises.",
+    "summary_en": "Explore business relations and partnerships.",
+    "keywords": "partenaire entreprise collaboration partner business",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "diese",
+    "category": "company",
+    "audiences": [
+      "company",
+      "student"
+    ],
+    "access": "public",
+    "href": "https://www.diese.org/",
+    "label_fr": "Faire réaliser un projet — Dièse",
+    "label_en": "Commission a project — Dièse",
+    "summary_fr": "Junior Conseil : découvrir les prestations numériques réalisées par des étudiants.",
+    "summary_en": "Student consulting: explore digital projects delivered by students.",
+    "keywords": "projet web ia développement consulting junior entreprise diese dièse",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "partner"
+  },
+  {
+    "id": "innovation",
+    "category": "company",
+    "audiences": [
+      "company",
+      "student",
+      "visitor"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/entreprise/entrepreneuriat",
+    "label_fr": "Entreprendre et découvrir C-19",
+    "label_en": "Entrepreneurship and C-19",
+    "summary_fr": "Présentation de l’entrepreneuriat et des espaces d’innovation ; localisation non confirmée ici.",
+    "summary_en": "Entrepreneurship and innovation spaces; location is not confirmed here.",
+    "keywords": "incubateur startup c19 c-19 innovation entreprendre",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "alumni",
+    "category": "company",
+    "audiences": [
+      "student",
+      "company"
+    ],
+    "access": "mixed",
+    "href": "https://ensiie-alumni.org/en",
+    "label_fr": "Réseau ENSIIE Alumni",
+    "label_en": "ENSIIE Alumni network",
+    "summary_fr": "Découvrir le réseau des diplômés et ses ressources professionnelles.",
+    "summary_en": "Explore the alumni network and professional resources.",
+    "keywords": "alumni réseau diplômé carrière network career",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "partner"
+  },
+  {
+    "id": "incoming",
+    "category": "international",
+    "audiences": [
+      "student",
+      "visitor"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/international/venir-etudier-lensiie",
+    "label_fr": "Arriver de l’étranger",
+    "label_en": "Incoming international students",
+    "summary_fr": "Informations de mobilité entrante et contacts des relations internationales.",
+    "summary_en": "Incoming mobility information and international office contacts.",
+    "keywords": "international arrivée accueil incoming exchange erasmus",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school",
+    "candidate_room_id": "R+2-221"
+  },
+  {
+    "id": "outgoing",
+    "category": "international",
+    "audiences": [
+      "student"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/international/mobilite-internationale",
+    "label_fr": "Partir à l’étranger",
+    "label_en": "Study abroad",
+    "summary_fr": "Mobilité, échanges et aides : consulter les conditions de la campagne courante.",
+    "summary_en": "Mobility, exchanges and support: check the current campaign conditions.",
+    "keywords": "erasmus bourse mobilité étranger abroad mobility scholarship",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school",
+    "candidate_room_id": "R+2-221"
+  },
+  {
+    "id": "universities",
+    "category": "international",
+    "audiences": [
+      "student",
+      "visitor"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/international/universites-partenaires",
+    "label_fr": "Universités partenaires",
+    "label_en": "Partner universities",
+    "summary_fr": "Explorer les partenariats internationaux ; une liste ne garantit pas l’admission.",
+    "summary_en": "Explore international partnerships; listing does not guarantee admission.",
+    "keywords": "université pays échange international university exchange",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "housing",
+    "category": "life",
+    "audiences": [
+      "student",
+      "visitor"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/vie-etudiante/logements",
+    "label_fr": "Chercher un logement",
+    "label_en": "Find housing",
+    "summary_fr": "Solutions et interlocuteurs logement, sans garantie de place ou de disponibilité.",
+    "summary_en": "Housing options and contacts, without a guarantee of availability.",
+    "keywords": "logement résidence housing accommodation residence",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "societies",
+    "category": "life",
+    "audiences": [
+      "student",
+      "visitor"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/vie-etudiante/vie-associative",
+    "label_fr": "Découvrir les associations",
+    "label_en": "Discover student societies",
+    "summary_fr": "Sport, culture, solidarité et activités étudiantes ; locaux à confirmer.",
+    "summary_en": "Sport, culture, solidarity and student activities; rooms need confirmation.",
+    "keywords": "association club sport musique robotique student society music",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "sustainability",
+    "category": "life",
+    "audiences": [
+      "all"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/lecole/developpement-durable",
+    "label_fr": "Solidarité et développement durable",
+    "label_en": "Sustainability and solidarity",
+    "summary_fr": "Découvrir les initiatives DD&RS de l’école.",
+    "summary_en": "Explore the school’s sustainability initiatives.",
+    "keywords": "solidarité dons écologie durable sustainability donations",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "support",
+    "category": "help",
+    "audiences": [
+      "student"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/lutte-anti-harcelement",
+    "label_fr": "Accompagnement et soutien",
+    "label_en": "Support and assistance",
+    "summary_fr": "Retrouver les ressources officielles d’accompagnement et de lutte contre le harcèlement.",
+    "summary_en": "Find official support and anti-harassment resources.",
+    "keywords": "aide soutien harcèlement accompagnement help support harassment",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "accessibility",
+    "category": "help",
+    "audiences": [
+      "student",
+      "visitor"
+    ],
+    "access": "public",
+    "href": "https://www.etudiant.gouv.fr/fr/trouvez-le-referent-handicap-de-votre-etablissement-3319",
+    "label_fr": "Handicap et aménagements",
+    "label_en": "Disability and accommodations",
+    "summary_fr": "Annuaire ministériel des référents. Ce contact ne certifie aucun itinéraire sans marches.",
+    "summary_en": "Ministry directory of disability contacts. This does not certify any step-free route.",
+    "keywords": "handicap aménagement accessibilité disability accessibility accommodations",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "ministry"
+  },
+  {
+    "id": "aurion",
+    "category": "digital",
+    "audiences": [
+      "student"
+    ],
+    "access": "account",
+    "href": "https://aurionweb.ensiie.fr/",
+    "label_fr": "Emploi du temps et documents — Aurion",
+    "label_en": "Timetable and documents — Aurion",
+    "summary_fr": "Portail scolarité. Pour un certificat, chercher « Mes Documents » après validation de l’inscription.",
+    "summary_en": "Student administration portal. For a certificate, look for “Mes Documents” after enrolment approval.",
+    "keywords": "aurion emploi du temps certificat attestation inscription timetable enrolment certificate",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "institutional-reference",
+    "publisher": "school",
+    "candidate_room_id": "R+2-220"
+  },
+  {
+    "id": "moodle",
+    "category": "digital",
+    "audiences": [
+      "student"
+    ],
+    "access": "account",
+    "href": "https://cours.ensiie.fr/",
+    "label_fr": "Cours — Moodle",
+    "label_en": "Courses — Moodle",
+    "summary_fr": "Accéder aux ressources de cours avec son compte institutionnel.",
+    "summary_en": "Access course resources with your institutional account.",
+    "keywords": "cours moodle cours ressources teaching materials",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "institutional-reference",
+    "publisher": "school"
+  },
+  {
+    "id": "helpdesk",
+    "category": "help",
+    "audiences": [
+      "student"
+    ],
+    "access": "account",
+    "href": "https://helpdesk.ensiie.fr/",
+    "label_fr": "Assistance informatique",
+    "label_en": "IT helpdesk",
+    "summary_fr": "Signaler un problème informatique aux services de l’école ; distinct des outils associatifs.",
+    "summary_en": "Report an IT issue to school services; separate from student-run tools.",
+    "keywords": "informatique problème connexion ticket assistance helpdesk login password mot de passe",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "research",
+    "category": "research",
+    "audiences": [
+      "all"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/recherche-innovation",
+    "label_fr": "Découvrir la recherche",
+    "label_en": "Explore research",
+    "summary_fr": "Activités scientifiques, laboratoires, publications et annuaire.",
+    "summary_en": "Research activities, laboratories, publications and directory.",
+    "keywords": "recherche science laboratoire research lab publications",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "labs",
+    "category": "research",
+    "audiences": [
+      "visitor",
+      "company",
+      "student"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/recherche-innovation/les-laboratoires-associes",
+    "label_fr": "Laboratoires associés",
+    "label_en": "Associated laboratories",
+    "summary_fr": "Découvrir les domaines de recherche ; une affiliation ne localise pas un laboratoire dans le bâtiment.",
+    "summary_en": "Explore research fields; affiliation does not locate a laboratory inside this building.",
+    "keywords": "laboratoire mathématiques informatique samovar ibisc lisn lamme labs research",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
+  },
+  {
+    "id": "research-directory",
+    "category": "research",
+    "audiences": [
+      "visitor",
+      "company",
+      "student"
+    ],
+    "access": "public",
+    "href": "https://www.ensiie.fr/recherche-innovation/annuaire-des-enseignants-chercheurs",
+    "label_fr": "Trouver un enseignant-chercheur",
+    "label_en": "Find a researcher",
+    "summary_fr": "Annuaire public pour préparer un contact ou un rendez-vous scientifique.",
+    "summary_en": "Public directory for scientific contacts and appointments.",
+    "keywords": "enseignant chercheur annuaire rendez-vous scientist researcher directory",
+    "collected_at": "2026-10-16",
+    "source": "docs/RESSOURCES_ENSIIE.md",
+    "evidence": "public-page",
+    "publisher": "school"
   }
 ]

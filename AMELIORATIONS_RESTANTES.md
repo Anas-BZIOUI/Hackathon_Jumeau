@@ -2,11 +2,11 @@
 
 État de référence : **16 octobre 2026**.
 
-**Point de suivi : 70 tâches cochées sur 123.** Une case vide peut être partiellement réalisée : les notes sous chaque section précisent les limites. Ce bilan ne signifie pas que tout le backlog est terminé. Les contrôles terrain, les sources manquantes et les essais restant à exécuter ne sont pas cochés.
+**Point de suivi : 65 tâches cochées sur 114.** Une case vide peut être partiellement réalisée : les notes sous chaque section précisent les limites. Ce bilan ne signifie pas que tout le backlog est terminé. Les contrôles terrain, les sources manquantes et les essais restant à exécuter ne sont pas cochés.
 
 Ce document regroupe les idées évoquées pendant le développement, les fonctionnalités proposées dans `steps.md`, les demandes de l’énoncé `jumeau_numerique_ensIIE.md` et le cahier des charges `Cahier_charges/main.tex`. La référence utilisée pour la liste de fonctionnalités est `steps.md` : aucun fichier nommé `test.md` n’est présent à la racine.
 
-Ce backlog décrit **ce qui manque ou reste incomplet**, sans présenter les propositions de jeu ou de simulation comme des obligations de l’énoncé officiel. Les cases seront cochées après implémentation **et vérification**.
+Ce backlog décrit **ce qui manque ou reste incomplet**, sans présenter les propositions de simulation comme des obligations de l’énoncé officiel. Les cases seront cochées après implémentation **et vérification**.
 
 ## Comment utiliser cette liste
 
@@ -16,7 +16,7 @@ Ce backlog décrit **ce qui manque ou reste incomplet**, sans présenter les pro
 - **À propos du fichier « test »** : `test.js` est un exemple Leaflet d’affichage des plans et des informations GeoJSON, pas une liste de fonctionnalités. Aucun `test.md` n’a été trouvé dans le dépôt ; les idées détaillées sont dans `steps.md`.
 - **Dépendances humaines** : les usages réels des salles, les horaires, les équipements, les photos autorisées et les passages physiques doivent être confirmés par l’équipe. Les autres améliorations peuvent avancer avec les données disponibles, en indiquant leurs limites.
 
-Les sections 1 à 13 constituent la liste détaillée. L’ordre proposé à la fin permet de choisir une amélioration à la fois ; chaque amélioration commune doit être disponible dans le plan 2D et dans la visite immersive.
+Les sections 1 à 12 constituent la liste détaillée. L’ordre proposé à la fin permet de choisir une amélioration à la fois ; chaque amélioration commune doit être disponible dans le plan 2D et dans la visite immersive.
 
 ## Règle commune aux prochains développements
 
@@ -33,14 +33,16 @@ Le socle comprend le plan architectural 2D, la sélection et la recherche de sal
 
 Les itinéraires fondés sur la géométrie dessinée, le passage automatique RDC ↔ R+1 et le calcul en arrière-plan existent. La couverture reste partielle. Un éditeur partagé des informations des salles existe également, avec sauvegarde locale, import/export JSON et restauration.
 
-Les parcours guidés, les profils, la carte métro, la constellation et le tableau de qualité ont déjà une première version. Les tâches ci-dessous portent sur leur enrichissement et leur intégration. Le mode **Aventure** comprend désormais le jeu RDC intégré depuis `origin/gamepart` : exploration pièce par pièce, collisions, portes et mobilier. Il conserve sa géométrie propre ; les liens de fiches, découvertes et coordonnées partagées ont une première intégration. Les collisions et itinéraires ne sont pas encore unifiés.
+Les parcours guidés, les profils, la carte métro, la constellation et le tableau de qualité ont déjà une première version. Les tâches ci-dessous portent sur leur enrichissement et leur intégration.
+
+Le mode **Aventure** (jeu 2D de type Zelda) est conservé dans sa version actuelle. Ses tâches sont retirées de ce backlog à la demande de l’utilisateur ; les améliorations du plan 2D et de la visite immersive 3D restent dans le périmètre.
 
 ## Priorités
 
 - **P0 — fiabilité** : terminer les parcours essentiels et valider les données avant la démonstration.
 - **P1 — valeur d’usage** : aider à découvrir l’école, ses activités et ses services.
 - **P2 — confort** : améliorer les déplacements, la présentation et l’accessibilité de l’interface.
-- **P3 — extensions** : jeu, simulations et intégrations futures, après stabilisation du socle.
+- **P3 — extensions** : simulations et intégrations futures, après stabilisation du socle.
 
 ## 1. Navigation et géométrie à fiabiliser — P0
 
@@ -185,6 +187,18 @@ Le personnage et son animation articulée existent ; les points suivants sont de
 
 **Avancement — interface :** recherche par numéro corrigée (étage explicite et absence de correspondance par simple suffixe), tolérance à une faute ajoutée et testée. Les synonymes existants sont conservés ; leur enrichissement et leur validation terrain ne sont pas terminés. Assistant, résumé du trajet et plusieurs panneaux traduits, mais la traduction exhaustive reste ouverte. L’historique des liens est pris en charge et les liens mal formés sont testés ; précédent/suivant dans les deux vues reste à vérifier manuellement.
 
+### Ressources ENSIIE — lot de cinq, 16 octobre 2026
+
+- [x] Intégrer un catalogue bilingue de 28 ressources sélectionnées depuis `docs/RESSOURCES_ENSIIE.md`, généré dans les données du projet et accessible en 2D et immersion.
+- [x] Rechercher une démarche par mots-clés FR/EN, avec filtres par profil et thème, résultats vides explicites et effacement des filtres.
+- [x] Distinguer accès public, compte requis et accès mixte ; afficher organisme, provenance et limites, avec cinq contacts institutionnels sourcés.
+- [x] Ajouter « Mes premiers jours » : six ressources, cases de consultation persistantes et remise à zéro, sans prétendre accomplir une démarche.
+- [x] Ajouter un accès commun « Besoin d’aide » et la consultation des bureaux candidats 220/221 sur le plan, sans itinéraire ni vérification terrain implicites.
+
+**Périmètre :** catalogue éditorial de ressources, pas connexion à Aurion/Moodle/JobTeaser, récupération de données personnelles ni test après authentification. Les sources ont été collectées le 16/10/2026 ; les liens n’ont pas tous été revérifiés pendant cette intégration. Les autres fiches candidates, les informations uniquement attestées par emails à valider, les campagnes et événements datés restent dans le document de ressources. Aucun horaire, capacité ou affectation physique n’est ajouté comme fait confirmé. Le texte des parcours ne présente plus C3 comme un Forum certain.
+
+Les tâches plus larges de validation terrain, des horaires, des traductions et de la recherche de services physiques restent ouvertes. Recette : S25–S29 dans `docs/DEMONSTRATION.md` ; tests ciblés dans `scripts/schoolResources.test.js`.
+
 ## 8. Accessibilité de l’application et des parcours — P1 / P2
 
 - [x] Ajouter une couche d’accessibilité indiquant les informations confirmées et celles qui restent inconnues.
@@ -229,30 +243,9 @@ Les optimisations de rendu et le calcul des itinéraires en arrière-plan existe
 
 **Avancement — robustesse :** `npm test` : **41 tests réussis**, puis tests physiques du jeu : **51 espaces navigables**. Build complet avec génération des données réussi ; build final Vite réussi. Chargement différé de l’immersion **et** du Stack 3D : bundle principal final d’environ 383 ko (129 ko gzip), contre environ 914 ko avant découpage ; le chunk 3D partagé reste supérieur à 500 ko. Qualités basse/haute/auto et FPS ajoutés. `npm run benchmark:routing` mesure le routeur Node ; ces chiffres ne constituent pas une mesure FPS du PC de démonstration. Polices externes retirées, données servies localement ; essai hors connexion réelle encore ouvert. Écran de reprise sur erreur et garde-fous existants conservés ; fautes réseau/WebGL/stockage et tests d’intégration automatisés restent à compléter.
 
-## 11. Mode Aventure — P3, extension optionnelle
-
-`steps.md` décrit un jeu plus ambitieux, tandis que `prompt-agent-frontend.md` limitait sa première livraison à une interface. Ces idées restent donc des **extensions à arbitrer**, pas des fonctionnalités déjà terminées ou toutes obligatoires pour le jury.
-
-- [ ] Transformer l’interface Aventure actuelle en exploration jouable du même secteur, en réutilisant position, collisions et itinéraires.
-- [x] Ajouter une introduction par profil, avec des objectifs adaptés.
-- [ ] Ajouter une mascotte originale et des guides aux services réellement identifiés.
-- [x] Ajouter des interactions de proximité et des dialogues bilingues avec choix et accès au trajet.
-- [x] Construire des missions utiles : atteindre un lieu, visiter une activité, trouver un service, parler à un guide.
-- [x] Prévoir au moins quatre missions complètes et trois guides si l’on retient les critères avancés de `steps.md`.
-- [x] Ajouter un carnet de progression et un passeport avec badges liés aux activités de l’école.
-- [x] Conserver la progression et permettre sa réinitialisation.
-- [x] Ajouter la découverte progressive des espaces et un pourcentage exploré.
-- [x] Réserver le brouillard de découverte au mode Aventure ; le plan d’orientation doit rester complet.
-- [x] Ajouter un bouton de révélation complète pour la démonstration.
-- [x] Proposer les équivalents non ludiques : liste d’étapes, fiches, itinéraires et validation de découverte depuis le plan.
-
-**Avancement — jeu :** quatre objectifs de découverte, trois dialogues de guides **virtuels**, mascotte originale en SVG, carnet et badges ajoutés. Dialogues FR/EN, liens vers fiches et itinéraires, consultation et validation sans marcher disponibles. Progression du jeu sauvegardée, reprise et remise à zéro du jeu codées ; les découvertes partagées ont un état distinct. Pourcentage exploré affiché, scène toujours limitée à la pièce courante. Le bouton de démonstration révèle désormais la liste et une carte complète de la géométrie du jeu, avec ouverture à pleine taille. Le jeu garde ses collisions RDC propres : seuls les identifiants de salles, découvertes et coordonnées de position sont rapprochés du Guide. L’introduction par profil, les balises virtuelles de proximité et les quatre missions à deux conditions sont disponibles. Des chaînes scénarisées plus avancées et l’unification des deux géométries restent ouvertes.
-
-## 12. Idées complémentaires et futures — P3
+## 11. Idées complémentaires et futures — P3
 
 - [ ] Parcours de portes ouvertes avec points de passage et QR codes.
-- [ ] Lieux à photographier, petites découvertes et messages cachés, sans dépendance pour accéder à un service.
-- [ ] Défi chronométré local, facultatif, sans classement personnel public.
 - [ ] Ambiance selon l’heure et statut « ouvert maintenant », uniquement après collecte d’horaires fiables.
 - [ ] Simulation « une journée dans l’école » avec agents synthétiques et occupation fictive, toujours étiquetée **Simulation**.
 - [ ] Estimation de capacité à partir des blocs de mobilier du R+1, avec validation sur quelques salles ; ne pas présenter une estimation par surface comme un comptage de sièges.
@@ -263,7 +256,7 @@ Les optimisations de rendu et le calcul des itinéraires en arrière-plan existe
 
 **Avancement — simulation :** vue avec curseur 8 h–18 h, agents synthétiques sur les trajets du modèle et avertissement explicite « Simulation ». Interpolation des agents testée ; validation de la vue complète et enrichissement des horaires fictifs restent ouverts. Pas d’occupation réelle, de planning connecté ni de données personnelles. Les autres extensions de cette section restent à réaliser ou à documenter selon leurs sources disponibles.
 
-## 13. Livrables et présentation — P0
+## 12. Livrables et présentation — P0
 
 Le cahier des charges **existe déjà** dans `Cahier_charges/`.
 
@@ -285,7 +278,7 @@ Le cahier des charges **existe déjà** dans `Cahier_charges/`.
 5. Finaliser FR/EN, accessibilité de l’interface et organisation des panneaux.
 6. Améliorer les animations, la caméra et les repères visuels, avec mesures de performance.
 7. Relier le tableau de qualité aux véritables contrôles de navigation et aux données enrichies.
-8. Enrichir le jeu et les simulations seulement si le socle et les livrables sont stabilisés.
+8. Enrichir les simulations et les intégrations futures seulement si le socle et les livrables sont stabilisés.
 
 Pour chaque étape : définir le résultat attendu, réutiliser l’état partagé, vérifier les deux vues, tester, puis mettre à jour ce document.
 
@@ -300,11 +293,11 @@ Pour chaque étape : définir le résultat attendu, réutiliser l’état partag
 - Rendu : géométries et matériaux de portes mutualisés, panneaux adaptés à la distance (lot détaillé ci-dessous) et portes masquées au-delà de 32 m. Ces changements ne constituent pas une mesure de FPS sur le PC du jury.
 - Livrables : cahier des charges actualisé et compilation confirmée par le compilateur intégré. `docs/DEMONSTRATION.md` contient scénario, périmètre, limites et recette manuelle. Études de localisation, géoréférencement et données temps réel dans `docs/LOCALISATION_ET_DONNEES.md` : décision de différer ces intégrations faute de sources/infrastructure ; les études cochées ne signifient pas que ces fonctions sont disponibles.
 
-**Travail encore ouvert :** les cases restantes conservent leur portée d’origine. En particulier : continuité réelle des portes, validation et dessin R+2, animation de pieds dans les escaliers, ambiance, audit complet d’accessibilité, tests d’intégration automatisés, partage d’édition sur serveur, unification des géométries du jeu et du Guide, missions avancées, photos et données réelles, collecte des retours utilisateurs et répétition de démonstration. Les exemples fictifs ne ferment pas les tâches de validation terrain.
+**Travail encore ouvert :** les cases restantes conservent leur portée d’origine. En particulier : continuité réelle des portes, validation et dessin R+2, animation de pieds dans les escaliers, ambiance, audit complet d’accessibilité, tests d’intégration automatisés, partage d’édition sur serveur, photos et données réelles, collecte des retours utilisateurs et répétition de démonstration. Les exemples fictifs ne ferment pas les tâches de validation terrain.
 
 **Hors ligne et escaliers — contrôles supplémentaires :** copie locale optionnelle du build (53 fichiers, environ 8 Mo), sans cache des réponses API ni de sites externes. Rechargement du plan, ouverture de l’immersion et lancement d’un parcours vérifiés après arrêt du serveur de prévisualisation. Le test dans les conditions exactes du jury reste ouvert. La sauvegarde d’une montée automatique conserve désormais sa liaison, sa progression et sa destination ; le double bloc de restauration a été retiré. Un test automatisé couvre la conservation du sens montée/descente. Les scénarios de changement de vue pendant la montée RDC → R+1 et la descente R+1 → RDC ont été exécutés jusqu’à leur arrivée. La liaison A a été testée ; cela ne valide pas les autres liaisons ni le terrain.
 
-**Résultat final de cette passe :** 55 tests automatisés, contrôles physiques du jeu sur 51 espaces, build complet avec génération des données et copie hors ligne. Le carnet/badge a été contrôlé sans marcher : consultation de l’amphithéâtre depuis Aventure, validation dans le Guide, retour au jeu avec mission 1/4 et badge affichés. La progression du jeu et les découvertes communes restent deux états distincts ; la remise à zéro de la partie ne supprime pas les découvertes du Guide.
+**Vérification historique de cette passe :** 55 tests automatisés et build complet avec génération des données et copie hors ligne.
 
 ## Suivi continu des modifications — 16 octobre 2026
 
@@ -334,20 +327,17 @@ Lot terminé et vérifié ; les cinq cases correspondantes sont clôturées :
 4. Orientation : option de déplacement latéral conservant l’orientation de la vue ; les trajets automatiques et les escaliers gardent leur propre direction. La caméra n’est pas réorientée par le déplacement latéral.
 5. Panneaux : détail complet proche, numéro/étage compact à moyenne distance, masquage lointain ; priorité à la destination et un seul panneau complet par salle pour réduire les doublons d’entrées.
 
-Tests ciblés dans `scripts/comfortBatch.test.js` ; scénarios S15–S19 dans le guide. Décompte de référence avant clôture du lot : **60 terminées, 63 restantes, total 123**.
+Tests ciblés dans `scripts/comfortBatch.test.js` ; scénarios S15–S19 dans le guide.
 
-**Bilan après cinq tâches : 65 terminées / 58 non terminées / 123 au total.** Les études terrain, les nouvelles fonctions non retenues et les implémentations partielles restent ouvertes.
+**Lot de cinq tâches terminé.** Les études terrain, les nouvelles fonctions non retenues et les implémentations partielles restent ouvertes.
 
 **Vérifications du lot :** 66 tests automatisés réussis et contrôles RDC sur 51 espaces. Navigateur : retour virtuel vers l’amphithéâtre marqué vérifié (13 m estimés) ; changement de position vers le foyer avec même destination et recalcul automatique (24 m), déplacement latéral hors trajet avec automatisme désactivé, puis reprise manuelle (27 m). Le plan affiche maintenant le départ « Position virtuelle » et son marqueur au bon point ; l’inversion est désactivée pour une origine virtuelle sans salle de retour définie. Caméra rapprochée observée près du mur à y ≈ 8 m, puis retour en vue personnage dans l’espace ouvert ; caméra et orientation stables pendant les déplacements latéraux. Panneaux compacts observés à distance et complets en approchant ; les doublons d’une salle sont compactés. Aucun accès physique ni statut terrain supplémentaire n’a été inventé. Les essais ne constituent pas une validation exhaustive de toutes les zones.
 
-## Deuxième lot de cinq — missions et Aventure
+## Périmètre actualisé — 16 octobre 2026
 
-Lot terminé après vérification : conversations de proximité avec trois balises virtuelles non solides, dialogues FR/EN avec deux choix et accès fiche/trajet ; moteur de missions associant une visite et une réponse ; quatre missions et trois guides rédigés ; progression sauvegardée, remise à zéro de la partie avec annulation et conservation explicite des découvertes/dialogues partagés ; révélation d’une carte complète de la géométrie du jeu, en plus de la liste.
+14 tâches liées au jeu Aventure ont été retirées (terminées ou restantes), y compris les défis chronométrés et les découvertes cachées. La version actuelle du jeu reste inchangée.
 
-Le panneau de missions et les conversations à distance sont communs au plan et à l’immersion ; les conversations de proximité sont disponibles dans Aventure. Les balises sont des personnages fictifs placés sur des points libres du jeu, pas des personnes ou services observés sur place. Les murs et collisions ne sont pas modifiés. Décompte avant clôture : **65 terminées / 58 restantes**.
+**Total actuel : 114 tâches — 65 terminées et 49 non terminées.**
 
-**Bilan après le deuxième lot de cinq : 70 terminées / 53 restantes / 123 au total.** Les dix tâches de ces deux lots ont été accompagnées de scénarios et de notes dans le cahier des charges.
 
-**Vérifications du deuxième lot :** 70 tests automatisés réussis, dont tests des quatre missions, des dialogues FR/EN, de la validation des sauvegardes et des trois positions de guides sur la géométrie réelle du jeu ; contrôles RDC sur 51 espaces conservés. Navigateur : ouverture de la conversation proche par E, réponse consultée puis accès à la fiche et au trajet ; quatre missions complétées depuis le plan (lieu + réponse), état 4/4 conservé après rechargement, en immersion et dans Aventure. Carte complète chargée (SVG de 1440 px), sans modifier l’exploration. Partie sauvegardée à 2 pas, reprise après rechargement, remise à zéro puis annulation rétablissant les 2 pas ; missions partagées toujours 4/4. La carte et les balises ne sont pas un relevé terrain.
-
-**Précision sur les anciennes missions :** les lieux déjà découverts restent conservés, mais les nouvelles missions demandent aussi une réponse de guide. Le test a enregistré quatre découvertes virtuelles et trois conversations dans le navigateur de démonstration ; cela ne marque aucune fiche comme vérifiée sur place. Réinitialiser la partie ne supprime pas ces acquis communs.
+**Vérification du lot ressources :** 75 tests automatisés réussis, dont cinq tests du catalogue, et contrôles RDC sur 51 espaces. Build complet réussi, y compris les 28 ressources générées et la copie hors ligne. Compilation du cahier des charges confirmée. Contrôles navigateur : certificat → Aurion ; filtres Entreprise/Entreprises et projets → cinq ressources ; résultat vide et retour aux 28 ressources ; checklist 1/6 conservée après rechargement puis remise à zéro ; sélection du bureau candidat 220 sur R+2 sans trajet ; aide et recherche housing en immersion ; fermeture Échap avec retour du focus au déclencheur. La disponibilité externe, les démarches après connexion, le rendu mobile complet et les accès physiques ne sont pas validés par ces essais.

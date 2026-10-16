@@ -24,6 +24,7 @@ import QuickHelp from './components/QuickHelp.jsx';
 import {useSaved} from './preferences.js';
 import RoomDetailsEditor from './components/RoomDetailsEditor.jsx';
 import RoomPracticalInfo from './components/RoomPracticalInfo.jsx';
+import SchoolResources from './components/SchoolResources.jsx';
 import {ROOM_DETAILS_KEY,validateRoomDetails,applyRoomDetails} from './roomDetails.js';
 import {GEOMETRY_KEY,validateGeometry} from './drawnGeometry.js';
 import MetroMap from './components/MetroMap.jsx';
@@ -76,6 +77,7 @@ export default function App() {
   const [calibration, setCalibration] = useState(null);
   const sceneData = useMemo(() => data ? calibratedScene(data.floors, data.links, calibration) : null, [data, calibration]);
   const [lostOpen, setLostOpen] = useState(false);
+  const [resourcesSection,setResourcesSection]=useState(null);
 
   const t = STRINGS[lang];
 
@@ -359,6 +361,7 @@ export default function App() {
       </header>
 
       {helpOpen&&<QuickHelp lang={lang} onClose={()=>setHelpOpen(false)}/>}
+      {resourcesSection&&<SchoolResources lang={lang} persona={persona} initialSection={resourcesSection} rooms={rooms} onClose={()=>setResourcesSection(null)} onLocate={id=>{selectRoom(id);setView('guide');setMode('map2d');}}/>}
       {editingRoomId&&rooms.find(r=>r.id===editingRoomId)&&<RoomDetailsEditor key={editingRoomId} room={recordedRooms.find(r=>r.id===editingRoomId)} baseRooms={data.rooms} details={roomDetails} lang={lang} onClose={()=>setEditingRoomId(null)} onSave={next=>{const checked=validateRoomDetails(next,data.rooms);try{localStorage.setItem(ROOM_DETAILS_KEY,JSON.stringify(checked));}catch{throw Error('storage');}setRoomHistory(prev=>[roomDetails,...prev].slice(0,20));setRoomDetails(checked);}}/>}
       {view === 'adventure' ? (
         <AdventureView readGuides={readGuides} onReadGuide={recordGuideRead} discovered={discovered} onDiscover={ids=>setDiscovered(prev=>ids.every(id=>prev.includes(id))?prev:[...new Set([...prev,...ids])])} persona={persona} onPosition={p=>{lastPosition.current=p;setPlayerPosition(p);setLevel(p.floor);}} onSelect={id=>{selectRoom(id);setView('guide');setMode('map2d');}} onGuide={id=>{selectRoom(id);setView('guide');setMode('map2d');setEndId(id);if(!startId)setStartId('RDC-011');}} t={t} lang={lang} selected={selected} level={level} rooms={rooms} />
@@ -448,32 +451,15 @@ export default function App() {
               ))}
             </div>
             <div className="section-title">{t.resources}</div>
-            {data.resources.map((res) =>
-              res.href ? (
-                <a
-                  key={res.id}
-                  href={res.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hint"
-                  style={{
-                    display: "block",
-                    color: "var(--accent-2)",
-                    marginBottom: 6,
-                  }}
-                >
-                  {lang === "en" ? res.label_en : res.label_fr}
-                </a>
-              ) : (
-                <div key={res.id} className="hint">
-                  {lang === "en" ? res.label_en : res.label_fr}
-                </div>
-              ),
-            )}
+            <button type="button" className="ghost" onClick={()=>setResourcesSection('catalogue')}>{lang==='fr'?'Services et démarches':'Services and processes'} ↗</button>
+            <button type="button" className="ghost" onClick={()=>setResourcesSection('first-days')}>{lang==='fr'?'Mes premiers jours':'My first days'}</button>
+            <button type="button" className="ghost" onClick={()=>setResourcesSection('help')}>{lang==='fr'?'Besoin d’aide':'Need help'}</button>
           </aside>
 
           <main className="center" id="main-content" tabIndex={-1}>
             <div className="toolbar">
+              <button type="button" className="ghost" onClick={()=>setResourcesSection('catalogue')}>{lang==='fr'?'Services et ressources':'Services and resources'}</button>
+              <button type="button" className="ghost" onClick={()=>setResourcesSection('help')}>{lang==='fr'?'Besoin d’aide':'Need help'}</button>
               <button
                 className="ghost filters-toggle"
                 onClick={() => setFiltersOpen((v) => !v)}

@@ -1,4 +1,5 @@
 import {validateRoomDetails,applyRoomDetails} from '../src/roomDetails.js';
+import {SCHOOL_RESOURCES} from '../src/schoolResources.js';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -490,7 +491,7 @@ const tours = [
     steps: [
       { roomId: accueil?.id, text_fr: 'L’accueil du sIIEnext (R+2). Point d’entrée naturel du bâtiment récent.', text_en: 'sIIEnext reception (level 2). Natural entry to the newer wing.' },
       { roomId: c53?.id, text_fr: 'C53 — Platech 1, votre salle de projet.', text_en: 'C53 — Platech 1, your project room.' },
-      { roomId: forum?.id, text_fr: 'Le Forum (C3), grand espace partagé de l’aile C.', text_en: 'The Forum (C3), the large shared space of wing C.' },
+      { roomId: forum?.id, text_fr: 'Espace C3 : son identification comme Forum reste à confirmer.', text_en: 'Space C3: its identification as the Forum still needs confirmation.' },
       { roomId: foyer?.id, text_fr: 'Le foyer étudiants au rez-de-chaussée : vie associative et restauration sur le plan.', text_en: 'Student foyer on the ground floor: clubs and catering on the plan.' }
     ].filter((s) => s.roomId)
   },
@@ -514,7 +515,7 @@ const tours = [
     steps: [
       { roomId: accueil?.id, text_fr: 'Accueil R+2.', text_en: 'Level-2 reception.' },
       { roomId: findRoom((r) => r.number === '216')?.id, text_fr: 'Salle de réunion 216, identifiée sur le plan.', text_en: 'Meeting room 216, labelled on the plan.' },
-      { roomId: forum?.id, text_fr: 'Forum C3 — espace de rencontre possible (à confirmer sur place).', text_en: 'Forum C3 — possible meeting space (confirm on site).' },
+      { roomId: forum?.id, text_fr: 'C3 — espace de rencontre possible ; appellation Forum à confirmer sur place.', text_en: 'C3 — possible meeting space; Forum name needs on-site confirmation.' },
       { roomId: c53?.id, text_fr: 'Plateforme technologique C53.', text_en: 'C53 technology platform.' }
     ].filter((s) => s.roomId)
   }
@@ -558,8 +559,7 @@ const synonyms = {
 };
 
 const resources = [
-  { id: 'site', label_fr: 'Site de l’ensIIE', label_en: 'ensIIE website', href: 'https://www.ensiie.fr', official: true },
-  { id: 'note', label_fr: 'Autres ressources numériques : à valider avec le référent', label_en: 'Other digital resources: confirm with the referent', href: null, official: false }
+  ...SCHOOL_RESOURCES
 ];
 
 let zones = { type: 'FeatureCollection', features: [] };

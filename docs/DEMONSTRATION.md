@@ -318,3 +318,66 @@ Bilan du backlog après ce lot : **65 terminées, 58 restantes (123 au total)**.
 - S24 : plan complet chargé (largeur intrinsèque SVG 1440 px) et lien de pleine taille disponible ; révélation puis masquage sans augmentation de l’exploration.
 
 Après dix tâches en deux lots : **70 terminées, 53 non terminées, total 123**. Suite automatisée : **70 tests réussis**, plus les contrôles RDC sur 51 espaces. Les guides et placements sont des éléments fictifs du jeu, pas un annuaire de personnes réelles. Le navigateur de démonstration conserve les quatre découvertes virtuelles et les trois réponses utilisées pour ces essais ; les nouvelles missions y sont donc déjà à 4/4.
+
+
+## Ressources ENSIIE — recette S25 à S29
+
+Préconditions communes : ouvrir le Guide, langue FR, profil Étudiant. Aucune connexion aux portails externes n’est nécessaire. Les liens sont ceux de la collecte du 16/10/2026 ; cette recette vérifie l’interface locale, pas les droits d’accès distants. Aventure reste dans sa version actuelle, hors des nouveaux développements.
+
+### S25 — Trouver une démarche
+
+1. Dans le plan 2D, ouvrir « Services et ressources ».
+2. Saisir « certificat » : vérifier la carte Aurion et l’indication « Mes Documents ».
+3. Effacer et chercher « convention », puis « housing » : vérifier les ressources correspondantes.
+4. Saisir un terme inconnu puis utiliser « Effacer les filtres ».
+
+**Attendu :** résultats FR/EN pertinents, compteur actualisé, résultat vide explicite, restauration des 28 ressources avec Tous les profils et Tous les thèmes. La recherche du catalogue est distincte de la recherche de salles.
+
+### S26 — Profils, thèmes et accès
+
+1. Choisir Tous les services, profil Entreprise et thème Entreprises et projets.
+2. Vérifier recrutement, partenariats et Dièse ; Aurion n’appartient pas à ce résultat.
+3. Choisir Étudiant et Outils étudiants ; vérifier Aurion et Moodle avec « Compte requis ».
+4. Fermer, passer en anglais puis rouvrir le catalogue.
+
+**Attendu :** titres, descriptions, filtres et badges bilingues. Les pages externes sont ouvertes dans un nouvel onglet sans formulaire d’identifiants dans le jumeau. Une page publique peut renvoyer vers une action nécessitant un compte.
+
+### S27 — Mes premiers jours
+
+1. Ouvrir « Mes premiers jours » et noter le compteur sur six ressources.
+2. Cocher une ressource, fermer, recharger puis rouvrir cette rubrique.
+3. Vérifier sa conservation ; cliquer « Tout décocher ».
+
+**Attendu :** progression locale persistante et réinitialisable. Une case confirme seulement une consultation personnelle ; elle ne valide ni inscription, ni convention, ni accès physique. Le stockage indisponible doit laisser les cases utilisables pendant la session.
+
+### S28 — Aide et contacts
+
+1. Fermer le catalogue et ouvrir « Besoin d’aide » depuis la barre du plan.
+2. Vérifier accompagnement, handicap/aménagements et helpdesk.
+3. Dans le catalogue complet, rechercher logement, admissions ou mobilité.
+4. Vérifier le lien de contact et sa source ; ne pas envoyer de message pour cette recette.
+5. Fermer par Échap et vérifier le retour au bouton déclencheur.
+
+**Attendu :** aide visible indépendamment du profil ; cinq adresses de fonction sourcées sont proposées dans les cartes concernées. Aucun témoignage ni mot de passe n’est collecté. Le contact handicap ne valide aucun itinéraire PMR.
+
+### S29 — Bureaux candidats et continuité des vues
+
+1. Depuis le catalogue, rechercher « Aurion » puis lire l’avertissement pour R+2-220.
+2. Cliquer « Voir le bureau candidat sur le plan » : vérifier le passage au R+2 et la sélection 220.
+3. Ouvrir l’immersion puis « Services et ressources » : rechercher international et vérifier les mêmes cartes.
+4. Fermer puis rouvrir « Besoin d’aide » depuis l’immersion. Vérifier que position virtuelle et destination ne sont pas modifiées par l’ouverture/fermeture.
+
+**Attendu :** un panneau partagé, pas une deuxième version des données. Le bouton du bureau bascule volontairement vers le plan et sélectionne la pièce ; il ne lance ni marche, ni téléportation, ni itinéraire. Les correspondances 220/221 restent candidates, sans renommage des pièces ni statut vérifié sur place.
+
+**Vérifications automatiques :** recherche bilingue et accents, combinaison des filtres, intégrité du catalogue, badges de compte et séparation des bureaux candidats des affectations vérifiées. La campagne terrain et la validité des portails après connexion restent hors de cette recette.
+
+
+### Résultats observés S25–S29 — 16 octobre 2026
+
+- S25 : recherche « certificat » → une carte Aurion ; terme inconnu → zéro résultat avec explication ; effacement → 28 ressources. Synonymes convention/housing également couverts automatiquement ; housing contrôlé en anglais dans le navigateur.
+- S26 : filtre Entreprise + Entreprises et projets → cinq ressources dont recrutement et partenariat ; carte logement contrôlée en anglais. Badges de compte vérifiés automatiquement. Tous les liens distants ne sont pas ouverts pendant cette recette.
+- S27 : une case cochée → 1/6, conservée après rechargement et réouverture ; remise à zéro utilisée ensuite. Le contrôle de stockage refusé reste couvert par les tests du mécanisme commun, pas par un nouveau blocage navigateur spécifique à ce panneau.
+- S28 : trois ressources d’aide visibles depuis l’immersion ; Échap ferme la fenêtre et rend le focus au bouton Besoin d’aide. Les liens de contact sont visibles ; aucun message n’a été envoyé.
+- S29 : sélection du bureau candidat 220 sur le plan R+2, sans lancement de route ; accès à l’aide et au catalogue depuis l’immersion. Pas de nouvelle validation du bureau 221 ni de campagne d’interruption d’un trajet déjà en cours.
+
+Suite : 75 tests réussis, contrôles RDC sur 51 espaces et build complet réussi. Le cahier des charges compile. Les scénarios restent à répéter sur le PC de présentation ; la recette ne certifie ni les portails externes ni les accès réels.
