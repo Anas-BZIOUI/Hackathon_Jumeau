@@ -12,6 +12,8 @@
     "start": "node server/index.js",
     "data:rdc": "python scripts/build-rdc.py",
     "test:rdc": "node scripts/test-authored-rdc.mjs",
+    "test:campus": "node scripts/test-campus.mjs",
+    "test:campus:browser": "node scripts/test-campus-browser.mjs",
     "data:dungeon": "node scripts/build-dungeon.mjs"
   },
   "dependencies": {
@@ -24,6 +26,7 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
     "concurrently": "^9.1.2",
+    "playwright": "^1.64.1",
     "vite": "^6.0.7"
   }
 }

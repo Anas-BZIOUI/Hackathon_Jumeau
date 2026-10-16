@@ -1,3 +1,4 @@
+import {decorateCampus} from './rdc-campus.mjs';
 import {decorateReception} from './rdc-decor.mjs';
 import {applyFixtures} from './rdc-fixtures.mjs';
 // Your editor export is the single source of geometry for the 2D game.
@@ -5,7 +6,7 @@ import fs from 'node:fs';
 import {buildAuthoredMap} from './authored-rdc.mjs';
 const source=JSON.parse(fs.readFileSync('data-src/ensiie-walls-doors.json'));
 const labels=JSON.parse(fs.readFileSync('public/data/rooms.json'));
-const map=decorateReception(applyFixtures(buildAuthoredMap(source,labels)));
+const map=decorateCampus(decorateReception(applyFixtures(buildAuthoredMap(source,labels))));
 fs.mkdirSync('public/game/maps',{recursive:true});
 fs.writeFileSync('public/game/maps/rdc-dungeon.json',JSON.stringify(map,null,2)+'\n');
 fs.writeFileSync('public/game/maps/rdc-map-audit.json',JSON.stringify(map.audit,null,2)+'\n');
