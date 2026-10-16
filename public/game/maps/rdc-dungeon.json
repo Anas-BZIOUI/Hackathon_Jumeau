@@ -299,7 +299,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-0-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            290,
+            795,
+            18,
+            24
+          ],
+          "bounds": [
+            293,
+            807,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-1",
@@ -526,7 +546,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-1-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            880,
+            915,
+            18,
+            24
+          ],
+          "bounds": [
+            883,
+            927,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-2",
@@ -1823,26 +1863,6 @@
           "available": false
         },
         {
-          "id": "green-board",
-          "kind": "decoration",
-          "asset": "noticeboard",
-          "draw": [
-            1400,
-            704,
-            112,
-            72
-          ],
-          "bounds": [
-            1405,
-            764,
-            102,
-            12
-          ],
-          "solid": true,
-          "zone": "green",
-          "facing": "south"
-        },
-        {
           "id": "green-plant-left",
           "kind": "decoration",
           "asset": "plant",
@@ -2089,8 +2109,123 @@
           "depth": 1175,
           "label": "Accueil",
           "facing": "south"
+        },
+        {
+          "id": "class-board-1",
+          "kind": "decoration",
+          "asset": "chalkboard",
+          "draw": [
+            1380,
+            684,
+            64,
+            64
+          ],
+          "bounds": [
+            1383,
+            736,
+            58,
+            12
+          ],
+          "solid": true,
+          "zone": "green"
+        },
+        {
+          "id": "class-board-2",
+          "kind": "decoration",
+          "asset": "chalkboard",
+          "draw": [
+            1448,
+            684,
+            64,
+            64
+          ],
+          "bounds": [
+            1451,
+            736,
+            58,
+            12
+          ],
+          "solid": true,
+          "zone": "green"
+        },
+        {
+          "id": "class-table",
+          "kind": "decoration",
+          "asset": "desk",
+          "draw": [
+            1390,
+            790,
+            100,
+            44
+          ],
+          "bounds": [
+            1393,
+            822,
+            94,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "vending-drinks",
+          "kind": "decoration",
+          "asset": null,
+          "draw": [
+            1390,
+            496,
+            42,
+            76
+          ],
+          "bounds": [
+            1393,
+            560,
+            36,
+            12
+          ],
+          "solid": true,
+          "art": "vending",
+          "label": "Boissons"
+        },
+        {
+          "id": "vending-snacks",
+          "kind": "decoration",
+          "asset": null,
+          "draw": [
+            1440,
+            496,
+            42,
+            76
+          ],
+          "bounds": [
+            1443,
+            560,
+            36,
+            12
+          ],
+          "solid": true,
+          "art": "vending",
+          "label": "En-cas"
+        },
+        {
+          "id": "drawn-rdc-2-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            812,
+            425,
+            18,
+            24
+          ],
+          "bounds": [
+            815,
+            437,
+            12,
+            12
+          ],
+          "solid": true
         }
-      ]
+      ],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-3",
@@ -2299,7 +2434,27 @@
           "inferred": false
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-3-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1110,
+            1135,
+            18,
+            24
+          ],
+          "bounds": [
+            1113,
+            1147,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-4",
@@ -2500,7 +2655,27 @@
           "inferred": false
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-4-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1520,
+            1135,
+            18,
+            24
+          ],
+          "bounds": [
+            1523,
+            1147,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "white"
     },
     {
       "id": "drawn-rdc-5",
@@ -2764,7 +2939,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-5-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1670,
+            1135,
+            18,
+            24
+          ],
+          "bounds": [
+            1673,
+            1147,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-6",
@@ -2934,7 +3129,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-6-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1800,
+            1135,
+            18,
+            24
+          ],
+          "bounds": [
+            1803,
+            1147,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "white"
     },
     {
       "id": "drawn-rdc-7",
@@ -3130,7 +3345,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-7-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1940,
+            1135,
+            18,
+            24
+          ],
+          "bounds": [
+            1943,
+            1147,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-8",
@@ -3650,11 +3885,500 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "foyer-bar-long",
+          "kind": "decoration",
+          "asset": null,
+          "draw": [
+            1680,
+            805,
+            410,
+            30
+          ],
+          "bounds": [
+            1680,
+            805,
+            410,
+            30
+          ],
+          "solid": true,
+          "art": "bar"
+        },
+        {
+          "id": "foyer-bar-arm",
+          "kind": "decoration",
+          "asset": null,
+          "draw": [
+            2060,
+            780,
+            30,
+            25
+          ],
+          "bounds": [
+            2060,
+            780,
+            30,
+            25
+          ],
+          "solid": true,
+          "art": "bar"
+        },
+        {
+          "id": "buffet",
+          "kind": "decoration",
+          "asset": null,
+          "draw": [
+            1600,
+            1020,
+            100,
+            34
+          ],
+          "bounds": [
+            1603,
+            1042,
+            94,
+            12
+          ],
+          "solid": true,
+          "art": "buffet"
+        },
+        {
+          "id": "round-table-0",
+          "kind": "decoration",
+          "asset": "round-table",
+          "draw": [
+            1690,
+            900,
+            45,
+            40
+          ],
+          "bounds": [
+            1693,
+            928,
+            39,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "table-chair-0",
+          "kind": "decoration",
+          "asset": "chair",
+          "draw": [
+            1700,
+            944,
+            26,
+            26
+          ],
+          "bounds": [
+            1703,
+            958,
+            20,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "table-chair-side-0",
+          "kind": "decoration",
+          "asset": "chair",
+          "draw": [
+            1662,
+            906,
+            24,
+            24
+          ],
+          "bounds": [
+            1665,
+            918,
+            18,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "round-table-1",
+          "kind": "decoration",
+          "asset": "round-table",
+          "draw": [
+            1815,
+            900,
+            45,
+            40
+          ],
+          "bounds": [
+            1818,
+            928,
+            39,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "table-chair-1",
+          "kind": "decoration",
+          "asset": "chair",
+          "draw": [
+            1825,
+            944,
+            26,
+            26
+          ],
+          "bounds": [
+            1828,
+            958,
+            20,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "table-chair-side-1",
+          "kind": "decoration",
+          "asset": "chair",
+          "draw": [
+            1787,
+            906,
+            24,
+            24
+          ],
+          "bounds": [
+            1790,
+            918,
+            18,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "round-table-2",
+          "kind": "decoration",
+          "asset": "round-table",
+          "draw": [
+            1950,
+            900,
+            45,
+            40
+          ],
+          "bounds": [
+            1953,
+            928,
+            39,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "table-chair-2",
+          "kind": "decoration",
+          "asset": "chair",
+          "draw": [
+            1960,
+            944,
+            26,
+            26
+          ],
+          "bounds": [
+            1963,
+            958,
+            20,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "table-chair-side-2",
+          "kind": "decoration",
+          "asset": "chair",
+          "draw": [
+            1922,
+            906,
+            24,
+            24
+          ],
+          "bounds": [
+            1925,
+            918,
+            18,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "couch-long",
+          "kind": "decoration",
+          "asset": null,
+          "draw": [
+            1830,
+            1010,
+            220,
+            30
+          ],
+          "bounds": [
+            1833,
+            1028,
+            214,
+            12
+          ],
+          "solid": true,
+          "art": "couch"
+        },
+        {
+          "id": "couch-arm",
+          "kind": "decoration",
+          "asset": null,
+          "draw": [
+            2020,
+            970,
+            30,
+            40
+          ],
+          "bounds": [
+            2023,
+            998,
+            24,
+            12
+          ],
+          "solid": true,
+          "art": "couch"
+        },
+        {
+          "id": "game-table-1",
+          "kind": "decoration",
+          "asset": null,
+          "draw": [
+            2100,
+            855,
+            55,
+            40
+          ],
+          "bounds": [
+            2103,
+            883,
+            49,
+            12
+          ],
+          "solid": true,
+          "art": "games"
+        },
+        {
+          "id": "game-table-2",
+          "kind": "decoration",
+          "asset": null,
+          "draw": [
+            2100,
+            970,
+            55,
+            40
+          ],
+          "bounds": [
+            2103,
+            998,
+            49,
+            12
+          ],
+          "solid": true,
+          "art": "games"
+        },
+        {
+          "id": "bartender",
+          "kind": "npc",
+          "asset": "bob",
+          "draw": [
+            1914,
+            729,
+            32,
+            64
+          ],
+          "bounds": [
+            1922,
+            781,
+            16,
+            12
+          ],
+          "solid": true,
+          "label": "Karim, le barman",
+          "frame": 0,
+          "knows": true,
+          "seated": false
+        },
+        {
+          "id": "student-lina",
+          "kind": "npc",
+          "asset": "amelia",
+          "draw": [
+            1734,
+            919,
+            32,
+            64
+          ],
+          "bounds": [
+            1742,
+            971,
+            16,
+            12
+          ],
+          "solid": true,
+          "label": "Lina",
+          "frame": 0,
+          "knows": true,
+          "seated": false
+        },
+        {
+          "id": "student-alex",
+          "kind": "npc",
+          "asset": "alex",
+          "draw": [
+            1594,
+            874,
+            32,
+            64
+          ],
+          "bounds": [
+            1602,
+            926,
+            16,
+            12
+          ],
+          "solid": true,
+          "label": "Alex",
+          "frame": 0,
+          "knows": false,
+          "seated": false
+        },
+        {
+          "id": "student-adam",
+          "kind": "npc",
+          "asset": "seated",
+          "draw": [
+            1844,
+            964,
+            32,
+            64
+          ],
+          "bounds": [
+            1852,
+            1016,
+            16,
+            12
+          ],
+          "solid": false,
+          "label": "Adam",
+          "frame": 0,
+          "knows": false,
+          "seated": true,
+          "depth": 1042
+        },
+        {
+          "id": "student-bob",
+          "kind": "npc",
+          "asset": "seated-bob",
+          "draw": [
+            1924,
+            964,
+            32,
+            64
+          ],
+          "bounds": [
+            1932,
+            1016,
+            16,
+            12
+          ],
+          "solid": false,
+          "label": "Mehdi",
+          "frame": 0,
+          "knows": true,
+          "seated": true,
+          "depth": 1042
+        },
+        {
+          "id": "student-sarah",
+          "kind": "npc",
+          "asset": "amelia",
+          "draw": [
+            2034,
+            869,
+            32,
+            64
+          ],
+          "bounds": [
+            2042,
+            921,
+            16,
+            12
+          ],
+          "solid": true,
+          "label": "Sarah",
+          "frame": 0,
+          "knows": true,
+          "seated": false
+        },
+        {
+          "id": "student-jules",
+          "kind": "npc",
+          "asset": "adam",
+          "draw": [
+            1754,
+            809,
+            32,
+            64
+          ],
+          "bounds": [
+            1762,
+            861,
+            16,
+            12
+          ],
+          "solid": true,
+          "label": "Jules",
+          "frame": 0,
+          "knows": false,
+          "seated": false
+        },
+        {
+          "id": "drawn-rdc-8-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1560,
+            795,
+            18,
+            24
+          ],
+          "bounds": [
+            1563,
+            807,
+            12,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "drawn-rdc-8-plant-0",
+          "kind": "decoration",
+          "asset": "plant",
+          "draw": [
+            1570,
+            840,
+            28,
+            44
+          ],
+          "bounds": [
+            1573,
+            872,
+            22,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-9",
-      "name": "030 · Local étudiants",
+      "name": "030 · Bibliothèque",
       "roomIds": [
         "RDC-030"
       ],
@@ -3888,7 +4612,153 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "shelf-1",
+          "kind": "decoration",
+          "asset": "bookshelf",
+          "draw": [
+            2045,
+            606,
+            48,
+            58
+          ],
+          "bounds": [
+            2048,
+            652,
+            42,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "shelf-2",
+          "kind": "decoration",
+          "asset": "bookshelf",
+          "draw": [
+            2100,
+            612,
+            38,
+            52
+          ],
+          "bounds": [
+            2103,
+            652,
+            32,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "library-table",
+          "kind": "decoration",
+          "asset": "desk",
+          "draw": [
+            2080,
+            680,
+            44,
+            32
+          ],
+          "bounds": [
+            2083,
+            700,
+            38,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "library-open-book",
+          "kind": "decoration",
+          "asset": "book",
+          "draw": [
+            2088,
+            680,
+            16,
+            16
+          ],
+          "solid": false,
+          "bounds": null,
+          "depth": 713
+        },
+        {
+          "id": "library-chair",
+          "kind": "decoration",
+          "asset": "chair",
+          "draw": [
+            2090,
+            714,
+            24,
+            24
+          ],
+          "bounds": [
+            2093,
+            726,
+            18,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "library-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            2150,
+            635,
+            18,
+            24
+          ],
+          "bounds": [
+            2153,
+            647,
+            12,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "library-chair-2",
+          "kind": "decoration",
+          "asset": "chair",
+          "draw": [
+            2165,
+            660,
+            18,
+            24
+          ],
+          "bounds": [
+            2168,
+            672,
+            12,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "oussama",
+          "kind": "npc",
+          "asset": "bob",
+          "draw": [
+            2144,
+            654,
+            32,
+            64
+          ],
+          "bounds": [
+            2152,
+            706,
+            16,
+            12
+          ],
+          "solid": true,
+          "label": "Oussama",
+          "frame": 0,
+          "knows": false,
+          "seated": false
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-10",
@@ -4826,7 +5696,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-10-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1954,
+            257,
+            18,
+            24
+          ],
+          "bounds": [
+            1957,
+            269,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-11",
@@ -5001,7 +5891,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-11-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            2020,
+            475,
+            18,
+            24
+          ],
+          "bounds": [
+            2023,
+            487,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-12",
@@ -5197,7 +6107,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-12-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            2020,
+            375,
+            18,
+            24
+          ],
+          "bounds": [
+            2023,
+            387,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-13",
@@ -5372,7 +6302,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-13-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            2020,
+            265,
+            18,
+            24
+          ],
+          "bounds": [
+            2023,
+            277,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-14",
@@ -5589,7 +6539,27 @@
           "inferred": false
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-14-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            2020,
+            145,
+            18,
+            24
+          ],
+          "bounds": [
+            2023,
+            157,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-15",
@@ -5832,7 +6802,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-15-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1820,
+            145,
+            18,
+            24
+          ],
+          "bounds": [
+            1823,
+            157,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-16",
@@ -6313,7 +7303,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-16-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1660,
+            145,
+            18,
+            24
+          ],
+          "bounds": [
+            1663,
+            157,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-17",
@@ -6551,7 +7561,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-17-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1340,
+            145,
+            18,
+            24
+          ],
+          "bounds": [
+            1343,
+            157,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-18",
@@ -6936,7 +7966,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-18-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1180,
+            145,
+            18,
+            24
+          ],
+          "bounds": [
+            1183,
+            157,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-19",
@@ -7463,7 +8513,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-19-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            804,
+            145,
+            18,
+            24
+          ],
+          "bounds": [
+            807,
+            157,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-20",
@@ -7659,7 +8729,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-20-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            690,
+            495,
+            18,
+            24
+          ],
+          "bounds": [
+            693,
+            507,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-21",
@@ -7813,7 +8903,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-21-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            560,
+            495,
+            18,
+            24
+          ],
+          "bounds": [
+            563,
+            507,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "white"
     },
     {
       "id": "drawn-rdc-22",
@@ -7965,7 +9075,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-22-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            500,
+            495,
+            18,
+            24
+          ],
+          "bounds": [
+            503,
+            507,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-23",
@@ -8117,7 +9247,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-23-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            390,
+            495,
+            18,
+            24
+          ],
+          "bounds": [
+            393,
+            507,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-24",
@@ -8365,7 +9515,27 @@
           "inferred": false
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-24-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            240,
+            495,
+            18,
+            24
+          ],
+          "bounds": [
+            243,
+            507,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "white"
     },
     {
       "id": "drawn-rdc-25",
@@ -8517,7 +9687,27 @@
           "inferred": false
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-25-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            240,
+            695,
+            18,
+            24
+          ],
+          "bounds": [
+            243,
+            707,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-26",
@@ -8771,7 +9961,27 @@
           "inferred": false
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-26-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            290,
+            655,
+            18,
+            24
+          ],
+          "bounds": [
+            293,
+            667,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-27",
@@ -8954,7 +10164,27 @@
           "inferred": false
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-27-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            912,
+            795,
+            18,
+            24
+          ],
+          "bounds": [
+            915,
+            807,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-28",
@@ -9108,7 +10338,27 @@
           "inferred": false
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-28-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            700,
+            665,
+            18,
+            24
+          ],
+          "bounds": [
+            703,
+            677,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-29",
@@ -9241,7 +10491,27 @@
           "inferred": false
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-29-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            600,
+            665,
+            18,
+            24
+          ],
+          "bounds": [
+            603,
+            677,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-30",
@@ -9395,7 +10665,27 @@
           "inferred": false
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-30-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            430,
+            665,
+            18,
+            24
+          ],
+          "bounds": [
+            433,
+            677,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-31",
@@ -9834,7 +11124,27 @@
           "inferred": false
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-31-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            422,
+            585,
+            18,
+            24
+          ],
+          "bounds": [
+            425,
+            597,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-32",
@@ -9967,11 +11277,31 @@
           "inferred": false
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-32-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1026,
+            365,
+            18,
+            24
+          ],
+          "bounds": [
+            1029,
+            377,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-33",
-      "name": "012 · Bureau logistique",
+      "name": "012 · Bureau de la vie étudiante",
       "roomIds": [
         "RDC-012"
       ],
@@ -10142,7 +11472,148 @@
           "inferred": false
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "office-desk",
+          "kind": "decoration",
+          "asset": "desk",
+          "draw": [
+            1070,
+            382,
+            44,
+            34
+          ],
+          "bounds": [
+            1073,
+            404,
+            38,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "office-computer",
+          "kind": "decoration",
+          "asset": "computer",
+          "draw": [
+            1079,
+            370,
+            24,
+            24
+          ],
+          "bounds": null,
+          "solid": false,
+          "depth": 417
+        },
+        {
+          "id": "office-closet",
+          "kind": "decoration",
+          "asset": "closet",
+          "draw": [
+            1140,
+            325,
+            30,
+            56
+          ],
+          "bounds": [
+            1143,
+            369,
+            24,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "office-chair",
+          "kind": "decoration",
+          "asset": "chair",
+          "draw": [
+            1088,
+            444,
+            26,
+            26
+          ],
+          "bounds": [
+            1091,
+            458,
+            20,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "office-plant",
+          "kind": "decoration",
+          "asset": "plant",
+          "draw": [
+            1140,
+            460,
+            28,
+            44
+          ],
+          "bounds": [
+            1143,
+            492,
+            22,
+            12
+          ],
+          "solid": true
+        },
+        {
+          "id": "office-painting",
+          "kind": "decoration",
+          "art": "painting",
+          "draw": [
+            1070,
+            280,
+            42,
+            28
+          ],
+          "solid": false,
+          "bounds": null
+        },
+        {
+          "id": "office-nadia",
+          "kind": "npc",
+          "asset": "amelia",
+          "draw": [
+            1134,
+            394,
+            32,
+            64
+          ],
+          "bounds": [
+            1142,
+            446,
+            16,
+            12
+          ],
+          "solid": true,
+          "label": "Nadia",
+          "frame": 0,
+          "knows": false,
+          "seated": false
+        },
+        {
+          "id": "drawn-rdc-33-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1070,
+            365,
+            18,
+            24
+          ],
+          "bounds": [
+            1073,
+            377,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-34",
@@ -10309,7 +11780,8 @@
           "destination": "R+1",
           "available": false
         }
-      ]
+      ],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-35",
@@ -10461,7 +11933,8 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-36",
@@ -10613,7 +12086,8 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-37",
@@ -10781,7 +12255,8 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-38",
@@ -11074,7 +12549,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-38-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1570,
+            445,
+            18,
+            24
+          ],
+          "bounds": [
+            1573,
+            457,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-39",
@@ -11325,7 +12820,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-39-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1510,
+            445,
+            18,
+            24
+          ],
+          "bounds": [
+            1513,
+            457,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-40",
@@ -11613,7 +13128,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-40-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1442,
+            445,
+            18,
+            24
+          ],
+          "bounds": [
+            1445,
+            457,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-41",
@@ -11744,7 +13279,8 @@
           "inferred": false
         }
       ],
-      "fixtures": []
+      "fixtures": [],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-42",
@@ -11875,7 +13411,8 @@
           "inferred": false
         }
       ],
-      "fixtures": []
+      "fixtures": [],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-43",
@@ -12027,7 +13564,8 @@
           "inferred": false
         }
       ],
-      "fixtures": []
+      "fixtures": [],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-44",
@@ -12262,7 +13800,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-44-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1822.2727272727273,
+            244.9836867862969,
+            18,
+            24
+          ],
+          "bounds": [
+            1825.2727272727273,
+            256.98368678629686,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-45",
@@ -12479,7 +14037,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-45-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1824.0939597315437,
+            324.91843393148457,
+            18,
+            24
+          ],
+          "bounds": [
+            1827.0939597315437,
+            336.91843393148457,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-46",
@@ -12694,7 +14272,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-46-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1826.1383582860094,
+            414.8450244698205,
+            18,
+            24
+          ],
+          "bounds": [
+            1829.1383582860094,
+            426.8450244698205,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-47",
@@ -12880,7 +14478,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-47-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1827.9545454545453,
+            494.77977161500814,
+            18,
+            24
+          ],
+          "bounds": [
+            1830.9545454545453,
+            506.77977161500814,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "gray"
     },
     {
       "id": "drawn-rdc-48",
@@ -13055,7 +14673,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-48-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1899.926153846154,
+            658.1600000000001,
+            18,
+            24
+          ],
+          "bounds": [
+            1902.926153846154,
+            670.1600000000001,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-49",
@@ -13230,7 +14868,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-49-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1809.7784615384614,
+            692.7907692307692,
+            18,
+            24
+          ],
+          "bounds": [
+            1812.7784615384614,
+            704.7907692307692,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     },
     {
       "id": "drawn-rdc-50",
@@ -13486,7 +15144,27 @@
           "inferred": true
         }
       ],
-      "fixtures": []
+      "fixtures": [
+        {
+          "id": "drawn-rdc-50-bin",
+          "kind": "decoration",
+          "asset": "bin",
+          "draw": [
+            1660,
+            662.3723076923077,
+            18,
+            24
+          ],
+          "bounds": [
+            1663,
+            674.3723076923077,
+            12,
+            12
+          ],
+          "solid": true
+        }
+      ],
+      "floor": "wood"
     }
   ],
   "audit": {
@@ -14158,6 +15836,16 @@
         "gapPixels": 44
       },
       "seatingDirection": "north, toward elevator"
+    },
+    "campus": {
+      "foyer": "drawn-rdc-8",
+      "library": "drawn-rdc-9",
+      "office": "drawn-rdc-33",
+      "quests": [
+        "paper-oussama",
+        "party-attendance"
+      ],
+      "language": "fr"
     }
   },
   "sourceDoors": [

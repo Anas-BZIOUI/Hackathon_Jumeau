@@ -667,5 +667,15 @@
       "gapPixels": 44
     },
     "seatingDirection": "north, toward elevator"
+  },
+  "campus": {
+    "foyer": "drawn-rdc-8",
+    "library": "drawn-rdc-9",
+    "office": "drawn-rdc-33",
+    "quests": [
+      "paper-oussama",
+      "party-attendance"
+    ],
+    "language": "fr"
   }
 }
