@@ -89,3 +89,12 @@ Tests complémentaires :
 - Les captures de contrôle incluent `docs/campus-previews/bureau.png`, `distributeurs.png`, `foyer.png`, `conversation.png` et `quete-terminee.png`.
 
 La progression et la mémoire des rencontres restent conservées en mémoire pendant la session Aventure ; quitter cette vue ou recharger recommence une partie.
+
+
+## Présentation rétro de la page Aventure
+
+La page Aventure utilise désormais un cadre de jeu centré, un fond crème à points, une barre de fenêtre rétro, le logo EnsiiExplore et deux petites scènes décorées avec les sprites Tiled existants (personnages, plante, bibliothèque, bureau, ordinateur, chaise et papier). Le style est isolé dans `src/components/AdventureView.css` pour préserver les autres vues et le rendu interne du jeu. La taille de l’écran s’adapte à la hauteur disponible et conserve le ratio 4:3.
+
+La barre latérale et le panneau inférieur ont été remplacés par le bouton « Carnet de découverte ». Cette fenêtre facultative conserve les missions de découverte, les badges, la liste des lieux, l’aperçu de démonstration et la remise à zéro avec annulation. Les quêtes et l’inventaire du jeu restent accessibles avec P et I.
+
+`npm run test:adventure:layout` vérifie le centrage, le ratio, l’absence de débordement horizontal et des anciens panneaux sur quatre formats (1920×1080, 1440×900, 768×1024 et 390×844), ainsi que l’ouverture/fermeture du carnet et les commandes P/I. Le test utilise le serveur local et Microsoft Edge, comme le test de parcours du jeu. Les captures `docs/campus-previews/retro-*.png` montrent les quatre formats.

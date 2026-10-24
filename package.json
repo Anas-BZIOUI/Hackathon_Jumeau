@@ -18,6 +18,7 @@
     "benchmark:routing": "node scripts/benchmark-routing.mjs",
     "import:rooms": "node scripts/import-room-details.mjs",
     "test:campus": "node scripts/test-campus.mjs",
+    "test:adventure:layout": "node scripts/test-adventure-layout.mjs",
     "test:campus:browser": "node scripts/test-campus-browser.mjs"
   },
   "dependencies": {
